@@ -7,26 +7,26 @@ LOG_FILE="$JINX_CACHE/install_lang.log"
 
 install_lang() {
   separator
-  box "$(_tr "jinx_modules_lang.installing_language_packages")"
+  box "Installing Language Packages"
   separator
   echo
 
-  log_info "$(_tr "jinx_modules_lang.installing_language_packages")"
+  log_info "Installing language packages..."
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _install_lang_wrapper
-  log_success "$(_tr "jinx_modules_lang.language_packages_installed_successfully")"
+  log_success "Language packages installed successfully"
   separator
   echo
-  list_item "$(_tr "jinx_modules_lang.node_js_lts")"
-  list_item "$(_tr "jinx_modules_lang.python")"
-  list_item "$(_tr "jinx_modules_lang.perl")"
+  list_item "Node.js LTS"
+  list_item "Python"
+  list_item "Perl"
   list_item "PHP"
-  list_item "$(_tr "jinx_modules_lang.rust")"
-  list_item "$(_tr "jinx_modules_lang.c_c_clang")"
-  list_item "$(_tr "jinx_modules_lang.go_golang")"
-  list_item "$(_tr "jinx_modules_lang.bun_js_js_runtime")"
+  list_item "Rust"
+  list_item "C/C++ (clang)"
+  list_item "Go (golang)"
+  list_item "Bun.js (JS Runtime)"
   echo
 }
 
@@ -37,18 +37,18 @@ _install_lang_wrapper() {
 
 uninstall_lang() {
   if ! command -v node &>/dev/null; then
-    log_info "$(_tr "jinx_modules_lang.language_packages_are_not_installed")"
+    log_info "Language Packages are not installed"
     return 0
   fi
   separator
-  box "$(_tr "jinx_modules_lang.uninstalling_language_packages")"
+  box "Uninstalling Language Packages"
   separator
   echo
 
-  log_info "$(_tr "jinx_modules_lang.uninstalling_language_packages")"
+  log_info "Uninstalling language packages..."
 
   _uninstall_lang_wrapper
-  log_success "$(_tr "jinx_modules_lang.language_packages_uninstalled")"
+  log_success "Language packages uninstalled"
 }
 
 _uninstall_lang_wrapper() {
@@ -58,14 +58,14 @@ _uninstall_lang_wrapper() {
 
 update_lang() {
   separator
-  box "$(_tr "jinx_modules_lang.updating_language_packages")"
+  box "Updating Language Packages"
   separator
   echo
 
-  log_info "$(_tr "jinx_modules_lang.updating_language_packages")"
+  log_info "Updating language packages..."
 
   _update_lang_wrapper
-  log_success "$(_tr "jinx_modules_lang.language_packages_updated")"
+  log_success "Language packages updated"
 }
 
 _update_lang_wrapper() {
@@ -75,24 +75,24 @@ _update_lang_wrapper() {
 
 reinstall_lang() {
   separator
-  box "$(_tr "jinx_modules_lang.reinstalling_language_packages")"
+  box "Reinstalling Language Packages"
   separator
   echo
 
-  log_info "$(_tr "jinx_modules_lang.reinstalling_language_packages")"
+  log_info "Reinstalling language packages..."
 
   _reinstall_lang_wrapper
-  log_success "$(_tr "jinx_modules_lang.language_packages_reinstalled_successful")"
+  log_success "Language packages reinstalled successfully"
   separator
   echo
-  list_item "$(_tr "jinx_modules_lang.node_js_lts")"
-  list_item "$(_tr "jinx_modules_lang.python")"
-  list_item "$(_tr "jinx_modules_lang.perl")"
+  list_item "Node.js LTS"
+  list_item "Python"
+  list_item "Perl"
   list_item "PHP"
-  list_item "$(_tr "jinx_modules_lang.rust")"
-  list_item "$(_tr "jinx_modules_lang.c_c_clang")"
-  list_item "$(_tr "jinx_modules_lang.go_golang")"
-  list_item "$(_tr "jinx_modules_lang.bun_js_js_runtime")"
+  list_item "Rust"
+  list_item "C/C++ (clang)"
+  list_item "Go (golang)"
+  list_item "Bun.js (JS Runtime)"
   echo
 }
 

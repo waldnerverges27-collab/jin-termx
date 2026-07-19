@@ -9,7 +9,7 @@ readonly BRAIN_DIR="$JINX_DATA/brain"
 
 _brain_ensure() {
 	if [[ ! -d "$BRAIN_DIR" ]]; then
-		log_error "$(_tr "jinx_cli_commands_brain.brain_not_initialized")"
+		log_error "Brain not initialized"
 		list_item "Run: ${D_CYAN}jinx brain init${D_NC}"
 		return 1
 	fi
@@ -151,7 +151,7 @@ _brain_editor() {
 	local title="$1"
 
 	if ! command -v nvim &>/dev/null; then
-		log_error "$(_tr "jinx_cli_commands_brain.neovim_not_found")"
+		log_error "Neovim not found"
 		list_item "Install it: ${D_CYAN}jinx install editor${D_NC}"
 		return 1
 	fi
@@ -179,11 +179,11 @@ _brain_editor() {
 
 brain_help() {
 	echo
-	box "$(_tr "jinx_cli_commands_brain.core_brain_your_second_brain")"
+	box "Core Brain — Your Second Brain"
 	echo
-	log_info "$(_tr "jinx_cli_commands_brain.usage_jinx_brain_subcommand_options")"
+	log_info "Usage: jinx brain <subcommand> [options]"
 	echo
-	separator_section "$(_tr "jinx_cli_commands_brain.subcommands")"
+	separator_section "Subcommands"
 	echo
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "init" "Initialize brain directory and GitHub repo"
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "save" "Save a new memory interactively"
@@ -198,7 +198,7 @@ brain_help() {
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "relate" "Link two memories"
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "sync" "Push/pull to GitHub private repo"
 	echo
-	separator_section "$(_tr "jinx_cli_commands_brain.examples")"
+	separator_section "Examples"
 	echo
 	printf "    ${D_CYAN}jinx brain init${NC}              # Create local brain\n"
 	printf "    ${D_CYAN}jinx brain save${NC}              # Interactive save\n"
@@ -220,7 +220,7 @@ brain_help() {
 
 brain_init() {
 	separator
-	box "$(_tr "jinx_cli_commands_brain.initialize_core_brain")"
+	box "Initialize Core Brain"
 	separator
 	echo
 
@@ -253,7 +253,7 @@ brain_init() {
 		read_confirm "Clone it to restore your memories?" confirm
 		if [[ "$confirm" == "y" ]]; then
 			loading "Cloning repository..." gh repo clone "$gh_user/$repo_name" "$BRAIN_DIR"
-			log_success "$(_tr "jinx_cli_commands_brain.brain_restored_from_github")"
+			log_success "Brain restored from GitHub"
 			separator
 			return 0
 		fi
@@ -265,7 +265,7 @@ brain_init() {
 
 	read_confirm "Create a private GitHub repo for your brain?" confirm
 	if [[ "$confirm" != "y" ]]; then
-		log_info "$(_tr "jinx_cli_commands_brain.skipping_github_setup_you_can_set_it_up")"
+		log_info "Skipping GitHub setup. You can set it up later."
 		separator
 		return 0
 	fi
@@ -281,7 +281,7 @@ brain_init() {
 		loading "Pushing to GitHub..." git push -u origin main
 		log_success "Repo created and linked: ${D_CYAN}https://github.com/$gh_user/$repo_name${D_NC}"
 	else
-		log_warn "$(_tr "jinx_cli_commands_brain.failed_to_create_repo_check_your_permis")"
+		log_warn "Failed to create repo. Check your permissions."
 	fi
 
 	separator
@@ -293,13 +293,13 @@ brain_save() {
 	_brain_ensure || return 1
 
 	separator
-	box "$(_tr "jinx_cli_commands_brain.save_a_new_memory")"
+	box "Save a New Memory"
 	separator
 	echo
 
 	read_input "Title" title
 	if [[ -z "$title" ]]; then
-		log_error "$(_tr "jinx_cli_commands_brain.title_cannot_be_empty")"
+		log_error "Title cannot be empty"
 		separator
 		return 1
 	fi
@@ -314,7 +314,7 @@ brain_save() {
 	categories=$(find "$BRAIN_DIR" -mindepth 1 -maxdepth 1 -type d ! -name ".git" -exec basename {} \; 2>/dev/null | sort)
 	echo
 	if [[ -n "$categories" ]]; then
-		log_info "$(_tr "jinx_cli_commands_brain.existing_categories")"
+		log_info "Existing categories:"
 		echo
 		while IFS= read -r cat; do
 			printf "    ${D_GREEN}•${D_NC} ${D_CYAN}%s${D_NC}\n" "$cat"
@@ -336,7 +336,7 @@ brain_save() {
 	local tmpfile
 	tmpfile=$(_brain_editor "$title")
 	if [[ -z "$tmpfile" ]]; then
-		log_error "$(_tr "jinx_cli_commands_brain.content_cannot_be_empty")"
+		log_error "Content cannot be empty"
 		return 1
 	fi
 	local content
@@ -443,7 +443,7 @@ brain_search() {
 	echo
 
 	if ! command -v rg &>/dev/null; then
-		log_error "$(_tr "jinx_cli_commands_brain.ripgrep_not_found_this_shouldn_t_happe")"
+		log_error "ripgrep not found — this shouldn't happen"
 		return 1
 	fi
 
@@ -505,7 +505,7 @@ brain_search() {
 	fi
 
 	if [[ -z "$selected_file" ]] || [[ ! -f "$selected_file" ]]; then
-		log_error "$(_tr "jinx_cli_commands_brain.memory_not_found")"
+		log_error "Memory not found"
 		return 1
 	fi
 
@@ -527,7 +527,7 @@ brain_ls() {
 	local filter="$*"
 
 	separator
-	box "$(_tr "jinx_cli_commands_brain.your_memories")"
+	box "Your Memories"
 	separator
 	echo
 
@@ -596,16 +596,16 @@ brain_relate() {
 
 	if [[ -z "$slug_a" ]] || [[ -z "$slug_b" ]]; then
 		separator
-		box "$(_tr "jinx_cli_commands_brain.relate_memories")"
+		box "Relate Memories"
 		separator
 		echo
-		log_info "$(_tr "jinx_cli_commands_brain.pick_the_first_memory")"
+		log_info "Pick the first memory:"
 		echo
 		file_a=$(_brain_pick_file "First memory (# or name)")
 		[[ -z "$file_a" ]] && return 0
 
 		echo
-		log_info "$(_tr "jinx_cli_commands_brain.pick_the_second_memory")"
+		log_info "Pick the second memory:"
 		echo
 		file_b=$(_brain_pick_file "Second memory (# or name)")
 		[[ -z "$file_b" ]] && return 0
@@ -672,7 +672,7 @@ brain_show() {
 		fi
 	else
 		echo
-		separator_section "$(_tr "jinx_cli_commands_brain.show_memory")"
+		separator_section "Show Memory"
 		echo
 		file=$(_brain_pick_file "Memory to show (# or name)")
 		[[ -z "$file" ]] && return 0
@@ -695,7 +695,7 @@ brain_graph() {
 	_brain_ensure || return 1
 
 	echo
-	separator_section "$(_tr "jinx_cli_commands_brain.knowledge_graph")"
+	separator_section "Knowledge Graph"
 	echo
 
 	local -a files=()
@@ -704,7 +704,7 @@ brain_graph() {
 	done < <(find "$BRAIN_DIR" -name "*.md" ! -name "README.md" 2>/dev/null | sort)
 
 	if [[ ${#files[@]} -eq 0 ]]; then
-		list_item "$(_tr "jinx_cli_commands_brain.no_memories_yet")"
+		list_item "No memories yet"
 		return 0
 	fi
 
@@ -754,12 +754,12 @@ brain_sync() {
 	_brain_ensure || return 1
 
 	separator
-	box "$(_tr "jinx_cli_commands_brain.sync_brain")"
+	box "Sync Brain"
 	separator
 	echo
 
 	if [[ ! -d "$BRAIN_DIR/.git" ]]; then
-		log_warn "$(_tr "jinx_cli_commands_brain.not_a_git_repository")"
+		log_warn "Not a git repository"
 		list_item "Run: ${D_CYAN}jinx brain init${D_NC} to set up Git"
 		separator
 		return 1
@@ -768,7 +768,7 @@ brain_sync() {
 	cd "$BRAIN_DIR" || return 1
 
 	if ! git remote -v &>/dev/null; then
-		log_info "$(_tr "jinx_cli_commands_brain.no_remote_configured_local_commit_only")"
+		log_info "No remote configured — local commit only"
 		list_item "Set up GitHub sync with: ${D_CYAN}jinx brain init${D_NC}"
 		separator
 		return 0
@@ -779,7 +779,7 @@ brain_sync() {
 		loading "Staging changes..." git add -A
 		loading "Committing changes..." git commit -m "$commit_msg"
 	else
-		log_info "$(_tr "jinx_cli_commands_brain.no_changes_to_commit")"
+		log_info "No changes to commit"
 	fi
 
 	local branch
@@ -788,9 +788,9 @@ brain_sync() {
 	if ! git rev-parse --abbrev-ref --symbolic-full-name @{upstream} &>/dev/null; then
 		loading "Pushing to origin/$branch..." git push -u origin "$branch"
 		if [[ $? -eq 0 ]]; then
-			log_success "$(_tr "jinx_cli_commands_brain.brain_synced_with_github")"
+			log_success "Brain synced with GitHub"
 		else
-			log_error "$(_tr "jinx_cli_commands_brain.push_failed")"
+			log_error "Push failed"
 			list_item "Check your GitHub authentication: ${D_CYAN}gh auth login${D_NC}"
 		fi
 		separator
@@ -800,7 +800,7 @@ brain_sync() {
 	loading "Pulling latest from remote..." git pull --rebase
 	local pull_exit=$?
 	if [[ $pull_exit -ne 0 ]]; then
-		log_error "$(_tr "jinx_cli_commands_brain.pull_failed_your_local_and_remote_hist")"
+		log_error "Pull failed — your local and remote histories diverged"
 		list_item "Force push instead: ${D_CYAN}git push --force${D_NC}"
 		list_item "Or resolve manually in: ${D_CYAN}$BRAIN_DIR${D_NC}"
 		separator
@@ -809,10 +809,10 @@ brain_sync() {
 
 	loading "Pushing to remote..." git push
 	if [[ $? -eq 0 ]]; then
-		log_success "$(_tr "jinx_cli_commands_brain.brain_synced_with_github")"
+		log_success "Brain synced with GitHub"
 	else
-		log_error "$(_tr "jinx_cli_commands_brain.push_failed")"
-		list_item "$(_tr "jinx_cli_commands_brain.check_your_connection_and_permissions")"
+		log_error "Push failed"
+		list_item "Check your connection and permissions"
 	fi
 
 	separator
@@ -834,10 +834,10 @@ brain_skill() {
 	if [[ ${#all_files[@]} -eq 0 ]]; then
 		echo
 		separator
-		box "$(_tr "jinx_cli_commands_brain.create_skill_from_memories")"
+		box "Create Skill from Memories"
 		separator
 		echo
-		list_item "$(_tr "jinx_cli_commands_brain.no_memories_yet")"
+		list_item "No memories yet"
 		list_item "Create some: ${D_CYAN}jinx brain save${D_NC}"
 		separator
 		return 0
@@ -847,7 +847,7 @@ brain_skill() {
 	while true; do
 		echo
 		separator
-		box "$(_tr "jinx_cli_commands_brain.create_skill_from_memories")"
+		box "Create Skill from Memories"
 		separator
 		echo
 
@@ -860,7 +860,7 @@ brain_skill() {
 		done
 
 		echo
-		log_info "$(_tr "jinx_cli_commands_brain.select_memories_to_include_in_the_skill")"
+		log_info "Select memories to include in the skill"
 		read_input "Numbers (comma-separated), 'all', or empty to cancel" pick
 
 		if [[ -z "$pick" ]]; then
@@ -938,14 +938,14 @@ brain_skill() {
 	read_input "Skill name (kebab-case, e.g. termux-setup)" skill_name
 	skill_name=$(echo "$skill_name" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/^-+|-+$//g')
 	if [[ -z "$skill_name" ]]; then
-		log_error "$(_tr "jinx_cli_commands_brain.skill_name_cannot_be_empty")"
+		log_error "Skill name cannot be empty"
 		separator
 		return 1
 	fi
 
 	# ── Global or local ──
 	echo
-	log_info "$(_tr "jinx_cli_commands_brain.where_do_you_want_to_install_the_skill")"
+	log_info "Where do you want to install the skill?"
 	read_confirm "Install globally (~/.agents/skills/)?" scope
 	if [[ "$scope" == "y" ]]; then
 		base_dir="$HOME/.agents/skills"
@@ -1044,7 +1044,7 @@ brain_skill() {
 	done
 
 	log_success "Skill created: ${D_CYAN}$skill_dir${D_NC}"
-	list_item "$(_tr "jinx_cli_commands_brain.your_agent_will_load_it_automatically")"
+	list_item "Your agent will load it automatically"
 	separator
 }
 
@@ -1064,7 +1064,7 @@ brain_edit() {
 		fi
 	else
 		echo
-		separator_section "$(_tr "jinx_cli_commands_brain.edit_memory")"
+		separator_section "Edit Memory"
 		echo
 		file=$(_brain_pick_file "Memory to edit (# or name)")
 	fi
@@ -1086,7 +1086,7 @@ brain_edit() {
 	fi
 
 	if [[ -z "$editor" ]]; then
-		log_error "$(_tr "jinx_cli_commands_brain.no_editor_found")"
+		log_error "No editor found"
 		list_item "Install one: ${D_CYAN}jinx install editor${D_NC}"
 		return 1
 	fi
@@ -1096,7 +1096,7 @@ brain_edit() {
 
 	"$editor" "$file"
 
-	log_success "$(_tr "jinx_cli_commands_brain.memory_updated")"
+	log_success "Memory updated"
 	echo
 }
 
@@ -1116,7 +1116,7 @@ brain_delete() {
 		fi
 	else
 		echo
-		separator_section "$(_tr "jinx_cli_commands_brain.delete_memory")"
+		separator_section "Delete Memory"
 		echo
 		file=$(_brain_pick_file "Memory to delete (# or name)")
 	fi
@@ -1131,7 +1131,7 @@ brain_delete() {
 	log_warn "Delete memory: ${D_CYAN}$title${D_NC}?"
 	read_confirm "This cannot be undone" confirm
 	if [[ "$confirm" != "y" ]]; then
-		log_info "$(_tr "jinx_cli_commands_brain.cancelled")"
+		log_info "Cancelled"
 		return 0
 	fi
 
@@ -1150,7 +1150,7 @@ brain_delete() {
 	dir=$(dirname "$file")
 	if [[ -z "$(find "$dir" -name '*.md' ! -name 'README.md' 2>/dev/null)" ]]; then
 		rmdir "$dir" 2>/dev/null || true
-		list_item "$(_tr "jinx_cli_commands_brain.empty_category_directory_removed")"
+		list_item "Empty category directory removed"
 	fi
 
 	echo
@@ -1160,30 +1160,30 @@ brain_delete() {
 
 brain_reset() {
 	separator
-	box "$(_tr "jinx_cli_commands_brain.reset_brain")"
+	box "Reset Brain"
 	separator
 	echo
 
 	if [[ ! -d "$BRAIN_DIR" ]]; then
-		log_warn "$(_tr "jinx_cli_commands_brain.brain_does_not_exist")"
+		log_warn "Brain does not exist"
 		separator
 		return 0
 	fi
 
-	log_warn "$(_tr "jinx_cli_commands_brain.this_will_destroy_all_local_memories")"
+	log_warn "This will DESTROY all local memories:"
 	list_item "Location: ${D_CYAN}$BRAIN_DIR${D_NC}"
 	echo
 
 	read_confirm "Are you sure?" confirm
 	if [[ "$confirm" != "y" ]]; then
-		log_info "$(_tr "jinx_cli_commands_brain.cancelled")"
+		log_info "Cancelled"
 		separator
 		return 0
 	fi
 
 	echo
 	loading "Deleting local brain..." rm -rf "$BRAIN_DIR"
-	log_success "$(_tr "jinx_cli_commands_brain.brain_destroyed")"
+	log_success "Brain destroyed"
 	list_item "Recreate with: ${D_CYAN}jinx brain init${D_NC}"
 	separator
 }
@@ -1197,7 +1197,7 @@ brain_dashboard() {
 	fi
 
 	echo
-	separator_section "$(_tr "jinx_cli_commands_brain.core_brain_dashboard")"
+	separator_section "Core Brain Dashboard"
 	echo
 
 	local total_files
@@ -1213,7 +1213,7 @@ brain_dashboard() {
 	printf "    ${D_CYAN}%-20s${NC} ${GRAY}=${NC} ${D_DIM}%s${D_NC}\n" "Location" "$BRAIN_DIR"
 	echo
 
-	separator_section "$(_tr "jinx_cli_commands_brain.quick_start")"
+	separator_section "Quick Start"
 	echo
 	list_item "Save: ${D_CYAN}jinx brain save${D_NC}"
 	list_item "Show: ${D_CYAN}jinx brain show${D_NC}"

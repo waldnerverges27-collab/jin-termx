@@ -7,23 +7,23 @@ LOG_FILE="$JINX_CACHE/install_db.log"
 
 install_db() {
 	separator
-	box "$(_tr "jinx_modules_db.installing_databases")"
+	box "Installing Databases"
 	separator
 	echo
 
-	log_info "$(_tr "jinx_modules_db.installing_databases")"
+	log_info "Installing databases..."
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_db_tools_wrapper
-	log_success "$(_tr "jinx_modules_db.databases_installed_successfully")"
+	log_success "Databases installed successfully"
 	separator
 	echo
-	list_item "$(_tr "jinx_modules_db.postgresql")"
-	list_item "$(_tr "jinx_modules_db.mariadb_mysql")"
-	list_item "$(_tr "jinx_modules_db.sqlite")"
-	list_item "$(_tr "jinx_modules_db.mongodb")"
-	list_item "$(_tr "jinx_modules_db.redis")"
+	list_item "PostgreSQL"
+	list_item "MariaDB (MySQL)"
+	list_item "SQLite"
+	list_item "MongoDB"
+	list_item "Redis"
 	echo
 }
 
@@ -34,18 +34,18 @@ _install_db_tools_wrapper() {
 
 uninstall_db() {
 	if ! command -v postgres &>/dev/null; then
-		log_info "$(_tr "jinx_modules_db.databases_are_not_installed")"
+		log_info "Databases are not installed"
 		return 0
 	fi
 	separator
-	box "$(_tr "jinx_modules_db.uninstalling_databases")"
+	box "Uninstalling Databases"
 	separator
 	echo
 
-	log_info "$(_tr "jinx_modules_db.uninstalling_databases")"
+	log_info "Uninstalling databases..."
 
 	_uninstall_db_tools_wrapper
-	log_success "$(_tr "jinx_modules_db.databases_uninstalled")"
+	log_success "Databases uninstalled"
 }
 
 _uninstall_db_tools_wrapper() {
@@ -55,14 +55,14 @@ _uninstall_db_tools_wrapper() {
 
 update_db() {
 	separator
-	box "$(_tr "jinx_modules_db.updating_databases")"
+	box "Updating Databases"
 	separator
 	echo
 
-	log_info "$(_tr "jinx_modules_db.updating_databases")"
+	log_info "Updating databases..."
 
 	_update_db_tools_wrapper
-	log_success "$(_tr "jinx_modules_db.databases_updated")"
+	log_success "Databases updated"
 }
 
 _update_db_tools_wrapper() {
@@ -72,21 +72,21 @@ _update_db_tools_wrapper() {
 
 reinstall_db() {
   separator
-  box "$(_tr "jinx_modules_db.reinstalling_databases")"
+  box "Reinstalling Databases"
   separator
   echo
 
-  log_info "$(_tr "jinx_modules_db.reinstalling_databases")"
+  log_info "Reinstalling databases..."
 
   _reinstall_db_tools_wrapper
-  log_success "$(_tr "jinx_modules_db.databases_reinstalled_successfully")"
+  log_success "Databases reinstalled successfully"
   separator
   echo
-  list_item "$(_tr "jinx_modules_db.postgresql")"
-  list_item "$(_tr "jinx_modules_db.mariadb_mysql")"
-  list_item "$(_tr "jinx_modules_db.sqlite")"
-  list_item "$(_tr "jinx_modules_db.mongodb")"
-  list_item "$(_tr "jinx_modules_db.redis")"
+  list_item "PostgreSQL"
+  list_item "MariaDB (MySQL)"
+  list_item "SQLite"
+  list_item "MongoDB"
+  list_item "Redis"
   echo
 }
 

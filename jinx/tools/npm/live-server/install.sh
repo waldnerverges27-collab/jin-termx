@@ -7,11 +7,11 @@ LOG_FILE="$JINX_CACHE/install_npm.log"
 
 _live_server_dependencies() {
   if command -v node &>/dev/null && command -v npm &>/dev/null; then
-    log_info "$(_tr "jinx_tools_npm_live-server_install.node_js_and_npm_are_already_installed")"
+    log_info "Node.js and npm are already installed"
     return 0
   fi
 
-  log_info "$(_tr "jinx_tools_npm_live-server_install.installing_nodejs")"
+  log_info "Installing Nodejs..."
   mkdir -p "$(dirname "$LOG_FILE")"
   yes | pkg install nodejs-lts &>>"$LOG_FILE"
 }
@@ -22,7 +22,7 @@ _install_live_server_npm() {
 
 _install_live_server_npm_impl() {
   if ! npm install -g live-server &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_npm_live-server_install.failed_to_install_live_server")"
+    log_error "Failed to install Live Server"
     return 1
   fi
   return 0
@@ -33,14 +33,14 @@ install_live_server() {
     return 0
   fi
 
-  log_info "$(_tr "jinx_tools_npm_live-server_install.installing_live_server")"
+  log_info "Installing Live Server..."
 
   _live_server_dependencies
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _install_live_server_npm || return 1
-  log_success "$(_tr "jinx_tools_npm_live-server_install.live_server_installed")"
+  log_success "Live Server installed"
   return 0
 }
 
@@ -50,7 +50,7 @@ _uninstall_live_server_npm() {
 
 _uninstall_live_server_npm_impl() {
   if ! npm uninstall -g live-server &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_npm_live-server_install.failed_to_uninstall_live_server")"
+    log_error "Failed to uninstall Live Server"
     return 1
   fi
   return 0
@@ -58,14 +58,14 @@ _uninstall_live_server_npm_impl() {
 
 uninstall_live_server() {
   if ! command -v live-server &>/dev/null; then
-    log_info "$(_tr "jinx_tools_npm_live-server_install.live_server_is_not_installed")"
+    log_info "Live Server is not installed"
     return 0
   fi
-  log_info "$(_tr "jinx_tools_npm_live-server_install.uninstalling_live_server")"
+  log_info "Uninstalling Live Server..."
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _uninstall_live_server_npm || return 1
-  log_success "$(_tr "jinx_tools_npm_live-server_install.live_server_uninstalled")"
+  log_success "Live Server uninstalled"
   return 0
 }
 

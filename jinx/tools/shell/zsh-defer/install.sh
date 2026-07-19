@@ -24,7 +24,7 @@ _zsh_defer_dependencies() {
     fi
   done
 
-  log_success "$(_tr "jinx_tools_shell_zsh-defer_install.shell_dependencies_installed")"
+  log_success "Shell dependencies installed"
   return 0
 }
 
@@ -35,7 +35,7 @@ _install_zsh_defer_git() {
 _install_zsh_defer_git_impl() {
   mkdir -p "$(dirname "$LOG_FILE")"
   if ! git clone --depth=1 "https://github.com/romkatv/zsh-defer.git" "$ZSH_PLUGINS_DIR/zsh-defer" &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_shell_zsh-defer_install.failed_to_install_zsh_defer")"
+    log_error "Failed to install zsh-defer"
     return 1
   fi
   git -C "$ZSH_PLUGINS_DIR/zsh-defer" fetch --tags --depth=1 &>>"$LOG_FILE"
@@ -44,20 +44,20 @@ _install_zsh_defer_git_impl() {
 
 install_zsh_defer() {
   if [[ -d "$ZSH_PLUGINS_DIR/zsh-defer" ]]; then
-    log_info "$(_tr "jinx_tools_shell_zsh-defer_install.zsh_defer_already_installed")"
+    log_info "zsh-defer already installed"
     return 0
   fi
 
   _zsh_defer_dependencies
 
   _install_zsh_defer_git || return 1
-  log_success "$(_tr "jinx_tools_shell_zsh-defer_install.installed")"
+  log_success "Installed"
   return 0
 }
 
 _uninstall_zsh_defer_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/zsh-defer" ]]; then
-    log_info "$(_tr "jinx_tools_shell_zsh-defer_install.zsh_defer_is_not_installed")"
+    log_info "zsh-defer is not installed"
     return 2
   fi
 
@@ -74,7 +74,7 @@ _update_zsh_defer() {
 
 _update_zsh_defer_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/zsh-defer/.git" ]]; then
-    log_warn "$(_tr "jinx_tools_shell_zsh-defer_install.zsh_defer_not_installed")"
+    log_warn "zsh-defer not installed"
     return 0
   fi
 

@@ -36,7 +36,7 @@ _install_codex_npm() {
 
 _install_codex_npm_impl() {
 	if ! npm i -g @mmmbuto/codex-cli-termux@latest &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_ai_codex_install.failed_to_install_codex_cli")"
+		log_error "Failed to install Codex CLI"
 		return 1
 	fi
 
@@ -45,37 +45,37 @@ _install_codex_npm_impl() {
 
 install_codex() {
 	if command -v codex &>/dev/null; then
-		log_info "$(_tr "jinx_tools_ai_codex_install.codex_cli_is_already_installed")"
+		log_info "Codex CLI is already installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_ai_codex_install.installing_codex_cli")"
+	log_info "Installing Codex CLI..."
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_codex_dependencies || return 1
 	_install_codex_npm || return 1
 
-	log_success "$(_tr "jinx_tools_ai_codex_install.codex_cli_installed")"
+	log_success "Codex CLI installed"
 	return 0
 }
 
 uninstall_codex() {
 	if ! command -v codex &>/dev/null; then
-		log_info "$(_tr "jinx_tools_ai_codex_install.codex_cli_is_not_installed")"
+		log_info "Codex CLI is not installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_ai_codex_install.uninstalling_codex_cli")"
+	log_info "Uninstalling Codex CLI..."
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	loading "Removing Codex CLI" _uninstall_codex_impl
 
-	log_success "$(_tr "jinx_tools_ai_codex_install.codex_cli_uninstalled")"
+	log_success "Codex CLI uninstalled"
 	return 0
 }
 
 _uninstall_codex_impl() {
 	if ! npm uninstall -g @mmmbuto/codex-cli-termux &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_ai_codex_install.failed_to_uninstall_codex_cli")"
+		log_error "Failed to uninstall Codex CLI"
 		return 1
 	fi
 	return 0
@@ -99,7 +99,7 @@ _update_codex_npm() {
 
 _update_codex_npm_impl() {
   if ! npm update -g @mmmbuto/codex-cli-termux &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_codex_install.failed_to_update_codex_cli")"
+    log_error "Failed to update Codex CLI"
     return 1
   fi
   return 0

@@ -7,11 +7,11 @@ LOG_FILE="$JINX_CACHE/install_npm.log"
 
 _psqlformat_dependencies() {
   if command -v node &>/dev/null && command -v npm &>/dev/null; then
-    log_info "$(_tr "jinx_tools_npm_psqlformat_install.node_js_and_npm_are_already_installed")"
+    log_info "Node.js and npm are already installed"
     return 0
   fi
 
-  log_info "$(_tr "jinx_tools_npm_psqlformat_install.installing_nodejs_and_perl")"
+  log_info "Installing Nodejs and Perl..."
   mkdir -p "$(dirname "$LOG_FILE")"
   yes | pkg install nodejs-lts perl &>>"$LOG_FILE"
 }
@@ -22,7 +22,7 @@ _install_psqlformat_npm() {
 
 _install_psqlformat_npm_impl() {
   if ! npm install -g psqlformat &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_npm_psqlformat_install.failed_to_install_psql_format")"
+    log_error "Failed to install PSQL Format"
     return 1
   fi
   return 0
@@ -32,14 +32,14 @@ install_psqlformat() {
   if command -v psqlformat &>/dev/null; then
     return 0
   fi
-  log_info "$(_tr "jinx_tools_npm_psqlformat_install.installing_psql_format")"
+  log_info "Installing PSQL Format..."
 
   _psqlformat_dependencies
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _install_psqlformat_npm || return 1
-  log_success "$(_tr "jinx_tools_npm_psqlformat_install.psql_format_installed")"
+  log_success "PSQL Format installed"
   return 0
 }
 
@@ -49,7 +49,7 @@ _uninstall_psqlformat_npm() {
 
 _uninstall_psqlformat_npm_impl() {
   if ! npm uninstall -g psqlformat &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_npm_psqlformat_install.failed_to_uninstall_psql_format")"
+    log_error "Failed to uninstall PSQL Format"
     return 1
   fi
   return 0
@@ -57,14 +57,14 @@ _uninstall_psqlformat_npm_impl() {
 
 uninstall_psqlformat() {
   if ! command -v psqlformat &>/dev/null; then
-    log_info "$(_tr "jinx_tools_npm_psqlformat_install.psql_format_is_not_installed")"
+    log_info "PSQL Format is not installed"
     return 0
   fi
-  log_info "$(_tr "jinx_tools_npm_psqlformat_install.uninstalling_psql_format")"
+  log_info "Uninstalling PSQL Format..."
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _uninstall_psqlformat_npm || return 1
-  log_success "$(_tr "jinx_tools_npm_psqlformat_install.psql_format_uninstalled")"
+  log_success "PSQL Format uninstalled"
   return 0
 }
 

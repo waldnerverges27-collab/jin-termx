@@ -7,11 +7,11 @@ LOG_FILE="$JINX_CACHE/install_npm.log"
 
 _prettier_dependencies() {
   if command -v node &>/dev/null && command -v npm &>/dev/null; then
-    log_info "$(_tr "jinx_tools_npm_prettier_install.node_js_and_npm_are_already_installed")"
+    log_info "Node.js and npm are already installed"
     return 0
   fi
 
-  log_info "$(_tr "jinx_tools_npm_prettier_install.installing_nodejs")"
+  log_info "Installing Nodejs..."
   mkdir -p "$(dirname "$LOG_FILE")"
   yes | pkg install nodejs-lts &>>"$LOG_FILE"
 }
@@ -22,7 +22,7 @@ _install_prettier_npm() {
 
 _install_prettier_npm_impl() {
   if ! npm install -g prettier &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_npm_prettier_install.failed_to_install_prettier")"
+    log_error "Failed to install Prettier"
     return 1
   fi
   return 0
@@ -32,14 +32,14 @@ install_prettier() {
   if command -v prettier &>/dev/null; then
     return 0
   fi
-  log_info "$(_tr "jinx_tools_npm_prettier_install.installing_prettier")"
+  log_info "Installing Prettier..."
 
   _prettier_dependencies
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _install_prettier_npm || return 1
-  log_success "$(_tr "jinx_tools_npm_prettier_install.prettier_installed")"
+  log_success "Prettier installed"
   return 0
 }
 
@@ -49,7 +49,7 @@ _uninstall_prettier_npm() {
 
 _uninstall_prettier_npm_impl() {
   if ! npm uninstall -g prettier &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_npm_prettier_install.failed_to_uninstall_prettier")"
+    log_error "Failed to uninstall Prettier"
     return 1
   fi
   return 0
@@ -57,14 +57,14 @@ _uninstall_prettier_npm_impl() {
 
 uninstall_prettier() {
   if ! command -v prettier &>/dev/null; then
-    log_info "$(_tr "jinx_tools_npm_prettier_install.prettier_is_not_installed")"
+    log_info "Prettier is not installed"
     return 0
   fi
-  log_info "$(_tr "jinx_tools_npm_prettier_install.uninstalling_prettier")"
+  log_info "Uninstalling Prettier..."
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _uninstall_prettier_npm || return 1
-  log_success "$(_tr "jinx_tools_npm_prettier_install.prettier_uninstalled")"
+  log_success "Prettier uninstalled"
   return 0
 }
 

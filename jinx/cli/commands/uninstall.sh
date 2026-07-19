@@ -7,30 +7,30 @@ uninstall_main() {
 
   if [[ $# -eq 0 ]]; then
     echo
-    box "$(_tr "jinx_cli_commands_uninstall.core_uninstall")"
+    box "Core Uninstall"
     echo
-    log_info "$(_tr "jinx_cli_commands_uninstall.usage_jinx_uninstall_target")"
-    log_info "$(_tr "jinx_cli_commands_uninstall.usage_jinx_uninstall_target_tool1")"
+    log_info "Usage: jinx uninstall <target>"
+    log_info "Usage: jinx uninstall <target> --tool1 --tool2"
     echo
-    log_info "$(_tr "jinx_cli_commands_uninstall.available_targets")"
+    log_info "Available targets:"
     echo
-    list_item "$(_tr "jinx_cli_commands_uninstall.lang_remove_language_packages")"
-    list_item "$(_tr "jinx_cli_commands_uninstall.db_remove_databases")"
-    list_item "$(_tr "jinx_cli_commands_uninstall.ai_remove_ai_tools")"
-    list_item "$(_tr "jinx_cli_commands_uninstall.editor_remove_code_editor")"
-    list_item "$(_tr "jinx_cli_commands_uninstall.dev_remove_development_tools")"
-    list_item "$(_tr "jinx_cli_commands_uninstall.npm_remove_node_js_global_modul")"
-    list_item "$(_tr "jinx_cli_commands_uninstall.shell_remove_zsh_oh_my_zsh")"
-    list_item "$(_tr "jinx_cli_commands_uninstall.ui_restore_termux_ui_to_defaul")"
-    list_item "$(_tr "jinx_cli_commands_uninstall.auto_remove_automation_tools")"
+    list_item "lang       - Remove language packages"
+    list_item "db         - Remove databases"
+    list_item "ai         - Remove AI tools"
+    list_item "editor     - Remove code editor"
+    list_item "dev        - Remove development tools"
+    list_item "npm        - Remove Node.js global modules"
+    list_item "shell      - Remove ZSH + Oh My Zsh"
+    list_item "ui         - Restore Termux UI to default"
+    list_item "auto       - Remove automation tools"
     echo
-    log_info "$(_tr "jinx_cli_commands_uninstall.uninstall_specific_tools_with_flags")"
+    log_info "Uninstall specific tools with flags:"
     echo
-    list_item "$(_tr "jinx_cli_commands_uninstall.jinx_uninstall_ai_qwen_code_ollama")"
-    list_item "$(_tr "jinx_cli_commands_uninstall.jinx_uninstall_db_postgresql_sqlite")"
+    list_item "jinx uninstall ai --qwen-code --ollama"
+    list_item "jinx uninstall db --postgresql --sqlite"
     list_item "Run ${D_CYAN}jinx list <target>${NC} to see all available tools"
     echo
-    log_warn "$(_tr "jinx_cli_commands_uninstall.warning_this_will_remove_installed_pack")"
+    log_warn "Warning: This will remove installed packages and configurations!"
     echo
     return
   fi
@@ -50,7 +50,7 @@ uninstall_main() {
 
   # If no module target specified, show error
   if [[ -z "$module_target" ]]; then
-    log_error "$(_tr "jinx_cli_commands_uninstall.no_target_specified")"
+    log_error "No target specified"
     echo "Run 'jinx uninstall' to see available targets"
     return 1
   fi

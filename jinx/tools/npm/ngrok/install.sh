@@ -7,11 +7,11 @@ LOG_FILE="$JINX_CACHE/install_npm.log"
 
 _ngrok_dependencies() {
   if command -v node &>/dev/null && command -v npm &>/dev/null; then
-    log_info "$(_tr "jinx_tools_npm_ngrok_install.node_js_and_npm_are_already_installed")"
+    log_info "Node.js and npm are already installed"
     return 0
   fi
 
-  log_info "$(_tr "jinx_tools_npm_ngrok_install.installing_nodejs")"
+  log_info "Installing Nodejs..."
   mkdir -p "$(dirname "$LOG_FILE")"
   yes | pkg install nodejs-lts &>>"$LOG_FILE"
 }
@@ -22,7 +22,7 @@ _install_ngrok_npm() {
 
 _install_ngrok_npm_impl() {
   if ! npm install -g ngrok &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_npm_ngrok_install.failed_to_install_ngrok")"
+    log_error "Failed to install Ngrok"
     return 1
   fi
   return 0
@@ -32,14 +32,14 @@ install_ngrok() {
   if command -v ngrok &>/dev/null; then
     return 0
   fi
-  log_info "$(_tr "jinx_tools_npm_ngrok_install.installing_ngrok")"
+  log_info "Installing Ngrok..."
 
   _ngrok_dependencies
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _install_ngrok_npm || return 1
-  log_success "$(_tr "jinx_tools_npm_ngrok_install.ngrok_installed")"
+  log_success "Ngrok installed"
   return 0
 }
 
@@ -49,7 +49,7 @@ _uninstall_ngrok_npm() {
 
 _uninstall_ngrok_npm_impl() {
   if ! npm uninstall -g ngrok &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_npm_ngrok_install.failed_to_uninstall_ngrok")"
+    log_error "Failed to uninstall Ngrok"
     return 1
   fi
   return 0
@@ -57,14 +57,14 @@ _uninstall_ngrok_npm_impl() {
 
 uninstall_ngrok() {
   if ! command -v ngrok &>/dev/null; then
-    log_info "$(_tr "jinx_tools_npm_ngrok_install.ngrok_is_not_installed")"
+    log_info "Ngrok is not installed"
     return 0
   fi
-  log_info "$(_tr "jinx_tools_npm_ngrok_install.uninstalling_ngrok")"
+  log_info "Uninstalling Ngrok..."
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _uninstall_ngrok_npm || return 1
-  log_success "$(_tr "jinx_tools_npm_ngrok_install.ngrok_uninstalled")"
+  log_success "Ngrok uninstalled"
   return 0
 }
 

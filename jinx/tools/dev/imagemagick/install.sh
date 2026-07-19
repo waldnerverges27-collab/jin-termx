@@ -11,7 +11,7 @@ _install_imagemagick_pkg() {
 
 _install_imagemagick_pkg_impl() {
 	if ! yes | pkg install imagemagick &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_dev_imagemagick_install.failed_to_install_imagemagick")"
+		log_error "Failed to install ImageMagick"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_imagemagick_pkg() {
 
 _uninstall_imagemagick_pkg_impl() {
 	if ! pkg uninstall imagemagick -y &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_dev_imagemagick_install.failed_to_uninstall_imagemagick")"
+		log_error "Failed to uninstall ImageMagick"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_imagemagick_update() {
 
 install_imagemagick() {
 	if command -v magick &>/dev/null; then
-		log_info "$(_tr "jinx_tools_dev_imagemagick_install.imagemagick_is_already_installed")"
+		log_info "ImageMagick is already installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_dev_imagemagick_install.installing_imagemagick")"
+	log_info "Installing ImageMagick..."
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_imagemagick_pkg || return 1
-	log_success "$(_tr "jinx_tools_dev_imagemagick_install.imagemagick_installed")"
+	log_success "ImageMagick installed"
 	return 0
 }
 
 uninstall_imagemagick() {
 	if ! command -v magick &>/dev/null; then
-		log_info "$(_tr "jinx_tools_dev_imagemagick_install.imagemagick_is_not_installed")"
+		log_info "ImageMagick is not installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_dev_imagemagick_install.uninstalling_imagemagick")"
+	log_info "Uninstalling ImageMagick..."
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_imagemagick_pkg || return 1
-	log_success "$(_tr "jinx_tools_dev_imagemagick_install.imagemagick_uninstalled")"
+	log_success "ImageMagick uninstalled"
 	return 0
 }
 

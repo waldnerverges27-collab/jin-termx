@@ -11,7 +11,7 @@ _install_npmjs_pkg() {
 
 _install_npmjs_pkg_impl() {
 	if ! yes | pkg install nodejs-lts &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_lang_nodejs_install.failed_to_install_node_js_lts")"
+		log_error "Failed to install Node.js LTS"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _enable_corepack() {
 
 _enable_corepack_impl() {
 	if ! corepack enable &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_lang_nodejs_install.failed_to_enable_corepack")"
+		log_error "Failed to enable Corepack"
 		return 1
 	fi
 	return 0
@@ -31,15 +31,15 @@ _enable_corepack_impl() {
 
 install_npmjs() {
 	if command -v node &>/dev/null; then
-		log_info "$(_tr "jinx_tools_lang_nodejs_install.node_js_lts_is_already_installed")"
+		log_info "Node.js LTS is already installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_lang_nodejs_install.installing_node_js_lts")"
+	log_info "Installing Node.js LTS..."
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 	_install_npmjs_pkg || return 1
 	_enable_corepack || return 1
-	log_success "$(_tr "jinx_tools_lang_nodejs_install.node_js_lts_installed_pnpm_yarn_availa")"
+	log_success "Node.js LTS installed (pnpm, yarn available via corepack)"
 	return 0
 }
 
@@ -49,7 +49,7 @@ _uninstall_npmjs_pkg() {
 
 _uninstall_npmjs_pkg_impl() {
 	if ! pkg uninstall nodejs-lts -y &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_lang_nodejs_install.failed_to_uninstall_node_js_lts")"
+		log_error "Failed to uninstall Node.js LTS"
 		return 1
 	fi
 	return 0
@@ -57,13 +57,13 @@ _uninstall_npmjs_pkg_impl() {
 
 uninstall_npmjs() {
 	if ! command -v node &>/dev/null; then
-		log_info "$(_tr "jinx_tools_lang_nodejs_install.node_js_lts_is_not_installed")"
+		log_info "Node.js LTS is not installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_lang_nodejs_install.uninstalling_node_js_lts")"
+	log_info "Uninstalling Node.js LTS..."
 	mkdir -p "$(dirname "$LOG_FILE")"
 	_uninstall_npmjs_pkg || return 1
-	log_success "$(_tr "jinx_tools_lang_nodejs_install.node_js_lts_uninstalled")"
+	log_success "Node.js LTS uninstalled"
 	return 0
 }
 

@@ -7,11 +7,11 @@ LOG_FILE="$JINX_CACHE/install_npm.log"
 
 _nestjs_dependencies() {
   if command -v node &>/dev/null && command -v npm &>/dev/null; then
-    log_info "$(_tr "jinx_tools_npm_nestjs_install.node_js_and_npm_are_already_installed")"
+    log_info "Node.js and npm are already installed"
     return 0
   fi
 
-  log_info "$(_tr "jinx_tools_npm_nestjs_install.installing_nodejs")"
+  log_info "Installing Nodejs..."
   mkdir -p "$(dirname "$LOG_FILE")"
   yes | pkg install nodejs-lts &>>"$LOG_FILE"
 }
@@ -22,7 +22,7 @@ _install_nestjs_npm() {
 
 _install_nestjs_npm_impl() {
   if ! npm install -g @nestjs/cli &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_npm_nestjs_install.failed_to_install_nestjs_cli")"
+    log_error "Failed to install NestJS CLI"
     return 1
   fi
   return 0
@@ -32,14 +32,14 @@ install_nestjs() {
   if command -v nest &>/dev/null; then
     return 0
   fi
-  log_info "$(_tr "jinx_tools_npm_nestjs_install.installing_nestjs_cli")"
+  log_info "Installing NestJS CLI..."
 
   _nestjs_dependencies
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _install_nestjs_npm || return 1
-  log_success "$(_tr "jinx_tools_npm_nestjs_install.nestjs_cli_installed")"
+  log_success "NestJS CLI installed"
   return 0
 }
 
@@ -49,7 +49,7 @@ _uninstall_nestjs_npm() {
 
 _uninstall_nestjs_npm_impl() {
   if ! npm uninstall -g @nestjs/cli &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_npm_nestjs_install.failed_to_uninstall_nestjs_cli")"
+    log_error "Failed to uninstall NestJS CLI"
     return 1
   fi
   return 0
@@ -57,14 +57,14 @@ _uninstall_nestjs_npm_impl() {
 
 uninstall_nestjs() {
   if ! command -v nest &>/dev/null; then
-    log_info "$(_tr "jinx_tools_npm_nestjs_install.nestjs_cli_is_not_installed")"
+    log_info "NestJS CLI is not installed"
     return 0
   fi
-  log_info "$(_tr "jinx_tools_npm_nestjs_install.uninstalling_nestjs_cli")"
+  log_info "Uninstalling NestJS CLI..."
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _uninstall_nestjs_npm || return 1
-  log_success "$(_tr "jinx_tools_npm_nestjs_install.nestjs_cli_uninstalled")"
+  log_success "NestJS CLI uninstalled"
   return 0
 }
 

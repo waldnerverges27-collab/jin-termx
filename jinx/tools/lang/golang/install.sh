@@ -11,7 +11,7 @@ _install_golang_pkg() {
 
 _install_golang_pkg_impl() {
 	if ! yes | pkg install golang &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_lang_golang_install.failed_to_install_go_golang")"
+		log_error "Failed to install Go (Golang)"
 		return 1
 	fi
 	return 0
@@ -19,14 +19,14 @@ _install_golang_pkg_impl() {
 
 install_golang() {
 	if command -v go &>/dev/null; then
-		log_info "$(_tr "jinx_tools_lang_golang_install.go_golang_is_already_installed")"
+		log_info "Go (Golang) is already installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_lang_golang_install.installing_go_golang")"
+	log_info "Installing Go (Golang)..."
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 	_install_golang_pkg || return 1
-	log_success "$(_tr "jinx_tools_lang_golang_install.go_golang_installed")"
+	log_success "Go (Golang) installed"
 	return 0
 }
 
@@ -36,7 +36,7 @@ _uninstall_golang_pkg() {
 
 _uninstall_golang_pkg_impl() {
 	if ! pkg uninstall golang -y &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_lang_golang_install.failed_to_uninstall_go_golang")"
+		log_error "Failed to uninstall Go (golang)"
 		return 1
 	fi
 	return 0
@@ -44,13 +44,13 @@ _uninstall_golang_pkg_impl() {
 
 uninstall_golang() {
 	if ! command -v go &>/dev/null; then
-		log_info "$(_tr "jinx_tools_lang_golang_install.go_golang_is_not_installed")"
+		log_info "Go (Golang) is not installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_lang_golang_install.uninstalling_go_golang")"
+	log_info "Uninstalling Go (Golang)..."
 	mkdir -p "$(dirname "$LOG_FILE")"
 	_uninstall_golang_pkg || return 1
-	log_success "$(_tr "jinx_tools_lang_golang_install.go_golang_uninstalled")"
+	log_success "Go (golang) uninstalled"
 	return 0
 }
 

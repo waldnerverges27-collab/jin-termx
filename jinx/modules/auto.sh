@@ -7,16 +7,16 @@ LOG_FILE="$JINX_CACHE/install_auto.log"
 
 install_auto() {
 	separator
-	box "$(_tr "jinx_modules_auto.installing_automation_tools")"
+	box "Installing Automation Tools"
 	separator
 	echo
 
-	log_info "$(_tr "jinx_modules_auto.installing_automation_tools")"
+	log_info "Installing Automation Tools..."
 	echo
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_auto_wrapper
-	log_success "$(_tr "jinx_modules_auto.automation_tools_installed_successfully")"
+	log_success "Automation Tools installed successfully"
 	separator
 	echo
 	list_item "n8n"
@@ -30,18 +30,18 @@ _install_auto_wrapper() {
 
 uninstall_auto() {
 	if ! command -v n8n &>/dev/null; then
-		log_info "$(_tr "jinx_modules_auto.automation_tools_are_not_installed")"
+		log_info "Automation Tools are not installed"
 		return 0
 	fi
 	separator
-	box "$(_tr "jinx_modules_auto.uninstalling_automation_tools")"
+	box "Uninstalling Automation Tools"
 	separator
 	echo
 
-	log_info "$(_tr "jinx_modules_auto.uninstalling_automation_tools")"
+	log_info "Uninstalling Automation Tools..."
 
 	_uninstall_auto_wrapper
-	log_success "$(_tr "jinx_modules_auto.automation_tools_uninstalled")"
+	log_success "Automation Tools uninstalled"
 }
 
 _uninstall_auto_wrapper() {
@@ -51,14 +51,14 @@ _uninstall_auto_wrapper() {
 
 update_auto() {
 	separator
-	box "$(_tr "jinx_modules_auto.updating_automation_tools")"
+	box "Updating Automation Tools"
 	separator
 	echo
 
-	log_info "$(_tr "jinx_modules_auto.updating_automation_tools")"
+	log_info "Updating Automation Tools..."
 
 	_update_auto_wrapper
-	log_success "$(_tr "jinx_modules_auto.automation_tools_updated")"
+	log_success "Automation Tools updated"
 }
 
 _update_auto_wrapper() {
@@ -68,16 +68,16 @@ _update_auto_wrapper() {
 
 reinstall_auto() {
   separator
-  box "$(_tr "jinx_modules_auto.reinstalling_automation_tools")"
+  box "Reinstalling Automation Tools"
   separator
   echo
 
-  log_info "$(_tr "jinx_modules_auto.reinstalling_automation_tools")"
+  log_info "Reinstalling Automation Tools..."
   echo
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _reinstall_auto_wrapper
-  log_success "$(_tr "jinx_modules_auto.automation_tools_reinstalled_successfull")"
+  log_success "Automation Tools reinstalled successfully"
   separator
   echo
   list_item "n8n"

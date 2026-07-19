@@ -8,7 +8,7 @@ LOG_FILE="$JINX_CACHE/install_db.log"
 _install_mariadb_impl() {
 	mkdir -p "$(dirname "$LOG_FILE")"
 	if yes | pkg install mariadb &>>"$LOG_FILE"; then
-		log_success "$(_tr "jinx_tools_db_mariadb_install.mariadb_installed")"
+		log_success "MariaDB installed"
 		return 0
 	else
 		return 1
@@ -17,30 +17,30 @@ _install_mariadb_impl() {
 
 install_mariadb() {
 	if command -v mariadbd &>/dev/null; then
-		log_info "$(_tr "jinx_tools_db_mariadb_install.mariadb_is_already_installed")"
+		log_info "MariaDB is already installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_db_mariadb_install.installing_mariadb")"
+	log_info "Installing MariaDB..."
 	loading "Installing MariaDB" _install_mariadb_impl
 }
 
 _uninstall_mariadb_impl() {
 	mkdir -p "$(dirname "$LOG_FILE")"
 	if pkg uninstall mariadb -y &>>"$LOG_FILE"; then
-		log_success "$(_tr "jinx_tools_db_mariadb_install.mariadb_uninstalled")"
+		log_success "MariaDB uninstalled"
 		return 0
 	else
-		log_error "$(_tr "jinx_tools_db_mariadb_install.failed_to_uninstall_mariadb")"
+		log_error "Failed to uninstall MariaDB"
 		return 1
 	fi
 }
 
 uninstall_mariadb() {
 	if ! command -v mariadbd &>/dev/null; then
-		log_info "$(_tr "jinx_tools_db_mariadb_install.mariadb_is_not_installed")"
+		log_info "MariaDB is not installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_db_mariadb_install.uninstalling_mariadb")"
+	log_info "Uninstalling MariaDB..."
 	loading "Uninstalling MariaDB" _uninstall_mariadb_impl
 }
 

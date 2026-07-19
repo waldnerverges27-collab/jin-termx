@@ -7,30 +7,30 @@ LOG_FILE="$JINX_CACHE/install_npm.log"
 
 install_npm() {
 	separator
-	box "$(_tr "jinx_modules_npm.installing_node_js_modules")"
+	box "Installing Node.js Modules"
 	separator
 	echo
 
-	log_info "$(_tr "jinx_modules_npm.installing_node_js_global_modules")"
+	log_info "Installing Node.js global modules..."
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_npm_wrapper
-	log_success "$(_tr "jinx_modules_npm.node_js_global_modules_installed")"
+	log_success "Node.js global modules installed"
 	echo
-	list_item "$(_tr "jinx_modules_npm.typescript")"
-	list_item "$(_tr "jinx_modules_npm.nestjs_cli")"
-	list_item "$(_tr "jinx_modules_npm.prettier")"
-	list_item "$(_tr "jinx_modules_npm.live_server")"
-	list_item "$(_tr "jinx_modules_npm.localtunnel")"
-	list_item "$(_tr "jinx_modules_npm.vercel_cli")"
-	list_item "$(_tr "jinx_modules_npm.markserv")"
-	list_item "$(_tr "jinx_modules_npm.psql_format")"
-	list_item "$(_tr "jinx_modules_npm.npm_check_updates")"
-	list_item "$(_tr "jinx_modules_npm.ngrok")"
+	list_item "TypeScript"
+	list_item "NestJS CLI"
+	list_item "Prettier"
+	list_item "Live Server"
+	list_item "Localtunnel"
+	list_item "Vercel CLI"
+	list_item "Markserv"
+	list_item "PSQL Format"
+	list_item "NPM Check Updates"
+	list_item "Ngrok"
 	echo
 	separator
-	log_success "$(_tr "jinx_modules_npm.node_js_modules_installation_completed")"
+	log_success "Node.js modules installation completed"
 	separator
 	echo
 }
@@ -42,21 +42,21 @@ _install_npm_wrapper() {
 
 uninstall_npm() {
 	if ! command -v tsc &>/dev/null; then
-		log_info "$(_tr "jinx_modules_npm.node_js_modules_are_not_installed")"
+		log_info "Node.js Modules are not installed"
 		return 0
 	fi
 	separator
-	box "$(_tr "jinx_modules_npm.uninstalling_node_js_modules")"
+	box "Uninstalling Node.js Modules"
 	separator
 	echo
 
-	log_info "$(_tr "jinx_modules_npm.uninstalling_node_js_global_modules")"
+	log_info "Uninstalling Node.js global modules..."
 
 	_uninstall_npm_wrapper
-	log_success "$(_tr "jinx_modules_npm.node_js_global_modules_uninstalled")"
+	log_success "Node.js global modules uninstalled"
 	echo
 	separator
-	log_success "$(_tr "jinx_modules_npm.node_js_modules_uninstallation_completed")"
+	log_success "Node.js modules uninstallation completed"
 	separator
 	echo
 }
@@ -68,17 +68,17 @@ _uninstall_npm_wrapper() {
 
 update_npm() {
 	separator
-	box "$(_tr "jinx_modules_npm.updating_node_js_modules")"
+	box "Updating Node.js Modules"
 	separator
 	echo
 
-	log_info "$(_tr "jinx_modules_npm.updating_node_js_global_modules")"
+	log_info "Updating Node.js global modules..."
 
 	_update_npm_wrapper
-	log_success "$(_tr "jinx_modules_npm.node_js_global_modules_updated")"
+	log_success "Node.js global modules updated"
 	echo
 	separator
-	log_success "$(_tr "jinx_modules_npm.node_js_modules_update_completed")"
+	log_success "Node.js modules update completed"
 	separator
 	echo
 }
@@ -90,28 +90,28 @@ _update_npm_wrapper() {
 
 reinstall_npm() {
   separator
-  box "$(_tr "jinx_modules_npm.reinstalling_node_js_modules")"
+  box "Reinstalling Node.js Modules"
   separator
   echo
 
-  log_info "$(_tr "jinx_modules_npm.reinstalling_node_js_global_modules")"
+  log_info "Reinstalling Node.js global modules..."
 
   _reinstall_npm_wrapper
-  log_success "$(_tr "jinx_modules_npm.node_js_global_modules_reinstalled")"
+  log_success "Node.js global modules reinstalled"
   echo
-  list_item "$(_tr "jinx_modules_npm.typescript")"
-  list_item "$(_tr "jinx_modules_npm.nestjs_cli")"
-  list_item "$(_tr "jinx_modules_npm.prettier")"
-  list_item "$(_tr "jinx_modules_npm.live_server")"
-  list_item "$(_tr "jinx_modules_npm.localtunnel")"
-  list_item "$(_tr "jinx_modules_npm.vercel_cli")"
-  list_item "$(_tr "jinx_modules_npm.markserv")"
-  list_item "$(_tr "jinx_modules_npm.psql_format")"
-  list_item "$(_tr "jinx_modules_npm.npm_check_updates")"
-  list_item "$(_tr "jinx_modules_npm.ngrok")"
+  list_item "TypeScript"
+  list_item "NestJS CLI"
+  list_item "Prettier"
+  list_item "Live Server"
+  list_item "Localtunnel"
+  list_item "Vercel CLI"
+  list_item "Markserv"
+  list_item "PSQL Format"
+  list_item "NPM Check Updates"
+  list_item "Ngrok"
   echo
   separator
-  log_success "$(_tr "jinx_modules_npm.node_js_modules_reinstallation_completed")"
+  log_success "Node.js modules reinstallation completed"
   separator
   echo
 }

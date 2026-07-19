@@ -7,11 +7,11 @@ LOG_FILE="$JINX_CACHE/install_npm.log"
 
 _typescript_dependencies() {
   if command -v node &>/dev/null && command -v npm &>/dev/null; then
-    log_info "$(_tr "jinx_tools_npm_typescript_install.node_js_and_npm_are_already_installed")"
+    log_info "Node.js and npm are already installed"
     return 0
   fi
 
-  log_info "$(_tr "jinx_tools_npm_typescript_install.installing_nodejs")"
+  log_info "Installing Nodejs..."
   mkdir -p "$(dirname "$LOG_FILE")"
   yes | pkg install nodejs-lts &>>"$LOG_FILE"
 }
@@ -22,7 +22,7 @@ _install_typescript_npm() {
 
 _install_typescript_npm_impl() {
   if ! npm install -g typescript &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_npm_typescript_install.failed_to_install_typescript")"
+    log_error "Failed to install TypeScript"
     return 1
   fi
   return 0
@@ -32,14 +32,14 @@ install_typescript() {
   if command -v tsc &>/dev/null; then
     return 0
   fi
-  log_info "$(_tr "jinx_tools_npm_typescript_install.installing_typescript")"
+  log_info "Installing TypeScript..."
 
   _typescript_dependencies
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _install_typescript_npm || return 1
-  log_success "$(_tr "jinx_tools_npm_typescript_install.typescript_installed")"
+  log_success "TypeScript installed"
   return 0
 }
 
@@ -49,7 +49,7 @@ _uninstall_typescript_npm() {
 
 _uninstall_typescript_npm_impl() {
   if ! npm uninstall -g typescript &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_npm_typescript_install.failed_to_uninstall_typescript")"
+    log_error "Failed to uninstall TypeScript"
     return 1
   fi
   return 0
@@ -57,14 +57,14 @@ _uninstall_typescript_npm_impl() {
 
 uninstall_typescript() {
   if ! command -v tsc &>/dev/null; then
-    log_info "$(_tr "jinx_tools_npm_typescript_install.typescript_is_not_installed")"
+    log_info "TypeScript is not installed"
     return 0
   fi
-  log_info "$(_tr "jinx_tools_npm_typescript_install.uninstalling_typescript")"
+  log_info "Uninstalling TypeScript..."
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _uninstall_typescript_npm || return 1
-  log_success "$(_tr "jinx_tools_npm_typescript_install.typescript_uninstalled")"
+  log_success "TypeScript uninstalled"
   return 0
 }
 

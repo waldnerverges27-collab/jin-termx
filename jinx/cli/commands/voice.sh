@@ -5,13 +5,13 @@ import "@/utils/colors"
 
 voice_help() {
 	echo
-	box "$(_tr "jinx_cli_commands_voice.core_voice_speech_to_agent")"
+	box "CORE VOICE — Speech-to-Agent"
 	echo
-	log_info "$(_tr "jinx_cli_commands_voice.capture_voice_from_the_microphone_revie")"
+	log_info "Capture voice from the microphone, review it in nvim, copy to clipboard, and launch an AI agent."
 	echo
-	log_info "$(_tr "jinx_cli_commands_voice.usage_jinx_voice_agent")"
+	log_info "Usage: jinx voice [agent]"
 	echo
-	separator_section "$(_tr "jinx_cli_commands_voice.agents")"
+	separator_section "Agents"
 	echo
 	printf "    ${D_CYAN}%-16s${NC} %s\n" "opencode" "opencode run \"prompt\""
 	printf "    ${D_CYAN}%-16s${NC} %s\n" "claude-code" "claude -p \"prompt\""
@@ -28,7 +28,7 @@ voice_help() {
 	printf "    ${D_CYAN}%-16s${NC} %s\n" "qwen-code" "qwen -p \"prompt\""
 	printf "    ${D_CYAN}%-16s${NC} %s\n" "text" "Print prompt to stdout"
 	echo
-	separator_section "$(_tr "jinx_cli_commands_voice.examples")"
+	separator_section "Examples"
 	echo
 	printf "    ${D_CYAN}jinx voice${NC}                   # Show this help\n"
 	printf "    ${D_CYAN}jinx voice opencode${NC}          # Capture → nvim → opencode\n"
@@ -37,7 +37,7 @@ voice_help() {
 	printf "    ${D_CYAN}jinx voice text${NC}               # Capture → nvim → print to stdout\n"
 	printf "    ${D_CYAN}jinx voice !${NC}                  # Alias for 'text'\n"
 	echo
-	separator_section "$(_tr "jinx_cli_commands_voice.requirements")"
+	separator_section "Requirements"
 	echo
 	list_item "Termux:API package: ${D_CYAN}pkg install termux-api${NC}"
 	list_item "Neovim for editing: ${D_CYAN}jinx install editor${NC}"
@@ -55,15 +55,15 @@ voice_main() {
 
 	# ── dependency checks ──
 	if ! command -v termux-dialog &>/dev/null; then
-		log_error "$(_tr "jinx_cli_commands_voice.termux_api_is_not_installed")"
+		log_error "Termux:API is not installed"
 		list_item "Install the package: ${D_CYAN}pkg install termux-api${NC}"
-		list_item "$(_tr "jinx_cli_commands_voice.install_the_app_from_https_f_droid_or")"
+		list_item "Install the app from: https://f-droid.org/packages/com.termux.api"
 		separator
 		exit 1
 	fi
 
 	if ! command -v nvim &>/dev/null; then
-		log_error "$(_tr "jinx_cli_commands_voice.neovim_nvim_is_not_installed")"
+		log_error "Neovim (nvim) is not installed"
 		list_item "Install the editor: ${D_CYAN}jinx install editor${NC}"
 		separator
 		exit 1
@@ -76,12 +76,12 @@ voice_main() {
 	[[ "$agent" == "text" || "$agent" == "!" ]] && is_text=true
 
 	# ── capture voice ──
-	$is_text || log_info "$(_tr "jinx_cli_commands_voice.listening_through_the_microphone")"
+	$is_text || log_info "Listening through the microphone..."
 	local raw
 	raw="$(termux-dialog speech 2>/dev/null | grep -i "text" | cut -d '"' -f 4)"
 
 	if [[ -z "$raw" ]]; then
-		log_error "$(_tr "jinx_cli_commands_voice.no_speech_detected_or_dialog_cancelled")"
+		log_error "No speech detected or dialog cancelled"
 		separator
 		exit 1
 	fi
@@ -92,17 +92,17 @@ voice_main() {
 	echo "$raw" >"$tmpfile"
 
 	if [[ -t 0 ]] && [[ -t 1 ]]; then
-		$is_text || log_info "$(_tr "jinx_cli_commands_voice.review_the_prompt_in_nvim_fix_mistakes")"
+		$is_text || log_info "Review the prompt in nvim, fix mistakes, then save and quit"
 		nvim "$tmpfile" </dev/tty >/dev/tty || true
 	else
-		$is_text || log_warn "$(_tr "jinx_cli_commands_voice.no_tty_available_skipping_editor_usin")"
+		$is_text || log_warn "No TTY available, skipping editor — using raw capture"
 	fi
 
 	prompt="$(cat "$tmpfile" | xargs)"
 	rm -f "$tmpfile"
 
 	if [[ -z "$prompt" ]]; then
-		log_error "$(_tr "jinx_cli_commands_voice.prompt_is_empty_after_editing")"
+		log_error "Prompt is empty after editing"
 		separator
 		exit 1
 	fi
@@ -111,7 +111,7 @@ voice_main() {
 	if command -v termux-clipboard-set &>/dev/null; then
 		echo "$prompt" | termux-clipboard-set
 		if [[ "$agent" != "text" && "$agent" != "!" ]]; then
-			log_info "$(_tr "jinx_cli_commands_voice.prompt_copied_to_clipboard")"
+			log_info "Prompt copied to clipboard"
 		fi
 	fi
 
@@ -168,7 +168,7 @@ voice_main() {
 	*)
 		log_error "Unknown agent: $agent"
 		echo
-		log_info "$(_tr "jinx_cli_commands_voice.supported_agents")"
+		log_info "Supported agents:"
 		echo "  opencode, qoder, claude-code, codex, gemini-cli, hermes-agent,"
 		echo "  kilocode-cli, kimi-code, mimocode, mistral-vibe, openclaude, pi, qwen-code"
 		separator

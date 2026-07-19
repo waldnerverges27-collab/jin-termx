@@ -33,7 +33,7 @@ _nvchad_dependencies() {
     fi
   done
 
-  log_success "$(_tr "jinx_tools_editor_nvchad_install.nvchad_dependencies_installed")"
+  log_success "NvChad dependencies installed"
   return 0
 }
 
@@ -48,20 +48,20 @@ _install_nvchad_impl() {
     nvim --headless "+Lazy! sync" +qa &>>"$LOG_FILE"
     nvim --headless "+Lazy! clean nvim-treesitter" +qa &>>"$LOG_FILE"
     nvim --headless "+Lazy! install nvim-treesitter" +qa &>>"$LOG_FILE"
-    log_success "$(_tr "jinx_tools_editor_nvchad_install.nvchad_installed")"
+    log_success "NvChad installed"
     return 0
   else
-    log_error "$(_tr "jinx_tools_editor_nvchad_install.failed_to_install_nvchad")"
+    log_error "Failed to install NvChad"
     return 1
   fi
 }
 
 install_nvchad() {
   if [[ -d "$HOME/.config/nvim" ]]; then
-    log_info "$(_tr "jinx_tools_editor_nvchad_install.nvchad_already_installed")"
+    log_info "NvChad already installed"
     return 0
   fi
-  log_info "$(_tr "jinx_tools_editor_nvchad_install.installing_nvchad")"
+  log_info "Installing NvChad..."
   loading "Installing NvChad" _install_nvchad_impl
 }
 
@@ -71,18 +71,18 @@ _uninstall_nvchad_impl() {
     rm -rf ~/.local/state/nvim &>>"$LOG_FILE"
     rm -rf ~/.local/share/nvim &>>"$LOG_FILE"
     rm -rf "$NVCHAD_DIR" &>>"$LOG_FILE"
-    log_success "$(_tr "jinx_tools_editor_nvchad_install.nvchad_uninstalled")"
+    log_success "NvChad uninstalled"
   else
-    log_warn "$(_tr "jinx_tools_editor_nvchad_install.nvchad_not_installed")"
+    log_warn "NvChad not installed"
   fi
 }
 
 uninstall_nvchad() {
   if [[ ! -d "$HOME/.config/nvim" ]]; then
-    log_info "$(_tr "jinx_tools_editor_nvchad_install.nvchad_is_not_installed")"
+    log_info "NvChad is not installed"
     return 2
   fi
-  log_info "$(_tr "jinx_tools_editor_nvchad_install.uninstalling_nvchad")"
+  log_info "Uninstalling NvChad..."
   loading "Uninstalling NvChad" _uninstall_nvchad_impl
 }
 

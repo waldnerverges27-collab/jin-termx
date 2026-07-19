@@ -11,7 +11,7 @@ _install_gh_pkg() {
 
 _install_gh_pkg_impl() {
 	if ! yes | pkg install gh &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_dev_gh_install.failed_to_install_github_cli")"
+		log_error "Failed to install GitHub CLI"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_gh_pkg() {
 
 _uninstall_gh_pkg_impl() {
 	if ! pkg uninstall gh -y &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_dev_gh_install.failed_to_uninstall_github_cli")"
+		log_error "Failed to uninstall GitHub CLI"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_gh_update() {
 
 install_gh() {
 	if command -v gh &>/dev/null; then
-		log_info "$(_tr "jinx_tools_dev_gh_install.github_cli_is_already_installed")"
+		log_info "GitHub CLI is already installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_dev_gh_install.installing_github_cli")"
+	log_info "Installing GitHub CLI..."
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_gh_pkg || return 1
-	log_success "$(_tr "jinx_tools_dev_gh_install.github_cli_installed")"
+	log_success "GitHub CLI installed"
 	return 0
 }
 
 uninstall_gh() {
 	if ! command -v gh &>/dev/null; then
-		log_info "$(_tr "jinx_tools_dev_gh_install.github_cli_is_not_installed")"
+		log_info "GitHub CLI is not installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_dev_gh_install.uninstalling_github_cli")"
+	log_info "Uninstalling GitHub CLI..."
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_gh_pkg || return 1
-	log_success "$(_tr "jinx_tools_dev_gh_install.github_cli_uninstalled")"
+	log_success "GitHub CLI uninstalled"
 	return 0
 }
 

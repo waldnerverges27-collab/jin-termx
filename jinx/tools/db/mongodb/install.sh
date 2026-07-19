@@ -10,13 +10,13 @@ _install_mongodb_impl() {
 
 	if [[ ! -f $PREFIX/etc/apt/sources.list.d/tur.list ]]; then
 		if ! yes | pkg install tur-repo &>>"$LOG_FILE"; then
-			log_error "$(_tr "jinx_tools_db_mongodb_install.failed_to_install_tur_repo")"
+			log_error "Failed to install tur-repo"
 			return 1
 		fi
 	fi
 
 	if yes | pkg install mongodb &>>"$LOG_FILE"; then
-		log_success "$(_tr "jinx_tools_db_mongodb_install.mongodb_installed")"
+		log_success "MongoDB installed"
 		return 0
 	else
 		return 1
@@ -25,30 +25,30 @@ _install_mongodb_impl() {
 
 install_mongodb() {
 	if command -v mongod &>/dev/null; then
-		log_info "$(_tr "jinx_tools_db_mongodb_install.mongodb_is_already_installed")"
+		log_info "MongoDB is already installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_db_mongodb_install.installing_mongodb")"
+	log_info "Installing MongoDB..."
 	loading "Installing MongoDB" _install_mongodb_impl
 }
 
 _uninstall_mongodb_impl() {
 	mkdir -p "$(dirname "$LOG_FILE")"
 	if pkg uninstall mongodb -y &>>"$LOG_FILE"; then
-		log_success "$(_tr "jinx_tools_db_mongodb_install.mongodb_uninstalled")"
+		log_success "MongoDB uninstalled"
 		return 0
 	else
-		log_error "$(_tr "jinx_tools_db_mongodb_install.failed_to_uninstall_mongodb")"
+		log_error "Failed to uninstall MongoDB"
 		return 1
 	fi
 }
 
 uninstall_mongodb() {
 	if ! command -v mongod &>/dev/null; then
-		log_info "$(_tr "jinx_tools_db_mongodb_install.mongodb_is_not_installed")"
+		log_info "MongoDB is not installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_db_mongodb_install.uninstalling_mongodb")"
+	log_info "Uninstalling MongoDB..."
 	loading "Uninstalling MongoDB" _uninstall_mongodb_impl
 }
 

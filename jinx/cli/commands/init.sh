@@ -7,20 +7,20 @@ LOG_FILE="$JINX_CACHE/init_project.log"
 
 init_help() {
 	echo
-	box "$(_tr "jinx_cli_commands_init.jin_project_initializer")"
+	box "Jin Project Initializer"
 	echo
-	log_info "$(_tr "jinx_cli_commands_init.usage_jinx_init_template")"
+	log_info "Usage: jinx init <template>"
 	echo
-	log_info "$(_tr "jinx_cli_commands_init.run_this_inside_an_existing_project_to_c")"
+	log_info "Run this inside an existing project to configure it."
 	echo
-	separator_section "$(_tr "jinx_cli_commands_init.available_templates")"
+	separator_section "Available Templates"
 	echo
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "next" "Configure Next.js project"
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "react" "Configure React + Vite project"
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "nest" "Configure NestJS project"
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "express" "Configure Express.js API"
 	echo
-	separator_section "$(_tr "jinx_cli_commands_init.examples")"
+	separator_section "Examples"
 	echo
 	printf "    ${D_CYAN}cd my-next-app && jinx init next${NC}\n"
 	printf "    ${D_CYAN}cd my-react-app && jinx init react${NC}\n"
@@ -33,8 +33,8 @@ init_help() {
 
 check_project_exists() {
 	if [[ ! -f "package.json" ]]; then
-		log_error "$(_tr "jinx_cli_commands_init.no_project_found_in_current_directory")"
-		log_info "$(_tr "jinx_cli_commands_init.make_sure_you_re_inside_a_project_direct")"
+		log_error "No project found in current directory"
+		log_info "Make sure you're inside a project directory"
 		return 1
 	fi
 	return 0
@@ -110,7 +110,7 @@ _fix_pnpm_dev_engines() {
 		local temp
 		temp=$(mktemp)
 		if jq 'if .devEngines.packageManager.version then .devEngines.packageManager.version |= gsub("\\^";"") else . end' package.json >"$temp" && mv "$temp" package.json; then
-			log_info "$(_tr "jinx_cli_commands_init.fixed_pnpm_devengines_version_removed_s")"
+			log_info "Fixed pnpm devEngines version (removed semver range)"
 		fi
 	fi
 }
@@ -129,7 +129,7 @@ _detect_next_version() {
 # ===== NEXT.JS =====
 configure_next() {
 	separator
-	box "$(_tr "jinx_cli_commands_init.configuring_next_js_project")"
+	box "Configuring Next.js Project"
 	separator
 	echo
 
@@ -156,7 +156,7 @@ configure_next() {
 			DEV_DEPS+=("@next/swc-linux-arm64-gnu" "lightningcss-linux-arm64-gnu" "@tailwindcss/oxide-linux-arm64-gnu" "@unrs/resolver-binding-linux-arm64-gnu")
 		fi
 	else
-		log_info "$(_tr "jinx_cli_commands_init.turbopack_requires_the_glibc_toolchain")"
+		log_info "Turbopack requires the glibc toolchain (jinx install npm --turbopack)"
 		read_confirm_default "Install Turbopack toolchain now?" "n" INSTALL_TURBO
 		if [[ "$INSTALL_TURBO" == "y" ]]; then
 			import "@/tools/npm/turbopack/install"
@@ -164,7 +164,7 @@ configure_next() {
 				USE_TURBOPACK=true
 				DEV_DEPS+=("@next/swc-linux-arm64-gnu" "lightningcss-linux-arm64-gnu" "@tailwindcss/oxide-linux-arm64-gnu" "@unrs/resolver-binding-linux-arm64-gnu")
 			else
-				log_warn "$(_tr "jinx_cli_commands_init.turbopack_toolchain_installation_failed")"
+				log_warn "Turbopack toolchain installation failed — falling back to Webpack"
 			fi
 		fi
 	fi
@@ -222,7 +222,7 @@ configure_next() {
 supportedArchitectures[0]=android
 supportedArchitectures[1]=linux
 NPMRCEOF
-			log_info "$(_tr "jinx_cli_commands_init.configured_pnpm_for_multi_platform_nativ")"
+			log_info "Configured pnpm for multi-platform native bindings"
 		fi
 	fi
 
@@ -234,13 +234,13 @@ NPMRCEOF
 		section_title "Installing dependencies"
 		log_info "Packages: ${D_CYAN}${DEPS[*]}${NC}"
 		if ! loading "Installing dependencies" _install_pkgs "$PM" "${DEPS[@]}"; then
-			log_warn "$(_tr "jinx_cli_commands_init.some_dependencies_failed_to_install")"
+			log_warn "Some dependencies failed to install"
 		fi
 	fi
 
 	if [[ ${#DEV_DEPS[@]} -gt 0 ]]; then
 		if ! loading "Installing dev dependencies" _install_dev_pkgs "$PM" "${DEV_DEPS[@]}"; then
-			log_warn "$(_tr "jinx_cli_commands_init.some_dev_dependencies_failed_to_install")"
+			log_warn "Some dev dependencies failed to install"
 		fi
 	fi
 
@@ -254,7 +254,7 @@ NPMRCEOF
   "plugins": ["prettier-plugin-tailwindcss"]
 }
 EOF
-		log_success "$(_tr "jinx_cli_commands_init.created_prettierrc")"
+		log_success "Created .prettierrc"
 	fi
 
 	# ── Setup env ──
@@ -270,9 +270,9 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 # Auth (optional)
 # AUTH_SECRET=
 EOF
-			log_success "$(_tr "jinx_cli_commands_init.created_env_example")"
+			log_success "Created .env.example"
 		else
-			log_info "$(_tr "jinx_cli_commands_init.env_example_already_exists_skipping")"
+			log_info ".env.example already exists, skipping"
 		fi
 	fi
 
@@ -307,20 +307,20 @@ EOF
 		_ensure_barrel "src/hooks" '// Custom React hooks'
 		_ensure_barrel "src/config" 'export const config = { apiUrl: process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000" }'
 
-		log_success "$(_tr "jinx_cli_commands_init.folder_structure_created")"
+		log_success "Folder structure created"
 	fi
 
 	# ── Done ──
 	echo
 	separator
-	log_success "$(_tr "jinx_cli_commands_init.next_js_configured")"
+	log_success "Next.js configured!"
 	separator
 	echo
 	list_item "Package manager: ${D_CYAN}$PM${NC}"
-	$USE_TURBOPACK && list_item "Bundler: ${D_CYAN}Turbopack${NC}" || list_item "$(_tr "jinx_cli_commands_init.bundler_webpack")"
+	$USE_TURBOPACK && list_item "Bundler: ${D_CYAN}Turbopack${NC}" || list_item "Bundler: Webpack"
 	list_item "Dependencies: ${D_CYAN}${DEPS[*]:-(none selected)}${NC}"
 	echo
-	log_info "$(_tr "jinx_cli_commands_init.next_steps")"
+	log_info "Next steps:"
 	echo
 	if $USE_TURBOPACK; then
 		list_item "Start: ${D_CYAN}next-turbopack dev${NC}"
@@ -355,7 +355,7 @@ _ensure_barrel() {
 _configure_tailwind_vite() {
 	local config_file="vite.config.ts"
 	if [[ ! -f "$config_file" ]]; then
-		log_warn "$(_tr "jinx_cli_commands_init.vite_config_ts_not_found_skipping_tailw")"
+		log_warn "vite.config.ts not found, skipping Tailwind plugin config"
 		return 1
 	fi
 
@@ -365,7 +365,7 @@ _configure_tailwind_vite() {
 		last_import_line=$(grep -n "^import " "$config_file" | tail -1 | cut -d: -f1)
 		if [[ -n "$last_import_line" ]]; then
 			sed -i "${last_import_line}a import tailwindcss from '@tailwindcss/vite';" "$config_file"
-			log_info "$(_tr "jinx_cli_commands_init.added_tailwindcss_import_to_vite_config")"
+			log_info "Added tailwindcss import to vite.config.ts"
 		fi
 	fi
 
@@ -378,7 +378,7 @@ _configure_tailwind_vite() {
 			bracket_line=$(awk -v start="$plugins_line" 'NR >= start && /\[/ { print NR; exit }' "$config_file")
 			if [[ -n "$bracket_line" ]]; then
 				sed -i "${bracket_line}a\\  tailwindcss()," "$config_file"
-				log_info "$(_tr "jinx_cli_commands_init.added_tailwindcss_plugin_to_vite_confi")"
+				log_info "Added tailwindcss() plugin to vite.config.ts"
 			fi
 		fi
 	fi
@@ -389,13 +389,13 @@ _configure_tailwind_css() {
 	if [[ ! -f "$css_file" ]]; then
 		mkdir -p src
 		echo '@import "tailwindcss";' >"$css_file"
-		log_info "$(_tr "jinx_cli_commands_init.created_src_index_css_with_tailwind_impo")"
+		log_info "Created src/index.css with Tailwind import"
 		return 0
 	fi
 
 	if ! grep -q '@import "tailwindcss"' "$css_file"; then
 		sed -i '1i @import "tailwindcss";' "$css_file"
-		log_info "$(_tr "jinx_cli_commands_init.added_tailwind_import_to_src_index_css")"
+		log_info "Added Tailwind import to src/index.css"
 	fi
 }
 
@@ -407,7 +407,7 @@ section_title() {
 # ===== REACT + VITE =====
 configure_react() {
 	separator
-	box "$(_tr "jinx_cli_commands_init.configuring_react_vite_project")"
+	box "Configuring React + Vite Project"
 	separator
 	echo
 
@@ -419,9 +419,9 @@ configure_react() {
 	echo
 
 	if ! grep -q "vite" package.json 2>/dev/null; then
-		log_warn "$(_tr "jinx_cli_commands_init.this_doesn_t_appear_to_be_a_vite_project")"
+		log_warn "This doesn't appear to be a Vite project"
 		read_confirm "Continue anyway?" CONFIRM
-		[[ "$CONFIRM" != "y" ]] && { log_warn "$(_tr "jinx_cli_commands_init.cancelled")"; return 0; }
+		[[ "$CONFIRM" != "y" ]] && { log_warn "Cancelled"; return 0; }
 	fi
 
 	local -a DEPS=()
@@ -481,7 +481,7 @@ configure_react() {
 		echo
 		section_title "Installing dependencies"
 		if ! loading "Installing dependencies" _install_pkgs "$PM" "${DEPS[@]}"; then
-			log_warn "$(_tr "jinx_cli_commands_init.some_dependencies_failed_to_install")"
+			log_warn "Some dependencies failed to install"
 		fi
 	fi
 
@@ -493,9 +493,9 @@ configure_react() {
 		if loading "Installing Tailwind CSS" _install_dev_pkgs "$PM" "${DEV_DEPS[@]}"; then
 			_configure_tailwind_vite
 			_configure_tailwind_css
-			log_success "$(_tr "jinx_cli_commands_init.tailwind_css_configured")"
+			log_success "Tailwind CSS configured"
 		else
-			log_warn "$(_tr "jinx_cli_commands_init.tailwind_css_installation_failed")"
+			log_warn "Tailwind CSS installation failed"
 		fi
 	fi
 
@@ -509,7 +509,7 @@ configure_react() {
   "plugins": ["prettier-plugin-tailwindcss"]
 }
 EOF
-		log_success "$(_tr "jinx_cli_commands_init.created_prettierrc")"
+		log_success "Created .prettierrc"
 	fi
 
 	# ── Env ──
@@ -519,7 +519,7 @@ EOF
 		cat >.env.example <<'EOF'
 VITE_API_URL=http://localhost:4000
 EOF
-		log_success "$(_tr "jinx_cli_commands_init.created_env_example")"
+		log_success "Created .env.example"
 	fi
 
 	# ── Structure ──
@@ -552,12 +552,12 @@ EOF
 		_ensure_barrel "src/hooks" '// Custom hooks'
 		_ensure_barrel "src/config" 'export const config = { apiUrl: import.meta.env.VITE_API_URL || "http://localhost:4000" }'
 
-		log_success "$(_tr "jinx_cli_commands_init.folder_structure_created")"
+		log_success "Folder structure created"
 	fi
 
 	echo
 	separator
-	log_success "$(_tr "jinx_cli_commands_init.react_vite_configured")"
+	log_success "React + Vite configured!"
 	separator
 	echo
 	list_item "Dependencies: ${D_CYAN}${DEPS[*]:-(none selected)}${NC}"
@@ -569,7 +569,7 @@ EOF
 # ===== EXPRESS.JS =====
 configure_express() {
 	separator
-	box "$(_tr "jinx_cli_commands_init.configuring_express_js_project")"
+	box "Configuring Express.js Project"
 	separator
 	echo
 
@@ -617,11 +617,11 @@ configure_express() {
 	[[ "$USE_UPLOAD" == "y" ]] && DEV_DEPS+=("@types/multer")
 
 	if ! loading "Installing dependencies" _install_pkgs "$PM" "${DEPS[@]}"; then
-		log_warn "$(_tr "jinx_cli_commands_init.some_dependencies_failed_to_install")"
+		log_warn "Some dependencies failed to install"
 	fi
 
 	if ! loading "Installing dev dependencies" _install_dev_pkgs "$PM" "${DEV_DEPS[@]}"; then
-		log_warn "$(_tr "jinx_cli_commands_init.some_dev_dependencies_failed_to_install")"
+		log_warn "Some dev dependencies failed to install"
 	fi
 
 	# ── Structure ──
@@ -679,7 +679,7 @@ configure_express() {
   "exclude": ["node_modules", "dist"]
 }
 JSONCFG
-	log_success "$(_tr "jinx_cli_commands_init.created_tsconfig_json")"
+	log_success "Created tsconfig.json"
 
 	# .env.example
 	if [[ "$SETUP_ENV" == "y" ]]; then
@@ -691,7 +691,7 @@ DB_NAME=dbname
 JWT_SECRET=change-me-to-a-random-string
 FRONTEND_URL=http://localhost:3000
 ENVEOF
-		log_success "$(_tr "jinx_cli_commands_init.created_env_example")"
+		log_success "Created .env.example"
 	fi
 
 	# src/config/env.ts
@@ -704,7 +704,7 @@ export const DB_NAME = process.env.DATABASE_URL?.split("/").pop() || "dbname";
 export const JWT_SECRET = process.env.JWT_SECRET || "change-me";
 export const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 CFGEOF
-	log_success "$(_tr "jinx_cli_commands_init.created_src_config_env_ts")"
+	log_success "Created src/config/env.ts"
 
 	# src/app.ts
 	mkdir -p src
@@ -757,7 +757,7 @@ app.use("/api/product", productRoutes);
 
 export default app;
 APPEOF
-		log_success "$(_tr "jinx_cli_commands_init.created_src_app_ts")"
+		log_success "Created src/app.ts"
 	fi
 
 	# src/index.ts
@@ -781,7 +781,7 @@ async function main() {
 
 main();
 INDEXEOF
-		log_success "$(_tr "jinx_cli_commands_init.created_src_index_ts")"
+		log_success "Created src/index.ts"
 	fi
 
 	# src/database/data-source.ts
@@ -813,7 +813,7 @@ export const AppDataSource = new DataSource({
   },
 });
 DSEOF
-		log_success "$(_tr "jinx_cli_commands_init.created_src_database_data_source_ts")"
+		log_success "Created src/database/data-source.ts"
 	fi
 
 	# src/entities/User.ts
@@ -852,7 +852,7 @@ export class User {
   updatedAt: Date;
 }
 USEREOF
-		log_success "$(_tr "jinx_cli_commands_init.created_src_entities_user_ts")"
+		log_success "Created src/entities/User.ts"
 	fi
 
 	# src/entities/Product.ts
@@ -903,7 +903,7 @@ export class Product {
   updatedAt: Date;
 }
 PRODEOF
-		log_success "$(_tr "jinx_cli_commands_init.created_src_entities_product_ts")"
+		log_success "Created src/entities/Product.ts"
 	fi
 
 	# src/routes/user.routes.ts
@@ -928,7 +928,7 @@ router.post("/", (req, res) => {
 
 export default router;
 USERRTEOF
-		log_success "$(_tr "jinx_cli_commands_init.created_src_routes_user_routes_ts")"
+		log_success "Created src/routes/user.routes.ts"
 	fi
 
 	# src/routes/product.routes.ts
@@ -952,7 +952,7 @@ router.post("/", (req, res) => {
 
 export default router;
 PRODRTEOF
-		log_success "$(_tr "jinx_cli_commands_init.created_src_routes_product_routes_ts")"
+		log_success "Created src/routes/product.routes.ts"
 	fi
 
 	# ── Scripts ──
@@ -986,12 +986,12 @@ PRODRTEOF
 				"mg:show": "npx typeorm -- migration:show -d src/database/data-source.ts"
 			}' package.json >"$temp" && mv "$temp" package.json
 		fi
-		log_success "$(_tr "jinx_cli_commands_init.added_scripts_to_package_json")"
+		log_success "Added scripts to package.json"
 	fi
 
 	echo
 	separator
-	log_success "$(_tr "jinx_cli_commands_init.express_js_configured")"
+	log_success "Express.js configured!"
 	separator
 	echo
 	list_item "Start: ${D_CYAN}$PM run dev${NC}"
@@ -1002,7 +1002,7 @@ PRODRTEOF
 # ===== NESTJS =====
 configure_nest() {
 	separator
-	box "$(_tr "jinx_cli_commands_init.configuring_nestjs_project")"
+	box "Configuring NestJS Project"
 	separator
 	echo
 
@@ -1014,9 +1014,9 @@ configure_nest() {
 	echo
 
 	if ! grep -q "@nestjs" package.json 2>/dev/null; then
-		log_warn "$(_tr "jinx_cli_commands_init.this_doesn_t_appear_to_be_a_nestjs_proje")"
+		log_warn "This doesn't appear to be a NestJS project"
 		read_confirm "Continue anyway?" CONFIRM
-		[[ "$CONFIRM" != "y" ]] && { log_warn "$(_tr "jinx_cli_commands_init.cancelled")"; return 0; }
+		[[ "$CONFIRM" != "y" ]] && { log_warn "Cancelled"; return 0; }
 	fi
 
 	echo
@@ -1038,19 +1038,19 @@ configure_nest() {
 		echo
 		section_title "Installing dependencies"
 		if ! loading "Installing dependencies" _install_pkgs "$PM" "${DEPS[@]}"; then
-			log_warn "$(_tr "jinx_cli_commands_init.some_dependencies_failed_to_install")"
+			log_warn "Some dependencies failed to install"
 		fi
 	fi
 
 	if [[ ${#DEV_DEPS[@]} -gt 0 ]]; then
 		if ! loading "Installing dev dependencies" _install_dev_pkgs "$PM" "${DEV_DEPS[@]}"; then
-			log_warn "$(_tr "jinx_cli_commands_init.some_dev_dependencies_failed_to_install")"
+			log_warn "Some dev dependencies failed to install"
 		fi
 	fi
 
 	echo
 	separator
-	log_success "$(_tr "jinx_cli_commands_init.nestjs_configured")"
+	log_success "NestJS configured!"
 	separator
 	echo
 	list_item "Start: ${D_CYAN}$PM run start:dev${NC}"

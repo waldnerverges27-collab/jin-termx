@@ -7,29 +7,29 @@ install_main() {
 
   if [[ $# -eq 0 ]]; then
     echo
-    box "$(_tr "jinx_cli_commands_install.core_install")"
+    box "Core Install"
     echo
-    log_info "$(_tr "jinx_cli_commands_install.usage_jinx_install_target")"
-    log_info "$(_tr "jinx_cli_commands_install.usage_jinx_install_target_tool1_t")"
+    log_info "Usage: jinx install <target>"
+    log_info "Usage: jinx install <target> --tool1 --tool2"
     echo
-    log_info "$(_tr "jinx_cli_commands_install.available_targets")"
+    log_info "Available targets:"
     echo
-    list_item "$(_tr "jinx_cli_commands_install.lang_language_packages_node_js")"
-    list_item "$(_tr "jinx_cli_commands_install.db_databases_postgresql_mari")"
-    list_item "$(_tr "jinx_cli_commands_install.ai_ai_tools_opencode_gentle")"
-    list_item "$(_tr "jinx_cli_commands_install.editor_code_editor_neovim_nvcha")"
-    list_item "$(_tr "jinx_cli_commands_install.dev_development_tools")"
-    list_item "$(_tr "jinx_cli_commands_install.npm_node_js_global_modules_npm")"
-    list_item "$(_tr "jinx_cli_commands_install.shell_zsh_oh_my_zsh_plugins")"
-    list_item "$(_tr "jinx_cli_commands_install.ui_termux_ui_font_cursor_ex")"
-    list_item "$(_tr "jinx_cli_commands_install.auto_automation_tools_n8n")"
+    list_item "lang       - Language packages (Node.js, Python, Perl, PHP, Rust, C, C++, Go)"
+    list_item "db         - Databases (PostgreSQL, MariaDB, SQLite, MongoDB)"
+    list_item "ai         - AI tools (OpenCode, Gentle AI, Claude Code, etc.)"
+    list_item "editor     - Code editor (Neovim + NvChad)"
+    list_item "dev        - Development tools"
+    list_item "npm        - Node.js global modules (npm packages)"
+    list_item "shell      - ZSH + Oh My Zsh + plugins"
+    list_item "ui         - Termux UI (font, cursor, extra-keys, banner)"
+    list_item "auto       - Automation Tools (n8n)"
 
     echo
-    log_info "$(_tr "jinx_cli_commands_install.install_specific_tools_with_flags")"
+    log_info "Install specific tools with flags:"
     echo
-    list_item "$(_tr "jinx_cli_commands_install.jinx_install_ai_qwen_code_ollama")"
-    list_item "$(_tr "jinx_cli_commands_install.jinx_install_db_postgresql_sqlite")"
-    list_item "$(_tr "jinx_cli_commands_install.jinx_install_dev_gh_fzf_jq")"
+    list_item "jinx install ai --qwen-code --ollama"
+    list_item "jinx install db --postgresql --sqlite"
+    list_item "jinx install dev --gh --fzf --jq"
     list_item "Run ${D_CYAN}jinx list <target>${NC} to see all available tools"
     echo
     return
@@ -51,7 +51,7 @@ install_main() {
 
   # If no module target specified, show error
   if [[ -z "$module_target" ]]; then
-    log_error "$(_tr "jinx_cli_commands_install.no_target_specified")"
+    log_error "No target specified"
     echo "Run 'jinx install' to see available targets"
     return 1
   fi

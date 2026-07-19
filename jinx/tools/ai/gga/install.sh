@@ -42,13 +42,13 @@ _gga_clone_or_update_repo_impl() {
 
 	if [ -d "$GGA_DATA_DIR/.git" ]; then
 		if ! git -C "$GGA_DATA_DIR" pull --ff-only &>>"$LOG_FILE"; then
-			log_error "$(_tr "jinx_tools_ai_gga_install.failed_to_update_gga_repo")"
+			log_error "Failed to update GGA repo"
 			return 1
 		fi
 	else
 		mkdir -p "$(dirname "$GGA_DATA_DIR")"
 		if ! git clone "$repo_url" "$GGA_DATA_DIR" &>>"$LOG_FILE"; then
-			log_error "$(_tr "jinx_tools_ai_gga_install.failed_to_clone_gga_repo")"
+			log_error "Failed to clone GGA repo"
 			return 1
 		fi
 	fi
@@ -72,7 +72,7 @@ _gga_apply_termux_patches_impl() {
 	git -C "$GGA_DATA_DIR" checkout -- . &>/dev/null || true
 
 	if ! bash "$patch_script" "$GGA_DATA_DIR" &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_ai_gga_install.failed_to_apply_termux_patches")"
+		log_error "Failed to apply Termux patches"
 		return 1
 	fi
 
@@ -99,11 +99,11 @@ _gga_run_installer_impl() {
 
 install_gga() {
 	if command -v gga &>/dev/null; then
-		log_info "$(_tr "jinx_tools_ai_gga_install.gga_is_already_installed")"
+		log_info "GGA is already installed"
 		return 2
 	fi
 
-	log_info "$(_tr "jinx_tools_ai_gga_install.installing_gga")"
+	log_info "Installing GGA..."
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
@@ -112,24 +112,24 @@ install_gga() {
 	_gga_apply_termux_patches || return 1
 	_gga_run_installer || return 1
 
-	log_success "$(_tr "jinx_tools_ai_gga_install.gga_installed")"
+	log_success "GGA installed"
 	return 0
 }
 
 uninstall_gga() {
 	if ! command -v gga &>/dev/null; then
-		log_info "$(_tr "jinx_tools_ai_gga_install.gga_is_not_installed")"
+		log_info "GGA is not installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_ai_gga_install.uninstalling_gga")"
+	log_info "Uninstalling GGA..."
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	if [ -d "$GGA_DATA_DIR" ] && [ -f "$GGA_DATA_DIR/uninstall.sh" ]; then
-		log_info "$(_tr "jinx_tools_ai_gga_install.running_gga_uninstaller")"
+		log_info "Running GGA uninstaller..."
 		# Apply patches first so uninstall.sh knows about Termux paths
 		_gga_apply_termux_patches_impl &>/dev/null || true
 		if ! (cd "$GGA_DATA_DIR" && printf "n\n" | bash ./uninstall.sh) &>>"$LOG_FILE"; then
-			log_warn "$(_tr "jinx_tools_ai_gga_install.gga_uninstall_sh_failed_falling_back_to")"
+			log_warn "GGA uninstall.sh failed, falling back to manual cleanup"
 		fi
 	fi
 
@@ -138,10 +138,10 @@ uninstall_gga() {
 	rm -rf "$GGA_DATA_DIR"
 
 	if [ ! -f "$PREFIX/bin/gga" ] && [ ! -d "$GGA_DATA_DIR" ]; then
-		log_success "$(_tr "jinx_tools_ai_gga_install.gga_uninstalled")"
+		log_success "GGA uninstalled"
 		return 0
 	else
-		log_error "$(_tr "jinx_tools_ai_gga_install.failed_to_uninstall_gga")"
+		log_error "Failed to uninstall GGA"
 		return 1
 	fi
 }
@@ -153,7 +153,7 @@ _update_gga() {
 	_gga_apply_termux_patches || return 1
 	_gga_run_installer || return 1
 
-	log_success "$(_tr "jinx_tools_ai_gga_install.gga_updated")"
+	log_success "GGA updated"
 	return 0
 }
 

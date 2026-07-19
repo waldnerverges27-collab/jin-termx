@@ -39,7 +39,7 @@ _install_qwen_code_npm_impl() {
   export ANDROID_API_LEVEL=24
 
   if ! npm install -g @qwen-code/qwen-code &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_qwen-code_install.failed_to_install_qwen_code")"
+    log_error "Failed to install Qwen Code"
     return 1
   fi
 
@@ -48,38 +48,38 @@ _install_qwen_code_npm_impl() {
 
 install_qwen_code() {
   if command -v qwen &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_qwen-code_install.qwen_code_is_already_installed")"
+    log_info "Qwen Code is already installed"
     return 2
   fi
 
-  log_info "$(_tr "jinx_tools_ai_qwen-code_install.installing_qwen_code")"
+  log_info "Installing Qwen Code..."
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _qwen_code_dependencies || return 1
   _install_qwen_code_npm || return 1
 
-  log_success "$(_tr "jinx_tools_ai_qwen-code_install.qwen_code_installed_successfully")"
+  log_success "Qwen Code installed successfully"
   return 0
 }
 
 uninstall_qwen_code() {
   if ! command -v qwen &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_qwen-code_install.qwen_code_is_not_installed")"
+    log_info "Qwen Code is not installed"
     return 2
   fi
-  log_info "$(_tr "jinx_tools_ai_qwen-code_install.uninstalling_qwen_code")"
+  log_info "Uninstalling Qwen Code..."
   mkdir -p "$(dirname "$LOG_FILE")"
 
   loading "Removing Qwen Code" _uninstall_qwen_code_impl
 
-  log_success "$(_tr "jinx_tools_ai_qwen-code_install.qwen_code_uninstalled")"
+  log_success "Qwen Code uninstalled"
   return 0
 }
 
 _uninstall_qwen_code_impl() {
   if ! npm uninstall -g @qwen-code/qwen-code &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_qwen-code_install.failed_to_uninstall_qwen_code")"
+    log_error "Failed to uninstall Qwen Code"
     return 1
   fi
   return 0
@@ -98,7 +98,7 @@ _update_qwen_code_impl() {
   export ANDROID_API_LEVEL=24
 
   if ! npm update -g @qwen-code/qwen-code &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_qwen-code_install.failed_to_update_qwen_code")"
+    log_error "Failed to update Qwen Code"
     return 1
   fi
   return 0

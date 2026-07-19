@@ -39,14 +39,14 @@ _kimchi_install_deps_native() {
 _kimchi_install_deps_native_impl() {
   if [[ ! -f $PREFIX/etc/apt/sources.list.d/glibc.list ]]; then
     if ! yes | pkg install glibc-repo &>>"$LOG_FILE"; then
-      log_error "$(_tr "jinx_tools_ai_kimchi_install.failed_to_install_glibc_repo")"
+      log_error "Failed to install glibc-repo"
       return 1
     fi
   fi
 
   if [[ ! -f $PREFIX/glibc/lib/libc.so.6 ]]; then
     if ! yes | pkg install glibc &>>"$LOG_FILE"; then
-      log_error "$(_tr "jinx_tools_ai_kimchi_install.failed_to_install_glibc")"
+      log_error "Failed to install glibc"
       return 1
     fi
   fi
@@ -83,7 +83,7 @@ _download_kimchi_binary_impl() {
   local latest_version
   latest_version=$(_get_latest_kimchi_version)
   if [ -z "$latest_version" ]; then
-    log_error "$(_tr "jinx_tools_ai_kimchi_install.failed_to_fetch_latest_kimchi_version")"
+    log_error "Failed to fetch latest Kimchi version"
     return 1
   fi
 
@@ -93,19 +93,19 @@ _download_kimchi_binary_impl() {
   local download_url="https://github.com/getkimchi/kimchi/releases/download/$latest_version/$tarball"
 
   if ! curl -fsSL "$download_url" -o "$KIMCHI_DATA_DIR/$tarball" &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_kimchi_install.failed_to_download_kimchi_binary")"
+    log_error "Failed to download Kimchi binary"
     return 1
   fi
 
   if ! tar -zxf "$KIMCHI_DATA_DIR/$tarball" -C "$KIMCHI_DATA_DIR" &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_kimchi_install.failed_to_extract_kimchi_binary")"
+    log_error "Failed to extract Kimchi binary"
     return 1
   fi
 
   rm -f "$KIMCHI_DATA_DIR/$tarball"
 
   if [ ! -f "$KIMCHI_DATA_DIR/bin/kimchi" ]; then
-    log_error "$(_tr "jinx_tools_ai_kimchi_install.kimchi_binary_not_found_after_extraction")"
+    log_error "Kimchi binary not found after extraction"
     return 1
   fi
 
@@ -134,7 +134,7 @@ _compile_kimchi_helper_impl() {
   fi
 
   if ! clang -O2 -o "$PREFIX/bin/kimchi" "$HELPER_SRC" &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_kimchi_install.failed_to_compile_kimchi_helper")"
+    log_error "Failed to compile kimchi helper"
     return 1
   fi
 
@@ -146,7 +146,7 @@ _install_kimchi_native() {
   _kimchi_install_deps_native || return 1
   _download_kimchi_binary || return 1
   _compile_kimchi_helper || return 1
-  log_success "$(_tr "jinx_tools_ai_kimchi_install.kimchi_installed_natively")"
+  log_success "Kimchi installed natively"
   return 0
 }
 
@@ -172,7 +172,7 @@ _install_kimchi_proot_impl() {
   local latest_version
   latest_version=$(_get_latest_kimchi_version)
   if [ -z "$latest_version" ]; then
-    log_error "$(_tr "jinx_tools_ai_kimchi_install.failed_to_fetch_latest_kimchi_version")"
+    log_error "Failed to fetch latest Kimchi version"
     return 1
   fi
 
@@ -194,14 +194,14 @@ _install_kimchi_proot_impl() {
   ubuntu_root="$(_kimchi_detect_ubuntu_root)"
 
   if [ -z "$ubuntu_root" ]; then
-    log_error "$(_tr "jinx_tools_ai_kimchi_install.ubuntu_rootfs_not_found")"
+    log_error "Ubuntu rootfs not found"
     return 1
   fi
 
   local kimchi_bin="$ubuntu_root/usr/local/bin/kimchi"
 
   if [ ! -f "$kimchi_bin" ]; then
-    log_error "$(_tr "jinx_tools_ai_kimchi_install.kimchi_binary_not_found_after_install")"
+    log_error "Kimchi binary not found after install"
     return 1
   fi
 
@@ -218,11 +218,11 @@ _install_kimchi_proot_impl() {
 
 install_kimchi() {
   if command -v kimchi &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_kimchi_install.kimchi_is_already_installed")"
+    log_info "Kimchi is already installed"
     return 2
   fi
 
-  log_info "$(_tr "jinx_tools_ai_kimchi_install.select_installation_method_for_kimchi")"
+  log_info "Select installation method for Kimchi:"
 
   read_select "Installation method" SELECTED_METHOD \
     "Native (recommended) - Compile with glibc support" \
@@ -242,7 +242,7 @@ uninstall_kimchi() {
   mkdir -p "$(dirname "$LOG_FILE")"
 
   if [ ! -f "$PREFIX/bin/kimchi" ]; then
-    log_warn "$(_tr "jinx_tools_ai_kimchi_install.kimchi_is_not_installed")"
+    log_warn "Kimchi is not installed"
     return 1
   fi
 
@@ -254,17 +254,17 @@ _uninstall_kimchi_impl() {
     rm -f "$PREFIX/bin/kimchi"
     rm -rf "$KIMCHI_DATA_DIR"
     rm -f "$HOME/.local/share/kimchi"
-    log_success "$(_tr "jinx_tools_ai_kimchi_install.kimchi_native_uninstalled")"
+    log_success "Kimchi (native) uninstalled"
     return 0
   fi
 
   _kimchi_proot_ubuntu /bin/bash -c 'rm -f /usr/local/bin/kimchi && rm -rf /usr/local/share/kimchi' &>>"$LOG_FILE"
 
   if rm -f "$PREFIX/bin/kimchi" &>>"$LOG_FILE"; then
-    log_success "$(_tr "jinx_tools_ai_kimchi_install.kimchi_proot_distro_uninstalled")"
+    log_success "Kimchi (proot-distro) uninstalled"
     return 0
   else
-    log_error "$(_tr "jinx_tools_ai_kimchi_install.failed_to_uninstall_kimchi")"
+    log_error "Failed to uninstall Kimchi"
     return 1
   fi
 }
@@ -292,7 +292,7 @@ _update_kimchi_proot_impl() {
   local latest_version
   latest_version=$(_get_latest_kimchi_version)
   if [ -z "$latest_version" ]; then
-    log_error "$(_tr "jinx_tools_ai_kimchi_install.failed_to_fetch_latest_kimchi_version")"
+    log_error "Failed to fetch latest Kimchi version"
     return 1
   fi
 
@@ -314,11 +314,11 @@ _update_kimchi_proot_impl() {
   kimchi_bin="$(_kimchi_detect_ubuntu_root)/usr/local/bin/kimchi"
 
   if [ ! -f "$kimchi_bin" ]; then
-    log_error "$(_tr "jinx_tools_ai_kimchi_install.kimchi_binary_not_found_after_update")"
+    log_error "Kimchi binary not found after update"
     return 1
   fi
 
-  log_success "$(_tr "jinx_tools_ai_kimchi_install.kimchi_proot_distro_updated")"
+  log_success "Kimchi (proot-distro) updated"
   return 0
 }
 

@@ -24,7 +24,7 @@ _powerlevel10k_dependencies() {
     fi
   done
 
-  log_success "$(_tr "jinx_tools_shell_powerlevel10k_install.shell_dependencies_installed")"
+  log_success "Shell dependencies installed"
   return 0
 }
 
@@ -35,7 +35,7 @@ _install_powerlevel10k_git() {
 _install_powerlevel10k_git_impl() {
   mkdir -p "$(dirname "$LOG_FILE")"
   if ! git clone --depth=1 "https://github.com/romkatv/powerlevel10k.git" "$ZSH_PLUGINS_DIR/powerlevel10k" &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_shell_powerlevel10k_install.failed_to_install_powerlevel10k")"
+    log_error "Failed to install powerlevel10k"
     return 1
   fi
   git -C "$ZSH_PLUGINS_DIR/powerlevel10k" fetch --tags --depth=1 &>>"$LOG_FILE"
@@ -44,20 +44,20 @@ _install_powerlevel10k_git_impl() {
 
 install_powerlevel10k() {
   if [[ -d "$ZSH_PLUGINS_DIR/powerlevel10k" ]]; then
-    log_info "$(_tr "jinx_tools_shell_powerlevel10k_install.powerlevel10k_already_installed")"
+    log_info "powerlevel10k already installed"
     return 0
   fi
 
   _powerlevel10k_dependencies
 
   _install_powerlevel10k_git || return 1
-  log_success "$(_tr "jinx_tools_shell_powerlevel10k_install.installed")"
+  log_success "Installed"
   return 0
 }
 
 _uninstall_powerlevel10k_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/powerlevel10k" ]]; then
-    log_info "$(_tr "jinx_tools_shell_powerlevel10k_install.powerlevel10k_is_not_installed")"
+    log_info "powerlevel10k is not installed"
     return 0
   fi
 
@@ -74,7 +74,7 @@ _update_powerlevel10k() {
 
 _update_powerlevel10k_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/powerlevel10k/.git" ]]; then
-    log_warn "$(_tr "jinx_tools_shell_powerlevel10k_install.powerlevel10k_not_installed")"
+    log_warn "powerlevel10k not installed"
     return 0
   fi
 

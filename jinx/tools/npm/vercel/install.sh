@@ -7,11 +7,11 @@ LOG_FILE="$JINX_CACHE/install_npm.log"
 
 _vercel_dependencies() {
   if command -v node &>/dev/null && command -v npm &>/dev/null; then
-    log_info "$(_tr "jinx_tools_npm_vercel_install.node_js_and_npm_are_already_installed")"
+    log_info "Node.js and npm are already installed"
     return 0
   fi
 
-  log_info "$(_tr "jinx_tools_npm_vercel_install.installing_nodejs")"
+  log_info "Installing Nodejs..."
   mkdir -p "$(dirname "$LOG_FILE")"
   yes | pkg install nodejs-lts &>>"$LOG_FILE"
 }
@@ -22,7 +22,7 @@ _install_vercel_npm() {
 
 _install_vercel_npm_impl() {
   if ! npm install -g vercel &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_npm_vercel_install.failed_to_install_vercel_cli")"
+    log_error "Failed to install Vercel CLI"
     return 1
   fi
   return 0
@@ -32,14 +32,14 @@ install_vercel() {
   if command -v vercel &>/dev/null; then
     return 0
   fi
-  log_info "$(_tr "jinx_tools_npm_vercel_install.installing_vercel_cli")"
+  log_info "Installing Vercel CLI..."
 
   _vercel_dependencies
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _install_vercel_npm || return 1
-  log_success "$(_tr "jinx_tools_npm_vercel_install.vercel_cli_installed")"
+  log_success "Vercel CLI installed"
   return 0
 }
 
@@ -49,7 +49,7 @@ _uninstall_vercel_npm() {
 
 _uninstall_vercel_npm_impl() {
   if ! npm uninstall -g vercel &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_npm_vercel_install.failed_to_uninstall_vercel_cli")"
+    log_error "Failed to uninstall Vercel CLI"
     return 1
   fi
   return 0
@@ -57,14 +57,14 @@ _uninstall_vercel_npm_impl() {
 
 uninstall_vercel() {
   if ! command -v vercel &>/dev/null; then
-    log_info "$(_tr "jinx_tools_npm_vercel_install.vercel_cli_is_not_installed")"
+    log_info "Vercel CLI is not installed"
     return 0
   fi
-  log_info "$(_tr "jinx_tools_npm_vercel_install.uninstalling_vercel_cli")"
+  log_info "Uninstalling Vercel CLI..."
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _uninstall_vercel_npm || return 1
-  log_success "$(_tr "jinx_tools_npm_vercel_install.vercel_cli_uninstalled")"
+  log_success "Vercel CLI uninstalled"
   return 0
 }
 

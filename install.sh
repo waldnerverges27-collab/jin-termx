@@ -28,7 +28,7 @@ select_language() {
   echo -e "  ${P_PRIMARY}1)${P_NC}  English"
   echo -e "  ${P_PRIMARY}2)${P_NC}  Español"
   echo
-  echo -n -e "  ${P_HL}Choose [1/2]${P_NC}: "
+  echo -n "  ${P_HL}Choose [1/2]${P_NC}: "
   read -r lang_choice
   case "$lang_choice" in
     2|es|ES|español|spanish)
@@ -46,7 +46,13 @@ select_language() {
 
 select_language
 
-# ── Set vars ──────────────────────────────────────────────────────
+# ── Load translations ──────────────────────────────────────────────
+_script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -f "$_script_dir/jinx/utils/translations.sh" ]]; then
+  JINX_PATH="$_script_dir/jinx"
+  source "$_script_dir/jinx/utils/translations.sh"
+fi
+
 TOTAL_STEPS=6
 CURRENT_STEP=0
 
@@ -138,7 +144,7 @@ bootstrap_dependencies() {
   fi
 
   if [[ $needed_git -eq 1 ]]; then
-    log_info "$(_tr "install.installing_git")"
+    log_info "Installing git..."
     progress_bar 0 10
     yes | pkg install git &>/dev/null
     progress_bar 10 10
@@ -147,7 +153,7 @@ bootstrap_dependencies() {
   fi
 
   if [[ $needed_glow -eq 1 ]]; then
-    log_info "$(_tr "install.installing_glow")"
+    log_info "Installing glow..."
     progress_bar 0 10
     yes | pkg install glow &>/dev/null
     progress_bar 10 10
@@ -156,7 +162,7 @@ bootstrap_dependencies() {
   fi
 
   if [[ $needed_gh -eq 1 ]]; then
-    log_info "$(_tr "install.installing_gh_github_cli")"
+    log_info "Installing gh (GitHub CLI)..."
     progress_bar 0 10
     yes | pkg install gh &>/dev/null
     progress_bar 10 10
@@ -165,7 +171,7 @@ bootstrap_dependencies() {
   fi
 
   if [[ $needed_rg -eq 1 ]]; then
-    log_info "$(_tr "install.installing_ripgrep")"
+    log_info "Installing ripgrep..."
     progress_bar 0 10
     yes | pkg install ripgrep &>/dev/null
     progress_bar 10 10
@@ -174,7 +180,7 @@ bootstrap_dependencies() {
   fi
 
   if [[ $needed_jq -eq 1 ]]; then
-    log_info "$(_tr "install.installing_jq")"
+    log_info "Installing jq..."
     progress_bar 0 10
     yes | pkg install jq &>/dev/null
     progress_bar 10 10
@@ -183,7 +189,7 @@ bootstrap_dependencies() {
   fi
 
   if [[ $needed_bat -eq 1 ]]; then
-    log_info "$(_tr "install.installing_bat")"
+    log_info "Installing bat..."
     progress_bar 0 10
     yes | pkg install bat &>/dev/null
     progress_bar 10 10
@@ -230,7 +236,7 @@ clone_repo() {
 
   if [[ $is_dev_install -eq 1 ]]; then
     JINX_DATA="$script_dir"
-    log_info "$(_tr "install.developer_installation_detected")"
+    log_info "Developer installation detected"
     log_ok "Using local repository"
   elif [[ -d "$JINX_DATA/.git" ]]; then
     progress_bar 3 10
@@ -263,8 +269,6 @@ clone_repo() {
 create_symlink() {
   log_step 4 "Creating jinx command"
 
-  chmod +x "$JINX_DATA/jinx/bin/jinx"
-
   rm -f "$PREFIX/bin/jinx"
   ln -sf "$JINX_DATA/jinx/bin/jinx" "$PREFIX/bin/jinx"
 
@@ -277,7 +281,7 @@ create_symlink() {
 }
 
 save_config() {
-  log_step 5 "Saving configuration"
+  log_step 5 "saving_config"
 
   cat >"$JINX_CONFIG/config" <<EOF
 jinx_data='$JINX_DATA'
@@ -288,28 +292,28 @@ jinx_tool_data='$JINX_TOOL_DATA'
 jinx_lang='$JINX_LANG'
 EOF
 
-  log_ok "Configuration saved"
+  log_ok "config_saved"
 }
 
 show_final_message() {
   echo
   separator
-  echo -e "  ${P_OK}◆${P_NC}  ${P_PRIMARY}Installation Complete${P_NC}"
+  echo -e "  ${P_OK}◆${P_NC}  ${P_PRIMARY}complete${P_NC}"
   separator
   echo
-  echo -e "  ${P_DIM}Run${P_NC}  ${P_HL}jinx${P_NC}  ${P_DIM}to get started${P_NC}"
+  echo -e "  ${P_DIM}run_start${P_NC}  ${P_HL}jinx${P_NC}  ${P_DIM}to_start${P_NC}"
   echo
-  echo -e "  ${P_DIM}Install modules:${P_NC}"
+  echo -e "  ${P_DIM}install_modules${P_NC}"
   echo
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install lang" "Programming languages"
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install db" "Databases"
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install ai" "AI tools"
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install editor" "Code editor"
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install dev" "Dev tools"
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install npm" "Node.js tools"
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install shell" "ZSH shell"
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install ui" "Termux UI"
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install auto" "n8n"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install lang" "lang"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install db" "db"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install ai" "ai"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install editor" "editor"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install dev" "dev"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install npm" "npm"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install shell" "shell"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install ui" "ui"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install auto" "auto"
   echo
 }
 

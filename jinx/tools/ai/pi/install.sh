@@ -36,7 +36,7 @@ _install_pi_npm() {
 
 _install_pi_npm_impl() {
   if ! npm install -g --ignore-scripts @earendil-works/pi-coding-agent &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_pi_install.failed_to_install_pi")"
+    log_error "Failed to install Pi"
     return 1
   fi
 
@@ -45,37 +45,37 @@ _install_pi_npm_impl() {
 
 install_pi() {
   if command -v pi &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_pi_install.pi_coding_agent_is_already_installed")"
+    log_info "Pi Coding Agent is already installed"
     return 2
   fi
-  log_info "$(_tr "jinx_tools_ai_pi_install.installing_pi_coding_agent")"
+  log_info "Installing Pi Coding Agent..."
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _pi_dependencies || return 1
   _install_pi_npm || return 1
 
-  log_success "$(_tr "jinx_tools_ai_pi_install.pi_coding_agent_installed")"
+  log_success "Pi Coding Agent installed"
   return 0
 }
 
 uninstall_pi() {
   if ! command -v pi &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_pi_install.pi_coding_agent_is_not_installed")"
+    log_info "Pi Coding Agent is not installed"
     return 2
   fi
-  log_info "$(_tr "jinx_tools_ai_pi_install.uninstalling_pi_coding_agent")"
+  log_info "Uninstalling Pi Coding Agent..."
   mkdir -p "$(dirname "$LOG_FILE")"
 
   loading "Removing Pi Coding Agent" _uninstall_pi_impl
 
-  log_success "$(_tr "jinx_tools_ai_pi_install.pi_uninstalled")"
+  log_success "Pi uninstalled"
   return 0
 }
 
 _uninstall_pi_impl() {
   if ! npm uninstall -g @earendil-works/pi-coding-agent &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_pi_install.failed_to_uninstall_pi")"
+    log_error "Failed to uninstall Pi"
     return 1
   fi
   return 0
@@ -91,7 +91,7 @@ _update_pi() {
 
 _update_pi_impl() {
   if ! npm install -g --ignore-scripts @earendil-works/pi-coding-agent &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_pi_install.failed_to_update_pi")"
+    log_error "Failed to update Pi"
     return 1
   fi
   return 0

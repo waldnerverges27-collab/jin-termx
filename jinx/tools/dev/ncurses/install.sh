@@ -11,7 +11,7 @@ _install_ncurses_pkg() {
 
 _install_ncurses_pkg_impl() {
 	if ! yes | pkg install ncurses-utils &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_dev_ncurses_install.failed_to_install_ncurses_utils")"
+		log_error "Failed to install Ncurses Utils"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_ncurses_pkg() {
 
 _uninstall_ncurses_pkg_impl() {
 	if ! pkg uninstall ncurses-utils -y &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_dev_ncurses_install.failed_to_uninstall_ncurses_utils")"
+		log_error "Failed to uninstall Ncurses Utils"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_ncurses_update() {
 
 install_ncurses() {
 	if command -v tput &>/dev/null; then
-		log_info "$(_tr "jinx_tools_dev_ncurses_install.ncurses_utils_is_already_installed")"
+		log_info "Ncurses Utils is already installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_dev_ncurses_install.installing_ncurses_utils")"
+	log_info "Installing Ncurses Utils..."
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_ncurses_pkg || return 1
-	log_success "$(_tr "jinx_tools_dev_ncurses_install.ncurses_utils_installed")"
+	log_success "Ncurses Utils installed"
 	return 0
 }
 
 uninstall_ncurses() {
 	if ! command -v tput &>/dev/null; then
-		log_info "$(_tr "jinx_tools_dev_ncurses_install.ncurses_utils_is_not_installed")"
+		log_info "Ncurses Utils is not installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_dev_ncurses_install.uninstalling_ncurses_utils")"
+	log_info "Uninstalling Ncurses Utils..."
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_ncurses_pkg || return 1
-	log_success "$(_tr "jinx_tools_dev_ncurses_install.ncurses_utils_uninstalled")"
+	log_success "Ncurses Utils uninstalled"
 	return 0
 }
 

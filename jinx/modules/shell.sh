@@ -8,25 +8,25 @@ OH_MY_ZSH_DIR="$HOME/.oh-my-zsh"
 LOG_FILE="$JINX_CACHE/install_shell.log"
 
 install_termux_packages() {
-	log_info "$(_tr "jinx_modules_shell.installing_dependencies")"
+	log_info "Installing dependencies..."
 
 	if yes | pkg install zsh lsd bat fzf zoxide &>>"$LOG_FILE"; then
-		log_success "$(_tr "jinx_modules_shell.dependencies_installed_successfully")"
+		log_success "Dependencies installed successfully"
 		return 0
 	else
-		log_error "$(_tr "jinx_modules_shell.failed_to_install_dependencies")"
+		log_error "Failed to install dependencies"
 		return 1
 	fi
 }
 
 install_oh_my_zsh() {
 	if [[ -d "$OH_MY_ZSH_DIR" ]]; then
-		log_warn "$(_tr "jinx_modules_shell.oh_my_zsh_already_installed")"
+		log_warn "Oh My Zsh already installed"
 		return 0
 	fi
 
-	log_info "$(_tr "jinx_modules_shell.downloading_oh_my_zsh")"
-	log_info "$(_tr "jinx_modules_shell.when_prompted_enter_y_n_to_set_zsh_as")"
+	log_info "Downloading Oh My Zsh..."
+	log_info "When prompted, enter (Y/n) to set ZSH as your default shell"
 	echo
 
 	local temp_dir="${PREFIX:-/tmp}/tmp"
@@ -37,10 +37,10 @@ install_oh_my_zsh() {
 		sed -i '/exec zsh -l/s/^/#/' "$temp_file"
 		sh "$temp_file" &>>"$LOG_FILE"
 		rm "$temp_file"
-		log_success "$(_tr "jinx_modules_shell.oh_my_zsh_installed_successfully")"
+		log_success "Oh My Zsh installed successfully"
 		return 0
 	else
-		log_error "$(_tr "jinx_modules_shell.failed_to_download_oh_my_zsh")"
+		log_error "Failed to download Oh My Zsh"
 		return 1
 	fi
 }
@@ -53,17 +53,17 @@ add_to_zshrc() {
 }
 
 setup_zsh_aliases() {
-	log_info "$(_tr "jinx_modules_shell.setting_up_zsh_aliases")"
+	log_info "Setting up ZSH aliases..."
 
 	add_to_zshrc "alias ls=\"lsd\""
 	add_to_zshrc 'alias cat="bat --theme=Dracula --style=plain --paging=never"'
 	add_to_zshrc 'eval "$(zoxide init zsh)"'
 
-	log_success "$(_tr "jinx_modules_shell.zsh_aliases_configured")"
+	log_success "ZSH aliases configured"
 }
 
 setup_shell_env() {
-	log_info "$(_tr "jinx_modules_shell.setting_up_shell_environment")"
+	log_info "Setting up shell environment..."
 
 	add_to_zshrc "unalias gga 2>/dev/null"
 	add_to_zshrc "export GOPATH=\"\$HOME/.local/go\""
@@ -72,18 +72,18 @@ setup_shell_env() {
 	add_to_zshrc "export PATH=\$PATH:\$HOME/go/bin"
 	add_to_zshrc "export OPENCLAW_DISABLE_BONJOUR=1"
 
-	log_success "$(_tr "jinx_modules_shell.shell_environment_configured")"
+	log_success "Shell environment configured"
 }
 
 setupPersistentSession() {
-	log_info "$(_tr "jinx_modules_shell.configuring_persistent_session")"
+	log_info "Configuring persistent session..."
 
 	mkdir -p "$JINX_CACHE" 2>/dev/null || mkdir -p ~/.cache/jin-termx
 
 	echo "$HOME" > ~/.cache/jin-termx/last_dir
 
 	if grep -q "# ===== Persistent Directory =====" ~/.zshrc 2>/dev/null; then
-		log_warn "$(_tr "jinx_modules_shell.persistent_session_already_configured")"
+		log_warn "Persistent session already configured"
 		return 0
 	fi
 
@@ -129,27 +129,27 @@ fi
 echo
 EOF
 
-	log_success "$(_tr "jinx_modules_shell.persistent_session_configured")"
-	log_info "$(_tr "jinx_modules_shell.new_sessions_within_termux_will_restore")"
+	log_success "Persistent session configured"
+	log_info "New sessions within Termux will restore last directory"
 }
 
 install_shell() {
 	separator
-	box "$(_tr "jinx_modules_shell.installing_zsh_shell_environment")"
+	box "Installing ZSH Shell Environment"
 	separator
 	echo
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	loading "Installing base packages" install_termux_packages
-	log_success "$(_tr "jinx_modules_shell.base_packages_installed")"
+	log_success "Base packages installed"
 	echo
 
 	install_oh_my_zsh
 	echo
 
 	_install_shell_plugins_wrapper
-	log_success "$(_tr "jinx_modules_shell.zsh_plugins_installed")"
+	log_success "ZSH plugins installed"
 	echo
 
 	setup_zsh_aliases
@@ -162,10 +162,10 @@ install_shell() {
 	echo
 
 	separator
-	log_success "$(_tr "jinx_modules_shell.zsh_shell_environment_setup_completed")"
+	log_success "ZSH shell environment setup completed"
 	separator
 	echo
-	log_warn "$(_tr "jinx_modules_shell.please_restart_termux_or_run_exec_zsh")"
+	log_warn "Please restart Termux or run: exec zsh"
 	echo
 }
 
@@ -211,27 +211,27 @@ _install_shell_plugins_wrapper() {
 
 uninstall_oh_my_zsh() {
 	if [[ ! -d "$OH_MY_ZSH_DIR" ]]; then
-		log_warn "$(_tr "jinx_modules_shell.oh_my_zsh_not_installed")"
+		log_warn "Oh My Zsh not installed"
 		return 0
 	fi
 
-	log_info "$(_tr "jinx_modules_shell.uninstalling_oh_my_zsh")"
+	log_info "Uninstalling Oh My Zsh..."
 
 	if rm -rf "$OH_MY_ZSH_DIR" &>>"$LOG_FILE"; then
-		log_success "$(_tr "jinx_modules_shell.oh_my_zsh_uninstalled")"
+		log_success "Oh My Zsh uninstalled"
 	else
-		log_error "$(_tr "jinx_modules_shell.failed_to_uninstall_oh_my_zsh")"
+		log_error "Failed to uninstall Oh My Zsh"
 		return 1
 	fi
 }
 
 uninstall_shell() {
 	if [[ ! -d "$OH_MY_ZSH_DIR" ]]; then
-		log_info "$(_tr "jinx_modules_shell.zsh_shell_environment_is_not_installed")"
+		log_info "ZSH Shell Environment is not installed"
 		return 0
 	fi
 	separator
-	box "$(_tr "jinx_modules_shell.uninstalling_zsh_shell_environment")"
+	box "Uninstalling ZSH Shell Environment"
 	separator
 	echo
 
@@ -242,7 +242,7 @@ uninstall_shell() {
 
 	echo
 	separator
-	log_success "$(_tr "jinx_modules_shell.zsh_shell_environment_uninstalled")"
+	log_success "ZSH shell environment uninstalled"
 	separator
 	echo
 }
@@ -254,20 +254,20 @@ _uninstall_shell_plugins_wrapper() {
 
 update_shell() {
 	separator
-	box "$(_tr "jinx_modules_shell.updating_zsh_shell_environment")"
+	box "Updating ZSH Shell Environment"
 	separator
 	echo
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_update_shell_plugins_wrapper
-	log_success "$(_tr "jinx_modules_shell.zsh_shell_environment_updated")"
+	log_success "ZSH shell environment updated"
 
 	setup_shell_env
 	echo
 
 	separator
-	log_success "$(_tr "jinx_modules_shell.zsh_update_completed")"
+	log_success "ZSH update completed"
 	separator
 	echo
 }
@@ -279,14 +279,14 @@ _update_shell_plugins_wrapper() {
 
 reinstall_shell() {
   separator
-  box "$(_tr "jinx_modules_shell.reinstalling_zsh_shell_environment")"
+  box "Reinstalling ZSH Shell Environment"
   separator
   echo
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _reinstall_shell_plugins_wrapper
-  log_success "$(_tr "jinx_modules_shell.zsh_plugins_reinstalled")"
+  log_success "ZSH plugins reinstalled"
   echo
 
   setup_zsh_aliases
@@ -299,10 +299,10 @@ reinstall_shell() {
   echo
 
   separator
-  log_success "$(_tr "jinx_modules_shell.zsh_shell_environment_reinstallation_com")"
+  log_success "ZSH shell environment reinstallation completed"
   separator
   echo
-  log_warn "$(_tr "jinx_modules_shell.please_restart_termux_or_run_exec_zsh")"
+  log_warn "Please restart Termux or run: exec zsh"
   echo
 }
 

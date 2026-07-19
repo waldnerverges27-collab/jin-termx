@@ -39,7 +39,7 @@ _install_openclaude_npm_impl() {
   export ANDROID_API_LEVEL=24
 
   if ! npm install -g @gitlawb/openclaude &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_openclaude_install.failed_to_install_openclaude")"
+    log_error "Failed to install OpenClaude"
     return 1
   fi
 
@@ -48,37 +48,37 @@ _install_openclaude_npm_impl() {
 
 install_openclaude() {
   if command -v openclaude &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_openclaude_install.openclaude_is_already_installed")"
+    log_info "OpenClaude is already installed"
     return 2
   fi
-  log_info "$(_tr "jinx_tools_ai_openclaude_install.installing_openclaude")"
+  log_info "Installing OpenClaude..."
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _openclaude_dependencies || return 1
   _install_openclaude_npm || return 1
 
-  log_success "$(_tr "jinx_tools_ai_openclaude_install.openclaude_installed")"
+  log_success "OpenClaude installed"
   return 0
 }
 
 uninstall_openclaude() {
   if ! command -v openclaude &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_openclaude_install.openclaude_is_not_installed")"
+    log_info "OpenClaude is not installed"
     return 2
   fi
-  log_info "$(_tr "jinx_tools_ai_openclaude_install.uninstalling_openclaude")"
+  log_info "Uninstalling OpenClaude..."
   mkdir -p "$(dirname "$LOG_FILE")"
 
   loading "Removing OpenClaude" _uninstall_openclaude_impl
 
-  log_success "$(_tr "jinx_tools_ai_openclaude_install.openclaude_uninstalled")"
+  log_success "OpenClaude uninstalled"
   return 0
 }
 
 _uninstall_openclaude_impl() {
   if ! npm uninstall -g @gitlawb/openclaude &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_openclaude_install.failed_to_uninstall_openclaude")"
+    log_error "Failed to uninstall OpenClaude"
     return 1
   fi
   return 0
@@ -97,7 +97,7 @@ _update_openclaude_impl() {
   export ANDROID_API_LEVEL=24
 
   if ! npm update -g @gitlawb/openclaude &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_openclaude_install.failed_to_update_openclaude")"
+    log_error "Failed to update OpenClaude"
     return 1
   fi
   return 0

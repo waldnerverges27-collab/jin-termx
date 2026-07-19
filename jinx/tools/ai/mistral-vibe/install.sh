@@ -47,7 +47,7 @@ _install_mistral_vibe_pip_impl() {
   export GYP_DEFINES="android_ndk_path=''"
 
   if ! pip install mistral-vibe &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_mistral-vibe_install.failed_to_install_mistral_vibe")"
+    log_error "Failed to install Mistral Vibe"
     return 1
   fi
 
@@ -56,38 +56,38 @@ _install_mistral_vibe_pip_impl() {
 
 install_mistral_vibe() {
   if command -v vibe &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_mistral-vibe_install.mistral_vibe_is_already_installed")"
+    log_info "Mistral Vibe is already installed"
     return 2
   fi
 
-  log_info "$(_tr "jinx_tools_ai_mistral-vibe_install.installing_mistral_vibe")"
+  log_info "Installing Mistral Vibe..."
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _mistral_vibe_dependencies || return 1
   _install_mistral_vibe_pip || return 1
 
-  log_success "$(_tr "jinx_tools_ai_mistral-vibe_install.mistral_vibe_installed")"
+  log_success "Mistral Vibe installed"
   return 0
 }
 
 uninstall_mistral_vibe() {
   if ! command -v vibe &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_mistral-vibe_install.mistral_vibe_is_not_installed")"
+    log_info "Mistral Vibe is not installed"
     return 2
   fi
-  log_info "$(_tr "jinx_tools_ai_mistral-vibe_install.uninstalling_mistral_vibe")"
+  log_info "Uninstalling Mistral Vibe..."
   mkdir -p "$(dirname "$LOG_FILE")"
 
   loading "Removing Mistral Vibe" _uninstall_mistral_vibe_impl
 
-  log_success "$(_tr "jinx_tools_ai_mistral-vibe_install.mistral_vibe_uninstalled")"
+  log_success "Mistral Vibe uninstalled"
   return 0
 }
 
 _uninstall_mistral_vibe_impl() {
   if ! pip uninstall mistral-vibe -y &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_mistral-vibe_install.failed_to_uninstall_mistral_vibe")"
+    log_error "Failed to uninstall Mistral Vibe"
     return 1
   fi
   return 0
@@ -106,7 +106,7 @@ _update_mistral_vibe_impl() {
   export GYP_DEFINES="android_ndk_path=''"
 
   if ! pip install --upgrade mistral-vibe &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_mistral-vibe_install.failed_to_update_mistral_vibe")"
+    log_error "Failed to update Mistral Vibe"
     return 1
   fi
   return 0

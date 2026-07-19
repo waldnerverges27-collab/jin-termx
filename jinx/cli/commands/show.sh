@@ -6,20 +6,20 @@ import "@/utils/colors"
 show_main() {
 	if [[ $# -eq 0 ]]; then
 		echo
-		box "$(_tr "jinx_cli_commands_show.core_show")"
+		box "Core Show"
 		echo
-		log_info "$(_tr "jinx_cli_commands_show.usage_jinx_show_module_tool")"
+		log_info "Usage: jinx show <module> --<tool>"
 		echo
-		log_info "$(_tr "jinx_cli_commands_show.display_help_information_for_a_specific")"
+		log_info "Display help information for a specific tool."
 		echo
-		log_info "$(_tr "jinx_cli_commands_show.available_targets")"
+		log_info "Available targets:"
 		echo
-		list_item "$(_tr "jinx_cli_commands_show.jinx_show_ai_opencode")"
-		list_item "$(_tr "jinx_cli_commands_show.jinx_show_ai_ollama")"
-		list_item "$(_tr "jinx_cli_commands_show.jinx_show_db_postgresql")"
-		list_item "$(_tr "jinx_cli_commands_show.jinx_show_dev_gh")"
-		list_item "$(_tr "jinx_cli_commands_show.jinx_show_npm_typescript")"
-		list_item "$(_tr "jinx_cli_commands_show.jinx_show_all_tool")"
+		list_item "jinx show ai --opencode"
+		list_item "jinx show ai --ollama"
+		list_item "jinx show db --postgresql"
+		list_item "jinx show dev --gh"
+		list_item "jinx show npm --typescript"
+		list_item "jinx show all --<tool>"
 		echo
 		log_info "Run ${D_CYAN}jinx list <module>${NC} to see available tools"
 		echo
@@ -38,7 +38,7 @@ show_main() {
 	done
 
 	if [[ -z "$module" ]]; then
-		log_error "$(_tr "jinx_cli_commands_show.usage_jinx_show_module_tool")"
+		log_error "Usage: jinx show <module> --<tool>"
 		return 1
 	fi
 

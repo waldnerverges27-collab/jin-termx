@@ -39,14 +39,14 @@ _opencode_install_deps_native() {
 _opencode_install_deps_native_impl() {
   if [[ ! -f $PREFIX/etc/apt/sources.list.d/glibc.list ]]; then
     if ! yes | pkg install glibc-repo &>>"$LOG_FILE"; then
-      log_error "$(_tr "jinx_tools_ai_opencode_install.failed_to_install_glibc_repo")"
+      log_error "Failed to install glibc-repo"
       return 1
     fi
   fi
 
   if [[ ! -f $PREFIX/glibc/lib/libc.so.6 ]]; then
     if ! yes | pkg install glibc &>>"$LOG_FILE"; then
-      log_error "$(_tr "jinx_tools_ai_opencode_install.failed_to_install_glibc")"
+      log_error "Failed to install glibc"
       return 1
     fi
   fi
@@ -83,7 +83,7 @@ _download_opencode_binary_impl() {
   local latest_version
   latest_version=$(_get_latest_opencode_version)
   if [ -z "$latest_version" ]; then
-    log_error "$(_tr "jinx_tools_ai_opencode_install.failed_to_fetch_latest_opencode_version")"
+    log_error "Failed to fetch latest OpenCode version"
     return 1
   fi
 
@@ -93,19 +93,19 @@ _download_opencode_binary_impl() {
   local download_url="https://github.com/anomalyco/opencode/releases/download/$latest_version/$tarball"
 
   if ! curl -fsSL "$download_url" -o "$OPENCODE_DATA_DIR/$tarball" &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_opencode_install.failed_to_download_opencode_binary")"
+    log_error "Failed to download OpenCode binary"
     return 1
   fi
 
   if ! tar -zxf "$OPENCODE_DATA_DIR/$tarball" -C "$OPENCODE_DATA_DIR" &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_opencode_install.failed_to_extract_opencode_binary")"
+    log_error "Failed to extract OpenCode binary"
     return 1
   fi
 
   rm -f "$OPENCODE_DATA_DIR/$tarball"
 
   if [ ! -f "$OPENCODE_DATA_DIR/opencode" ]; then
-    log_error "$(_tr "jinx_tools_ai_opencode_install.opencode_binary_not_found_after_extracti")"
+    log_error "OpenCode binary not found after extraction"
     return 1
   fi
 
@@ -125,7 +125,7 @@ _compile_opencode_helper_impl() {
   fi
 
   if ! clang -O2 -o "$PREFIX/bin/opencode" "$HELPER_SRC" &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_opencode_install.failed_to_compile_opencode_helper")"
+    log_error "Failed to compile opencode helper"
     return 1
   fi
 
@@ -137,7 +137,7 @@ _install_opencode_native() {
   _opencode_install_deps_native || return 1
   _download_opencode_binary || return 1
   _compile_opencode_helper || return 1
-  log_success "$(_tr "jinx_tools_ai_opencode_install.opencode_installed_natively")"
+  log_success "OpenCode installed natively"
   return 0
 }
 
@@ -171,14 +171,14 @@ _install_opencode_proot_impl() {
   ubuntu_root="$(_opencode_detect_ubuntu_root)"
 
   if [ -z "$ubuntu_root" ]; then
-    log_error "$(_tr "jinx_tools_ai_opencode_install.ubuntu_rootfs_not_found")"
+    log_error "Ubuntu rootfs not found"
     return 1
   fi
 
   local opencode_bin="$ubuntu_root/root/.opencode/bin/opencode"
 
   if [ ! -f "$opencode_bin" ]; then
-    log_error "$(_tr "jinx_tools_ai_opencode_install.opencode_binary_not_found_after_install")"
+    log_error "OpenCode binary not found after install"
     return 1
   fi
 
@@ -199,11 +199,11 @@ _install_opencode_proot_impl() {
 
 install_opencode() {
   if command -v opencode &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_opencode_install.opencode_is_already_installed")"
+    log_info "OpenCode is already installed"
     return 2
   fi
 
-  log_info "$(_tr "jinx_tools_ai_opencode_install.select_installation_method_for_opencode")"
+  log_info "Select installation method for OpenCode:"
 
   read_select "Installation method" SELECTED_METHOD \
     "Native (recommended) - Compile with glibc support" \
@@ -223,7 +223,7 @@ uninstall_opencode() {
   mkdir -p "$(dirname "$LOG_FILE")"
 
   if [ ! -f "$PREFIX/bin/opencode" ]; then
-    log_warn "$(_tr "jinx_tools_ai_opencode_install.opencode_is_not_installed")"
+    log_warn "OpenCode is not installed"
     return 1
   fi
 
@@ -234,7 +234,7 @@ _uninstall_opencode_impl() {
   if [ -f "$OPENCODE_DATA_DIR/opencode" ]; then
     rm -f "$PREFIX/bin/opencode"
     rm -rf "$OPENCODE_DATA_DIR"
-    log_success "$(_tr "jinx_tools_ai_opencode_install.opencode_native_uninstalled")"
+    log_success "OpenCode (native) uninstalled"
     return 0
   fi
 
@@ -248,10 +248,10 @@ _uninstall_opencode_impl() {
   fi
 
   if rm -f "$PREFIX/bin/opencode" &>>"$LOG_FILE"; then
-    log_success "$(_tr "jinx_tools_ai_opencode_install.opencode_proot_distro_uninstalled")"
+    log_success "OpenCode (proot-distro) uninstalled"
     return 0
   else
-    log_error "$(_tr "jinx_tools_ai_opencode_install.failed_to_uninstall_opencode")"
+    log_error "Failed to uninstall OpenCode"
     return 1
   fi
 }
@@ -290,11 +290,11 @@ _update_opencode_proot_impl() {
   local opencode_bin="$ubuntu_root/root/.opencode/bin/opencode"
 
   if [ ! -f "$opencode_bin" ]; then
-    log_error "$(_tr "jinx_tools_ai_opencode_install.opencode_binary_not_found_after_update")"
+    log_error "OpenCode binary not found after update"
     return 1
   fi
 
-  log_success "$(_tr "jinx_tools_ai_opencode_install.opencode_proot_distro_updated")"
+  log_success "OpenCode (proot-distro) updated"
   return 0
 }
 

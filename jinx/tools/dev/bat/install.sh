@@ -11,7 +11,7 @@ _install_bat_pkg() {
 
 _install_bat_pkg_impl() {
 	if ! yes | pkg install bat &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_dev_bat_install.failed_to_install_bat")"
+		log_error "Failed to install Bat"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_bat_pkg() {
 
 _uninstall_bat_pkg_impl() {
 	if ! pkg uninstall bat -y &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_dev_bat_install.failed_to_uninstall_bat")"
+		log_error "Failed to uninstall Bat"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_bat_update() {
 
 install_bat() {
 	if command -v bat &>/dev/null; then
-		log_info "$(_tr "jinx_tools_dev_bat_install.bat_is_already_installed")"
+		log_info "Bat is already installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_dev_bat_install.installing_bat")"
+	log_info "Installing Bat..."
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_bat_pkg || return 1
-	log_success "$(_tr "jinx_tools_dev_bat_install.bat_installed")"
+	log_success "Bat installed"
 	return 0
 }
 
 uninstall_bat() {
 	if ! command -v bat &>/dev/null; then
-		log_info "$(_tr "jinx_tools_dev_bat_install.bat_is_not_installed")"
+		log_info "Bat is not installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_dev_bat_install.uninstalling_bat")"
+	log_info "Uninstalling Bat..."
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_bat_pkg || return 1
-	log_success "$(_tr "jinx_tools_dev_bat_install.bat_uninstalled")"
+	log_success "Bat uninstalled"
 	return 0
 }
 

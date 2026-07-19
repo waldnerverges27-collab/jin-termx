@@ -16,12 +16,12 @@ _env_rc_file() {
 _env_valid_key() {
 	local key="$1"
 	if [[ -z "$key" ]]; then
-		log_error "$(_tr "jinx_cli_commands_env.variable_name_cannot_be_empty")"
+		log_error "Variable name cannot be empty"
 		return 1
 	fi
 	if [[ ! "$key" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
 		log_error "Invalid variable name: $key"
-		list_item "$(_tr "jinx_cli_commands_env.must_start_with_a_letter_or_underscore")"
+		list_item "Must start with a letter or underscore, followed by letters, digits, or underscores"
 		return 1
 	fi
 }
@@ -29,17 +29,17 @@ _env_valid_key() {
 # ── Help ────────────────────────────────────────────────────
 env_help() {
 	echo
-	box "$(_tr "jinx_cli_commands_env.environment_variables_manager")"
+	box "Environment Variables Manager"
 	echo
-	log_info "$(_tr "jinx_cli_commands_env.usage_jinx_env_options")"
+	log_info "Usage: jinx env [options]"
 	echo
-	separator_section "$(_tr "jinx_cli_commands_env.available_commands")"
+	separator_section "Available Commands"
 	echo
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "set" "Create or update an environment variable"
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "unset" "Remove an environment variable"
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "ls" "List all user-defined variables"
 	echo
-	separator_section "$(_tr "jinx_cli_commands_env.examples")"
+	separator_section "Examples"
 	echo
 	printf "    ${D_CYAN}jinx env set${NC}              # Interactive: add/update a variable\n"
 	printf "    ${D_CYAN}jinx env unset${NC}            # Interactive: select and remove a variable\n"
@@ -53,7 +53,7 @@ env_set() {
 	rc_file=$(_env_rc_file)
 
 	separator
-	box "$(_tr "jinx_cli_commands_env.set_environment_variable")"
+	box "Set Environment Variable"
 	separator
 	echo
 
@@ -72,7 +72,7 @@ env_set() {
 		read_confirm "Replace it?" confirm
 		if [[ "$confirm" != "y" ]]; then
 			echo
-			log_warn "$(_tr "jinx_cli_commands_env.operation_cancelled")"
+			log_warn "Operation cancelled"
 			separator
 			return 0
 		fi
@@ -107,7 +107,7 @@ env_unset() {
 
 	if [[ ${#keys[@]} -eq 0 ]]; then
 		separator
-		box "$(_tr "jinx_cli_commands_env.remove_environment_variable")"
+		box "Remove Environment Variable"
 		separator
 		echo
 		log_warn "No environment variables found in $(basename "$rc_file")"
@@ -117,7 +117,7 @@ env_unset() {
 	fi
 
 	separator
-	box "$(_tr "jinx_cli_commands_env.remove_environment_variable")"
+	box "Remove Environment Variable"
 	separator
 	echo
 	log_info "Current variables in $(basename "$rc_file"):"
@@ -150,7 +150,7 @@ env_unset() {
 	read_confirm "Are you sure?" confirm
 	if [[ "$confirm" != "y" ]]; then
 		echo
-		log_warn "$(_tr "jinx_cli_commands_env.operation_cancelled")"
+		log_warn "Operation cancelled"
 		separator
 		return 0
 	fi
@@ -169,7 +169,7 @@ env_ls() {
 	rc_file=$(_env_rc_file)
 
 	separator
-	box "$(_tr "jinx_cli_commands_env.environment_variables")"
+	box "Environment Variables"
 	separator
 	echo
 	log_info "File: $(basename "$rc_file")"
@@ -187,7 +187,7 @@ env_ls() {
 	done < <(grep "^export " "$rc_file" 2>/dev/null || true)
 
 	if [[ $count -eq 0 ]]; then
-		list_item "$(_tr "jinx_cli_commands_env.no_environment_variables_defined_yet")"
+		list_item "No environment variables defined yet"
 		echo
 		list_item "Add one: ${D_CYAN}jinx env set${D_NC}"
 	fi

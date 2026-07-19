@@ -11,7 +11,7 @@ _install_cloudflared_pkg() {
 
 _install_cloudflared_pkg_impl() {
 	if ! yes | pkg install cloudflared &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_dev_cloudflared_install.failed_to_install_cloudflared")"
+		log_error "Failed to install Cloudflared"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_cloudflared_pkg() {
 
 _uninstall_cloudflared_pkg_impl() {
 	if ! pkg uninstall cloudflared -y &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_dev_cloudflared_install.failed_to_uninstall_cloudflared")"
+		log_error "Failed to uninstall Cloudflared"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_cloudflared_update() {
 
 install_cloudflared() {
 	if command -v cloudflared &>/dev/null; then
-		log_info "$(_tr "jinx_tools_dev_cloudflared_install.cloudflared_is_already_installed")"
+		log_info "Cloudflared is already installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_dev_cloudflared_install.installing_cloudflared")"
+	log_info "Installing Cloudflared..."
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_cloudflared_pkg || return 1
-	log_success "$(_tr "jinx_tools_dev_cloudflared_install.cloudflared_installed")"
+	log_success "Cloudflared installed"
 	return 0
 }
 
 uninstall_cloudflared() {
 	if ! command -v cloudflared &>/dev/null; then
-		log_info "$(_tr "jinx_tools_dev_cloudflared_install.cloudflared_is_not_installed")"
+		log_info "Cloudflared is not installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_dev_cloudflared_install.uninstalling_cloudflared")"
+	log_info "Uninstalling Cloudflared..."
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_cloudflared_pkg || return 1
-	log_success "$(_tr "jinx_tools_dev_cloudflared_install.cloudflared_uninstalled")"
+	log_success "Cloudflared uninstalled"
 	return 0
 }
 

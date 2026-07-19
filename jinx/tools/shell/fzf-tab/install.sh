@@ -24,7 +24,7 @@ _fzf_tab_dependencies() {
     fi
   done
 
-  log_success "$(_tr "jinx_tools_shell_fzf-tab_install.shell_dependencies_installed")"
+  log_success "Shell dependencies installed"
   return 0
 }
 
@@ -35,7 +35,7 @@ _install_fzf_tab_git() {
 _install_fzf_tab_git_impl() {
   mkdir -p "$(dirname "$LOG_FILE")"
   if ! git clone --depth=1 "https://github.com/Aloxaf/fzf-tab.git" "$ZSH_PLUGINS_DIR/fzf-tab" &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_shell_fzf-tab_install.failed_to_install_fzf_tab")"
+    log_error "Failed to install fzf-tab"
     return 1
   fi
   git -C "$ZSH_PLUGINS_DIR/fzf-tab" fetch --tags --depth=1 &>>"$LOG_FILE"
@@ -44,20 +44,20 @@ _install_fzf_tab_git_impl() {
 
 install_fzf_tab() {
   if [[ -d "$ZSH_PLUGINS_DIR/fzf-tab" ]]; then
-    log_info "$(_tr "jinx_tools_shell_fzf-tab_install.fzf_tab_already_installed")"
+    log_info "fzf-tab already installed"
     return 0
   fi
 
   _fzf_tab_dependencies
 
   _install_fzf_tab_git || return 1
-  log_success "$(_tr "jinx_tools_shell_fzf-tab_install.installed")"
+  log_success "Installed"
   return 0
 }
 
 _uninstall_fzf_tab_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/fzf-tab" ]]; then
-    log_info "$(_tr "jinx_tools_shell_fzf-tab_install.fzf_tab_is_not_installed")"
+    log_info "fzf-tab is not installed"
     return 0
   fi
 
@@ -74,7 +74,7 @@ _update_fzf_tab() {
 
 _update_fzf_tab_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/fzf-tab/.git" ]]; then
-    log_warn "$(_tr "jinx_tools_shell_fzf-tab_install.fzf_tab_not_installed")"
+    log_warn "fzf-tab not installed"
     return 0
   fi
 

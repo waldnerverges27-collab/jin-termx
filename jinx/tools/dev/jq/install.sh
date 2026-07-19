@@ -11,7 +11,7 @@ _install_jq_pkg() {
 
 _install_jq_pkg_impl() {
 	if ! yes | pkg install jq &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_dev_jq_install.failed_to_install_jq")"
+		log_error "Failed to install jq"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_jq_pkg() {
 
 _uninstall_jq_pkg_impl() {
 	if ! pkg uninstall jq -y &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_dev_jq_install.failed_to_uninstall_jq")"
+		log_error "Failed to uninstall jq"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_jq_update() {
 
 install_jq() {
 	if command -v jq &>/dev/null; then
-		log_info "$(_tr "jinx_tools_dev_jq_install.jq_is_already_installed")"
+		log_info "jq is already installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_dev_jq_install.installing_jq")"
+	log_info "Installing jq..."
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_jq_pkg || return 1
-	log_success "$(_tr "jinx_tools_dev_jq_install.jq_installed")"
+	log_success "jq installed"
 	return 0
 }
 
 uninstall_jq() {
 	if ! command -v jq &>/dev/null; then
-		log_info "$(_tr "jinx_tools_dev_jq_install.jq_is_not_installed")"
+		log_info "jq is not installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_dev_jq_install.uninstalling_jq")"
+	log_info "Uninstalling jq..."
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_jq_pkg || return 1
-	log_success "$(_tr "jinx_tools_dev_jq_install.jq_uninstalled")"
+	log_success "jq uninstalled"
 	return 0
 }
 

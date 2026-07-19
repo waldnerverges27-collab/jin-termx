@@ -40,14 +40,14 @@ _kilocode_install_deps_native() {
 _kilocode_install_deps_native_impl() {
   if [[ ! -f $PREFIX/etc/apt/sources.list.d/glibc.list ]]; then
     if ! yes | pkg install glibc-repo &>>"$LOG_FILE"; then
-      log_error "$(_tr "jinx_tools_ai_kilocode-cli_install.failed_to_install_glibc_repo")"
+      log_error "Failed to install glibc-repo"
       return 1
     fi
   fi
 
   if [[ ! -f $PREFIX/glibc/lib/libc.so.6 ]]; then
     if ! yes | pkg install glibc &>>"$LOG_FILE"; then
-      log_error "$(_tr "jinx_tools_ai_kilocode-cli_install.failed_to_install_glibc")"
+      log_error "Failed to install glibc"
       return 1
     fi
   fi
@@ -84,7 +84,7 @@ _download_kilocode_binary_impl() {
   local latest_version
   latest_version=$(_get_latest_kilocode_version)
   if [ -z "$latest_version" ]; then
-    log_error "$(_tr "jinx_tools_ai_kilocode-cli_install.failed_to_fetch_latest_kilo_code_cli_ver")"
+    log_error "Failed to fetch latest Kilo Code CLI version"
     return 1
   fi
 
@@ -94,19 +94,19 @@ _download_kilocode_binary_impl() {
   local download_url="https://github.com/Kilo-Org/kilocode/releases/download/$latest_version/$tarball"
 
   if ! curl -fsSL "$download_url" -o "$KILOCODE_DATA_DIR/$tarball" &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_kilocode-cli_install.failed_to_download_kilo_code_cli_binary")"
+    log_error "Failed to download Kilo Code CLI binary"
     return 1
   fi
 
   if ! tar -zxf "$KILOCODE_DATA_DIR/$tarball" -C "$KILOCODE_DATA_DIR" &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_kilocode-cli_install.failed_to_extract_kilo_code_cli_binary")"
+    log_error "Failed to extract Kilo Code CLI binary"
     return 1
   fi
 
   rm -f "$KILOCODE_DATA_DIR/$tarball"
 
   if [ ! -f "$KILOCODE_DATA_DIR/kilo" ]; then
-    log_error "$(_tr "jinx_tools_ai_kilocode-cli_install.kilo_code_cli_binary_not_found_after_ext")"
+    log_error "Kilo Code CLI binary not found after extraction"
     return 1
   fi
 
@@ -126,7 +126,7 @@ _compile_kilocode_helper_impl() {
   fi
 
   if ! clang -O2 -o "$PREFIX/bin/kilocode" "$HELPER_SRC" &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_kilocode-cli_install.failed_to_compile_kilocode_helper")"
+    log_error "Failed to compile kilocode helper"
     return 1
   fi
 
@@ -141,7 +141,7 @@ _install_kilocode_native() {
   _kilocode_install_deps_native || return 1
   _download_kilocode_binary || return 1
   _compile_kilocode_helper || return 1
-  log_success "$(_tr "jinx_tools_ai_kilocode-cli_install.kilo_code_cli_installed_natively")"
+  log_success "Kilo Code CLI installed natively"
   return 0
 }
 
@@ -167,7 +167,7 @@ _install_kilocode_proot_impl() {
   local latest_version
   latest_version=$(_get_latest_kilocode_version)
   if [ -z "$latest_version" ]; then
-    log_error "$(_tr "jinx_tools_ai_kilocode-cli_install.failed_to_fetch_latest_kilo_code_cli_ver")"
+    log_error "Failed to fetch latest Kilo Code CLI version"
     return 1
   fi
 
@@ -187,14 +187,14 @@ _install_kilocode_proot_impl() {
   ubuntu_root="$(_kilocode_detect_ubuntu_root)"
 
   if [ -z "$ubuntu_root" ]; then
-    log_error "$(_tr "jinx_tools_ai_kilocode-cli_install.ubuntu_rootfs_not_found")"
+    log_error "Ubuntu rootfs not found"
     return 1
   fi
 
   local kilocode_bin="$ubuntu_root/usr/local/bin/kilo"
 
   if [ ! -f "$kilocode_bin" ]; then
-    log_error "$(_tr "jinx_tools_ai_kilocode-cli_install.kilo_code_cli_binary_not_found_after_ins")"
+    log_error "Kilo Code CLI binary not found after install"
     return 1
   fi
 
@@ -213,11 +213,11 @@ _install_kilocode_proot_impl() {
 
 install_kilocode_cli() {
   if command -v kilocode &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_kilocode-cli_install.kilo_code_cli_is_already_installed")"
+    log_info "Kilo Code CLI is already installed"
     return 2
   fi
 
-  log_info "$(_tr "jinx_tools_ai_kilocode-cli_install.select_installation_method_for_kilo_code")"
+  log_info "Select installation method for Kilo Code CLI:"
 
   read_select "Installation method" SELECTED_METHOD \
     "Native (recommended) - Compile with glibc support" \
@@ -237,7 +237,7 @@ uninstall_kilocode_cli() {
   mkdir -p "$(dirname "$LOG_FILE")"
 
   if [ ! -f "$PREFIX/bin/kilocode" ]; then
-    log_warn "$(_tr "jinx_tools_ai_kilocode-cli_install.kilo_code_cli_is_not_installed")"
+    log_warn "Kilo Code CLI is not installed"
     return 1
   fi
 
@@ -248,17 +248,17 @@ _uninstall_kilocode_cli_impl() {
   if [ -f "$KILOCODE_DATA_DIR/kilo" ]; then
     rm -f "$PREFIX/bin/kilocode" "$PREFIX/bin/kilo"
     rm -rf "$KILOCODE_DATA_DIR"
-    log_success "$(_tr "jinx_tools_ai_kilocode-cli_install.kilo_code_cli_native_uninstalled")"
+    log_success "Kilo Code CLI (native) uninstalled"
     return 0
   fi
 
   _kilocode_proot_ubuntu /bin/bash -c 'rm -f /usr/local/bin/kilo' &>>"$LOG_FILE"
 
   if rm -f "$PREFIX/bin/kilocode" "$PREFIX/bin/kilo" &>>"$LOG_FILE"; then
-    log_success "$(_tr "jinx_tools_ai_kilocode-cli_install.kilo_code_cli_proot_distro_uninstalled")"
+    log_success "Kilo Code CLI (proot-distro) uninstalled"
     return 0
   else
-    log_error "$(_tr "jinx_tools_ai_kilocode-cli_install.failed_to_uninstall_kilo_code_cli")"
+    log_error "Failed to uninstall Kilo Code CLI"
     return 1
   fi
 }
@@ -282,7 +282,7 @@ _update_kilocode_proot_impl() {
   local latest_version
   latest_version=$(_get_latest_kilocode_version)
   if [ -z "$latest_version" ]; then
-    log_error "$(_tr "jinx_tools_ai_kilocode-cli_install.failed_to_fetch_latest_kilo_code_cli_ver")"
+    log_error "Failed to fetch latest Kilo Code CLI version"
     return 1
   fi
 
@@ -302,11 +302,11 @@ _update_kilocode_proot_impl() {
   kilocode_bin="$(_kilocode_detect_ubuntu_root)/usr/local/bin/kilo"
 
   if [ ! -f "$kilocode_bin" ]; then
-    log_error "$(_tr "jinx_tools_ai_kilocode-cli_install.kilo_code_cli_binary_not_found_after_upd")"
+    log_error "Kilo Code CLI binary not found after update"
     return 1
   fi
 
-  log_success "$(_tr "jinx_tools_ai_kilocode-cli_install.kilo_code_cli_proot_distro_updated")"
+  log_success "Kilo Code CLI (proot-distro) updated"
   return 0
 }
 

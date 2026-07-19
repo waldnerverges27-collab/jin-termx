@@ -11,7 +11,7 @@ _install_openssh_pkg() {
 
 _install_openssh_pkg_impl() {
   if ! yes | pkg install openssh &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_dev_openssh_install.failed_to_install_openssh")"
+    log_error "Failed to install OpenSSH"
     return 1
   fi
   return 0
@@ -19,15 +19,15 @@ _install_openssh_pkg_impl() {
 
 install_openssh() {
   if command -v sshd &>/dev/null; then
-    log_info "$(_tr "jinx_tools_dev_openssh_install.openssh_is_already_installed")"
+    log_info "OpenSSH is already installed"
     return 2
   fi
-  log_info "$(_tr "jinx_tools_dev_openssh_install.installing_openssh")"
+  log_info "Installing OpenSSH..."
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _install_openssh_pkg || return 1
-  log_success "$(_tr "jinx_tools_dev_openssh_install.openssh_installed")"
+  log_success "OpenSSH installed"
   return 0
 }
 
@@ -37,7 +37,7 @@ _uninstall_openssh_pkg() {
 
 _uninstall_openssh_pkg_impl() {
   if ! pkg uninstall openssh -y &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_dev_openssh_install.failed_to_uninstall_openssh")"
+    log_error "Failed to uninstall OpenSSH"
     return 1
   fi
   return 0
@@ -45,14 +45,14 @@ _uninstall_openssh_pkg_impl() {
 
 uninstall_openssh() {
   if ! command -v sshd &>/dev/null; then
-    log_info "$(_tr "jinx_tools_dev_openssh_install.openssh_is_not_installed")"
+    log_info "OpenSSH is not installed"
     return 2
   fi
-  log_info "$(_tr "jinx_tools_dev_openssh_install.uninstalling_openssh")"
+  log_info "Uninstalling OpenSSH..."
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _uninstall_openssh_pkg || return 1
-  log_success "$(_tr "jinx_tools_dev_openssh_install.openssh_uninstalled")"
+  log_success "OpenSSH uninstalled"
   return 0
 }
 

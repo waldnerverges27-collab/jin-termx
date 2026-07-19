@@ -11,7 +11,7 @@ _install_perl_pkg() {
 
 _install_perl_pkg_impl() {
 	if ! yes | pkg install perl &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_lang_perl_install.failed_to_install_perl")"
+		log_error "Failed to install Perl"
 		return 1
 	fi
 	return 0
@@ -19,14 +19,14 @@ _install_perl_pkg_impl() {
 
 install_perl() {
 	if command -v perl &>/dev/null; then
-		log_info "$(_tr "jinx_tools_lang_perl_install.perl_is_already_installed")"
+		log_info "Perl is already installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_lang_perl_install.installing_perl")"
+	log_info "Installing Perl..."
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 	_install_perl_pkg || return 1
-	log_success "$(_tr "jinx_tools_lang_perl_install.perl_installed")"
+	log_success "Perl installed"
 	return 0
 }
 
@@ -36,7 +36,7 @@ _uninstall_perl_pkg() {
 
 _uninstall_perl_pkg_impl() {
 	if ! pkg uninstall perl -y &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_lang_perl_install.failed_to_uninstall_perl")"
+		log_error "Failed to uninstall Perl"
 		return 1
 	fi
 	return 0
@@ -44,13 +44,13 @@ _uninstall_perl_pkg_impl() {
 
 uninstall_perl() {
 	if ! command -v perl &>/dev/null; then
-		log_info "$(_tr "jinx_tools_lang_perl_install.perl_is_not_installed")"
+		log_info "Perl is not installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_lang_perl_install.uninstalling_perl")"
+	log_info "Uninstalling Perl..."
 	mkdir -p "$(dirname "$LOG_FILE")"
 	_uninstall_perl_pkg || return 1
-	log_success "$(_tr "jinx_tools_lang_perl_install.perl_uninstalled")"
+	log_success "Perl uninstalled"
 	return 0
 }
 

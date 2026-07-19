@@ -11,7 +11,7 @@ _install_fzf_pkg() {
 
 _install_fzf_pkg_impl() {
 	if ! yes | pkg install fzf &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_dev_fzf_install.failed_to_install_fzf")"
+		log_error "Failed to install Fzf"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_fzf_pkg() {
 
 _uninstall_fzf_pkg_impl() {
 	if ! pkg uninstall fzf -y &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_dev_fzf_install.failed_to_uninstall_fzf")"
+		log_error "Failed to uninstall Fzf"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_fzf_update() {
 
 install_fzf() {
 	if command -v fzf &>/dev/null; then
-		log_info "$(_tr "jinx_tools_dev_fzf_install.fzf_is_already_installed")"
+		log_info "Fzf is already installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_dev_fzf_install.installing_fzf")"
+	log_info "Installing Fzf..."
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_fzf_pkg || return 1
-	log_success "$(_tr "jinx_tools_dev_fzf_install.fzf_installed")"
+	log_success "Fzf installed"
 	return 0
 }
 
 uninstall_fzf() {
 	if ! command -v fzf &>/dev/null; then
-		log_info "$(_tr "jinx_tools_dev_fzf_install.fzf_is_not_installed")"
+		log_info "Fzf is not installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_dev_fzf_install.uninstalling_fzf")"
+	log_info "Uninstalling Fzf..."
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_fzf_pkg || return 1
-	log_success "$(_tr "jinx_tools_dev_fzf_install.fzf_uninstalled")"
+	log_success "Fzf uninstalled"
 	return 0
 }
 

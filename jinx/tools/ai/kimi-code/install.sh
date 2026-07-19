@@ -36,7 +36,7 @@ _install_kimi_code_npm() {
 
 _install_kimi_code_npm_impl() {
   if ! npm install -g @moonshot-ai/kimi-code &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_kimi-code_install.failed_to_install_kimi_code")"
+    log_error "Failed to install Kimi Code"
     return 1
   fi
 
@@ -45,39 +45,39 @@ _install_kimi_code_npm_impl() {
 
 install_kimi_code() {
   if command -v kimi &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_kimi-code_install.kimi_code_is_already_installed")"
+    log_info "Kimi Code is already installed"
     return 2
   fi
 
-  log_info "$(_tr "jinx_tools_ai_kimi-code_install.installing_kimi_code")"
+  log_info "Installing Kimi Code..."
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _kimi_code_dependencies || return 1
   _install_kimi_code_npm || return 1
 
-  log_success "$(_tr "jinx_tools_ai_kimi-code_install.kimi_code_installed_successfully")"
+  log_success "Kimi Code installed successfully"
   return 0
 }
 
 uninstall_kimi_code() {
   if ! command -v kimi &>/dev/null; then
-    log_success "$(_tr "jinx_tools_ai_kimi-code_install.kimi_code_is_not_installed")"
+    log_success "Kimi Code is not installed"
     return 2
   fi
 
-  log_info "$(_tr "jinx_tools_ai_kimi-code_install.uninstalling_kimi_code")"
+  log_info "Uninstalling Kimi Code..."
   mkdir -p "$(dirname "$LOG_FILE")"
 
   loading "Removing Kimi Code" _uninstall_kimi_code_impl
 
-  log_success "$(_tr "jinx_tools_ai_kimi-code_install.kimi_code_uninstalled_successfully")"
+  log_success "Kimi Code uninstalled successfully"
   return 0
 }
 
 _uninstall_kimi_code_impl() {
   if ! npm uninstall -g @moonshot-ai/kimi-code &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_kimi-code_install.failed_to_uninstall_kimi_code")"
+    log_error "Failed to uninstall Kimi Code"
     return 1
   fi
   return 0
@@ -93,7 +93,7 @@ _update_kimi_code() {
 
 _update_kimi_code_impl() {
   if ! npm update -g @moonshot-ai/kimi-code &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_kimi-code_install.failed_to_update_kimi_code")"
+    log_error "Failed to update Kimi Code"
     return 1
   fi
   return 0

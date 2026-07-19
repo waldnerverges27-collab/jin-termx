@@ -24,7 +24,7 @@ _better_npm_dependencies() {
     fi
   done
 
-  log_success "$(_tr "jinx_tools_shell_better-npm_install.shell_dependencies_installed")"
+  log_success "Shell dependencies installed"
   return 0
 }
 
@@ -35,7 +35,7 @@ _install_better_npm_git() {
 _install_better_npm_git_impl() {
   mkdir -p "$(dirname "$LOG_FILE")"
   if ! git clone --depth=1 "https://github.com/lukechilds/zsh-better-npm-completion.git" "$ZSH_PLUGINS_DIR/zsh-better-npm-completion" &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_shell_better-npm_install.failed_to_install_zsh_better_npm_complet")"
+    log_error "Failed to install zsh-better-npm-completion"
     return 1
   fi
   git -C "$ZSH_PLUGINS_DIR/zsh-better-npm-completion" fetch --tags --depth=1 &>>"$LOG_FILE"
@@ -44,20 +44,20 @@ _install_better_npm_git_impl() {
 
 install_better_npm() {
   if [[ -d "$ZSH_PLUGINS_DIR/zsh-better-npm-completion" ]]; then
-    log_info "$(_tr "jinx_tools_shell_better-npm_install.zsh_better_npm_completion_already_instal")"
+    log_info "zsh-better-npm-completion already installed"
     return 0
   fi
 
   _better_npm_dependencies
 
   _install_better_npm_git || return 1
-  log_success "$(_tr "jinx_tools_shell_better-npm_install.installed")"
+  log_success "Installed"
   return 0
 }
 
 _uninstall_better_npm_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/zsh-better-npm-completion" ]]; then
-    log_info "$(_tr "jinx_tools_shell_better-npm_install.zsh_better_npm_completion_is_not_install")"
+    log_info "zsh-better-npm-completion is not installed"
     return 0
   fi
 
@@ -74,7 +74,7 @@ _update_better_npm() {
 
 _update_better_npm_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/zsh-better-npm-completion/.git" ]]; then
-    log_warn "$(_tr "jinx_tools_shell_better-npm_install.zsh_better_npm_completion_not_installed")"
+    log_warn "zsh-better-npm-completion not installed"
     return 0
   fi
 

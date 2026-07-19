@@ -39,7 +39,7 @@ _install_gemini_cli_npm_impl() {
   export ANDROID_API_LEVEL=24
 
   if ! npm install -g @google/gemini-cli &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_gemini-cli_install.failed_to_install_gemini_cli")"
+    log_error "Failed to install Gemini CLI"
     return 1
   fi
 
@@ -48,38 +48,38 @@ _install_gemini_cli_npm_impl() {
 
 install_gemini_cli() {
   if command -v gemini &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_gemini-cli_install.gemini_cli_is_already_installed")"
+    log_info "Gemini CLI is already installed"
     return 2
   fi
 
-  log_info "$(_tr "jinx_tools_ai_gemini-cli_install.installing_gemini_cli")"
+  log_info "Installing Gemini CLI..."
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _gemini_cli_dependencies || return 1
   _install_gemini_cli_npm || return 1
 
-  log_success "$(_tr "jinx_tools_ai_gemini-cli_install.gemini_cli_installed")"
+  log_success "Gemini CLI installed"
   return 0
 }
 
 uninstall_gemini_cli() {
   if ! command -v gemini &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_gemini-cli_install.gemini_cli_is_not_installed")"
+    log_info "Gemini CLI is not installed"
     return 2
   fi
-  log_info "$(_tr "jinx_tools_ai_gemini-cli_install.uninstalling_gemini_cli")"
+  log_info "Uninstalling Gemini CLI..."
   mkdir -p "$(dirname "$LOG_FILE")"
 
   loading "Removing Gemini CLI" _uninstall_gemini_cli_impl
 
-  log_success "$(_tr "jinx_tools_ai_gemini-cli_install.gemini_cli_uninstalled")"
+  log_success "Gemini CLI uninstalled"
   return 0
 }
 
 _uninstall_gemini_cli_impl() {
   if ! npm uninstall -g @google/gemini-cli &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_gemini-cli_install.failed_to_uninstall_gemini_cli")"
+    log_error "Failed to uninstall Gemini CLI"
     return 1
   fi
   return 0
@@ -98,7 +98,7 @@ _update_gemini_cli_impl() {
   export ANDROID_API_LEVEL=24
 
   if ! npm update -g @google/gemini-cli &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_gemini-cli_install.failed_to_update_gemini_cli")"
+    log_error "Failed to update Gemini CLI"
     return 1
   fi
   return 0

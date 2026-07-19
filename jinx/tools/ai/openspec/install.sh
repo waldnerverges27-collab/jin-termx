@@ -34,7 +34,7 @@ _install_openspec_npm() {
 
 _install_openspec_npm_impl() {
   if ! npm install -g @fission-ai/openspec@latest &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_openspec_install.failed_to_install_openspec")"
+    log_error "Failed to install OpenSpec"
     return 1
   fi
 
@@ -43,38 +43,38 @@ _install_openspec_npm_impl() {
 
 install_openspec() {
   if command -v openspec &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_openspec_install.openspec_is_already_installed")"
+    log_info "OpenSpec is already installed"
     return 2
   fi
 
-  log_info "$(_tr "jinx_tools_ai_openspec_install.installing_openspec")"
+  log_info "Installing OpenSpec..."
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _openspec_dependencies || return 1
   _install_openspec_npm || return 1
 
-  log_success "$(_tr "jinx_tools_ai_openspec_install.openspec_installed_successfully")"
+  log_success "OpenSpec installed successfully"
   return 0
 }
 
 uninstall_openspec() {
   if ! command -v openspec &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_openspec_install.openspec_is_not_installed")"
+    log_info "OpenSpec is not installed"
     return 2
   fi
-  log_info "$(_tr "jinx_tools_ai_openspec_install.uninstalling_openspec")"
+  log_info "Uninstalling OpenSpec..."
   mkdir -p "$(dirname "$LOG_FILE")"
 
   loading "Removing OpenSpec" _uninstall_openspec_impl
 
-  log_success "$(_tr "jinx_tools_ai_openspec_install.openspec_uninstalled")"
+  log_success "OpenSpec uninstalled"
   return 0
 }
 
 _uninstall_openspec_impl() {
   if ! npm uninstall -g @fission-ai/openspec &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_openspec_install.failed_to_uninstall_openspec")"
+    log_error "Failed to uninstall OpenSpec"
     return 1
   fi
   return 0
@@ -90,7 +90,7 @@ _update_openspec() {
 
 _update_openspec_impl() {
   if ! npm update -g @fission-ai/openspec &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_openspec_install.failed_to_update_openspec")"
+    log_error "Failed to update OpenSpec"
     return 1
   fi
   return 0

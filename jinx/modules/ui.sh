@@ -9,7 +9,7 @@ LOG_FILE="$JINX_CACHE/install_ui.log"
 
 setup_ui() {
 	separator
-	box "$(_tr "jinx_modules_ui.configuring_termux_ui")"
+	box "Configuring Termux UI"
 	separator
 	echo
 
@@ -22,15 +22,15 @@ setup_ui() {
 
 	_setup_ui_wrapper
 	separator
-	log_success "$(_tr "jinx_modules_ui.termux_ui_configuration_completed")"
+	log_success "Termux UI configuration completed"
 	separator
 	echo
-	list_item "$(_tr "jinx_modules_ui.cursor_green_00ff00")"
-	list_item "$(_tr "jinx_modules_ui.extra_keys_custom_layout_with_navigatio")"
-	list_item "$(_tr "jinx_modules_ui.font_meslo_nerd_font")"
-	list_item "$(_tr "jinx_modules_ui.banner_jin_termx_startup_banner")"
+	list_item "Cursor: Green (#00FF00)"
+	list_item "Extra-keys: Custom layout with navigation"
+	list_item "Font: Meslo Nerd Font"
+	list_item "Banner: Jin-TermX startup banner"
 	echo
-	log_warn "$(_tr "jinx_modules_ui.please_restart_termux_to_apply_all_chang")"
+	log_warn "Please restart Termux to apply all changes"
 	echo
 }
 
@@ -41,11 +41,11 @@ _setup_ui_wrapper() {
 
 uninstall_ui() {
 	if [[ ! -d "$TERMUX_DIR" ]]; then
-		log_info "$(_tr "jinx_modules_ui.termux_ui_configuration_is_not_installed")"
+		log_info "Termux UI Configuration is not installed"
 		return 0
 	fi
 	separator
-	box "$(_tr "jinx_modules_ui.uninstalling_termux_ui_configuration")"
+	box "Uninstalling Termux UI Configuration"
 	separator
 	echo
 
@@ -54,10 +54,10 @@ uninstall_ui() {
 	_uninstall_ui_wrapper
 	echo
 	separator
-	log_success "$(_tr "jinx_modules_ui.termux_ui_configuration_uninstalled")"
+	log_success "Termux UI configuration uninstalled"
 	separator
 	echo
-	log_warn "$(_tr "jinx_modules_ui.please_restart_termux_to_apply_changes")"
+	log_warn "Please restart Termux to apply changes"
 	echo
 }
 
@@ -68,7 +68,7 @@ _uninstall_ui_wrapper() {
 
 update_ui() {
 	separator
-	box "$(_tr "jinx_modules_ui.updating_termux_ui_configuration")"
+	box "Updating Termux UI Configuration"
 	separator
 	echo
 
@@ -77,7 +77,7 @@ update_ui() {
 	_update_ui_wrapper
 	echo
 	separator
-	log_success "$(_tr "jinx_modules_ui.termux_ui_configuration_updated")"
+	log_success "Termux UI configuration updated"
 	separator
 	echo
 }
@@ -89,7 +89,7 @@ _update_ui_wrapper() {
 
 reinstall_ui() {
   separator
-  box "$(_tr "jinx_modules_ui.reinstalling_termux_ui_configuration")"
+  box "Reinstalling Termux UI Configuration"
   separator
   echo
 
@@ -97,15 +97,15 @@ reinstall_ui() {
 
   _reinstall_ui_wrapper
   separator
-  log_success "$(_tr "jinx_modules_ui.termux_ui_configuration_reinstalled")"
+  log_success "Termux UI configuration reinstalled"
   separator
   echo
-  list_item "$(_tr "jinx_modules_ui.cursor_green_00ff00")"
-  list_item "$(_tr "jinx_modules_ui.extra_keys_custom_layout_with_navigatio")"
-  list_item "$(_tr "jinx_modules_ui.font_meslo_nerd_font")"
-  list_item "$(_tr "jinx_modules_ui.banner_jin_termx_startup_banner")"
+  list_item "Cursor: Green (#00FF00)"
+  list_item "Extra-keys: Custom layout with navigation"
+  list_item "Font: Meslo Nerd Font"
+  list_item "Banner: Jin-TermX startup banner"
   echo
-  log_warn "$(_tr "jinx_modules_ui.please_restart_termux_to_apply_all_chang")"
+  log_warn "Please restart Termux to apply all changes"
   echo
 }
 

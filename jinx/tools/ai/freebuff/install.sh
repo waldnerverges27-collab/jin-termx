@@ -39,14 +39,14 @@ _freebuff_install_deps_native() {
 _freebuff_install_deps_native_impl() {
   if [[ ! -f $PREFIX/etc/apt/sources.list.d/glibc.list ]]; then
     if ! yes | pkg install glibc-repo &>>"$LOG_FILE"; then
-      log_error "$(_tr "jinx_tools_ai_freebuff_install.failed_to_install_glibc_repo")"
+      log_error "Failed to install glibc-repo"
       return 1
     fi
   fi
 
   if [[ ! -f $PREFIX/glibc/lib/libc.so.6 ]]; then
     if ! yes | pkg install glibc &>>"$LOG_FILE"; then
-      log_error "$(_tr "jinx_tools_ai_freebuff_install.failed_to_install_glibc")"
+      log_error "Failed to install glibc"
       return 1
     fi
   fi
@@ -80,7 +80,7 @@ _download_freebuff_binary_impl() {
   local latest_version
   latest_version=$(_get_latest_freebuff_version)
   if [ -z "$latest_version" ]; then
-    log_error "$(_tr "jinx_tools_ai_freebuff_install.failed_to_fetch_latest_freebuff_version")"
+    log_error "Failed to fetch latest Freebuff version"
     return 1
   fi
 
@@ -90,19 +90,19 @@ _download_freebuff_binary_impl() {
   local download_url="https://codebuff.com/api/releases/download/$latest_version/$tarball"
 
   if ! curl -fsSL "$download_url" -o "$FREEBUFF_DATA_DIR/$tarball" &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_freebuff_install.failed_to_download_freebuff_binary")"
+    log_error "Failed to download Freebuff binary"
     return 1
   fi
 
   if ! tar -zxf "$FREEBUFF_DATA_DIR/$tarball" -C "$FREEBUFF_DATA_DIR" &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_freebuff_install.failed_to_extract_freebuff_binary")"
+    log_error "Failed to extract Freebuff binary"
     return 1
   fi
 
   rm -f "$FREEBUFF_DATA_DIR/$tarball"
 
   if [ ! -f "$FREEBUFF_DATA_DIR/freebuff" ]; then
-    log_error "$(_tr "jinx_tools_ai_freebuff_install.freebuff_binary_not_found_after_extracti")"
+    log_error "Freebuff binary not found after extraction"
     return 1
   fi
 
@@ -122,7 +122,7 @@ _compile_freebuff_helper_impl() {
   fi
 
   if ! clang -O2 -o "$PREFIX/bin/freebuff" "$HELPER_SRC" &>>"$LOG_FILE"; then
-    log_error "$(_tr "jinx_tools_ai_freebuff_install.failed_to_compile_freebuff_helper")"
+    log_error "Failed to compile freebuff helper"
     return 1
   fi
 
@@ -134,7 +134,7 @@ _install_freebuff_native() {
   _freebuff_install_deps_native || return 1
   _download_freebuff_binary || return 1
   _compile_freebuff_helper || return 1
-  log_success "$(_tr "jinx_tools_ai_freebuff_install.freebuff_installed_natively")"
+  log_success "Freebuff installed natively"
   return 0
 }
 
@@ -173,14 +173,14 @@ _install_freebuff_proot_impl() {
   ubuntu_root="$(_freebuff_detect_ubuntu_root)"
 
   if [ -z "$ubuntu_root" ]; then
-    log_error "$(_tr "jinx_tools_ai_freebuff_install.ubuntu_rootfs_not_found")"
+    log_error "Ubuntu rootfs not found"
     return 1
   fi
 
   local freebuff_bin="$ubuntu_root/root/.freebuff/freebuff"
 
   if [ ! -f "$freebuff_bin" ]; then
-    log_error "$(_tr "jinx_tools_ai_freebuff_install.freebuff_binary_not_found_after_install")"
+    log_error "Freebuff binary not found after install"
     return 1
   fi
 
@@ -201,11 +201,11 @@ _install_freebuff_proot_impl() {
 
 install_freebuff() {
   if command -v freebuff &>/dev/null; then
-    log_info "$(_tr "jinx_tools_ai_freebuff_install.freebuff_is_already_installed")"
+    log_info "Freebuff is already installed"
     return 2
   fi
 
-  log_info "$(_tr "jinx_tools_ai_freebuff_install.select_installation_method_for_freebuff")"
+  log_info "Select installation method for Freebuff:"
 
   read_select "Installation method" SELECTED_METHOD \
     "Native (recommended) - Compile with glibc support" \
@@ -222,18 +222,18 @@ install_freebuff() {
 }
 
 uninstall_freebuff() {
-  log_info "$(_tr "jinx_tools_ai_freebuff_install.uninstalling_freebuff")"
+  log_info "Uninstalling Freebuff..."
   mkdir -p "$(dirname "$LOG_FILE")"
 
   if [ ! -f "$PREFIX/bin/freebuff" ]; then
-    log_warn "$(_tr "jinx_tools_ai_freebuff_install.freebuff_is_not_installed")"
+    log_warn "Freebuff is not installed"
     return 1
   fi
 
   if [ -f "$FREEBUFF_DATA_DIR/freebuff" ]; then
     rm -f "$PREFIX/bin/freebuff"
     rm -rf "$FREEBUFF_DATA_DIR"
-    log_success "$(_tr "jinx_tools_ai_freebuff_install.freebuff_native_uninstalled")"
+    log_success "Freebuff (native) uninstalled"
     return 0
   fi
 
@@ -247,10 +247,10 @@ uninstall_freebuff() {
   fi
 
   if rm -f "$PREFIX/bin/freebuff" &>>"$LOG_FILE"; then
-    log_success "$(_tr "jinx_tools_ai_freebuff_install.freebuff_proot_distro_uninstalled")"
+    log_success "Freebuff (proot-distro) uninstalled"
     return 0
   else
-    log_error "$(_tr "jinx_tools_ai_freebuff_install.failed_to_uninstall_freebuff")"
+    log_error "Failed to uninstall Freebuff"
     return 1
   fi
 }
@@ -282,11 +282,11 @@ _update_freebuff() {
   local freebuff_bin="$ubuntu_root/root/.freebuff/freebuff"
 
   if [ ! -f "$freebuff_bin" ]; then
-    log_error "$(_tr "jinx_tools_ai_freebuff_install.freebuff_binary_not_found_after_update")"
+    log_error "Freebuff binary not found after update"
     return 1
   fi
 
-  log_success "$(_tr "jinx_tools_ai_freebuff_install.freebuff_proot_distro_updated")"
+  log_success "Freebuff (proot-distro) updated"
   return 0
 }
 

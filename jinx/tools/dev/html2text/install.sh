@@ -11,7 +11,7 @@ _install_html2text_pkg() {
 
 _install_html2text_pkg_impl() {
 	if ! yes | pkg install html2text &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_dev_html2text_install.failed_to_install_html2text")"
+		log_error "Failed to install html2text"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_html2text_pkg() {
 
 _uninstall_html2text_pkg_impl() {
 	if ! pkg uninstall html2text -y &>>"$LOG_FILE"; then
-		log_error "$(_tr "jinx_tools_dev_html2text_install.failed_to_uninstall_html2text")"
+		log_error "Failed to uninstall html2text"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_html2text_update() {
 
 install_html2text() {
 	if command -v html2text &>/dev/null; then
-		log_info "$(_tr "jinx_tools_dev_html2text_install.html2text_is_already_installed")"
+		log_info "HTML2Text is already installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_dev_html2text_install.installing_html2text")"
+	log_info "Installing html2text..."
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_html2text_pkg || return 1
-	log_success "$(_tr "jinx_tools_dev_html2text_install.html2text_installed")"
+	log_success "html2text installed"
 	return 0
 }
 
 uninstall_html2text() {
 	if ! command -v html2text &>/dev/null; then
-		log_info "$(_tr "jinx_tools_dev_html2text_install.html2text_is_not_installed")"
+		log_info "HTML2Text is not installed"
 		return 2
 	fi
-	log_info "$(_tr "jinx_tools_dev_html2text_install.uninstalling_html2text")"
+	log_info "Uninstalling html2text..."
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_html2text_pkg || return 1
-	log_success "$(_tr "jinx_tools_dev_html2text_install.html2text_uninstalled")"
+	log_success "html2text uninstalled"
 	return 0
 }
 
