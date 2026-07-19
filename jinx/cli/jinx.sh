@@ -75,6 +75,6 @@ jinx_help() {
   echo
   list_item "Run ${D_CYAN}jinx <command>${NC} for command-specific help"
   list_item "Example: ${D_CYAN}jinx pg${NC}, ${D_CYAN}jinx init${NC}"
-  list_item "Docs: ${D_CYAN}jinx open${NC} — https://devcorex-web.vercel.app"
+  list_item "Docs: ${D_CYAN}glow README.md${NC} or ${D_CYAN}jinx <command> --help${NC}"
   echo
 }

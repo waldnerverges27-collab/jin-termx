@@ -3,8 +3,6 @@
 import "@/utils/log"
 import "@/utils/colors"
 
-OPEN_BASE_URL="https://devcorex-web.vercel.app"
-
 open_main() {
 	if [[ $# -eq 0 ]]; then
 		open_help
@@ -12,63 +10,29 @@ open_main() {
 	fi
 
 	local target="$1"
-	local url=""
 
 	case "$target" in
-	devcorex)
-		url="$OPEN_BASE_URL"
-		;;
-	jinx | help)
-		url="$OPEN_BASE_URL/jin-termx"
-		;;
-	lang | db | ai | editor | dev | npm | shell | ui | auto)
-		url="$OPEN_BASE_URL/jin-termx/$target"
-		;;
 	--help | -h)
 		open_help
 		return
 		;;
 	*)
-		log_error "Unknown target: $target"
-		echo
-		open_help
-		return 1
+		log_info "Documentation is available locally in the Jin-TermX repository."
+		log_info "Run ${D_CYAN}jinx <command> --help${NC} for command-specific help."
+		return
 		;;
 	esac
-
-	if ! command -v termux-open-url &>/dev/null; then
-		log_error "termux-open-url not found. Are you running in Termux?"
-		return 1
-	fi
-
-	termux-open-url "$url"
-	log_success "Opening: ${D_CYAN}$url${NC}"
 }
 
 open_help() {
 	echo
 	box "Jin Open"
 	echo
-	log_info "Usage: jinx open <target>"
+	log_info "Usage: jinx open"
 	echo
-	log_info "Open official documentation in browser"
+	log_info "Documentation is available locally in the Jin-TermX repository."
 	echo
-	separator_section "Targets"
-	echo
-	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "jinx" "Jin-TermX documentation"
-	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "devcorex" "JinDev website"
-	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "lang" "Language modules"
-	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "db" "Database modules"
-	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "ai" "AI tools"
-	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "editor" "Code editor"
-	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "dev" "Dev tools"
-	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "npm" "Node.js tools"
-	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "shell" "ZSH shell"
-	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "ui" "Termux UI"
-	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "auto" "Automation tools"
-	echo
-	separator_section "Website"
-	echo
-	list_item "${D_CYAN}$OPEN_BASE_URL${NC}"
+	list_item "Run ${D_CYAN}jinx <command> --help${NC} for command-specific help"
+	list_item "Read the README: ${D_CYAN}glow README.md${NC} (or ${D_CYAN}bat README.md${NC})"
 	echo
 }

@@ -8,39 +8,6 @@
   <strong>BUILD. CODE. AUTOMATE.</strong>
 </p>
 
-<p align="center">
-  <a href="https://github.com/waldnerverges27-collab/jin-termx">
-    <img src="https://img.shields.io/badge/version-4.11.3-0078D4?style=for-the-badge&logo=appveyor" alt="Version">
-  </a>
-  <a href="https://github.com/waldnerverges27-collab/jin-termx/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/license-MIT-0078D4?style=for-the-badge&logo=bookstack" alt="License">
-  </a>
-  <a href="https://termux.dev/">
-    <img src="https://img.shields.io/badge/platform-Termux%20%7C%20Android-0078D4?style=for-the-badge&logo=android" alt="Platform">
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/waldnerverges27-collab/jin-termx/stargazers">
-    <img src="https://img.shields.io/github/stars/waldnerverges27-collab/jin-termx?style=for-the-badge&logo=github&color=f5c542" alt="Stars">
-  </a>
-  <a href="https://github.com/waldnerverges27-collab/jin-termx/network/members">
-    <img src="https://img.shields.io/github/forks/waldnerverges27-collab/jin-termx?style=for-the-badge&logo=github&color=94a3b8" alt="Forks">
-  </a>
-  <a href="https://github.com/waldnerverges27-collab/jin-termx/issues">
-    <img src="https://img.shields.io/github/issues/waldnerverges27-collab/jin-termx?style=for-the-badge&logo=github&color=ef4444" alt="Issues">
-  </a>
-  <a href="https://github.com/waldnerverges27-collab/jin-termx/pulls">
-    <img src="https://img.shields.io/github/issues-pr/waldnerverges27-collab/jin-termx?style=for-the-badge&logo=github&color=22c55e" alt="Pull Requests">
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://devcorex-web.vercel.app/jin-termx">
-    <img src="https://img.shields.io/badge/%F0%9F%9A%80_Get%20Started-0078D4?style=for-the-badge" alt="Get Started">
-  </a>
-</p>
-
 <br>
 
 **JIN-TERMX** is a _modular dev environment_ that turns Termux into a complete development workstation. Through a single core CLI, it provides a modular system that covers the full developer stack: programming languages, databases, AI agents, code editors, shell configuration, and automation — all manageable with simple, consistent commands like `jinx install`, `jinx update`, and `jinx uninstall`.
@@ -302,7 +269,7 @@ jinx voice !                  # Alias for 'text'
 **Requirements:**
 - Termux:API package: `pkg install termux-api`
 - Neovim for editing: `jinx install editor`
-- Termux:API app: https://devcorex-web.vercel.app/termux/api
+- Termux:API app: https://f-droid.org/packages/com.termux.api
 
 > **Note:** `jinx voice` automatically runs `termux-api-start` before capturing audio to ensure the Termux:API service is running.
 
