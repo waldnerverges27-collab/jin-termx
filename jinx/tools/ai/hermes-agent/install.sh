@@ -28,7 +28,7 @@ _hermes_install_deps_impl() {
   done
 
   if ! command -v python &>/dev/null; then
-    log_error "Python is required but could not be installed"
+    log_error "$(_tr "jinx_tools_ai_hermes-agent_install.python_is_required_but_could_not_be_inst")"
     return 1
   fi
 
@@ -89,7 +89,7 @@ _hermes_apply_patches_impl() {
   local HERMES_DIR="$HOME/.hermes/hermes-agent"
 
   if [ ! -f "$HERMES_DIR/pyproject.toml" ]; then
-    log_error "Hermes Agent repo not found after installer"
+    log_error "$(_tr "jinx_tools_ai_hermes-agent_install.hermes_agent_repo_not_found_after_instal")"
     return 1
   fi
 
@@ -121,37 +121,37 @@ _install_hermes_agent() {
   # Still failing (Python version constraint) — force install with pip
   _hermes_pip_fallback && return 0
 
-  log_error "Failed to install Hermes Agent"
+  log_error "$(_tr "jinx_tools_ai_hermes-agent_install.failed_to_install_hermes_agent")"
   return 1
 }
 
 install_hermes_agent() {
   if command -v hermes &>/dev/null; then
-    log_info "Hermes Agent is already installed"
+    log_info "$(_tr "jinx_tools_ai_hermes-agent_install.hermes_agent_is_already_installed")"
     return 2
   fi
 
-  log_info "Installing Hermes Agent..."
+  log_info "$(_tr "jinx_tools_ai_hermes-agent_install.installing_hermes_agent")"
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _install_hermes_agent || return 1
 
-  log_success "Hermes Agent installed successfully"
+  log_success "$(_tr "jinx_tools_ai_hermes-agent_install.hermes_agent_installed_successfully")"
   return 0
 }
 
 uninstall_hermes_agent() {
   if ! command -v hermes &>/dev/null; then
-    log_info "Hermes Agent is not installed"
+    log_info "$(_tr "jinx_tools_ai_hermes-agent_install.hermes_agent_is_not_installed")"
     return 2
   fi
-  log_info "Uninstalling Hermes Agent..."
+  log_info "$(_tr "jinx_tools_ai_hermes-agent_install.uninstalling_hermes_agent")"
   mkdir -p "$(dirname "$LOG_FILE")"
 
   loading "Removing Hermes Agent" _uninstall_hermes_agent_impl
 
-  log_success "Hermes Agent uninstalled successfully"
+  log_success "$(_tr "jinx_tools_ai_hermes-agent_install.hermes_agent_uninstalled_successfully")"
   return 0
 }
 
@@ -159,7 +159,7 @@ _uninstall_hermes_agent_impl() {
   if rm -rf "$HOME/.hermes" && rm -f "$PREFIX/bin/hermes" &>>"$LOG_FILE"; then
     return 0
   else
-    log_error "Failed to uninstall Hermes Agent"
+    log_error "$(_tr "jinx_tools_ai_hermes-agent_install.failed_to_uninstall_hermes_agent")"
     return 1
   fi
 }
@@ -170,7 +170,7 @@ _hermes_get_release_date() {
 
 update_hermes_agent() {
   if ! command -v hermes &>/dev/null; then
-    log_warn "Hermes Agent: not installed"
+    log_warn "$(_tr "jinx_tools_ai_hermes-agent_install.hermes_agent_not_installed")"
     echo
     local confirm_var
     read_confirm_default "Install Hermes Agent?" "y" confirm_var
@@ -178,7 +178,7 @@ update_hermes_agent() {
       install_hermes_agent
       return $?
     fi
-    log_info "Skipped Hermes Agent"
+    log_info "$(_tr "jinx_tools_ai_hermes-agent_install.skipped_hermes_agent")"
     return 0
   fi
 
@@ -206,7 +206,7 @@ update_hermes_agent() {
   local confirm_var
   read_confirm_default "Update Hermes Agent?" "y" confirm_var
   if [ "$confirm_var" != "y" ]; then
-    log_info "Skipped Hermes Agent"
+    log_info "$(_tr "jinx_tools_ai_hermes-agent_install.skipped_hermes_agent")"
     return 0
   fi
 
@@ -217,7 +217,7 @@ _update_hermes_agent() {
   local HERMES_DIR="$HOME/.hermes/hermes-agent"
 
   if [ ! -d "$HERMES_DIR/.git" ]; then
-    log_error "Hermes Agent repo not found, run a full install first"
+    log_error "$(_tr "jinx_tools_ai_hermes-agent_install.hermes_agent_repo_not_found_run_a_full")"
     return 1
   fi
 

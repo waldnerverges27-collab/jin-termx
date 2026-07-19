@@ -24,7 +24,7 @@ _history_substring_dependencies() {
     fi
   done
 
-  log_success "Shell dependencies installed"
+  log_success "$(_tr "jinx_tools_shell_history-substring_install.shell_dependencies_installed")"
   return 0
 }
 
@@ -35,7 +35,7 @@ _install_history_substring_git() {
 _install_history_substring_git_impl() {
   mkdir -p "$(dirname "$LOG_FILE")"
   if ! git clone --depth=1 "https://github.com/zsh-users/zsh-history-substring-search.git" "$ZSH_PLUGINS_DIR/zsh-history-substring-search" &>>"$LOG_FILE"; then
-    log_error "Failed to install zsh-history-substring-search"
+    log_error "$(_tr "jinx_tools_shell_history-substring_install.failed_to_install_zsh_history_substring")"
     return 1
   fi
   git -C "$ZSH_PLUGINS_DIR/zsh-history-substring-search" fetch --tags --depth=1 &>>"$LOG_FILE"
@@ -44,20 +44,20 @@ _install_history_substring_git_impl() {
 
 install_history_substring() {
   if [[ -d "$ZSH_PLUGINS_DIR/zsh-history-substring-search" ]]; then
-    log_info "zsh-history-substring-search already installed"
+    log_info "$(_tr "jinx_tools_shell_history-substring_install.zsh_history_substring_search_already_ins")"
     return 0
   fi
 
   _history_substring_dependencies
 
   _install_history_substring_git || return 1
-  log_success "Installed"
+  log_success "$(_tr "jinx_tools_shell_history-substring_install.installed")"
   return 0
 }
 
 _uninstall_history_substring_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/zsh-history-substring-search" ]]; then
-    log_info "zsh-history-substring-search is not installed"
+    log_info "$(_tr "jinx_tools_shell_history-substring_install.zsh_history_substring_search_is_not_inst")"
     return 0
   fi
 
@@ -74,7 +74,7 @@ _update_history_substring() {
 
 _update_history_substring_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/zsh-history-substring-search/.git" ]]; then
-    log_warn "zsh-history-substring-search not installed"
+    log_warn "$(_tr "jinx_tools_shell_history-substring_install.zsh_history_substring_search_not_install")"
     return 0
   fi
 

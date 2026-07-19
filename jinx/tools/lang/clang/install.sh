@@ -11,7 +11,7 @@ _install_clang_pkg() {
 
 _install_clang_pkg_impl() {
 	if ! yes | pkg install clang &>>"$LOG_FILE"; then
-		log_error "Failed to install C/C++ (Clang)"
+		log_error "$(_tr "jinx_tools_lang_clang_install.failed_to_install_c_c_clang")"
 		return 1
 	fi
 	return 0
@@ -19,14 +19,14 @@ _install_clang_pkg_impl() {
 
 install_clang() {
 	if command -v clang &>/dev/null; then
-		log_info "C/C++ (Clang) is already installed"
+		log_info "$(_tr "jinx_tools_lang_clang_install.c_c_clang_is_already_installed")"
 		return 2
 	fi
-	log_info "Installing C/C++ (Clang)..."
+	log_info "$(_tr "jinx_tools_lang_clang_install.installing_c_c_clang")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 	_install_clang_pkg || return 1
-	log_success "C/C++ (Clang) installed"
+	log_success "$(_tr "jinx_tools_lang_clang_install.c_c_clang_installed")"
 	return 0
 }
 
@@ -36,7 +36,7 @@ _uninstall_clang_pkg() {
 
 _uninstall_clang_pkg_impl() {
 	if ! pkg uninstall clang -y &>>"$LOG_FILE"; then
-		log_error "Failed to uninstall C/C++ (clang)"
+		log_error "$(_tr "jinx_tools_lang_clang_install.failed_to_uninstall_c_c_clang")"
 		return 1
 	fi
 	return 0
@@ -44,13 +44,13 @@ _uninstall_clang_pkg_impl() {
 
 uninstall_clang() {
 	if ! command -v clang &>/dev/null; then
-		log_info "C/C++ (Clang) is not installed"
+		log_info "$(_tr "jinx_tools_lang_clang_install.c_c_clang_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling C/C++ (Clang)..."
+	log_info "$(_tr "jinx_tools_lang_clang_install.uninstalling_c_c_clang")"
 	mkdir -p "$(dirname "$LOG_FILE")"
 	_uninstall_clang_pkg || return 1
-	log_success "C/C++ (clang) uninstalled"
+	log_success "$(_tr "jinx_tools_lang_clang_install.c_c_clang_uninstalled")"
 	return 0
 }
 

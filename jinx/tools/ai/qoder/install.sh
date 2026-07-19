@@ -50,14 +50,14 @@ _qoder_install_deps_native() {
 _qoder_install_deps_native_impl() {
   if [[ ! -f $PREFIX/etc/apt/sources.list.d/glibc.list ]]; then
     if ! yes | pkg install glibc-repo &>>"$LOG_FILE"; then
-      log_error "Failed to install glibc-repo"
+      log_error "$(_tr "jinx_tools_ai_qoder_install.failed_to_install_glibc_repo")"
       return 1
     fi
   fi
 
   if [[ ! -f $PREFIX/glibc/lib/libc.so.6 ]]; then
     if ! yes | pkg install glibc &>>"$LOG_FILE"; then
-      log_error "Failed to install glibc"
+      log_error "$(_tr "jinx_tools_ai_qoder_install.failed_to_install_glibc")"
       return 1
     fi
   fi
@@ -94,14 +94,14 @@ _download_qoder_binary_impl() {
   local latest_version
   latest_version=$(_get_latest_qoder_version)
   if [ -z "$latest_version" ]; then
-    log_error "Failed to fetch latest Qoder version"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.failed_to_fetch_latest_qoder_version")"
     return 1
   fi
 
   local download_url
   download_url=$(_get_qoder_download_url "arm64")
   if [ -z "$download_url" ]; then
-    log_error "No download URL found for linux/arm64"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.no_download_url_found_for_linux_arm64")"
     return 1
   fi
 
@@ -111,19 +111,19 @@ _download_qoder_binary_impl() {
   archive_filename=$(basename "$download_url")
 
   if ! curl -fsSL "$download_url" -o "$QODER_DATA_DIR/$archive_filename" &>>"$LOG_FILE"; then
-    log_error "Failed to download Qoder binary"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.failed_to_download_qoder_binary")"
     return 1
   fi
 
   if ! tar -zxf "$QODER_DATA_DIR/$archive_filename" -C "$QODER_DATA_DIR" &>>"$LOG_FILE"; then
-    log_error "Failed to extract Qoder binary"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.failed_to_extract_qoder_binary")"
     return 1
   fi
 
   rm -f "$QODER_DATA_DIR/$archive_filename"
 
   if [ ! -f "$QODER_DATA_DIR/qodercli" ]; then
-    log_error "Qoder binary not found after extraction"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.qoder_binary_not_found_after_extraction")"
     return 1
   fi
 
@@ -143,7 +143,7 @@ _compile_qoder_helper_impl() {
   fi
 
   if ! clang -O2 -o "$PREFIX/bin/qodercli" "$HELPER_SRC" &>>"$LOG_FILE"; then
-    log_error "Failed to compile qoder helper"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.failed_to_compile_qoder_helper")"
     return 1
   fi
 
@@ -155,7 +155,7 @@ _install_qoder_native() {
   _qoder_install_deps_native || return 1
   _download_qoder_binary || return 1
   _compile_qoder_helper || return 1
-  log_success "Qoder installed natively"
+  log_success "$(_tr "jinx_tools_ai_qoder_install.qoder_installed_natively")"
   return 0
 }
 
@@ -181,14 +181,14 @@ _install_qoder_proot_impl() {
   local download_url
   download_url=$(_get_qoder_download_url "arm64")
   if [ -z "$download_url" ]; then
-    log_error "No download URL found for linux/arm64"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.no_download_url_found_for_linux_arm64")"
     return 1
   fi
 
   local ubuntu_root
   ubuntu_root="$(_qoder_detect_ubuntu_root)"
   if [ -z "$ubuntu_root" ]; then
-    log_error "Ubuntu rootfs not found"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.ubuntu_rootfs_not_found")"
     return 1
   fi
 
@@ -199,19 +199,19 @@ _install_qoder_proot_impl() {
   archive_filename=$(basename "$download_url")
 
   if ! curl -fsSL "$download_url" -o "$qoder_dir/$archive_filename" &>>"$LOG_FILE"; then
-    log_error "Failed to download Qoder binary"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.failed_to_download_qoder_binary")"
     return 1
   fi
 
   if ! tar -zxf "$qoder_dir/$archive_filename" -C "$qoder_dir" &>>"$LOG_FILE"; then
-    log_error "Failed to extract Qoder binary"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.failed_to_extract_qoder_binary")"
     return 1
   fi
 
   rm -f "$qoder_dir/$archive_filename"
 
   if [ ! -f "$qoder_dir/qodercli" ]; then
-    log_error "Qoder binary not found after extraction"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.qoder_binary_not_found_after_extraction")"
     return 1
   fi
 
@@ -234,11 +234,11 @@ _install_qoder_proot_impl() {
 
 install_qoder() {
   if command -v qodercli &>/dev/null; then
-    log_info "Qoder is already installed"
+    log_info "$(_tr "jinx_tools_ai_qoder_install.qoder_is_already_installed")"
     return 2
   fi
 
-  log_info "Select installation method for Qoder:"
+  log_info "$(_tr "jinx_tools_ai_qoder_install.select_installation_method_for_qoder")"
 
   read_select "Installation method" SELECTED_METHOD \
     "Native (recommended) - Compile with glibc support" \
@@ -258,7 +258,7 @@ uninstall_qoder() {
   mkdir -p "$(dirname "$LOG_FILE")"
 
   if [ ! -f "$PREFIX/bin/qodercli" ]; then
-    log_warn "Qoder is not installed"
+    log_warn "$(_tr "jinx_tools_ai_qoder_install.qoder_is_not_installed")"
     return 1
   fi
 
@@ -269,7 +269,7 @@ _uninstall_qoder_impl() {
   if [ -f "$QODER_DATA_DIR/qodercli" ]; then
     rm -f "$PREFIX/bin/qodercli"
     rm -rf "$QODER_DATA_DIR"
-    log_success "Qoder (native) uninstalled"
+    log_success "$(_tr "jinx_tools_ai_qoder_install.qoder_native_uninstalled")"
     return 0
   fi
 
@@ -283,10 +283,10 @@ _uninstall_qoder_impl() {
   fi
 
   if rm -f "$PREFIX/bin/qodercli" &>>"$LOG_FILE"; then
-    log_success "Qoder (proot-distro) uninstalled"
+    log_success "$(_tr "jinx_tools_ai_qoder_install.qoder_proot_distro_uninstalled")"
     return 0
   else
-    log_error "Failed to uninstall Qoder"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.failed_to_uninstall_qoder")"
     return 1
   fi
 }
@@ -319,7 +319,7 @@ _update_qoder_proot_impl() {
   ubuntu_root="$(_qoder_detect_ubuntu_root)"
 
   if [ -z "$ubuntu_root" ]; then
-    log_error "Ubuntu rootfs not found"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.ubuntu_rootfs_not_found")"
     return 1
   fi
 
@@ -328,7 +328,7 @@ _update_qoder_proot_impl() {
   local download_url
   download_url=$(_get_qoder_download_url "arm64")
   if [ -z "$download_url" ]; then
-    log_error "No download URL found for linux/arm64"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.no_download_url_found_for_linux_arm64")"
     return 1
   fi
 
@@ -339,25 +339,25 @@ _update_qoder_proot_impl() {
   archive_filename=$(basename "$download_url")
 
   if ! curl -fsSL "$download_url" -o "$qoder_dir/$archive_filename" &>>"$LOG_FILE"; then
-    log_error "Failed to download Qoder binary"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.failed_to_download_qoder_binary")"
     return 1
   fi
 
   if ! tar -zxf "$qoder_dir/$archive_filename" -C "$qoder_dir" &>>"$LOG_FILE"; then
-    log_error "Failed to extract Qoder binary"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.failed_to_extract_qoder_binary")"
     return 1
   fi
 
   rm -f "$qoder_dir/$archive_filename"
 
   if [ ! -f "$qoder_dir/qodercli" ]; then
-    log_error "Qoder binary not found after extraction"
+    log_error "$(_tr "jinx_tools_ai_qoder_install.qoder_binary_not_found_after_extraction")"
     return 1
   fi
 
   chmod +x "$qoder_dir/qodercli"
 
-  log_success "Qoder (proot-distro) updated"
+  log_success "$(_tr "jinx_tools_ai_qoder_install.qoder_proot_distro_updated")"
   return 0
 }
 

@@ -11,7 +11,7 @@ _install_tree_pkg() {
 
 _install_tree_pkg_impl() {
 	if ! yes | pkg install tree &>>"$LOG_FILE"; then
-		log_error "Failed to install Tree"
+		log_error "$(_tr "jinx_tools_dev_tree_install.failed_to_install_tree")"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_tree_pkg() {
 
 _uninstall_tree_pkg_impl() {
 	if ! pkg uninstall tree -y &>>"$LOG_FILE"; then
-		log_error "Failed to uninstall Tree"
+		log_error "$(_tr "jinx_tools_dev_tree_install.failed_to_uninstall_tree")"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_tree_update() {
 
 install_tree() {
 	if command -v tree &>/dev/null; then
-		log_info "Tree is already installed"
+		log_info "$(_tr "jinx_tools_dev_tree_install.tree_is_already_installed")"
 		return 2
 	fi
-	log_info "Installing Tree..."
+	log_info "$(_tr "jinx_tools_dev_tree_install.installing_tree")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_tree_pkg || return 1
-	log_success "Tree installed"
+	log_success "$(_tr "jinx_tools_dev_tree_install.tree_installed")"
 	return 0
 }
 
 uninstall_tree() {
 	if ! command -v tree &>/dev/null; then
-		log_info "Tree is not installed"
+		log_info "$(_tr "jinx_tools_dev_tree_install.tree_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling Tree..."
+	log_info "$(_tr "jinx_tools_dev_tree_install.uninstalling_tree")"
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_tree_pkg || return 1
-	log_success "Tree uninstalled"
+	log_success "$(_tr "jinx_tools_dev_tree_install.tree_uninstalled")"
 	return 0
 }
 

@@ -42,7 +42,7 @@ _gentle_ai_ensure_go() {
 
 _gentle_ai_ensure_go_impl() {
   if ! command -v go &>/dev/null; then
-    log_error "Go is required but not installed"
+    log_error "$(_tr "jinx_tools_ai_gentle-ai_install.go_is_required_but_not_installed")"
     return 1
   fi
 
@@ -84,11 +84,11 @@ _clone_or_update_repo_impl() {
     git -C "$GENTLE_AI_DATA_DIR" remote set-url origin "$repo_url" &>>"$LOG_FILE"
     git -C "$GENTLE_AI_DATA_DIR" stash --include-untracked &>>"$LOG_FILE" || true
     if ! git -C "$GENTLE_AI_DATA_DIR" fetch origin &>>"$LOG_FILE"; then
-      log_error "Failed to fetch from remote"
+      log_error "$(_tr "jinx_tools_ai_gentle-ai_install.failed_to_fetch_from_remote")"
       return 1
     fi
     if ! git -C "$GENTLE_AI_DATA_DIR" reset --hard origin/main &>>"$LOG_FILE"; then
-      log_error "Failed to reset to origin/main"
+      log_error "$(_tr "jinx_tools_ai_gentle-ai_install.failed_to_reset_to_origin_main")"
       return 1
     fi
   else
@@ -96,7 +96,7 @@ _clone_or_update_repo_impl() {
       rm -rf "$GENTLE_AI_DATA_DIR"
     fi
     if ! git clone "$repo_url" "$GENTLE_AI_DATA_DIR" &>>"$LOG_FILE"; then
-      log_error "Failed to clone gentle-ai repo"
+      log_error "$(_tr "jinx_tools_ai_gentle-ai_install.failed_to_clone_gentle_ai_repo")"
       return 1
     fi
   fi
@@ -116,7 +116,7 @@ _build_and_apply_patches_impl() {
 
   if [ ! -f "$patcher_bin" ] || [ "$patcher_src" -nt "$patcher_bin" ]; then
     if ! go build -o "$patcher_bin" "$patcher_src" &>>"$LOG_FILE"; then
-      log_error "Failed to compile patcher"
+      log_error "$(_tr "jinx_tools_ai_gentle-ai_install.failed_to_compile_patcher")"
       return 1
     fi
   fi
@@ -132,7 +132,7 @@ _build_and_apply_patches_impl() {
   if [ $patch_rc -ne 0 ]; then
     popd &>/dev/null || true
     echo ""
-    log_error "Termux patches failed. Output:"
+    log_error "$(_tr "jinx_tools_ai_gentle-ai_install.termux_patches_failed_output")"
     echo "$patch_out"
     return 1
   fi
@@ -152,7 +152,7 @@ _compile_impl() {
 
   local build_dir="$GENTLE_AI_DATA_DIR/cmd/gentle-ai"
   if [ ! -d "$build_dir" ]; then
-    log_error "Entry point not found at cmd/gentle-ai"
+    log_error "$(_tr "jinx_tools_ai_gentle-ai_install.entry_point_not_found_at_cmd_gentle_ai")"
     return 1
   fi
 
@@ -163,20 +163,20 @@ _compile_impl() {
 
   if ! go mod download &>>"$LOG_FILE"; then
     popd &>/dev/null || true
-    log_error "Failed to download Go dependencies"
+    log_error "$(_tr "jinx_tools_ai_gentle-ai_install.failed_to_download_go_dependencies")"
     return 1
   fi
 
   if ! go build -trimpath -ldflags="-s -w -X main.version=$version" -o gentle-ai ./cmd/gentle-ai/ &>>"$LOG_FILE"; then
     popd &>/dev/null || true
-    log_error "Failed to compile gentle-ai"
+    log_error "$(_tr "jinx_tools_ai_gentle-ai_install.failed_to_compile_gentle_ai")"
     return 1
   fi
 
   popd &>/dev/null || true
 
   if [ ! -f "$GENTLE_AI_DATA_DIR/gentle-ai" ]; then
-    log_error "Compilation succeeded but binary not found"
+    log_error "$(_tr "jinx_tools_ai_gentle-ai_install.compilation_succeeded_but_binary_not_fou")"
     return 1
   fi
 
@@ -199,11 +199,11 @@ _install_binary_impl() {
 
 install_gentle_ai() {
   if command -v gentle-ai &>/dev/null; then
-    log_info "gentle-ai is already installed"
+    log_info "$(_tr "jinx_tools_ai_gentle-ai_install.gentle_ai_is_already_installed")"
     return 2
   fi
 
-  log_info "Installing gentle-ai..."
+  log_info "$(_tr "jinx_tools_ai_gentle-ai_install.installing_gentle_ai")"
   mkdir -p "$(dirname "$LOG_FILE")" "$JINX_CACHE"
 
   _gentle_ai_dependencies || return 1
@@ -213,26 +213,26 @@ install_gentle_ai() {
   _compile || return 1
   _install_binary || return 1
 
-  log_success "gentle-ai installed"
+  log_success "$(_tr "jinx_tools_ai_gentle-ai_install.gentle_ai_installed")"
   return 0
 }
 
 uninstall_gentle_ai() {
   if ! command -v gentle-ai &>/dev/null; then
-    log_info "gentle-ai is not installed"
+    log_info "$(_tr "jinx_tools_ai_gentle-ai_install.gentle_ai_is_not_installed")"
     return 2
   fi
-  log_info "Uninstalling gentle-ai..."
+  log_info "$(_tr "jinx_tools_ai_gentle-ai_install.uninstalling_gentle_ai")"
   mkdir -p "$(dirname "$LOG_FILE")"
 
   rm -f "$PREFIX/bin/gentle-ai"
   rm -rf "$GENTLE_AI_DATA_DIR"
 
   if [ ! -f "$PREFIX/bin/gentle-ai" ] && [ ! -d "$GENTLE_AI_DATA_DIR" ]; then
-    log_success "gentle-ai uninstalled"
+    log_success "$(_tr "jinx_tools_ai_gentle-ai_install.gentle_ai_uninstalled")"
     return 0
   else
-    log_error "Failed to uninstall gentle-ai"
+    log_error "$(_tr "jinx_tools_ai_gentle-ai_install.failed_to_uninstall_gentle_ai")"
     return 1
   fi
 }
@@ -246,7 +246,7 @@ _update_gentle_ai() {
   _compile || return 1
   _install_binary || return 1
 
-  log_success "gentle-ai updated"
+  log_success "$(_tr "jinx_tools_ai_gentle-ai_install.gentle_ai_updated")"
   return 0
 }
 

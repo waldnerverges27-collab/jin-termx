@@ -7,30 +7,30 @@ reinstall_main() {
 
   if [[ $# -eq 0 ]]; then
     echo
-    box "Core Reinstall"
+    box "$(_tr "jinx_cli_commands_reinstall.core_reinstall")"
     echo
-    log_info "Usage: jinx reinstall <target>"
-    log_info "Usage: jinx reinstall <target> --tool1 --tool2"
+    log_info "$(_tr "jinx_cli_commands_reinstall.usage_jinx_reinstall_target")"
+    log_info "$(_tr "jinx_cli_commands_reinstall.usage_jinx_reinstall_target_tool1")"
     echo
-    log_info "Available targets:"
+    log_info "$(_tr "jinx_cli_commands_reinstall.available_targets")"
     echo
-    list_item "lang       - Reinstall language packages"
-    list_item "db         - Reinstall databases"
-    list_item "ai         - Reinstall AI tools"
-    list_item "editor     - Reinstall code editor"
-    list_item "dev        - Reinstall development tools"
-    list_item "npm        - Reinstall Node.js global modules"
-    list_item "shell      - Reinstall ZSH + Oh My Zsh"
-    list_item "ui         - Reinstall Termux UI"
-    list_item "auto       - Reinstall automation tools"
+    list_item "$(_tr "jinx_cli_commands_reinstall.lang_reinstall_language_packages")"
+    list_item "$(_tr "jinx_cli_commands_reinstall.db_reinstall_databases")"
+    list_item "$(_tr "jinx_cli_commands_reinstall.ai_reinstall_ai_tools")"
+    list_item "$(_tr "jinx_cli_commands_reinstall.editor_reinstall_code_editor")"
+    list_item "$(_tr "jinx_cli_commands_reinstall.dev_reinstall_development_tools")"
+    list_item "$(_tr "jinx_cli_commands_reinstall.npm_reinstall_node_js_global_mo")"
+    list_item "$(_tr "jinx_cli_commands_reinstall.shell_reinstall_zsh_oh_my_zsh")"
+    list_item "$(_tr "jinx_cli_commands_reinstall.ui_reinstall_termux_ui")"
+    list_item "$(_tr "jinx_cli_commands_reinstall.auto_reinstall_automation_tools")"
     echo
-    log_info "Reinstall specific tools with flags:"
+    log_info "$(_tr "jinx_cli_commands_reinstall.reinstall_specific_tools_with_flags")"
     echo
-    list_item "jinx reinstall ai --qwen-code --ollama"
-    list_item "jinx reinstall db --postgresql --sqlite"
+    list_item "$(_tr "jinx_cli_commands_reinstall.jinx_reinstall_ai_qwen_code_ollama")"
+    list_item "$(_tr "jinx_cli_commands_reinstall.jinx_reinstall_db_postgresql_sqlite")"
     list_item "Run ${D_CYAN}jinx list <target>${NC} to see all available tools"
     echo
-    log_warn "This will uninstall and then install the selected components!"
+    log_warn "$(_tr "jinx_cli_commands_reinstall.this_will_uninstall_and_then_install_the")"
     echo
     return
   fi
@@ -48,7 +48,7 @@ reinstall_main() {
   done
 
   if [[ -z "$module_target" ]]; then
-    log_error "No target specified"
+    log_error "$(_tr "jinx_cli_commands_reinstall.no_target_specified")"
     echo "Run 'jinx reinstall' to see available targets"
     return 1
   fi

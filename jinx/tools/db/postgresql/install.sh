@@ -8,7 +8,7 @@ LOG_FILE="$JINX_CACHE/install_db.log"
 _install_postgresql_impl() {
 	mkdir -p "$(dirname "$LOG_FILE")"
 	if yes | pkg install postgresql &>>"$LOG_FILE"; then
-		log_success "PostgreSQL installed"
+		log_success "$(_tr "jinx_tools_db_postgresql_install.postgresql_installed")"
 		return 0
 	else
 		return 1
@@ -17,30 +17,30 @@ _install_postgresql_impl() {
 
 install_postgresql() {
 	if command -v postgres &>/dev/null; then
-		log_info "PostgreSQL is already installed"
+		log_info "$(_tr "jinx_tools_db_postgresql_install.postgresql_is_already_installed")"
 		return 2
 	fi
-	log_info "Installing PostgreSQL..."
+	log_info "$(_tr "jinx_tools_db_postgresql_install.installing_postgresql")"
 	loading "Installing PostgreSQL" _install_postgresql_impl
 }
 
 _uninstall_postgresql_impl() {
 	mkdir -p "$(dirname "$LOG_FILE")"
 	if pkg uninstall postgresql -y &>>"$LOG_FILE"; then
-		log_success "PostgreSQL uninstalled"
+		log_success "$(_tr "jinx_tools_db_postgresql_install.postgresql_uninstalled")"
 		return 0
 	else
-		log_error "Failed to uninstall PostgreSQL"
+		log_error "$(_tr "jinx_tools_db_postgresql_install.failed_to_uninstall_postgresql")"
 		return 1
 	fi
 }
 
 uninstall_postgresql() {
 	if ! command -v postgres &>/dev/null; then
-		log_info "PostgreSQL is not installed"
+		log_info "$(_tr "jinx_tools_db_postgresql_install.postgresql_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling PostgreSQL..."
+	log_info "$(_tr "jinx_tools_db_postgresql_install.uninstalling_postgresql")"
 	loading "Uninstalling PostgreSQL" _uninstall_postgresql_impl
 }
 

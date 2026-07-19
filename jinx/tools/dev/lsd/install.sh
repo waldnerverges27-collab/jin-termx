@@ -11,7 +11,7 @@ _install_lsd_pkg() {
 
 _install_lsd_pkg_impl() {
 	if ! yes | pkg install lsd &>>"$LOG_FILE"; then
-		log_error "Failed to install LSD"
+		log_error "$(_tr "jinx_tools_dev_lsd_install.failed_to_install_lsd")"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_lsd_pkg() {
 
 _uninstall_lsd_pkg_impl() {
 	if ! pkg uninstall lsd -y &>>"$LOG_FILE"; then
-		log_error "Failed to uninstall LSD"
+		log_error "$(_tr "jinx_tools_dev_lsd_install.failed_to_uninstall_lsd")"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_lsd_update() {
 
 install_lsd() {
 	if command -v lsd &>/dev/null; then
-		log_info "LSD is already installed"
+		log_info "$(_tr "jinx_tools_dev_lsd_install.lsd_is_already_installed")"
 		return 2
 	fi
-	log_info "Installing LSD..."
+	log_info "$(_tr "jinx_tools_dev_lsd_install.installing_lsd")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_lsd_pkg || return 1
-	log_success "LSD installed"
+	log_success "$(_tr "jinx_tools_dev_lsd_install.lsd_installed")"
 	return 0
 }
 
 uninstall_lsd() {
 	if ! command -v lsd &>/dev/null; then
-		log_info "LSD is not installed"
+		log_info "$(_tr "jinx_tools_dev_lsd_install.lsd_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling LSD..."
+	log_info "$(_tr "jinx_tools_dev_lsd_install.uninstalling_lsd")"
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_lsd_pkg || return 1
-	log_success "LSD uninstalled"
+	log_success "$(_tr "jinx_tools_dev_lsd_install.lsd_uninstalled")"
 	return 0
 }
 

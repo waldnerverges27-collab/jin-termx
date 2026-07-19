@@ -11,7 +11,7 @@ _install_php_pkg() {
 
 _install_php_pkg_impl() {
 	if ! yes | pkg install php &>>"$LOG_FILE"; then
-		log_error "Failed to install PHP"
+		log_error "$(_tr "jinx_tools_lang_php_install.failed_to_install_php")"
 		return 1
 	fi
 	return 0
@@ -19,14 +19,14 @@ _install_php_pkg_impl() {
 
 install_php() {
 	if command -v php &>/dev/null; then
-		log_info "PHP is already installed"
+		log_info "$(_tr "jinx_tools_lang_php_install.php_is_already_installed")"
 		return 2
 	fi
-	log_info "Installing PHP..."
+	log_info "$(_tr "jinx_tools_lang_php_install.installing_php")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 	_install_php_pkg || return 1
-	log_success "PHP installed"
+	log_success "$(_tr "jinx_tools_lang_php_install.php_installed")"
 	return 0
 }
 
@@ -36,7 +36,7 @@ _uninstall_php_pkg() {
 
 _uninstall_php_pkg_impl() {
 	if ! pkg uninstall php -y &>>"$LOG_FILE"; then
-		log_error "Failed to uninstall PHP"
+		log_error "$(_tr "jinx_tools_lang_php_install.failed_to_uninstall_php")"
 		return 1
 	fi
 	return 0
@@ -44,13 +44,13 @@ _uninstall_php_pkg_impl() {
 
 uninstall_php() {
 	if ! command -v php &>/dev/null; then
-		log_info "PHP is not installed"
+		log_info "$(_tr "jinx_tools_lang_php_install.php_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling PHP..."
+	log_info "$(_tr "jinx_tools_lang_php_install.uninstalling_php")"
 	mkdir -p "$(dirname "$LOG_FILE")"
 	_uninstall_php_pkg || return 1
-	log_success "PHP uninstalled"
+	log_success "$(_tr "jinx_tools_lang_php_install.php_uninstalled")"
 	return 0
 }
 

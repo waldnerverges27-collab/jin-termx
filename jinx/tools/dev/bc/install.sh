@@ -11,7 +11,7 @@ _install_bc_pkg() {
 
 _install_bc_pkg_impl() {
 	if ! yes | pkg install bc &>>"$LOG_FILE"; then
-		log_error "Failed to install bc"
+		log_error "$(_tr "jinx_tools_dev_bc_install.failed_to_install_bc")"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_bc_pkg() {
 
 _uninstall_bc_pkg_impl() {
 	if ! pkg uninstall bc -y &>>"$LOG_FILE"; then
-		log_error "Failed to uninstall bc"
+		log_error "$(_tr "jinx_tools_dev_bc_install.failed_to_uninstall_bc")"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_bc_update() {
 
 install_bc() {
 	if command -v bc &>/dev/null; then
-		log_info "bc is already installed"
+		log_info "$(_tr "jinx_tools_dev_bc_install.bc_is_already_installed")"
 		return 2
 	fi
-	log_info "Installing bc..."
+	log_info "$(_tr "jinx_tools_dev_bc_install.installing_bc")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_bc_pkg || return 1
-	log_success "bc installed"
+	log_success "$(_tr "jinx_tools_dev_bc_install.bc_installed")"
 	return 0
 }
 
 uninstall_bc() {
 	if ! command -v bc &>/dev/null; then
-		log_info "bc is not installed"
+		log_info "$(_tr "jinx_tools_dev_bc_install.bc_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling bc..."
+	log_info "$(_tr "jinx_tools_dev_bc_install.uninstalling_bc")"
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_bc_pkg || return 1
-	log_success "bc uninstalled"
+	log_success "$(_tr "jinx_tools_dev_bc_install.bc_uninstalled")"
 	return 0
 }
 

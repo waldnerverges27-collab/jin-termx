@@ -46,20 +46,20 @@ _download() {
 	mkdir -p "$TURBO_DATA_DIR" "$(dirname "$LOG_FILE")"
 	local archive="$TURBO_DATA_DIR/node-v${NODE_VERSION}-linux-arm64.tar.xz"
 	if [[ ! -f "$archive" ]]; then
-		curl -fsSL "$NODE_URL" -o "$archive" || { log_error "download failed"; return 1; }
+		curl -fsSL "$NODE_URL" -o "$archive" || { log_error "$(_tr "jinx_tools_npm_turbopack_install.download_failed")"; return 1; }
 	fi
-	tar -xf "$archive" -C "$TURBO_DATA_DIR" --strip-components=1 || { log_error "extract failed"; return 1; }
+	tar -xf "$archive" -C "$TURBO_DATA_DIR" --strip-components=1 || { log_error "$(_tr "jinx_tools_npm_turbopack_install.extract_failed")"; return 1; }
 	rm -f "$archive"
 }
 
 _strip() {
-	[[ -f "$TURBO_DATA_DIR/bin/node" ]] || { log_error "node binary not found"; return 1; }
+	[[ -f "$TURBO_DATA_DIR/bin/node" ]] || { log_error "$(_tr "jinx_tools_npm_turbopack_install.node_binary_not_found")"; return 1; }
 	cp "$TURBO_DATA_DIR/bin/node" "$TURBO_DATA_DIR/bin/node.stripped" || return 1
 	aarch64-linux-android-strip "$TURBO_DATA_DIR/bin/node.stripped" &>>"$LOG_FILE"
 }
 
 _patch() {
-	[[ -f "$TURBO_DATA_DIR/bin/node.stripped" ]] || { log_error "stripped binary not found"; return 1; }
+	[[ -f "$TURBO_DATA_DIR/bin/node.stripped" ]] || { log_error "$(_tr "jinx_tools_npm_turbopack_install.stripped_binary_not_found")"; return 1; }
 	local patch_script="$JINX_PATH/tools/npm/turbopack/bin/patch-interp.py"
 	python3 "$patch_script" \
 		"$TURBO_DATA_DIR/bin/node.stripped" \
@@ -82,30 +82,30 @@ _uninstall_wrappers() { rm -f "$PREFIX/bin/node-glibc" "$PREFIX/bin/next-turbopa
 
 install_turbopack() {
 	if _has_glibc_node; then
-		log_info "Turbopack toolchain already installed"
+		log_info "$(_tr "jinx_tools_npm_turbopack_install.turbopack_toolchain_already_installed")"
 		read_confirm_default "Reinstall?" "n" REINSTALL
-		[[ "$REINSTALL" != "y" ]] && { log_warn "Skipped"; return 0; }
+		[[ "$REINSTALL" != "y" ]] && { log_warn "$(_tr "jinx_tools_npm_turbopack_install.skipped")"; return 0; }
 	fi
 
 	_install_deps || return 1
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	loading "Downloading Node.js linux-arm64" _download || return 1
-	loading "Stripping debug symbols" _strip || { log_error "strip failed"; return 1; }
+	loading "Stripping debug symbols" _strip || { log_error "$(_tr "jinx_tools_npm_turbopack_install.strip_failed")"; return 1; }
 	loading "Patching ELF interpreter" _patch || return 1
-	loading "Installing CLI wrappers" _install_wrappers || { log_error "wrappers failed"; return 1; }
-	log_success "Turbopack toolchain installed"
+	loading "Installing CLI wrappers" _install_wrappers || { log_error "$(_tr "jinx_tools_npm_turbopack_install.wrappers_failed")"; return 1; }
+	log_success "$(_tr "jinx_tools_npm_turbopack_install.turbopack_toolchain_installed")"
 }
 
 uninstall_turbopack() {
 	if ! _has_glibc_node; then
-		log_warn "Turbopack is not installed"
+		log_warn "$(_tr "jinx_tools_npm_turbopack_install.turbopack_is_not_installed")"
 		return 1
 	fi
 
 	loading "Removing Node.js glibc" _uninstall_node
 	loading "Removing CLI wrappers" _uninstall_wrappers
-	log_success "Turbopack toolchain removed"
+	log_success "$(_tr "jinx_tools_npm_turbopack_install.turbopack_toolchain_removed")"
 }
 
 update_turbopack() { uninstall_turbopack && install_turbopack; }

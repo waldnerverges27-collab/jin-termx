@@ -7,39 +7,39 @@ LOG_FILE="$JINX_CACHE/install_dev.log"
 
 install_dev() {
 	separator
-	box "Installing Development Tools"
+	box "$(_tr "jinx_modules_dev.installing_development_tools")"
 	separator
 	echo
 
-	log_info "Installing development tools..."
+	log_info "$(_tr "jinx_modules_dev.installing_development_tools")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_dev_wrapper
-	log_success "Tools installed successfully"
+	log_success "$(_tr "jinx_modules_dev.tools_installed_successfully")"
 	separator
 	echo
-	list_item "GitHub CLI"
-	list_item "Wget"
-	list_item "Curl"
-	list_item "LSD (ls replacement)"
-	list_item "Bat (cat replacement)"
-	list_item "Proot (chroot alternative)"
-	list_item "Ncurses Utils"
-	list_item "Tmate (terminal sharing)"
-	list_item "Tmux (terminal multiplexer)"
-	list_item "OpenSSH (SSH server and client)"
-	list_item "Cloudflared (Cloudflare Tunnel)"
-	list_item "Translate Shell"
-	list_item "html2text (HTML to text converter)"
-	list_item "jq (JSON processor)"
-	list_item "bc (calculator)"
-	list_item "Tree (directory listing)"
-	list_item "Fzf (fuzzy finder)"
-	list_item "ImageMagick (image manipulation)"
-	list_item "Shfmt (shell script formatter)"
-	list_item "Make (build automation)"
-	list_item "Udocker (container management)"
+	list_item "$(_tr "jinx_modules_dev.github_cli")"
+	list_item "$(_tr "jinx_modules_dev.wget")"
+	list_item "$(_tr "jinx_modules_dev.curl")"
+	list_item "$(_tr "jinx_modules_dev.lsd_ls_replacement")"
+	list_item "$(_tr "jinx_modules_dev.bat_cat_replacement")"
+	list_item "$(_tr "jinx_modules_dev.proot_chroot_alternative")"
+	list_item "$(_tr "jinx_modules_dev.ncurses_utils")"
+	list_item "$(_tr "jinx_modules_dev.tmate_terminal_sharing")"
+	list_item "$(_tr "jinx_modules_dev.tmux_terminal_multiplexer")"
+	list_item "$(_tr "jinx_modules_dev.openssh_ssh_server_and_client")"
+	list_item "$(_tr "jinx_modules_dev.cloudflared_cloudflare_tunnel")"
+	list_item "$(_tr "jinx_modules_dev.translate_shell")"
+	list_item "$(_tr "jinx_modules_dev.html2text_html_to_text_converter")"
+	list_item "$(_tr "jinx_modules_dev.jq_json_processor")"
+	list_item "$(_tr "jinx_modules_dev.bc_calculator")"
+	list_item "$(_tr "jinx_modules_dev.tree_directory_listing")"
+	list_item "$(_tr "jinx_modules_dev.fzf_fuzzy_finder")"
+	list_item "$(_tr "jinx_modules_dev.imagemagick_image_manipulation")"
+	list_item "$(_tr "jinx_modules_dev.shfmt_shell_script_formatter")"
+	list_item "$(_tr "jinx_modules_dev.make_build_automation")"
+	list_item "$(_tr "jinx_modules_dev.udocker_container_management")"
 	echo
 }
 
@@ -50,18 +50,18 @@ _install_dev_wrapper() {
 
 uninstall_dev() {
 	if ! command -v gh &>/dev/null; then
-		log_info "Development Tools are not installed"
+		log_info "$(_tr "jinx_modules_dev.development_tools_are_not_installed")"
 		return 0
 	fi
 	separator
-	box "Uninstalling Development Tools"
+	box "$(_tr "jinx_modules_dev.uninstalling_development_tools")"
 	separator
 	echo
 
-	log_info "Uninstalling development tools..."
+	log_info "$(_tr "jinx_modules_dev.uninstalling_development_tools")"
 
 	_uninstall_dev_wrapper
-	log_success "Tools uninstalled"
+	log_success "$(_tr "jinx_modules_dev.tools_uninstalled")"
 }
 
 _uninstall_dev_wrapper() {
@@ -71,14 +71,14 @@ _uninstall_dev_wrapper() {
 
 update_dev() {
 	separator
-	box "Updating Development Tools"
+	box "$(_tr "jinx_modules_dev.updating_development_tools")"
 	separator
 	echo
 
-	log_info "Updating development tools..."
+	log_info "$(_tr "jinx_modules_dev.updating_development_tools")"
 
 	_update_dev_wrapper
-	log_success "Tools updated"
+	log_success "$(_tr "jinx_modules_dev.tools_updated")"
 }
 
 _update_dev_wrapper() {
@@ -88,37 +88,37 @@ _update_dev_wrapper() {
 
 reinstall_dev() {
   separator
-  box "Reinstalling Development Tools"
+  box "$(_tr "jinx_modules_dev.reinstalling_development_tools")"
   separator
   echo
 
-  log_info "Reinstalling development tools..."
+  log_info "$(_tr "jinx_modules_dev.reinstalling_development_tools")"
 
   _reinstall_dev_wrapper
-  log_success "Tools reinstalled successfully"
+  log_success "$(_tr "jinx_modules_dev.tools_reinstalled_successfully")"
   separator
   echo
-  list_item "GitHub CLI"
-  list_item "Wget"
-  list_item "Curl"
-  list_item "LSD (ls replacement)"
-  list_item "Bat (cat replacement)"
-  list_item "Proot (chroot alternative)"
-  list_item "Ncurses Utils"
-  list_item "Tmate (terminal sharing)"
-  list_item "Tmux (terminal multiplexer)"
-  list_item "OpenSSH (SSH server and client)"
-  list_item "Cloudflared (Cloudflare Tunnel)"
-  list_item "Translate Shell"
-  list_item "html2text (HTML to text converter)"
-  list_item "jq (JSON processor)"
-  list_item "bc (calculator)"
-  list_item "Tree (directory listing)"
-  list_item "Fzf (fuzzy finder)"
-  list_item "ImageMagick (image manipulation)"
-  list_item "Shfmt (shell script formatter)"
-  list_item "Make (build automation)"
-  list_item "Udocker (container management)"
+  list_item "$(_tr "jinx_modules_dev.github_cli")"
+  list_item "$(_tr "jinx_modules_dev.wget")"
+  list_item "$(_tr "jinx_modules_dev.curl")"
+  list_item "$(_tr "jinx_modules_dev.lsd_ls_replacement")"
+  list_item "$(_tr "jinx_modules_dev.bat_cat_replacement")"
+  list_item "$(_tr "jinx_modules_dev.proot_chroot_alternative")"
+  list_item "$(_tr "jinx_modules_dev.ncurses_utils")"
+  list_item "$(_tr "jinx_modules_dev.tmate_terminal_sharing")"
+  list_item "$(_tr "jinx_modules_dev.tmux_terminal_multiplexer")"
+  list_item "$(_tr "jinx_modules_dev.openssh_ssh_server_and_client")"
+  list_item "$(_tr "jinx_modules_dev.cloudflared_cloudflare_tunnel")"
+  list_item "$(_tr "jinx_modules_dev.translate_shell")"
+  list_item "$(_tr "jinx_modules_dev.html2text_html_to_text_converter")"
+  list_item "$(_tr "jinx_modules_dev.jq_json_processor")"
+  list_item "$(_tr "jinx_modules_dev.bc_calculator")"
+  list_item "$(_tr "jinx_modules_dev.tree_directory_listing")"
+  list_item "$(_tr "jinx_modules_dev.fzf_fuzzy_finder")"
+  list_item "$(_tr "jinx_modules_dev.imagemagick_image_manipulation")"
+  list_item "$(_tr "jinx_modules_dev.shfmt_shell_script_formatter")"
+  list_item "$(_tr "jinx_modules_dev.make_build_automation")"
+  list_item "$(_tr "jinx_modules_dev.udocker_container_management")"
   echo
 }
 

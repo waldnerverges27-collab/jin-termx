@@ -28,7 +28,7 @@ _n8n_dependencies() {
     fi
   done
 
-  log_success "n8n dependencies installed"
+  log_success "$(_tr "jinx_tools_auto_n8n_install.n8n_dependencies_installed")"
   return 0
 }
 
@@ -40,20 +40,20 @@ _install_n8n_impl() {
   export ANDROID_API_LEVEL=24
 
   if npm install -g n8n &>>"$LOG_FILE"; then
-    log_success "n8n installed"
+    log_success "$(_tr "jinx_tools_auto_n8n_install.n8n_installed")"
     return 0
   else
-    log_error "Failed to install n8n"
+    log_error "$(_tr "jinx_tools_auto_n8n_install.failed_to_install_n8n")"
     return 1
   fi
 }
 
 install_n8n() {
   if command -v n8n &>/dev/null; then
-    log_info "n8n is already installed"
+    log_info "$(_tr "jinx_tools_auto_n8n_install.n8n_is_already_installed")"
     return 0
   fi
-  log_info "Installing n8n..."
+  log_info "$(_tr "jinx_tools_auto_n8n_install.installing_n8n")"
   loading "Installing n8n" _install_n8n_impl
 }
 
@@ -61,20 +61,20 @@ _uninstall_n8n_impl() {
   mkdir -p "$(dirname "$LOG_FILE")"
 
   if npm uninstall -g n8n &>>"$LOG_FILE"; then
-    log_success "n8n uninstalled"
+    log_success "$(_tr "jinx_tools_auto_n8n_install.n8n_uninstalled")"
     return 0
   else
-    log_error "Failed to uninstall n8n"
+    log_error "$(_tr "jinx_tools_auto_n8n_install.failed_to_uninstall_n8n")"
     return 1
   fi
 }
 
 uninstall_n8n() {
   if ! command -v n8n &>/dev/null; then
-    log_info "n8n is not installed"
+    log_info "$(_tr "jinx_tools_auto_n8n_install.n8n_is_not_installed")"
     return 0
   fi
-  log_info "Uninstalling n8n..."
+  log_info "$(_tr "jinx_tools_auto_n8n_install.uninstalling_n8n")"
   loading "Uninstalling n8n" _uninstall_n8n_impl
 }
 

@@ -11,7 +11,7 @@ _install_tmate_pkg() {
 
 _install_tmate_pkg_impl() {
 	if ! yes | pkg install tmate &>>"$LOG_FILE"; then
-		log_error "Failed to install Tmate"
+		log_error "$(_tr "jinx_tools_dev_tmate_install.failed_to_install_tmate")"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_tmate_pkg() {
 
 _uninstall_tmate_pkg_impl() {
 	if ! pkg uninstall tmate -y &>>"$LOG_FILE"; then
-		log_error "Failed to uninstall Tmate"
+		log_error "$(_tr "jinx_tools_dev_tmate_install.failed_to_uninstall_tmate")"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_tmate_update() {
 
 install_tmate() {
 	if command -v tmate &>/dev/null; then
-		log_info "Tmate is already installed"
+		log_info "$(_tr "jinx_tools_dev_tmate_install.tmate_is_already_installed")"
 		return 2
 	fi
-	log_info "Installing Tmate..."
+	log_info "$(_tr "jinx_tools_dev_tmate_install.installing_tmate")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_tmate_pkg || return 1
-	log_success "Tmate installed"
+	log_success "$(_tr "jinx_tools_dev_tmate_install.tmate_installed")"
 	return 0
 }
 
 uninstall_tmate() {
 	if ! command -v tmate &>/dev/null; then
-		log_info "Tmate is not installed"
+		log_info "$(_tr "jinx_tools_dev_tmate_install.tmate_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling Tmate..."
+	log_info "$(_tr "jinx_tools_dev_tmate_install.uninstalling_tmate")"
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_tmate_pkg || return 1
-	log_success "Tmate uninstalled"
+	log_success "$(_tr "jinx_tools_dev_tmate_install.tmate_uninstalled")"
 	return 0
 }
 

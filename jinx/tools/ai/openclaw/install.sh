@@ -41,7 +41,7 @@ _install_openclaw_npm_impl() {
   npm install -g @larksuiteoapi/node-sdk nostr-tools @slack/web-api @whiskeysockets/baileys &>>"$LOG_FILE"
 
   if ! npm install -g openclaw@latest &>>"$LOG_FILE"; then
-    log_error "Failed to install OpenClaw"
+    log_error "$(_tr "jinx_tools_ai_openclaw_install.failed_to_install_openclaw")"
     return 1
   fi
 
@@ -50,37 +50,37 @@ _install_openclaw_npm_impl() {
 
 install_openclaw() {
   if command -v openclaw &>/dev/null; then
-    log_info "OpenClaw is already installed"
+    log_info "$(_tr "jinx_tools_ai_openclaw_install.openclaw_is_already_installed")"
     return 2
   fi
-  log_info "Installing OpenClaw..."
+  log_info "$(_tr "jinx_tools_ai_openclaw_install.installing_openclaw")"
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _openclaw_dependencies || return 1
   _install_openclaw_npm || return 1
 
-  log_success "OpenClaw installed"
+  log_success "$(_tr "jinx_tools_ai_openclaw_install.openclaw_installed")"
   return 0
 }
 
 uninstall_openclaw() {
   if ! command -v openclaw &>/dev/null; then
-    log_info "OpenClaw is not installed"
+    log_info "$(_tr "jinx_tools_ai_openclaw_install.openclaw_is_not_installed")"
     return 2
   fi
-  log_info "Uninstalling OpenClaw..."
+  log_info "$(_tr "jinx_tools_ai_openclaw_install.uninstalling_openclaw")"
   mkdir -p "$(dirname "$LOG_FILE")"
 
   loading "Removing OpenClaw" _uninstall_openclaw_impl
 
-  log_success "OpenClaw uninstalled"
+  log_success "$(_tr "jinx_tools_ai_openclaw_install.openclaw_uninstalled")"
   return 0
 }
 
 _uninstall_openclaw_impl() {
   if ! npm uninstall -g openclaw @larksuiteoapi/node-sdk nostr-tools @slack/web-api @whiskeysockets/baileys &>>"$LOG_FILE"; then
-    log_error "Failed to uninstall OpenClaw"
+    log_error "$(_tr "jinx_tools_ai_openclaw_install.failed_to_uninstall_openclaw")"
     return 1
   fi
   return 0
@@ -99,7 +99,7 @@ _update_openclaw_impl() {
   export ANDROID_API_LEVEL=24
 
   if ! npm update -g openclaw @larksuiteoapi/node-sdk nostr-tools @slack/web-api @whiskeysockets/baileys &>>"$LOG_FILE"; then
-    log_error "Failed to update OpenClaw"
+    log_error "$(_tr "jinx_tools_ai_openclaw_install.failed_to_update_openclaw")"
     return 1
   fi
   return 0

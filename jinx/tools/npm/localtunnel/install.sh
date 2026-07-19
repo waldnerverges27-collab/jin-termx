@@ -21,11 +21,11 @@ _localtunnel_fix_openurl() {
 
 _localtunnel_dependencies() {
   if command -v node &>/dev/null && command -v npm &>/dev/null; then
-    log_info "Node.js and npm are already installed"
+    log_info "$(_tr "jinx_tools_npm_localtunnel_install.node_js_and_npm_are_already_installed")"
     return 0
   fi
 
-  log_info "Installing Nodejs..."
+  log_info "$(_tr "jinx_tools_npm_localtunnel_install.installing_nodejs")"
 
   mkdir -p "$(dirname "$LOG_FILE")"
   yes | pkg install nodejs-lts &>>"$LOG_FILE"
@@ -37,10 +37,10 @@ _install_localtunnel_npm() {
 
 _install_localtunnel_npm_impl() {
   if ! npm install -g localtunnel &>>"$LOG_FILE"; then
-    log_error "Failed to install Localtunnel"
+    log_error "$(_tr "jinx_tools_npm_localtunnel_install.failed_to_install_localtunnel")"
     return 1
   fi
-  log_info "Applying localtunnel fix for Android..."
+  log_info "$(_tr "jinx_tools_npm_localtunnel_install.applying_localtunnel_fix_for_android")"
   _localtunnel_fix_openurl &>>"$LOG_FILE"
   return 0
 }
@@ -49,14 +49,14 @@ install_localtunnel() {
   if command -v lt &>/dev/null; then
     return 0
   fi
-  log_info "Installing Localtunnel..."
+  log_info "$(_tr "jinx_tools_npm_localtunnel_install.installing_localtunnel")"
 
   _localtunnel_dependencies
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _install_localtunnel_npm || return 1
-  log_success "Localtunnel installed"
+  log_success "$(_tr "jinx_tools_npm_localtunnel_install.localtunnel_installed")"
   return 0
 }
 
@@ -66,7 +66,7 @@ _uninstall_localtunnel_npm() {
 
 _uninstall_localtunnel_npm_impl() {
   if ! npm uninstall -g localtunnel &>>"$LOG_FILE"; then
-    log_error "Failed to uninstall Localtunnel"
+    log_error "$(_tr "jinx_tools_npm_localtunnel_install.failed_to_uninstall_localtunnel")"
     return 1
   fi
   return 0
@@ -74,14 +74,14 @@ _uninstall_localtunnel_npm_impl() {
 
 uninstall_localtunnel() {
   if ! command -v lt &>/dev/null; then
-    log_info "Localtunnel is not installed"
+    log_info "$(_tr "jinx_tools_npm_localtunnel_install.localtunnel_is_not_installed")"
     return 0
   fi
-  log_info "Uninstalling Localtunnel..."
+  log_info "$(_tr "jinx_tools_npm_localtunnel_install.uninstalling_localtunnel")"
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _uninstall_localtunnel_npm || return 1
-  log_success "Localtunnel uninstalled"
+  log_success "$(_tr "jinx_tools_npm_localtunnel_install.localtunnel_uninstalled")"
   return 0
 }
 

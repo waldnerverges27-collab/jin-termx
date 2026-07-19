@@ -7,25 +7,25 @@ LOG_FILE="$JINX_CACHE/install_editor.log"
 
 install_editor() {
 	separator
-	box "Installing Code Editor"
+	box "$(_tr "jinx_modules_editor.installing_code_editor")"
 	separator
 	echo
 
-	log_info "Installing Neovim and dependencies..."
+	log_info "$(_tr "jinx_modules_editor.installing_neovim_and_dependencies")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	loading "Installing Neovim dependencies" _install_editor_deps
-	log_success "Neovim dependencies installed"
+	log_success "$(_tr "jinx_modules_editor.neovim_dependencies_installed")"
 
 	_install_editor_wrapper
-	log_success "Code editor installed successfully"
+	log_success "$(_tr "jinx_modules_editor.code_editor_installed_successfully")"
 	separator
 	echo
-	list_item "Neovim (code editor)"
-	list_item "NvChad (framework for Neovim)"
-	list_item "GitHub Copilot (AI code assistant)"
-	list_item "CodeCompanion (AI chat assistant)"
+	list_item "$(_tr "jinx_modules_editor.neovim_code_editor")"
+	list_item "$(_tr "jinx_modules_editor.nvchad_framework_for_neovim")"
+	list_item "$(_tr "jinx_modules_editor.github_copilot_ai_code_assistant")"
+	list_item "$(_tr "jinx_modules_editor.codecompanion_ai_chat_assistant")"
 	echo
 }
 
@@ -40,18 +40,18 @@ _install_editor_wrapper() {
 
 uninstall_editor() {
 	if ! command -v nvim &>/dev/null; then
-		log_info "Code Editor is not installed"
+		log_info "$(_tr "jinx_modules_editor.code_editor_is_not_installed")"
 		return 0
 	fi
 	separator
-	box "Uninstalling Code Editor"
+	box "$(_tr "jinx_modules_editor.uninstalling_code_editor")"
 	separator
 	echo
 
-	log_info "Uninstalling Neovim configuration..."
+	log_info "$(_tr "jinx_modules_editor.uninstalling_neovim_configuration")"
 
 	_uninstall_editor_wrapper
-	log_success "Code editor uninstalled"
+	log_success "$(_tr "jinx_modules_editor.code_editor_uninstalled")"
 }
 
 _uninstall_editor_wrapper() {
@@ -61,14 +61,14 @@ _uninstall_editor_wrapper() {
 
 update_editor() {
 	separator
-	box "Updating Code Editor"
+	box "$(_tr "jinx_modules_editor.updating_code_editor")"
 	separator
 	echo
 
-	log_info "Updating NvChad configuration..."
+	log_info "$(_tr "jinx_modules_editor.updating_nvchad_configuration")"
 
 	_update_editor_wrapper
-	log_success "Code editor updated"
+	log_success "$(_tr "jinx_modules_editor.code_editor_updated")"
 }
 
 _update_editor_wrapper() {
@@ -78,20 +78,20 @@ _update_editor_wrapper() {
 
 reinstall_editor() {
   separator
-  box "Reinstalling Code Editor"
+  box "$(_tr "jinx_modules_editor.reinstalling_code_editor")"
   separator
   echo
 
-  log_info "Reinstalling Neovim and dependencies..."
+  log_info "$(_tr "jinx_modules_editor.reinstalling_neovim_and_dependencies")"
 
   _reinstall_editor_wrapper
-  log_success "Code editor reinstalled successfully"
+  log_success "$(_tr "jinx_modules_editor.code_editor_reinstalled_successfully")"
   separator
   echo
-  list_item "Neovim (code editor)"
-  list_item "NvChad (framework for Neovim)"
-  list_item "GitHub Copilot (AI code assistant)"
-  list_item "CodeCompanion (AI chat assistant)"
+  list_item "$(_tr "jinx_modules_editor.neovim_code_editor")"
+  list_item "$(_tr "jinx_modules_editor.nvchad_framework_for_neovim")"
+  list_item "$(_tr "jinx_modules_editor.github_copilot_ai_code_assistant")"
+  list_item "$(_tr "jinx_modules_editor.codecompanion_ai_chat_assistant")"
   echo
 }
 

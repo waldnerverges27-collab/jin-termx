@@ -7,21 +7,21 @@ list_main() {
 
   if [[ $# -eq 0 ]]; then
     echo
-    box "Core List"
+    box "$(_tr "jinx_cli_commands_list.core_list")"
     echo
-    log_info "Usage: jinx list <target>"
+    log_info "$(_tr "jinx_cli_commands_list.usage_jinx_list_target")"
     echo
-    log_info "Available targets:"
+    log_info "$(_tr "jinx_cli_commands_list.available_targets")"
     echo
-    list_item "lang       - List language packages"
-    list_item "db         - List database packages"
-    list_item "ai         - List AI tools"
-    list_item "editor     - List code editor components"
-    list_item "dev        - List development tools"
-    list_item "npm        - List Node.js global modules"
-    list_item "shell      - List ZSH plugins"
-    list_item "ui         - List Termux UI components"
-    list_item "auto       - List automation tools"
+    list_item "$(_tr "jinx_cli_commands_list.lang_list_language_packages")"
+    list_item "$(_tr "jinx_cli_commands_list.db_list_database_packages")"
+    list_item "$(_tr "jinx_cli_commands_list.ai_list_ai_tools")"
+    list_item "$(_tr "jinx_cli_commands_list.editor_list_code_editor_components")"
+    list_item "$(_tr "jinx_cli_commands_list.dev_list_development_tools")"
+    list_item "$(_tr "jinx_cli_commands_list.npm_list_node_js_global_modules")"
+    list_item "$(_tr "jinx_cli_commands_list.shell_list_zsh_plugins")"
+    list_item "$(_tr "jinx_cli_commands_list.ui_list_termux_ui_components")"
+    list_item "$(_tr "jinx_cli_commands_list.auto_list_automation_tools")"
     echo
     return
   fi
@@ -66,9 +66,9 @@ list_main() {
 # ===== LIST LANGUAGE =====
 _list_lang() {
   echo
-  box "Language Packages"
+  box "$(_tr "jinx_cli_commands_list.language_packages")"
   echo
-  log_info "Available packages and install commands:"
+  log_info "$(_tr "jinx_cli_commands_list.available_packages_and_install_commands")"
   echo
 
   table_start "Package" "Install Flag" "Status"
@@ -91,9 +91,9 @@ _list_lang() {
 # ===== LIST DB =====
 _list_db() {
   echo
-  box "Database Packages"
+  box "$(_tr "jinx_cli_commands_list.database_packages")"
   echo
-  log_info "Available packages and install commands:"
+  log_info "$(_tr "jinx_cli_commands_list.available_packages_and_install_commands")"
   echo
 
   table_start "Database" "Install Flag" "Status"
@@ -113,9 +113,9 @@ _list_db() {
 # ===== LIST AI =====
 _list_ai() {
   echo
-  box "AI Tools"
+  box "$(_tr "jinx_cli_commands_list.ai_tools")"
   echo
-  log_info "Available AI tools and install commands:"
+  log_info "$(_tr "jinx_cli_commands_list.available_ai_tools_and_install_commands")"
   echo
 
   table_start "Tool" "Install Flag" "Command" "Status"
@@ -156,9 +156,9 @@ _list_ai() {
 # ===== LIST EDITOR =====
 _list_editor() {
   echo
-  box "Code Editor"
+  box "$(_tr "jinx_cli_commands_list.code_editor")"
   echo
-  log_info "Available components and install commands:"
+  log_info "$(_tr "jinx_cli_commands_list.available_components_and_install_command")"
   echo
 
   table_start "Component" "Install Flag" "Status"
@@ -175,9 +175,9 @@ _list_editor() {
 # ===== LIST TOOLS =====
 _list_dev() {
   echo
-  box "Development Tools"
+  box "$(_tr "jinx_cli_commands_list.development_tools")"
   echo
-  log_info "Available tools and install commands:"
+  log_info "$(_tr "jinx_cli_commands_list.available_tools_and_install_commands")"
   echo
 
   table_start "Tool" "Install Flag" "Status"
@@ -213,9 +213,9 @@ _list_dev() {
 # ===== LIST NODE =====
 _list_npm() {
   echo
-  box "Node.js Global Modules"
+  box "$(_tr "jinx_cli_commands_list.node_js_global_modules")"
   echo
-  log_info "Available modules and install commands:"
+  log_info "$(_tr "jinx_cli_commands_list.available_modules_and_install_commands")"
   echo
 
   table_start "Module" "Install Flag" "Command" "Status"
@@ -241,9 +241,9 @@ _list_npm() {
 # ===== LIST SHELL =====
 _list_shell() {
   echo
-  box "ZSH Shell Plugins"
+  box "$(_tr "jinx_cli_commands_list.zsh_shell_plugins")"
   echo
-  log_info "Available plugins and install commands:"
+  log_info "$(_tr "jinx_cli_commands_list.available_plugins_and_install_commands")"
   echo
 
   table_start "Plugin" "Install Flag" "Status"
@@ -268,9 +268,9 @@ _list_shell() {
 # ===== LIST UI =====
 _list_ui() {
   echo
-  box "Termux UI Components"
+  box "$(_tr "jinx_cli_commands_list.termux_ui_components")"
   echo
-  log_info "Available components and install commands:"
+  log_info "$(_tr "jinx_cli_commands_list.available_components_and_install_command")"
   echo
 
   table_start "Component" "Install Flag" "Status"
@@ -289,9 +289,9 @@ _list_ui() {
 # ===== LIST AUTOMATION =====
 _list_auto() {
   echo
-  box "Automation Tools"
+  box "$(_tr "jinx_cli_commands_list.automation_tools")"
   echo
-  log_info "Available tools and install commands:"
+  log_info "$(_tr "jinx_cli_commands_list.available_tools_and_install_commands")"
   echo
 
   table_start "Tool" "Install Flag" "Command" "Status"

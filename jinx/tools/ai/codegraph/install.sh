@@ -41,17 +41,17 @@ _download_codegraph_impl() {
 	LATEST_VERSION=$(curl -sI https://github.com/colbymchenry/codegraph/releases/latest | grep -i location | sed -E 's#.*/tag/([^[:space:]]+).*#\1#')
 
 	if [ -z "$LATEST_VERSION" ]; then
-		log_error "Failed to fetch latest CodeGraph version"
+		log_error "$(_tr "jinx_tools_ai_codegraph_install.failed_to_fetch_latest_codegraph_version")"
 		return 1
 	fi
 
 	if ! curl -L https://github.com/colbymchenry/codegraph/releases/download/${LATEST_VERSION}/codegraph-linux-arm64.tar.gz -o $PREFIX/tmp/codegraph-linux-arm64.tar.gz &>>"$LOG_FILE"; then
-		log_error "Failed to download CodeGraph"
+		log_error "$(_tr "jinx_tools_ai_codegraph_install.failed_to_download_codegraph")"
 		return 1
 	fi
 
 	if ! tar -xzf $PREFIX/tmp/codegraph-linux-arm64.tar.gz -C "$JINX_DATA" &>>"$LOG_FILE"; then
-		log_error "Failed to extract CodeGraph"
+		log_error "$(_tr "jinx_tools_ai_codegraph_install.failed_to_extract_codegraph")"
 		return 1
 	fi
 
@@ -78,10 +78,10 @@ _write_codegraph_wrapper_impl() {
 
 install_codegraph() {
 	if command -v codegraph &>/dev/null; then
-		log_info "CodeGraph is already installed"
+		log_info "$(_tr "jinx_tools_ai_codegraph_install.codegraph_is_already_installed")"
 		return 2
 	fi
-	log_info "Installing CodeGraph..."
+	log_info "$(_tr "jinx_tools_ai_codegraph_install.installing_codegraph")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
@@ -89,21 +89,21 @@ install_codegraph() {
 	_download_codegraph || return 1
 	_write_codegraph_wrapper || return 1
 
-	log_success "CodeGraph installed"
+	log_success "$(_tr "jinx_tools_ai_codegraph_install.codegraph_installed")"
 	return 0
 }
 
 uninstall_codegraph() {
 	if ! command -v codegraph &>/dev/null; then
-		log_info "CodeGraph is not installed"
+		log_info "$(_tr "jinx_tools_ai_codegraph_install.codegraph_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling CodeGraph..."
+	log_info "$(_tr "jinx_tools_ai_codegraph_install.uninstalling_codegraph")"
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	loading "Removing CodeGraph" _uninstall_codegraph_impl
 
-	log_success "CodeGraph uninstalled"
+	log_success "$(_tr "jinx_tools_ai_codegraph_install.codegraph_uninstalled")"
 	return 0
 }
 
@@ -111,7 +111,7 @@ _uninstall_codegraph_impl() {
 	if rm -rf "$JINX_DATA/codegraph-linux-arm64" && rm -f "$PREFIX/bin/codegraph" &>>"$LOG_FILE"; then
 		return 0
 	else
-		log_error "Failed to uninstall CodeGraph"
+		log_error "$(_tr "jinx_tools_ai_codegraph_install.failed_to_uninstall_codegraph")"
 		return 1
 	fi
 }
@@ -128,7 +128,7 @@ _update_codegraph_impl() {
 	_download_codegraph || return 1
 	_write_codegraph_wrapper || return 1
 
-	log_success "CodeGraph updated"
+	log_success "$(_tr "jinx_tools_ai_codegraph_install.codegraph_updated")"
 	return 0
 }
 
@@ -138,12 +138,12 @@ update_codegraph() {
 
 _update_codegraph_remove_impl() {
 	if ! rm -rf "$JINX_DATA/codegraph-linux-arm64" &>>"$LOG_FILE"; then
-		log_error "Failed to remove old CodeGraph installation"
+		log_error "$(_tr "jinx_tools_ai_codegraph_install.failed_to_remove_old_codegraph_installat")"
 		return 1
 	fi
 
 	if ! rm -f "$PREFIX/bin/codegraph" &>>"$LOG_FILE"; then
-		log_error "Failed to remove old CodeGraph wrapper"
+		log_error "$(_tr "jinx_tools_ai_codegraph_install.failed_to_remove_old_codegraph_wrapper")"
 		return 1
 	fi
 

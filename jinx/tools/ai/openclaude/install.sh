@@ -39,7 +39,7 @@ _install_openclaude_npm_impl() {
   export ANDROID_API_LEVEL=24
 
   if ! npm install -g @gitlawb/openclaude &>>"$LOG_FILE"; then
-    log_error "Failed to install OpenClaude"
+    log_error "$(_tr "jinx_tools_ai_openclaude_install.failed_to_install_openclaude")"
     return 1
   fi
 
@@ -48,37 +48,37 @@ _install_openclaude_npm_impl() {
 
 install_openclaude() {
   if command -v openclaude &>/dev/null; then
-    log_info "OpenClaude is already installed"
+    log_info "$(_tr "jinx_tools_ai_openclaude_install.openclaude_is_already_installed")"
     return 2
   fi
-  log_info "Installing OpenClaude..."
+  log_info "$(_tr "jinx_tools_ai_openclaude_install.installing_openclaude")"
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _openclaude_dependencies || return 1
   _install_openclaude_npm || return 1
 
-  log_success "OpenClaude installed"
+  log_success "$(_tr "jinx_tools_ai_openclaude_install.openclaude_installed")"
   return 0
 }
 
 uninstall_openclaude() {
   if ! command -v openclaude &>/dev/null; then
-    log_info "OpenClaude is not installed"
+    log_info "$(_tr "jinx_tools_ai_openclaude_install.openclaude_is_not_installed")"
     return 2
   fi
-  log_info "Uninstalling OpenClaude..."
+  log_info "$(_tr "jinx_tools_ai_openclaude_install.uninstalling_openclaude")"
   mkdir -p "$(dirname "$LOG_FILE")"
 
   loading "Removing OpenClaude" _uninstall_openclaude_impl
 
-  log_success "OpenClaude uninstalled"
+  log_success "$(_tr "jinx_tools_ai_openclaude_install.openclaude_uninstalled")"
   return 0
 }
 
 _uninstall_openclaude_impl() {
   if ! npm uninstall -g @gitlawb/openclaude &>>"$LOG_FILE"; then
-    log_error "Failed to uninstall OpenClaude"
+    log_error "$(_tr "jinx_tools_ai_openclaude_install.failed_to_uninstall_openclaude")"
     return 1
   fi
   return 0
@@ -97,7 +97,7 @@ _update_openclaude_impl() {
   export ANDROID_API_LEVEL=24
 
   if ! npm update -g @gitlawb/openclaude &>>"$LOG_FILE"; then
-    log_error "Failed to update OpenClaude"
+    log_error "$(_tr "jinx_tools_ai_openclaude_install.failed_to_update_openclaude")"
     return 1
   fi
   return 0

@@ -36,7 +36,7 @@ _install_minimax_cli_npm() {
 
 _install_minimax_cli_npm_impl() {
   if ! npm install -g mmx-cli &>>"$LOG_FILE"; then
-    log_error "Failed to install MiniMax CLI"
+    log_error "$(_tr "jinx_tools_ai_minimax-cli_install.failed_to_install_minimax_cli")"
     return 1
   fi
 
@@ -45,39 +45,39 @@ _install_minimax_cli_npm_impl() {
 
 install_minimax_cli() {
   if command -v mmx &>/dev/null; then
-    log_info "MiniMax CLI is already installed"
+    log_info "$(_tr "jinx_tools_ai_minimax-cli_install.minimax_cli_is_already_installed")"
     return 2
   fi
 
-  log_info "Installing MiniMax CLI..."
+  log_info "$(_tr "jinx_tools_ai_minimax-cli_install.installing_minimax_cli")"
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _minimax_cli_dependencies || return 1
   _install_minimax_cli_npm || return 1
 
-  log_success "MiniMax CLI installed successfully"
+  log_success "$(_tr "jinx_tools_ai_minimax-cli_install.minimax_cli_installed_successfully")"
   return 0
 }
 
 uninstall_minimax_cli() {
   if ! command -v mmx &>/dev/null; then
-    log_success "MiniMax CLI is not installed"
+    log_success "$(_tr "jinx_tools_ai_minimax-cli_install.minimax_cli_is_not_installed")"
     return 2
   fi
 
-  log_info "Uninstalling MiniMax CLI..."
+  log_info "$(_tr "jinx_tools_ai_minimax-cli_install.uninstalling_minimax_cli")"
   mkdir -p "$(dirname "$LOG_FILE")"
 
   loading "Removing MiniMax CLI" _uninstall_minimax_cli_impl
 
-  log_success "MiniMax CLI uninstalled successfully"
+  log_success "$(_tr "jinx_tools_ai_minimax-cli_install.minimax_cli_uninstalled_successfully")"
   return 0
 }
 
 _uninstall_minimax_cli_impl() {
   if ! npm uninstall -g mmx-cli &>>"$LOG_FILE"; then
-    log_error "Failed to uninstall MiniMax CLI"
+    log_error "$(_tr "jinx_tools_ai_minimax-cli_install.failed_to_uninstall_minimax_cli")"
     return 1
   fi
   return 0
@@ -93,7 +93,7 @@ _update_minimax_cli() {
 
 _update_minimax_cli_impl() {
   if ! npm update -g mmx-cli &>>"$LOG_FILE"; then
-    log_error "Failed to update MiniMax CLI"
+    log_error "$(_tr "jinx_tools_ai_minimax-cli_install.failed_to_update_minimax_cli")"
     return 1
   fi
   return 0

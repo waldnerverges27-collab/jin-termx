@@ -144,7 +144,7 @@ bootstrap_dependencies() {
   fi
 
   if [[ $needed_git -eq 1 ]]; then
-    log_info "Installing git..."
+    log_info "$(_tr "install.installing_git")"
     progress_bar 0 10
     yes | pkg install git &>/dev/null
     progress_bar 10 10
@@ -153,7 +153,7 @@ bootstrap_dependencies() {
   fi
 
   if [[ $needed_glow -eq 1 ]]; then
-    log_info "Installing glow..."
+    log_info "$(_tr "install.installing_glow")"
     progress_bar 0 10
     yes | pkg install glow &>/dev/null
     progress_bar 10 10
@@ -162,7 +162,7 @@ bootstrap_dependencies() {
   fi
 
   if [[ $needed_gh -eq 1 ]]; then
-    log_info "Installing gh (GitHub CLI)..."
+    log_info "$(_tr "install.installing_gh_github_cli")"
     progress_bar 0 10
     yes | pkg install gh &>/dev/null
     progress_bar 10 10
@@ -171,7 +171,7 @@ bootstrap_dependencies() {
   fi
 
   if [[ $needed_rg -eq 1 ]]; then
-    log_info "Installing ripgrep..."
+    log_info "$(_tr "install.installing_ripgrep")"
     progress_bar 0 10
     yes | pkg install ripgrep &>/dev/null
     progress_bar 10 10
@@ -180,7 +180,7 @@ bootstrap_dependencies() {
   fi
 
   if [[ $needed_jq -eq 1 ]]; then
-    log_info "Installing jq..."
+    log_info "$(_tr "install.installing_jq")"
     progress_bar 0 10
     yes | pkg install jq &>/dev/null
     progress_bar 10 10
@@ -189,7 +189,7 @@ bootstrap_dependencies() {
   fi
 
   if [[ $needed_bat -eq 1 ]]; then
-    log_info "Installing bat..."
+    log_info "$(_tr "install.installing_bat")"
     progress_bar 0 10
     yes | pkg install bat &>/dev/null
     progress_bar 10 10
@@ -236,7 +236,7 @@ clone_repo() {
 
   if [[ $is_dev_install -eq 1 ]]; then
     JINX_DATA="$script_dir"
-    log_info "Developer installation detected"
+    log_info "$(_tr "install.developer_installation_detected")"
     log_ok "Using local repository"
   elif [[ -d "$JINX_DATA/.git" ]]; then
     progress_bar 3 10

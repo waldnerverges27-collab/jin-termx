@@ -8,40 +8,40 @@ LOG_FILE="$JINX_CACHE/install_editor.log"
 _install_neovim_impl() {
   mkdir -p "$(dirname "$LOG_FILE")"
   if yes | pkg install neovim &>>"$LOG_FILE"; then
-    log_success "Neovim installed"
+    log_success "$(_tr "jinx_tools_editor_neovim_install.neovim_installed")"
     return 0
   else
-    log_error "Failed to install Neovim"
+    log_error "$(_tr "jinx_tools_editor_neovim_install.failed_to_install_neovim")"
     return 1
   fi
 }
 
 install_neovim() {
   if command -v nvim &>/dev/null; then
-    log_info "Neovim is already installed"
+    log_info "$(_tr "jinx_tools_editor_neovim_install.neovim_is_already_installed")"
     return 0
   fi
-  log_info "Installing Neovim..."
+  log_info "$(_tr "jinx_tools_editor_neovim_install.installing_neovim")"
   loading "Installing Neovim" _install_neovim_impl
 }
 
 _uninstall_neovim_impl() {
   mkdir -p "$(dirname "$LOG_FILE")"
   if pkg uninstall neovim -y &>>"$LOG_FILE"; then
-    log_success "Neovim uninstalled"
+    log_success "$(_tr "jinx_tools_editor_neovim_install.neovim_uninstalled")"
     return 0
   else
-    log_error "Failed to uninstall Neovim"
+    log_error "$(_tr "jinx_tools_editor_neovim_install.failed_to_uninstall_neovim")"
     return 1
   fi
 }
 
 uninstall_neovim() {
   if ! command -v nvim &>/dev/null; then
-    log_info "Neovim is not installed"
+    log_info "$(_tr "jinx_tools_editor_neovim_install.neovim_is_not_installed")"
     return 2
   fi
-  log_info "Uninstalling Neovim..."
+  log_info "$(_tr "jinx_tools_editor_neovim_install.uninstalling_neovim")"
   loading "Uninstalling Neovim" _uninstall_neovim_impl
 }
 

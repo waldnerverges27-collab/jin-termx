@@ -11,7 +11,7 @@ _install_ollama_pkg() {
 
 _install_ollama_pkg_impl() {
   if ! yes | pkg install ollama &>>"$LOG_FILE"; then
-    log_error "Failed to install Ollama"
+    log_error "$(_tr "jinx_tools_ai_ollama_install.failed_to_install_ollama")"
     return 1
   fi
 
@@ -20,36 +20,36 @@ _install_ollama_pkg_impl() {
 
 install_ollama() {
   if command -v ollama &>/dev/null; then
-    log_info "Ollama is already installed"
+    log_info "$(_tr "jinx_tools_ai_ollama_install.ollama_is_already_installed")"
     return 2
   fi
-  log_info "Installing Ollama..."
+  log_info "$(_tr "jinx_tools_ai_ollama_install.installing_ollama")"
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _install_ollama_pkg || return 1
 
-  log_success "Ollama installed"
+  log_success "$(_tr "jinx_tools_ai_ollama_install.ollama_installed")"
   return 0
 }
 
 uninstall_ollama() {
   if ! command -v ollama &>/dev/null; then
-    log_info "Ollama is not installed"
+    log_info "$(_tr "jinx_tools_ai_ollama_install.ollama_is_not_installed")"
     return 2
   fi
-  log_info "Uninstalling Ollama..."
+  log_info "$(_tr "jinx_tools_ai_ollama_install.uninstalling_ollama")"
   mkdir -p "$(dirname "$LOG_FILE")"
 
   loading "Removing Ollama" _uninstall_ollama_impl
 
-  log_success "Ollama uninstalled"
+  log_success "$(_tr "jinx_tools_ai_ollama_install.ollama_uninstalled")"
   return 0
 }
 
 _uninstall_ollama_impl() {
   if ! pkg uninstall ollama -y &>>"$LOG_FILE"; then
-    log_error "Failed to uninstall Ollama"
+    log_error "$(_tr "jinx_tools_ai_ollama_install.failed_to_uninstall_ollama")"
     return 1
   fi
   return 0
@@ -65,7 +65,7 @@ _update_ollama() {
 
 _update_ollama_impl() {
   if ! pkg upgrade ollama -y &>>"$LOG_FILE"; then
-    log_error "Failed to update Ollama"
+    log_error "$(_tr "jinx_tools_ai_ollama_install.failed_to_update_ollama")"
     return 1
   fi
   return 0

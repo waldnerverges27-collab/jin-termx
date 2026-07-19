@@ -11,7 +11,7 @@ _install_wget_pkg() {
 
 _install_wget_pkg_impl() {
 	if ! yes | pkg install wget &>>"$LOG_FILE"; then
-		log_error "Failed to install Wget"
+		log_error "$(_tr "jinx_tools_dev_wget_install.failed_to_install_wget")"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_wget_pkg() {
 
 _uninstall_wget_pkg_impl() {
 	if ! pkg uninstall wget -y &>>"$LOG_FILE"; then
-		log_error "Failed to uninstall Wget"
+		log_error "$(_tr "jinx_tools_dev_wget_install.failed_to_uninstall_wget")"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_wget_update() {
 
 install_wget() {
 	if command -v wget &>/dev/null; then
-		log_info "Wget is already installed"
+		log_info "$(_tr "jinx_tools_dev_wget_install.wget_is_already_installed")"
 		return 2
 	fi
-	log_info "Installing Wget..."
+	log_info "$(_tr "jinx_tools_dev_wget_install.installing_wget")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_wget_pkg || return 1
-	log_success "Wget installed"
+	log_success "$(_tr "jinx_tools_dev_wget_install.wget_installed")"
 	return 0
 }
 
 uninstall_wget() {
 	if ! command -v wget &>/dev/null; then
-		log_info "Wget is not installed"
+		log_info "$(_tr "jinx_tools_dev_wget_install.wget_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling Wget..."
+	log_info "$(_tr "jinx_tools_dev_wget_install.uninstalling_wget")"
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_wget_pkg || return 1
-	log_success "Wget uninstalled"
+	log_success "$(_tr "jinx_tools_dev_wget_install.wget_uninstalled")"
 	return 0
 }
 

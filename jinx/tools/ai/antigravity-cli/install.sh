@@ -23,14 +23,14 @@ _antigravity_cli_dependencies() {
 _antigravity_cli_dependencies_impl() {
   if [[ ! -f $PREFIX/etc/apt/sources.list.d/glibc.list ]]; then
     if ! yes | pkg install glibc-repo &>>"$LOG_FILE"; then
-      log_error "Failed to install glibc-repo"
+      log_error "$(_tr "jinx_tools_ai_antigravity-cli_install.failed_to_install_glibc_repo")"
       return 1
     fi
   fi
 
   if [[ ! -f $PREFIX/glibc/lib/libc.so.6 ]]; then
     if ! yes | pkg install glibc &>>"$LOG_FILE"; then
-      log_error "Failed to install glibc"
+      log_error "$(_tr "jinx_tools_ai_antigravity-cli_install.failed_to_install_glibc")"
       return 1
     fi
   fi
@@ -66,7 +66,7 @@ _antigravity_download_binary_impl() {
   local latest_version
   latest_version=$(_antigravity_get_latest_version)
   if [ -z "$latest_version" ]; then
-    log_error "Failed to fetch latest Antigravity version"
+    log_error "$(_tr "jinx_tools_ai_antigravity-cli_install.failed_to_fetch_latest_antigravity_versi")"
     return 1
   fi
 
@@ -77,12 +77,12 @@ _antigravity_download_binary_impl() {
   local tarball="$AGY_DATA_DIR/agy.tar.gz"
 
   if ! curl -fsSL -o "$tarball" "$download_url" &>>"$LOG_FILE"; then
-    log_error "Failed to download Antigravity CLI binary"
+    log_error "$(_tr "jinx_tools_ai_antigravity-cli_install.failed_to_download_antigravity_cli_binar")"
     return 1
   fi
 
   if ! tar -xzf "$tarball" -C "$AGY_DATA_DIR" &>>"$LOG_FILE"; then
-    log_error "Failed to extract Antigravity CLI binary"
+    log_error "$(_tr "jinx_tools_ai_antigravity-cli_install.failed_to_extract_antigravity_cli_binary")"
     return 1
   fi
 
@@ -94,7 +94,7 @@ _antigravity_download_binary_impl() {
   elif [ -f "$AGY_DATA_DIR/agy" ]; then
     upstream_bin="$AGY_DATA_DIR/agy"
   else
-    log_error "Could not find binary in extracted archive"
+    log_error "$(_tr "jinx_tools_ai_antigravity-cli_install.could_not_find_binary_in_extracted_archi")"
     return 1
   fi
 
@@ -113,7 +113,7 @@ _antigravity_apply_va39_patches_impl() {
   elif [ -f "$AGY_DATA_DIR/agy" ]; then
     upstream_bin="$AGY_DATA_DIR/agy"
   else
-    log_error "Binary not found for patching"
+    log_error "$(_tr "jinx_tools_ai_antigravity-cli_install.binary_not_found_for_patching")"
     return 1
   fi
 
@@ -192,7 +192,7 @@ _antigravity_compile_helper_impl() {
   fi
 
   if ! clang -O2 -o "$PREFIX/bin/agy" "$HELPER_SRC" &>>"$LOG_FILE"; then
-    log_error "Failed to compile agy helper"
+    log_error "$(_tr "jinx_tools_ai_antigravity-cli_install.failed_to_compile_agy_helper")"
     return 1
   fi
 
@@ -230,7 +230,7 @@ _install_antigravity_proot_impl() {
   ubuntu_root="$(_antigravity_detect_ubuntu_root)"
 
   if [ -z "$ubuntu_root" ]; then
-    log_error "Ubuntu rootfs not found"
+    log_error "$(_tr "jinx_tools_ai_antigravity-cli_install.ubuntu_rootfs_not_found")"
     return 1
   fi
 
@@ -248,7 +248,7 @@ _install_antigravity_proot_impl() {
   done
 
   if [ -z "$upstream_bin" ]; then
-    log_error "Antigravity CLI binary not found after install"
+    log_error "$(_tr "jinx_tools_ai_antigravity-cli_install.antigravity_cli_binary_not_found_after_i")"
     return 1
   fi
 
@@ -310,11 +310,11 @@ PY
 
 install_antigravity_cli() {
   if command -v agy &>/dev/null; then
-    log_info "Antigravity CLI is already installed"
+    log_info "$(_tr "jinx_tools_ai_antigravity-cli_install.antigravity_cli_is_already_installed")"
     return 2
   fi
 
-  log_info "Select installation method for Antigravity CLI:"
+  log_info "$(_tr "jinx_tools_ai_antigravity-cli_install.select_installation_method_for_antigravi")"
 
   read_select "Installation method" SELECTED_METHOD \
     "Native (recommended) - Compile with glibc support" \
@@ -326,7 +326,7 @@ install_antigravity_cli() {
     _antigravity_download_binary || return 1
     _antigravity_apply_va39_patches || return 1
     _antigravity_compile_helper || return 1
-    log_success "Antigravity CLI installed"
+    log_success "$(_tr "jinx_tools_ai_antigravity-cli_install.antigravity_cli_installed")"
     return 0
     ;;
   *Proot-distro*)
@@ -336,18 +336,18 @@ install_antigravity_cli() {
 }
 
 uninstall_antigravity_cli() {
-  log_info "Uninstalling Antigravity CLI..."
+  log_info "$(_tr "jinx_tools_ai_antigravity-cli_install.uninstalling_antigravity_cli")"
   mkdir -p "$(dirname "$LOG_FILE")"
 
   if [ ! -f "$PREFIX/bin/agy" ]; then
-    log_warn "Antigravity CLI is not installed"
+    log_warn "$(_tr "jinx_tools_ai_antigravity-cli_install.antigravity_cli_is_not_installed")"
     return 1
   fi
 
   if [ -f "$AGY_DATA_DIR/agy.va39" ]; then
     rm -f "$PREFIX/bin/agy"
     rm -rf "$AGY_DATA_DIR"
-    log_success "Antigravity CLI (native) uninstalled"
+    log_success "$(_tr "jinx_tools_ai_antigravity-cli_install.antigravity_cli_native_uninstalled")"
     return 0
   fi
 
@@ -363,10 +363,10 @@ uninstall_antigravity_cli() {
   fi
 
   if rm -f "$PREFIX/bin/agy" &>>"$LOG_FILE"; then
-    log_success "Antigravity CLI (proot-distro) uninstalled"
+    log_success "$(_tr "jinx_tools_ai_antigravity-cli_install.antigravity_cli_proot_distro_uninstall")"
     return 0
   else
-    log_error "Failed to uninstall Antigravity CLI"
+    log_error "$(_tr "jinx_tools_ai_antigravity-cli_install.failed_to_uninstall_antigravity_cli")"
     return 1
   fi
 }
@@ -377,7 +377,7 @@ _update_antigravity_cli() {
   if [ -f "$AGY_DATA_DIR/agy.va39" ]; then
     _antigravity_download_binary || return 1
     _antigravity_apply_va39_patches || return 1
-    log_success "Antigravity CLI (native) updated"
+    log_success "$(_tr "jinx_tools_ai_antigravity-cli_install.antigravity_cli_native_updated")"
     return 0
   fi
 
@@ -396,7 +396,7 @@ _update_antigravity_cli() {
   ubuntu_root="$(_antigravity_detect_ubuntu_root)"
 
   if [ -z "$ubuntu_root" ]; then
-    log_error "Ubuntu rootfs not found"
+    log_error "$(_tr "jinx_tools_ai_antigravity-cli_install.ubuntu_rootfs_not_found")"
     return 1
   fi
 
@@ -414,11 +414,11 @@ _update_antigravity_cli() {
   done
 
   if [ -z "$upstream_bin" ]; then
-    log_error "Antigravity CLI binary not found after update"
+    log_error "$(_tr "jinx_tools_ai_antigravity-cli_install.antigravity_cli_binary_not_found_after_u")"
     return 1
   fi
 
-  log_info "Applying VA39 patches (proot)..."
+  log_info "$(_tr "jinx_tools_ai_antigravity-cli_install.applying_va39_patches_proot")"
   python3 - "$upstream_bin" "${upstream_bin}.va39" <<'PY'
 import sys, shutil, struct, pathlib
 src = pathlib.Path(sys.argv[1])
@@ -459,7 +459,7 @@ dst.write_bytes(data)
 PY
 
   chmod +x "${upstream_bin}.va39"
-  log_success "Antigravity CLI (proot-distro) updated"
+  log_success "$(_tr "jinx_tools_ai_antigravity-cli_install.antigravity_cli_proot_distro_updated")"
   return 0
 }
 

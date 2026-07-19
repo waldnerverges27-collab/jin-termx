@@ -22,7 +22,7 @@ _install_zsh_syntax_highlighting_git() {
 _install_zsh_syntax_highlighting_git_impl() {
   mkdir -p "$(dirname "$LOG_FILE")"
   if ! git clone --depth=1 "https://github.com/zsh-users/zsh-syntax-highlighting.git" "$ZSH_PLUGINS_DIR/zsh-syntax-highlighting" &>>"$LOG_FILE"; then
-    log_error "Failed to install zsh-syntax-highlighting"
+    log_error "$(_tr "jinx_tools_shell_zsh-syntax-highlighting_install.failed_to_install_zsh_syntax_highlightin")"
     return 1
   fi
   git -C "$ZSH_PLUGINS_DIR/zsh-syntax-highlighting" fetch --tags --depth=1 &>>"$LOG_FILE"
@@ -31,20 +31,20 @@ _install_zsh_syntax_highlighting_git_impl() {
 
 install_zsh_syntax_highlighting() {
   if [[ -d "$ZSH_PLUGINS_DIR/zsh-syntax-highlighting" ]]; then
-    log_info "zsh-syntax-highlighting already installed"
+    log_info "$(_tr "jinx_tools_shell_zsh-syntax-highlighting_install.zsh_syntax_highlighting_already_installe")"
     return 0
   fi
 
   _zsh_syntax_highlighting_dependencies
 
   _install_zsh_syntax_highlighting_git || return 1
-  log_success "Installed"
+  log_success "$(_tr "jinx_tools_shell_zsh-syntax-highlighting_install.installed")"
   return 0
 }
 
 _uninstall_zsh_syntax_highlighting_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/zsh-syntax-highlighting" ]]; then
-    log_info "zsh-syntax-highlighting is not installed"
+    log_info "$(_tr "jinx_tools_shell_zsh-syntax-highlighting_install.zsh_syntax_highlighting_is_not_installed")"
     return 0
   fi
 
@@ -61,7 +61,7 @@ _update_zsh_syntax_highlighting() {
 
 _update_zsh_syntax_highlighting_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/zsh-syntax-highlighting/.git" ]]; then
-    log_warn "zsh-syntax-highlighting not installed"
+    log_warn "$(_tr "jinx_tools_shell_zsh-syntax-highlighting_install.zsh_syntax_highlighting_not_installed")"
     return 0
   fi
 

@@ -11,7 +11,7 @@ _install_udocker_pkg() {
 
 _install_udocker_pkg_impl() {
 	if ! yes | pkg install udocker &>>"$LOG_FILE"; then
-		log_error "Failed to install Udocker"
+		log_error "$(_tr "jinx_tools_dev_udocker_install.failed_to_install_udocker")"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_udocker_pkg() {
 
 _uninstall_udocker_pkg_impl() {
 	if ! pkg uninstall udocker -y &>>"$LOG_FILE"; then
-		log_error "Failed to uninstall Udocker"
+		log_error "$(_tr "jinx_tools_dev_udocker_install.failed_to_uninstall_udocker")"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_udocker_update() {
 
 install_udocker() {
 	if command -v udocker &>/dev/null; then
-		log_info "Udocker is already installed"
+		log_info "$(_tr "jinx_tools_dev_udocker_install.udocker_is_already_installed")"
 		return 2
 	fi
-	log_info "Installing Udocker..."
+	log_info "$(_tr "jinx_tools_dev_udocker_install.installing_udocker")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_udocker_pkg || return 1
-	log_success "Udocker installed"
+	log_success "$(_tr "jinx_tools_dev_udocker_install.udocker_installed")"
 	return 0
 }
 
 uninstall_udocker() {
 	if ! command -v udocker &>/dev/null; then
-		log_info "Udocker is not installed"
+		log_info "$(_tr "jinx_tools_dev_udocker_install.udocker_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling Udocker..."
+	log_info "$(_tr "jinx_tools_dev_udocker_install.uninstalling_udocker")"
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_udocker_pkg || return 1
-	log_success "Udocker uninstalled"
+	log_success "$(_tr "jinx_tools_dev_udocker_install.udocker_uninstalled")"
 	return 0
 }
 

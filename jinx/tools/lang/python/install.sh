@@ -11,7 +11,7 @@ _install_python_pkg() {
 
 _install_python_pkg_impl() {
 	if ! yes | pkg install python &>>"$LOG_FILE"; then
-		log_error "Failed to install Python"
+		log_error "$(_tr "jinx_tools_lang_python_install.failed_to_install_python")"
 		return 1
 	fi
 	return 0
@@ -19,14 +19,14 @@ _install_python_pkg_impl() {
 
 install_python() {
 	if command -v python &>/dev/null; then
-		log_info "Python is already installed"
+		log_info "$(_tr "jinx_tools_lang_python_install.python_is_already_installed")"
 		return 2
 	fi
-	log_info "Installing Python..."
+	log_info "$(_tr "jinx_tools_lang_python_install.installing_python")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 	_install_python_pkg || return 1
-	log_success "Python installed"
+	log_success "$(_tr "jinx_tools_lang_python_install.python_installed")"
 	return 0
 }
 
@@ -36,7 +36,7 @@ _uninstall_python_pkg() {
 
 _uninstall_python_pkg_impl() {
 	if ! pkg uninstall python -y &>>"$LOG_FILE"; then
-		log_error "Failed to uninstall Python"
+		log_error "$(_tr "jinx_tools_lang_python_install.failed_to_uninstall_python")"
 		return 1
 	fi
 	return 0
@@ -44,13 +44,13 @@ _uninstall_python_pkg_impl() {
 
 uninstall_python() {
 	if ! command -v python &>/dev/null; then
-		log_info "Python is not installed"
+		log_info "$(_tr "jinx_tools_lang_python_install.python_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling Python..."
+	log_info "$(_tr "jinx_tools_lang_python_install.uninstalling_python")"
 	mkdir -p "$(dirname "$LOG_FILE")"
 	_uninstall_python_pkg || return 1
-	log_success "Python uninstalled"
+	log_success "$(_tr "jinx_tools_lang_python_install.python_uninstalled")"
 	return 0
 }
 

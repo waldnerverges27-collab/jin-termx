@@ -11,7 +11,7 @@ _install_rust_pkg() {
 
 _install_rust_pkg_impl() {
 	if ! yes | pkg install rust &>>"$LOG_FILE"; then
-		log_error "Failed to install Rust"
+		log_error "$(_tr "jinx_tools_lang_rust_install.failed_to_install_rust")"
 		return 1
 	fi
 	return 0
@@ -19,14 +19,14 @@ _install_rust_pkg_impl() {
 
 install_rust() {
 	if command -v rust &>/dev/null; then
-		log_info "Rust is already installed"
+		log_info "$(_tr "jinx_tools_lang_rust_install.rust_is_already_installed")"
 		return 2
 	fi
-	log_info "Installing Rust..."
+	log_info "$(_tr "jinx_tools_lang_rust_install.installing_rust")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 	_install_rust_pkg || return 1
-	log_success "Rust installed"
+	log_success "$(_tr "jinx_tools_lang_rust_install.rust_installed")"
 	return 0
 }
 
@@ -36,7 +36,7 @@ _uninstall_rust_pkg() {
 
 _uninstall_rust_pkg_impl() {
 	if ! pkg uninstall rust -y &>>"$LOG_FILE"; then
-		log_error "Failed to uninstall Rust"
+		log_error "$(_tr "jinx_tools_lang_rust_install.failed_to_uninstall_rust")"
 		return 1
 	fi
 	return 0
@@ -44,13 +44,13 @@ _uninstall_rust_pkg_impl() {
 
 uninstall_rust() {
 	if ! command -v rustc &>/dev/null; then
-		log_info "Rust is not installed"
+		log_info "$(_tr "jinx_tools_lang_rust_install.rust_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling Rust..."
+	log_info "$(_tr "jinx_tools_lang_rust_install.uninstalling_rust")"
 	mkdir -p "$(dirname "$LOG_FILE")"
 	_uninstall_rust_pkg || return 1
-	log_success "Rust uninstalled"
+	log_success "$(_tr "jinx_tools_lang_rust_install.rust_uninstalled")"
 	return 0
 }
 

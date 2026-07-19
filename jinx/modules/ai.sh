@@ -7,20 +7,20 @@ LOG_FILE="$JINX_CACHE/install_ai.log"
 
 install_ai() {
   separator
-  box "Installing AI Tools"
+  box "$(_tr "jinx_modules_ai.installing_ai_tools")"
   separator
   echo
 
-  log_info "Installing AI tools..."
+  log_info "$(_tr "jinx_modules_ai.installing_ai_tools")"
   echo
-  log_info "☕ Grab a coffee! This process typically takes 1h-2h hours."
+  log_info "$(_tr "jinx_modules_ai.grab_a_coffee_this_process_typically")"
   log_info "   Don't worry, it's normal for this to take a while..."
   echo
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _install_ai_tools_wrapper
-  log_success "AI tools installed successfully"
+  log_success "$(_tr "jinx_modules_ai.ai_tools_installed_successfully")"
   separator
   echo
   list_item "Qwen Code ${GRAY}(${D_GREEN}qwen${GRAY})"
@@ -59,18 +59,18 @@ _install_ai_tools_wrapper() {
 
 uninstall_ai() {
   if ! command -v opencode &>/dev/null && ! command -v freebuff &>/dev/null; then
-    log_info "AI Tools are not installed"
+    log_info "$(_tr "jinx_modules_ai.ai_tools_are_not_installed")"
     return 0
   fi
   separator
-  box "Uninstalling AI Tools"
+  box "$(_tr "jinx_modules_ai.uninstalling_ai_tools")"
   separator
   echo
 
-  log_info "Uninstalling AI tools..."
+  log_info "$(_tr "jinx_modules_ai.uninstalling_ai_tools")"
 
   _uninstall_ai_tools_wrapper
-  log_success "AI tools uninstalled"
+  log_success "$(_tr "jinx_modules_ai.ai_tools_uninstalled")"
 }
 
 _uninstall_ai_tools_wrapper() {
@@ -80,14 +80,14 @@ _uninstall_ai_tools_wrapper() {
 
 update_ai() {
   separator
-  box "Updating AI Tools"
+  box "$(_tr "jinx_modules_ai.updating_ai_tools")"
   separator
   echo
 
-  log_info "Updating AI tools..."
+  log_info "$(_tr "jinx_modules_ai.updating_ai_tools")"
 
   _update_ai_tools_wrapper
-  log_success "AI tools updated"
+  log_success "$(_tr "jinx_modules_ai.ai_tools_updated")"
 }
 
 _update_ai_tools_wrapper() {
@@ -97,43 +97,43 @@ _update_ai_tools_wrapper() {
 
 reinstall_ai() {
   separator
-  box "Reinstalling AI Tools"
+  box "$(_tr "jinx_modules_ai.reinstalling_ai_tools")"
   separator
   echo
 
-  log_info "Reinstalling AI tools..."
+  log_info "$(_tr "jinx_modules_ai.reinstalling_ai_tools")"
   echo
 
   _reinstall_ai_tools_wrapper
-  log_success "AI tools reinstalled successfully"
+  log_success "$(_tr "jinx_modules_ai.ai_tools_reinstalled_successfully")"
   separator
   echo
-  list_item "Qwen Code"
-  list_item "Gemini CLI"
-  list_item "Mistral Vibe"
-  list_item "OpenClaude"
-  list_item "Claude Code"
-  list_item "OpenClaw"
-  list_item "Ollama"
-  list_item "Codex"
-  list_item "OpenCode"
-  list_item "Qoder"
-  list_item "Kilo Code CLI"
-  list_item "Kimchi"
-  list_item "MiMoCode"
-  list_item "Engram"
-  list_item "CodeGraph"
+  list_item "$(_tr "jinx_modules_ai.qwen_code")"
+  list_item "$(_tr "jinx_modules_ai.gemini_cli")"
+  list_item "$(_tr "jinx_modules_ai.mistral_vibe")"
+  list_item "$(_tr "jinx_modules_ai.openclaude")"
+  list_item "$(_tr "jinx_modules_ai.claude_code")"
+  list_item "$(_tr "jinx_modules_ai.openclaw")"
+  list_item "$(_tr "jinx_modules_ai.ollama")"
+  list_item "$(_tr "jinx_modules_ai.codex")"
+  list_item "$(_tr "jinx_modules_ai.opencode")"
+  list_item "$(_tr "jinx_modules_ai.qoder")"
+  list_item "$(_tr "jinx_modules_ai.kilo_code_cli")"
+  list_item "$(_tr "jinx_modules_ai.kimchi")"
+  list_item "$(_tr "jinx_modules_ai.mimocode")"
+  list_item "$(_tr "jinx_modules_ai.engram")"
+  list_item "$(_tr "jinx_modules_ai.codegraph")"
   list_item "Pi"
-  list_item "Antigravity CLI"
-  list_item "Minimax CLI"
-  list_item "Gentle AI"
+  list_item "$(_tr "jinx_modules_ai.antigravity_cli")"
+  list_item "$(_tr "jinx_modules_ai.minimax_cli")"
+  list_item "$(_tr "jinx_modules_ai.gentle_ai")"
   list_item "GGA"
-  list_item "Hermes Agent"
-  list_item "Kimi Code"
-  list_item "Command Code"
-  list_item "Freebuff"
-  list_item "Context7"
-  list_item "OpenSpec"
+  list_item "$(_tr "jinx_modules_ai.hermes_agent")"
+  list_item "$(_tr "jinx_modules_ai.kimi_code")"
+  list_item "$(_tr "jinx_modules_ai.command_code")"
+  list_item "$(_tr "jinx_modules_ai.freebuff")"
+  list_item "$(_tr "jinx_modules_ai.context7")"
+  list_item "$(_tr "jinx_modules_ai.openspec")"
   echo
 }
 

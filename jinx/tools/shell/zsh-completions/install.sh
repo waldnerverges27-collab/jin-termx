@@ -24,7 +24,7 @@ _zsh_completions_dependencies() {
     fi
   done
 
-  log_success "Shell dependencies installed"
+  log_success "$(_tr "jinx_tools_shell_zsh-completions_install.shell_dependencies_installed")"
   return 0
 }
 
@@ -35,7 +35,7 @@ _install_zsh_completions_git() {
 _install_zsh_completions_git_impl() {
   mkdir -p "$(dirname "$LOG_FILE")"
   if ! git clone --depth=1 "https://github.com/zsh-users/zsh-completions.git" "$ZSH_PLUGINS_DIR/zsh-completions" &>>"$LOG_FILE"; then
-    log_error "Failed to install zsh-completions"
+    log_error "$(_tr "jinx_tools_shell_zsh-completions_install.failed_to_install_zsh_completions")"
     return 1
   fi
   git -C "$ZSH_PLUGINS_DIR/zsh-completions" fetch --tags --depth=1 &>>"$LOG_FILE"
@@ -44,20 +44,20 @@ _install_zsh_completions_git_impl() {
 
 install_zsh_completions() {
   if [[ -d "$ZSH_PLUGINS_DIR/zsh-completions" ]]; then
-    log_info "zsh-completions already installed"
+    log_info "$(_tr "jinx_tools_shell_zsh-completions_install.zsh_completions_already_installed")"
     return 0
   fi
 
   _zsh_completions_dependencies
 
   _install_zsh_completions_git || return 1
-  log_success "Installed"
+  log_success "$(_tr "jinx_tools_shell_zsh-completions_install.installed")"
   return 0
 }
 
 _uninstall_zsh_completions_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/zsh-completions" ]]; then
-    log_info "zsh-completions is not installed"
+    log_info "$(_tr "jinx_tools_shell_zsh-completions_install.zsh_completions_is_not_installed")"
     return 0
   fi
 
@@ -74,7 +74,7 @@ _update_zsh_completions() {
 
 _update_zsh_completions_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/zsh-completions/.git" ]]; then
-    log_warn "zsh-completions not installed"
+    log_warn "$(_tr "jinx_tools_shell_zsh-completions_install.zsh_completions_not_installed")"
     return 0
   fi
 

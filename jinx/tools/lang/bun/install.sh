@@ -50,14 +50,14 @@ _bun_install_deps_native() {
 _bun_install_deps_native_impl() {
 	if [[ ! -f $PREFIX/etc/apt/sources.list.d/glibc.list ]]; then
 		if ! yes | pkg install glibc-repo &>>"$LOG_FILE"; then
-			log_error "Failed to install glibc-repo"
+			log_error "$(_tr "jinx_tools_lang_bun_install.failed_to_install_glibc_repo")"
 			return 1
 		fi
 	fi
 
 	if [[ ! -f $PREFIX/glibc/lib/libc.so.6 ]]; then
 		if ! yes | pkg install glibc &>>"$LOG_FILE"; then
-			log_error "Failed to install glibc"
+			log_error "$(_tr "jinx_tools_lang_bun_install.failed_to_install_glibc")"
 			return 1
 		fi
 	fi
@@ -90,7 +90,7 @@ _download_bun_binary_native_impl() {
 	local version
 	version="$(_bun_fetch_version)"
 	if [ -z "$version" ]; then
-		log_error "Failed to fetch latest Bun version"
+		log_error "$(_tr "jinx_tools_lang_bun_install.failed_to_fetch_latest_bun_version")"
 		return 1
 	fi
 
@@ -106,12 +106,12 @@ _download_bun_binary_native_impl() {
 	local zip_name="bun-linux-aarch64.zip"
 	curl -fsSL "https://github.com/$BUN_REPO/releases/download/bun-v$version/$zip_name" \
 		-o "$BUN_DATA_DIR/$zip_name" &>>"$LOG_FILE" || {
-		log_error "Failed to download Bun binary"
+		log_error "$(_tr "jinx_tools_lang_bun_install.failed_to_download_bun_binary")"
 		return 1
 	}
 
 	if ! unzip -o "$BUN_DATA_DIR/$zip_name" -d "$BUN_DATA_DIR" &>>"$LOG_FILE"; then
-		log_error "Failed to extract Bun binary"
+		log_error "$(_tr "jinx_tools_lang_bun_install.failed_to_extract_bun_binary")"
 		return 1
 	fi
 
@@ -119,7 +119,7 @@ _download_bun_binary_native_impl() {
 
 	local extracted="$BUN_DATA_DIR/bun-linux-aarch64/bun"
 	if [ ! -f "$extracted" ]; then
-		log_error "Bun binary not found after extraction"
+		log_error "$(_tr "jinx_tools_lang_bun_install.bun_binary_not_found_after_extraction")"
 		return 1
 	fi
 
@@ -127,7 +127,7 @@ _download_bun_binary_native_impl() {
 	rm -rf "$BUN_DATA_DIR/bun-linux-aarch64"
 
 	if [ ! -f "$BUN_DATA_DIR/bun.real" ]; then
-		log_error "Bun binary not found after extraction"
+		log_error "$(_tr "jinx_tools_lang_bun_install.bun_binary_not_found_after_extraction")"
 		return 1
 	fi
 
@@ -156,7 +156,7 @@ _compile_bun_helper_impl() {
 	mkdir -p "$PREFIX/lib"
 
 	if ! clang -O2 -fPIC -shared -nostdlib -o "$PREFIX/lib/bun-shim.so" "$shim_src" &>>"$LOG_FILE"; then
-		log_error "Failed to compile bun shim"
+		log_error "$(_tr "jinx_tools_lang_bun_install.failed_to_compile_bun_shim")"
 		return 1
 	fi
 	chmod +x "$PREFIX/lib/bun-shim.so"
@@ -166,7 +166,7 @@ _compile_bun_helper_impl() {
 
 	if ! clang -O2 -o "$PREFIX/bin/bun" "$wrapper_tmp" &>>"$LOG_FILE"; then
 		rm -f "$wrapper_tmp"
-		log_error "Failed to compile bun wrapper"
+		log_error "$(_tr "jinx_tools_lang_bun_install.failed_to_compile_bun_wrapper")"
 		return 1
 	fi
 	chmod +x "$PREFIX/bin/bun"
@@ -180,7 +180,7 @@ _install_bun_native() {
 	_download_bun_binary_native || return 1
 	_compile_bun_helper || return 1
 	ln -sf bun "$PREFIX/bin/bunx"
-	log_success "Bun installed natively (glibc build)"
+	log_success "$(_tr "jinx_tools_lang_bun_install.bun_installed_natively_glibc_build")"
 	return 0
 }
 
@@ -202,7 +202,7 @@ _install_bun_proot_impl() {
 	local version
 	version="$(_bun_fetch_version)"
 	if [ -z "$version" ]; then
-		log_error "Failed to fetch latest Bun version"
+		log_error "$(_tr "jinx_tools_lang_bun_install.failed_to_fetch_latest_bun_version")"
 		return 1
 	fi
 
@@ -227,14 +227,14 @@ _install_bun_proot_impl() {
 	ubuntu_root="$(_bun_detect_ubuntu_root)"
 
 	if [ -z "$ubuntu_root" ]; then
-		log_error "Ubuntu rootfs not found"
+		log_error "$(_tr "jinx_tools_lang_bun_install.ubuntu_rootfs_not_found")"
 		return 1
 	fi
 
 	local bun_bin="$ubuntu_root/usr/local/bin/bun"
 
 	if [ ! -f "$bun_bin" ]; then
-		log_error "Bun binary not found after install"
+		log_error "$(_tr "jinx_tools_lang_bun_install.bun_binary_not_found_after_install")"
 		return 1
 	fi
 
@@ -251,11 +251,11 @@ _install_bun_proot_impl() {
 
 install_bun() {
 	if command -v bun &>/dev/null; then
-		log_info "Bun is already installed"
+		log_info "$(_tr "jinx_tools_lang_bun_install.bun_is_already_installed")"
 		return 2
 	fi
 
-	log_info "Select installation method for Bun:"
+	log_info "$(_tr "jinx_tools_lang_bun_install.select_installation_method_for_bun")"
 
 	read_select "Installation method" SELECTED_METHOD \
 		"Native (recommended) - glibc build with shim" \
@@ -276,7 +276,7 @@ _uninstall_bun_native() {
 	rm -f "$PREFIX/bin/bunx"
 	rm -f "$PREFIX/lib/bun-shim.so"
 	rm -rf "$BUN_DATA_DIR"
-	log_success "Bun (native) uninstalled"
+	log_success "$(_tr "jinx_tools_lang_bun_install.bun_native_uninstalled")"
 	return 0
 }
 
@@ -284,10 +284,10 @@ _uninstall_bun_proot() {
 	_bun_proot_ubuntu /bin/bash -c 'rm -f /usr/local/bin/bun' &>>"$LOG_FILE"
 
 	if rm -f "$PREFIX/bin/bun" &>>"$LOG_FILE"; then
-		log_success "Bun (proot-distro) uninstalled"
+		log_success "$(_tr "jinx_tools_lang_bun_install.bun_proot_distro_uninstalled")"
 		return 0
 	else
-		log_error "Failed to uninstall Bun"
+		log_error "$(_tr "jinx_tools_lang_bun_install.failed_to_uninstall_bun")"
 		return 1
 	fi
 }
@@ -296,7 +296,7 @@ uninstall_bun() {
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	if [ ! -f "$PREFIX/bin/bun" ]; then
-		log_warn "Bun is not installed"
+		log_warn "$(_tr "jinx_tools_lang_bun_install.bun_is_not_installed")"
 		return 2
 	fi
 
@@ -314,7 +314,7 @@ _uninstall_bun_impl() {
 _update_bun_native() {
 	_download_bun_binary_native || return 1
 	_compile_bun_helper || return 1
-	log_success "Bun (native) updated"
+	log_success "$(_tr "jinx_tools_lang_bun_install.bun_native_updated")"
 	return 0
 }
 
@@ -322,7 +322,7 @@ _update_bun_proot() {
 	local version
 	version="$(_get_latest_bun_version)"
 	if [ -z "$version" ]; then
-		log_error "Failed to fetch latest Bun version"
+		log_error "$(_tr "jinx_tools_lang_bun_install.failed_to_fetch_latest_bun_version")"
 		return 1
 	fi
 
@@ -346,11 +346,11 @@ _update_bun_proot() {
 	local bun_bin="$ubuntu_root/usr/local/bin/bun"
 
 	if [ ! -f "$bun_bin" ]; then
-		log_error "Bun binary not found after update"
+		log_error "$(_tr "jinx_tools_lang_bun_install.bun_binary_not_found_after_update")"
 		return 1
 	fi
 
-	log_success "Bun (proot-distro) updated"
+	log_success "$(_tr "jinx_tools_lang_bun_install.bun_proot_distro_updated")"
 	return 0
 }
 

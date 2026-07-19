@@ -14,11 +14,11 @@ _backup_motd() {
 	fi
 
 	if [[ -e "$CORE_MOTD_BACKUP" ]]; then
-		log_info "Termux MOTD already backed up"
+		log_info "$(_tr "jinx_tools_ui_banner_install.termux_motd_already_backed_up")"
 		return 0
 	fi
 
-	log_info "Backing up Termux MOTD..."
+	log_info "$(_tr "jinx_tools_ui_banner_install.backing_up_termux_motd")"
 	mv "$PREFIX/etc/motd" "$CORE_MOTD_BACKUP"
 	log_success "Termux MOTD backed up to $CORE_MOTD_BACKUP"
 }
@@ -29,13 +29,13 @@ _restore_motd() {
 	fi
 
 	if [[ -e "$PREFIX/etc/motd" ]]; then
-		log_warn "Termux MOTD already exists, skipping restore"
+		log_warn "$(_tr "jinx_tools_ui_banner_install.termux_motd_already_exists_skipping_res")"
 		return 0
 	fi
 
-	log_info "Restoring Termux MOTD..."
+	log_info "$(_tr "jinx_tools_ui_banner_install.restoring_termux_motd")"
 	mv "$CORE_MOTD_BACKUP" "$PREFIX/etc/motd"
-	log_success "Termux MOTD restored"
+	log_success "$(_tr "jinx_tools_ui_banner_install.termux_motd_restored")"
 }
 
 _detect_shell_config() {
@@ -51,12 +51,12 @@ _install_banner_impl() {
 	shell_config="$(_detect_shell_config)"
 
 	if [[ -z "$shell_config" ]]; then
-		log_warn "No shell config file found (.zshrc or .bashrc)"
+		log_warn "$(_tr "jinx_tools_ui_banner_install.no_shell_config_file_found_zshrc_or_b")"
 		return 1
 	fi
 
 	if grep -qF "$CORE_BANNER_MARKER" "$shell_config" 2>/dev/null; then
-		log_info "Jin-TermX Banner already installed"
+		log_info "$(_tr "jinx_tools_ui_banner_install.jin_termx_banner_already_installed")"
 		return 0
 	fi
 
@@ -74,7 +74,7 @@ $CORE_BANNER_MARKER
 source "$banner_script"
 EOF
 
-	log_success "Jin-TermX Banner installed"
+	log_success "$(_tr "jinx_tools_ui_banner_install.jin_termx_banner_installed")"
 
 	_backup_motd
 
@@ -84,10 +84,10 @@ EOF
 
 install_banner() {
 	if grep -qF "$CORE_BANNER_MARKER" "$(_detect_shell_config)" 2>/dev/null; then
-		log_info "Jin-TermX Banner already installed"
+		log_info "$(_tr "jinx_tools_ui_banner_install.jin_termx_banner_already_installed")"
 		return 0
 	fi
-	log_info "Installing Jin-TermX Banner..."
+	log_info "$(_tr "jinx_tools_ui_banner_install.installing_jin_termx_banner")"
 	mkdir -p "$(dirname "$LOG_FILE")"
 	loading "Installing Banner" _install_banner_impl
 }
@@ -97,12 +97,12 @@ _uninstall_banner_impl() {
 	shell_config="$(_detect_shell_config)"
 
 	if [[ -z "$shell_config" ]]; then
-		log_warn "No shell config file found"
+		log_warn "$(_tr "jinx_tools_ui_banner_install.no_shell_config_file_found")"
 		return 1
 	fi
 
 	if ! grep -qF "$CORE_BANNER_MARKER" "$shell_config" 2>/dev/null; then
-		log_warn "Jin-TermX Banner not installed"
+		log_warn "$(_tr "jinx_tools_ui_banner_install.jin_termx_banner_not_installed")"
 		return 0
 	fi
 
@@ -116,9 +116,9 @@ _uninstall_banner_impl() {
 		else
 			sed -i "$marker_line,$((marker_line + 1))d" "$shell_config"
 		fi
-		log_success "Jin-TermX Banner uninstalled"
+		log_success "$(_tr "jinx_tools_ui_banner_install.jin_termx_banner_uninstalled")"
 	else
-		log_warn "Could not locate banner marker for removal"
+		log_warn "$(_tr "jinx_tools_ui_banner_install.could_not_locate_banner_marker_for_remov")"
 		return 1
 	fi
 
@@ -129,10 +129,10 @@ _uninstall_banner_impl() {
 
 uninstall_banner() {
 	if ! grep -qF "$CORE_BANNER_MARKER" "$(_detect_shell_config)" 2>/dev/null; then
-		log_warn "Jin-TermX Banner not installed"
+		log_warn "$(_tr "jinx_tools_ui_banner_install.jin_termx_banner_not_installed")"
 		return 0
 	fi
-	log_info "Uninstalling Jin-TermX Banner..."
+	log_info "$(_tr "jinx_tools_ui_banner_install.uninstalling_jin_termx_banner")"
 	loading "Uninstalling Banner" _uninstall_banner_impl
 }
 

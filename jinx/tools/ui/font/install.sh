@@ -14,7 +14,7 @@ _install_font_impl() {
 
 	if [[ -f "$font_source" ]]; then
 		cp "$font_source" "$TERMUX_DIR/font.ttf"
-		log_success "Meslo Nerd Font installed"
+		log_success "$(_tr "jinx_tools_ui_font_install.meslo_nerd_font_installed")"
 		return 0
 	else
 		log_error "Font file not found: $font_source"
@@ -24,28 +24,28 @@ _install_font_impl() {
 
 install_font() {
 	if [[ -f "$TERMUX_DIR/font.ttf" ]]; then
-		log_info "Meslo Nerd Font already installed"
+		log_info "$(_tr "jinx_tools_ui_font_install.meslo_nerd_font_already_installed")"
 		return 0
 	fi
-	log_info "Installing Meslo Nerd Font..."
+	log_info "$(_tr "jinx_tools_ui_font_install.installing_meslo_nerd_font")"
 	loading "Installing Meslo Nerd Font" _install_font_impl
 }
 
 _uninstall_font_impl() {
 	if [[ -f "$TERMUX_DIR/font.ttf" ]]; then
 		rm "$TERMUX_DIR/font.ttf"
-		log_success "Meslo Nerd Font uninstalled"
+		log_success "$(_tr "jinx_tools_ui_font_install.meslo_nerd_font_uninstalled")"
 	else
-		log_warn "Meslo Nerd Font not installed"
+		log_warn "$(_tr "jinx_tools_ui_font_install.meslo_nerd_font_not_installed")"
 	fi
 }
 
 uninstall_font() {
 	if [[ ! -f "$TERMUX_DIR/font.ttf" ]]; then
-		log_info "Meslo Nerd Font is not installed"
+		log_info "$(_tr "jinx_tools_ui_font_install.meslo_nerd_font_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling Meslo Nerd Font..."
+	log_info "$(_tr "jinx_tools_ui_font_install.uninstalling_meslo_nerd_font")"
 	loading "Uninstalling Meslo Nerd Font" _uninstall_font_impl
 }
 

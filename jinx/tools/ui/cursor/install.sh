@@ -13,34 +13,34 @@ _install_cursor_impl() {
 cursor=#00FF00
 EOF
 
-	log_success "Cursor color set to #00FF00 (green)"
+	log_success "$(_tr "jinx_tools_ui_cursor_install.cursor_color_set_to_00ff00_green")"
 	return 0
 }
 
 install_cursor() {
 	if [[ -f "$TERMUX_DIR/colors.properties" ]]; then
-		log_info "Cursor Color already configured"
+		log_info "$(_tr "jinx_tools_ui_cursor_install.cursor_color_already_configured")"
 		return 0
 	fi
-	log_info "Installing Cursor Color..."
+	log_info "$(_tr "jinx_tools_ui_cursor_install.installing_cursor_color")"
 	loading "Installing Cursor Color" _install_cursor_impl
 }
 
 _uninstall_cursor_impl() {
 	if [[ -f "$TERMUX_DIR/colors.properties" ]]; then
 		rm "$TERMUX_DIR/colors.properties"
-		log_success "Cursor Color uninstalled"
+		log_success "$(_tr "jinx_tools_ui_cursor_install.cursor_color_uninstalled")"
 	else
-		log_warn "Cursor Color not configured"
+		log_warn "$(_tr "jinx_tools_ui_cursor_install.cursor_color_not_configured")"
 	fi
 }
 
 uninstall_cursor() {
 	if [[ ! -f "$TERMUX_DIR/colors.properties" ]]; then
-		log_info "Cursor Color is not installed"
+		log_info "$(_tr "jinx_tools_ui_cursor_install.cursor_color_is_not_installed")"
 		return 0
 	fi
-	log_info "Uninstalling Cursor Color..."
+	log_info "$(_tr "jinx_tools_ui_cursor_install.uninstalling_cursor_color")"
 	loading "Uninstalling Cursor Color" _uninstall_cursor_impl
 }
 

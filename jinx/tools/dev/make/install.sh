@@ -11,7 +11,7 @@ _install_make_pkg() {
 
 _install_make_pkg_impl() {
 	if ! yes | pkg install make &>>"$LOG_FILE"; then
-		log_error "Failed to install Make"
+		log_error "$(_tr "jinx_tools_dev_make_install.failed_to_install_make")"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_make_pkg() {
 
 _uninstall_make_pkg_impl() {
 	if ! pkg uninstall make -y &>>"$LOG_FILE"; then
-		log_error "Failed to uninstall Make"
+		log_error "$(_tr "jinx_tools_dev_make_install.failed_to_uninstall_make")"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_make_update() {
 
 install_make() {
 	if command -v make &>/dev/null; then
-		log_info "Make is already installed"
+		log_info "$(_tr "jinx_tools_dev_make_install.make_is_already_installed")"
 		return 2
 	fi
-	log_info "Installing Make..."
+	log_info "$(_tr "jinx_tools_dev_make_install.installing_make")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_make_pkg || return 1
-	log_success "Make installed"
+	log_success "$(_tr "jinx_tools_dev_make_install.make_installed")"
 	return 0
 }
 
 uninstall_make() {
 	if ! command -v make &>/dev/null; then
-		log_info "Make is not installed"
+		log_info "$(_tr "jinx_tools_dev_make_install.make_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling Make..."
+	log_info "$(_tr "jinx_tools_dev_make_install.uninstalling_make")"
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_make_pkg || return 1
-	log_success "Make uninstalled"
+	log_success "$(_tr "jinx_tools_dev_make_install.make_uninstalled")"
 	return 0
 }
 

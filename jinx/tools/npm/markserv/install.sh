@@ -7,11 +7,11 @@ LOG_FILE="$JINX_CACHE/install_npm.log"
 
 _markserv_dependencies() {
   if command -v node &>/dev/null && command -v npm &>/dev/null; then
-    log_info "Node.js and npm are already installed"
+    log_info "$(_tr "jinx_tools_npm_markserv_install.node_js_and_npm_are_already_installed")"
     return 0
   fi
 
-  log_info "Installing Nodejs..."
+  log_info "$(_tr "jinx_tools_npm_markserv_install.installing_nodejs")"
   mkdir -p "$(dirname "$LOG_FILE")"
   yes | pkg install nodejs-lts &>>"$LOG_FILE"
 }
@@ -22,7 +22,7 @@ _install_markserv_npm() {
 
 _install_markserv_npm_impl() {
   if ! npm install -g markserv &>>"$LOG_FILE"; then
-    log_error "Failed to install Markserv"
+    log_error "$(_tr "jinx_tools_npm_markserv_install.failed_to_install_markserv")"
     return 1
   fi
   return 0
@@ -32,14 +32,14 @@ install_markserv() {
   if command -v markserv &>/dev/null; then
     return 0
   fi
-  log_info "Installing Markserv..."
+  log_info "$(_tr "jinx_tools_npm_markserv_install.installing_markserv")"
 
   _markserv_dependencies
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _install_markserv_npm || return 1
-  log_success "Markserv installed"
+  log_success "$(_tr "jinx_tools_npm_markserv_install.markserv_installed")"
   return 0
 }
 
@@ -49,7 +49,7 @@ _uninstall_markserv_npm() {
 
 _uninstall_markserv_npm_impl() {
   if ! npm uninstall -g markserv &>>"$LOG_FILE"; then
-    log_error "Failed to uninstall Markserv"
+    log_error "$(_tr "jinx_tools_npm_markserv_install.failed_to_uninstall_markserv")"
     return 1
   fi
   return 0
@@ -57,14 +57,14 @@ _uninstall_markserv_npm_impl() {
 
 uninstall_markserv() {
   if ! command -v markserv &>/dev/null; then
-    log_info "Markserv is not installed"
+    log_info "$(_tr "jinx_tools_npm_markserv_install.markserv_is_not_installed")"
     return 0
   fi
-  log_info "Uninstalling Markserv..."
+  log_info "$(_tr "jinx_tools_npm_markserv_install.uninstalling_markserv")"
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _uninstall_markserv_npm || return 1
-  log_success "Markserv uninstalled"
+  log_success "$(_tr "jinx_tools_npm_markserv_install.markserv_uninstalled")"
   return 0
 }
 

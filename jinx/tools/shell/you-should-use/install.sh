@@ -24,7 +24,7 @@ _you_should_use_dependencies() {
     fi
   done
 
-  log_success "Shell dependencies installed"
+  log_success "$(_tr "jinx_tools_shell_you-should-use_install.shell_dependencies_installed")"
   return 0
 }
 
@@ -35,7 +35,7 @@ _install_you_should_use_git() {
 _install_you_should_use_git_impl() {
   mkdir -p "$(dirname "$LOG_FILE")"
   if ! git clone --depth=1 "https://github.com/MichaelAquilina/zsh-you-should-use.git" "$ZSH_PLUGINS_DIR/zsh-you-should-use" &>>"$LOG_FILE"; then
-    log_error "Failed to install zsh-you-should-use"
+    log_error "$(_tr "jinx_tools_shell_you-should-use_install.failed_to_install_zsh_you_should_use")"
     return 1
   fi
   git -C "$ZSH_PLUGINS_DIR/zsh-you-should-use" fetch --tags --depth=1 &>>"$LOG_FILE"
@@ -44,20 +44,20 @@ _install_you_should_use_git_impl() {
 
 install_you_should_use() {
   if [[ -d "$ZSH_PLUGINS_DIR/zsh-you-should-use" ]]; then
-    log_info "zsh-you-should-use already installed"
+    log_info "$(_tr "jinx_tools_shell_you-should-use_install.zsh_you_should_use_already_installed")"
     return 0
   fi
 
   _you_should_use_dependencies
 
   _install_you_should_use_git || return 1
-  log_success "Installed"
+  log_success "$(_tr "jinx_tools_shell_you-should-use_install.installed")"
   return 0
 }
 
 _uninstall_you_should_use_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/zsh-you-should-use" ]]; then
-    log_info "zsh-you-should-use is not installed"
+    log_info "$(_tr "jinx_tools_shell_you-should-use_install.zsh_you_should_use_is_not_installed")"
     return 0
   fi
 
@@ -74,7 +74,7 @@ _update_you_should_use() {
 
 _update_you_should_use_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/zsh-you-should-use/.git" ]]; then
-    log_warn "zsh-you-should-use not installed"
+    log_warn "$(_tr "jinx_tools_shell_you-should-use_install.zsh_you_should_use_not_installed")"
     return 0
   fi
 

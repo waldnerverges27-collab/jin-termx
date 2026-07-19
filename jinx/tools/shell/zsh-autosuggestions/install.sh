@@ -24,7 +24,7 @@ _zsh_autosuggestions_dependencies() {
     fi
   done
 
-  log_success "Shell dependencies installed"
+  log_success "$(_tr "jinx_tools_shell_zsh-autosuggestions_install.shell_dependencies_installed")"
   return 0
 }
 
@@ -35,7 +35,7 @@ _install_zsh_autosuggestions_git() {
 _install_zsh_autosuggestions_git_impl() {
   mkdir -p "$(dirname "$LOG_FILE")"
   if ! git clone --depth=1 "https://github.com/zsh-users/zsh-autosuggestions.git" "$ZSH_PLUGINS_DIR/zsh-autosuggestions" &>>"$LOG_FILE"; then
-    log_error "Failed to install zsh-autosuggestions"
+    log_error "$(_tr "jinx_tools_shell_zsh-autosuggestions_install.failed_to_install_zsh_autosuggestions")"
     return 1
   fi
   git -C "$ZSH_PLUGINS_DIR/zsh-autosuggestions" fetch --tags --depth=1 &>>"$LOG_FILE"
@@ -44,20 +44,20 @@ _install_zsh_autosuggestions_git_impl() {
 
 install_zsh_autosuggestions() {
   if [[ -d "$ZSH_PLUGINS_DIR/zsh-autosuggestions" ]]; then
-    log_info "zsh-autosuggestions already installed"
+    log_info "$(_tr "jinx_tools_shell_zsh-autosuggestions_install.zsh_autosuggestions_already_installed")"
     return 0
   fi
 
   _zsh_autosuggestions_dependencies
 
   _install_zsh_autosuggestions_git || return 1
-  log_success "Installed"
+  log_success "$(_tr "jinx_tools_shell_zsh-autosuggestions_install.installed")"
   return 0
 }
 
 _uninstall_zsh_autosuggestions_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/zsh-autosuggestions" ]]; then
-    log_info "zsh-autosuggestions is not installed"
+    log_info "$(_tr "jinx_tools_shell_zsh-autosuggestions_install.zsh_autosuggestions_is_not_installed")"
     return 0
   fi
 
@@ -74,7 +74,7 @@ _update_zsh_autosuggestions() {
 
 _update_zsh_autosuggestions_impl() {
   if [[ ! -d "$ZSH_PLUGINS_DIR/zsh-autosuggestions/.git" ]]; then
-    log_warn "zsh-autosuggestions not installed"
+    log_warn "$(_tr "jinx_tools_shell_zsh-autosuggestions_install.zsh_autosuggestions_not_installed")"
     return 0
   fi
 

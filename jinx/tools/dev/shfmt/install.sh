@@ -11,7 +11,7 @@ _install_shfmt_pkg() {
 
 _install_shfmt_pkg_impl() {
 	if ! yes | pkg install shfmt &>>"$LOG_FILE"; then
-		log_error "Failed to install Shfmt"
+		log_error "$(_tr "jinx_tools_dev_shfmt_install.failed_to_install_shfmt")"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_shfmt_pkg() {
 
 _uninstall_shfmt_pkg_impl() {
 	if ! pkg uninstall shfmt -y &>>"$LOG_FILE"; then
-		log_error "Failed to uninstall Shfmt"
+		log_error "$(_tr "jinx_tools_dev_shfmt_install.failed_to_uninstall_shfmt")"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_shfmt_update() {
 
 install_shfmt() {
 	if command -v shfmt &>/dev/null; then
-		log_info "Shfmt is already installed"
+		log_info "$(_tr "jinx_tools_dev_shfmt_install.shfmt_is_already_installed")"
 		return 2
 	fi
-	log_info "Installing Shfmt..."
+	log_info "$(_tr "jinx_tools_dev_shfmt_install.installing_shfmt")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_shfmt_pkg || return 1
-	log_success "Shfmt installed"
+	log_success "$(_tr "jinx_tools_dev_shfmt_install.shfmt_installed")"
 	return 0
 }
 
 uninstall_shfmt() {
 	if ! command -v shfmt &>/dev/null; then
-		log_info "Shfmt is not installed"
+		log_info "$(_tr "jinx_tools_dev_shfmt_install.shfmt_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling Shfmt..."
+	log_info "$(_tr "jinx_tools_dev_shfmt_install.uninstalling_shfmt")"
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_shfmt_pkg || return 1
-	log_success "Shfmt uninstalled"
+	log_success "$(_tr "jinx_tools_dev_shfmt_install.shfmt_uninstalled")"
 	return 0
 }
 

@@ -39,12 +39,12 @@ _install_command_code_npm_impl() {
   mkdir -p "$COMMAND_CODE_DATA_DIR"
 
   if ! (cd "$COMMAND_CODE_DATA_DIR" && npm init -y &>>"$LOG_FILE"); then
-    log_error "Failed to initialize npm project"
+    log_error "$(_tr "jinx_tools_ai_command-code_install.failed_to_initialize_npm_project")"
     return 1
   fi
 
   if ! (cd "$COMMAND_CODE_DATA_DIR" && npm install command-code@latest &>>"$LOG_FILE"); then
-    log_error "Failed to install command-code package"
+    log_error "$(_tr "jinx_tools_ai_command-code_install.failed_to_install_command_code_package")"
     return 1
   fi
 
@@ -70,11 +70,11 @@ exec node '"$COMMAND_CODE_DATA_DIR"'/node_modules/command-code/dist/index.mjs "$
 
 install_command_code() {
   if command -v command-code &>/dev/null; then
-    log_info "Command Code is already installed"
+    log_info "$(_tr "jinx_tools_ai_command-code_install.command_code_is_already_installed")"
     return 2
   fi
 
-  log_info "Installing Command Code..."
+  log_info "$(_tr "jinx_tools_ai_command-code_install.installing_command_code")"
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
@@ -82,21 +82,21 @@ install_command_code() {
   _install_command_code_npm || return 1
   _install_command_code_wrappers || return 1
 
-  log_success "Command Code installed successfully"
+  log_success "$(_tr "jinx_tools_ai_command-code_install.command_code_installed_successfully")"
   return 0
 }
 
 uninstall_command_code() {
   if ! command -v command-code &>/dev/null; then
-    log_info "Command Code is not installed"
+    log_info "$(_tr "jinx_tools_ai_command-code_install.command_code_is_not_installed")"
     return 2
   fi
-  log_info "Uninstalling Command Code..."
+  log_info "$(_tr "jinx_tools_ai_command-code_install.uninstalling_command_code")"
   mkdir -p "$(dirname "$LOG_FILE")"
 
   loading "Removing Command Code files" _uninstall_command_code_impl
 
-  log_success "Command Code uninstalled"
+  log_success "$(_tr "jinx_tools_ai_command-code_install.command_code_uninstalled")"
   return 0
 }
 
@@ -115,13 +115,13 @@ _update_command_code() {
   mkdir -p "$(dirname "$LOG_FILE")"
 
   if [ ! -d "$COMMAND_CODE_DATA_DIR" ]; then
-    log_warn "Command Code is not installed"
+    log_warn "$(_tr "jinx_tools_ai_command-code_install.command_code_is_not_installed")"
     return 1
   fi
 
   loading "Updating command-code package" _update_command_code_impl
 
-  log_success "Command Code updated"
+  log_success "$(_tr "jinx_tools_ai_command-code_install.command_code_updated")"
   return 0
 }
 
@@ -129,7 +129,7 @@ _update_command_code_impl() {
   if (cd "$COMMAND_CODE_DATA_DIR" && npm install command-code@latest &>>"$LOG_FILE"); then
     return 0
   else
-    log_error "Failed to update Command Code"
+    log_error "$(_tr "jinx_tools_ai_command-code_install.failed_to_update_command_code")"
     return 1
   fi
 }

@@ -39,14 +39,14 @@ _claude_install_deps_native() {
 _claude_install_deps_native_impl() {
   if [[ ! -f $PREFIX/etc/apt/sources.list.d/glibc.list ]]; then
     if ! yes | pkg install glibc-repo &>>"$LOG_FILE"; then
-      log_error "Failed to install glibc-repo"
+      log_error "$(_tr "jinx_tools_ai_claude-code_install.failed_to_install_glibc_repo")"
       return 1
     fi
   fi
 
   if [[ ! -f $PREFIX/glibc/lib/libc.so.6 ]]; then
     if ! yes | pkg install glibc &>>"$LOG_FILE"; then
-      log_error "Failed to install glibc"
+      log_error "$(_tr "jinx_tools_ai_claude-code_install.failed_to_install_glibc")"
       return 1
     fi
   fi
@@ -80,7 +80,7 @@ _download_claude_binary_impl() {
   local latest_version
   latest_version=$(_get_latest_claude_version)
   if [ -z "$latest_version" ]; then
-    log_error "Failed to fetch latest Claude Code version"
+    log_error "$(_tr "jinx_tools_ai_claude-code_install.failed_to_fetch_latest_claude_code_versi")"
     return 1
   fi
 
@@ -90,19 +90,19 @@ _download_claude_binary_impl() {
   local download_url="https://github.com/anthropics/claude-code/releases/download/$latest_version/$tarball"
 
   if ! curl -fsSL "$download_url" -o "$CLAUDE_DATA_DIR/$tarball" &>>"$LOG_FILE"; then
-    log_error "Failed to download Claude Code binary"
+    log_error "$(_tr "jinx_tools_ai_claude-code_install.failed_to_download_claude_code_binary")"
     return 1
   fi
 
   if ! tar -zxf "$CLAUDE_DATA_DIR/$tarball" -C "$CLAUDE_DATA_DIR" &>>"$LOG_FILE"; then
-    log_error "Failed to extract Claude Code binary"
+    log_error "$(_tr "jinx_tools_ai_claude-code_install.failed_to_extract_claude_code_binary")"
     return 1
   fi
 
   rm -f "$CLAUDE_DATA_DIR/$tarball"
 
   if [ ! -f "$CLAUDE_DATA_DIR/claude" ]; then
-    log_error "Claude Code binary not found after extraction"
+    log_error "$(_tr "jinx_tools_ai_claude-code_install.claude_code_binary_not_found_after_extra")"
     return 1
   fi
 
@@ -122,7 +122,7 @@ _compile_claude_helper_impl() {
   fi
 
   if ! clang -O2 -o "$PREFIX/bin/claude" "$HELPER_SRC" &>>"$LOG_FILE"; then
-    log_error "Failed to compile claude helper"
+    log_error "$(_tr "jinx_tools_ai_claude-code_install.failed_to_compile_claude_helper")"
     return 1
   fi
 
@@ -134,7 +134,7 @@ _install_claude_native() {
   _claude_install_deps_native || return 1
   _download_claude_binary || return 1
   _compile_claude_helper || return 1
-  log_success "Claude Code installed natively"
+  log_success "$(_tr "jinx_tools_ai_claude-code_install.claude_code_installed_natively")"
   return 0
 }
 
@@ -168,12 +168,12 @@ _install_claude_proot_impl() {
   ubuntu_root="$(_claude_detect_ubuntu_root)"
 
   if [ -z "$ubuntu_root" ]; then
-    log_error "Ubuntu rootfs not found"
+    log_error "$(_tr "jinx_tools_ai_claude-code_install.ubuntu_rootfs_not_found")"
     return 1
   fi
 
   if ! _claude_proot_ubuntu test -x /root/.local/bin/claude &>>"$LOG_FILE"; then
-    log_error "Claude Code binary not found after install"
+    log_error "$(_tr "jinx_tools_ai_claude-code_install.claude_code_binary_not_found_after_insta")"
     return 1
   fi
 
@@ -194,11 +194,11 @@ _install_claude_proot_impl() {
 
 install_claude_code() {
   if command -v claude &>/dev/null; then
-    log_info "Claude Code is already installed"
+    log_info "$(_tr "jinx_tools_ai_claude-code_install.claude_code_is_already_installed")"
     return 2
   fi
 
-  log_info "Select installation method for Claude Code:"
+  log_info "$(_tr "jinx_tools_ai_claude-code_install.select_installation_method_for_claude_co")"
 
   read_select "Installation method" SELECTED_METHOD \
     "Native (recommended) - Run with glibc support" \
@@ -215,18 +215,18 @@ install_claude_code() {
 }
 
 uninstall_claude_code() {
-  log_info "Uninstalling Claude Code..."
+  log_info "$(_tr "jinx_tools_ai_claude-code_install.uninstalling_claude_code")"
   mkdir -p "$(dirname "$LOG_FILE")"
 
   if [ ! -f "$PREFIX/bin/claude" ]; then
-    log_warn "Claude Code is not installed"
+    log_warn "$(_tr "jinx_tools_ai_claude-code_install.claude_code_is_not_installed")"
     return 1
   fi
 
   if [ -f "$CLAUDE_DATA_DIR/claude" ]; then
     rm -f "$PREFIX/bin/claude"
     rm -rf "$CLAUDE_DATA_DIR"
-    log_success "Claude Code (native) uninstalled"
+    log_success "$(_tr "jinx_tools_ai_claude-code_install.claude_code_native_uninstalled")"
     return 0
   fi
 
@@ -242,10 +242,10 @@ uninstall_claude_code() {
   fi
 
   if rm -f "$PREFIX/bin/claude" &>>"$LOG_FILE"; then
-    log_success "Claude Code (proot-distro) uninstalled"
+    log_success "$(_tr "jinx_tools_ai_claude-code_install.claude_code_proot_distro_uninstalled")"
     return 0
   else
-    log_error "Failed to uninstall Claude Code"
+    log_error "$(_tr "jinx_tools_ai_claude-code_install.failed_to_uninstall_claude_code")"
     return 1
   fi
 }
@@ -264,11 +264,11 @@ _update_claude_code() {
   ' &>>"$LOG_FILE"
 
   if ! _claude_proot_ubuntu test -x /root/.local/bin/claude &>>"$LOG_FILE"; then
-    log_error "Claude Code binary not found after update"
+    log_error "$(_tr "jinx_tools_ai_claude-code_install.claude_code_binary_not_found_after_updat")"
     return 1
   fi
 
-  log_success "Claude Code (proot-distro) updated"
+  log_success "$(_tr "jinx_tools_ai_claude-code_install.claude_code_proot_distro_updated")"
   return 0
 }
 

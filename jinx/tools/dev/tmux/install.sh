@@ -11,7 +11,7 @@ _install_tmux_pkg() {
 
 _install_tmux_pkg_impl() {
   if ! yes | pkg install tmux &>>"$LOG_FILE"; then
-    log_error "Failed to install Tmux"
+    log_error "$(_tr "jinx_tools_dev_tmux_install.failed_to_install_tmux")"
     return 1
   fi
   return 0
@@ -19,15 +19,15 @@ _install_tmux_pkg_impl() {
 
 install_tmux() {
   if command -v tmux &>/dev/null; then
-    log_info "Tmux is already installed"
+    log_info "$(_tr "jinx_tools_dev_tmux_install.tmux_is_already_installed")"
     return 2
   fi
-  log_info "Installing Tmux..."
+  log_info "$(_tr "jinx_tools_dev_tmux_install.installing_tmux")"
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _install_tmux_pkg || return 1
-  log_success "Tmux installed"
+  log_success "$(_tr "jinx_tools_dev_tmux_install.tmux_installed")"
   return 0
 }
 
@@ -37,7 +37,7 @@ _uninstall_tmux_pkg() {
 
 _uninstall_tmux_pkg_impl() {
   if ! pkg uninstall tmux -y &>>"$LOG_FILE"; then
-    log_error "Failed to uninstall Tmux"
+    log_error "$(_tr "jinx_tools_dev_tmux_install.failed_to_uninstall_tmux")"
     return 1
   fi
   return 0
@@ -45,14 +45,14 @@ _uninstall_tmux_pkg_impl() {
 
 uninstall_tmux() {
   if ! command -v tmux &>/dev/null; then
-    log_info "Tmux is not installed"
+    log_info "$(_tr "jinx_tools_dev_tmux_install.tmux_is_not_installed")"
     return 2
   fi
-  log_info "Uninstalling Tmux..."
+  log_info "$(_tr "jinx_tools_dev_tmux_install.uninstalling_tmux")"
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _uninstall_tmux_pkg || return 1
-  log_success "Tmux uninstalled"
+  log_success "$(_tr "jinx_tools_dev_tmux_install.tmux_uninstalled")"
   return 0
 }
 

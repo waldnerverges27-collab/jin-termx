@@ -11,7 +11,7 @@ _install_curl_pkg() {
 
 _install_curl_pkg_impl() {
 	if ! yes | pkg install curl &>>"$LOG_FILE"; then
-		log_error "Failed to install Curl"
+		log_error "$(_tr "jinx_tools_dev_curl_install.failed_to_install_curl")"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _uninstall_curl_pkg() {
 
 _uninstall_curl_pkg_impl() {
 	if ! pkg uninstall curl -y &>>"$LOG_FILE"; then
-		log_error "Failed to uninstall Curl"
+		log_error "$(_tr "jinx_tools_dev_curl_install.failed_to_uninstall_curl")"
 		return 1
 	fi
 	return 0
@@ -40,28 +40,28 @@ _do_curl_update() {
 
 install_curl() {
 	if command -v curl &>/dev/null; then
-		log_info "Curl is already installed"
+		log_info "$(_tr "jinx_tools_dev_curl_install.curl_is_already_installed")"
 		return 2
 	fi
-	log_info "Installing Curl..."
+	log_info "$(_tr "jinx_tools_dev_curl_install.installing_curl")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_curl_pkg || return 1
-	log_success "Curl installed"
+	log_success "$(_tr "jinx_tools_dev_curl_install.curl_installed")"
 	return 0
 }
 
 uninstall_curl() {
 	if ! command -v curl &>/dev/null; then
-		log_info "Curl is not installed"
+		log_info "$(_tr "jinx_tools_dev_curl_install.curl_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling Curl..."
+	log_info "$(_tr "jinx_tools_dev_curl_install.uninstalling_curl")"
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_curl_pkg || return 1
-	log_success "Curl uninstalled"
+	log_success "$(_tr "jinx_tools_dev_curl_install.curl_uninstalled")"
 	return 0
 }
 

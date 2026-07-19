@@ -20,14 +20,14 @@ _mimocode_install_deps() {
 _mimocode_install_deps_impl() {
   if [[ ! -f $PREFIX/etc/apt/sources.list.d/glibc.list ]]; then
     if ! yes | pkg install glibc-repo &>>"$LOG_FILE"; then
-      log_error "Failed to install glibc-repo"
+      log_error "$(_tr "jinx_tools_ai_mimocode_install.failed_to_install_glibc_repo")"
       return 1
     fi
   fi
 
   if [[ ! -f $PREFIX/glibc/lib/libc.so.6 ]]; then
     if ! yes | pkg install glibc &>>"$LOG_FILE"; then
-      log_error "Failed to install glibc"
+      log_error "$(_tr "jinx_tools_ai_mimocode_install.failed_to_install_glibc")"
       return 1
     fi
   fi
@@ -70,19 +70,19 @@ _download_mimocode_binary_impl() {
   local download_url="https://github.com/XiaomiMiMo/MiMo-Code/releases/download/$latest_version/$tarball"
 
   if ! curl -fsSL "$download_url" -o "$MIMOCODE_DATA_DIR/$tarball" &>>"$LOG_FILE"; then
-    log_error "Failed to download mimocode binary"
+    log_error "$(_tr "jinx_tools_ai_mimocode_install.failed_to_download_mimocode_binary")"
     return 1
   fi
 
   if ! tar -zxf "$MIMOCODE_DATA_DIR/$tarball" -C "$MIMOCODE_DATA_DIR" &>>"$LOG_FILE"; then
-    log_error "Failed to extract mimocode binary"
+    log_error "$(_tr "jinx_tools_ai_mimocode_install.failed_to_extract_mimocode_binary")"
     return 1
   fi
 
   rm -f "$MIMOCODE_DATA_DIR/$tarball"
 
   if [ ! -f "$MIMOCODE_DATA_DIR/mimo" ]; then
-    log_error "mimocode binary not found after extraction"
+    log_error "$(_tr "jinx_tools_ai_mimocode_install.mimocode_binary_not_found_after_extracti")"
     return 1
   fi
 
@@ -103,7 +103,7 @@ _compile_mimocode_helper_impl() {
   fi
 
   if ! clang -O2 -o "$PREFIX/bin/mimo" "$HELPER_SRC" &>>"$LOG_FILE"; then
-    log_error "Failed to compile mimocode helper"
+    log_error "$(_tr "jinx_tools_ai_mimocode_install.failed_to_compile_mimocode_helper")"
     return 1
   fi
 
@@ -135,7 +135,7 @@ _install_mimocode_native() {
   _mimocode_install_deps || return 1
   _download_mimocode_binary || return 1
   _compile_mimocode_helper || return 1
-  log_success "mimocode installed natively"
+  log_success "$(_tr "jinx_tools_ai_mimocode_install.mimocode_installed_natively")"
   return 0
 }
 
@@ -169,14 +169,14 @@ _install_mimocode_proot_impl() {
   ubuntu_root="$(_mimocode_detect_ubuntu_root)"
 
   if [ -z "$ubuntu_root" ]; then
-    log_error "Ubuntu rootfs not found"
+    log_error "$(_tr "jinx_tools_ai_mimocode_install.ubuntu_rootfs_not_found")"
     return 1
   fi
 
   local mimo_bin="$ubuntu_root/root/.mimocode/bin/mimo"
 
   if [ ! -f "$mimo_bin" ]; then
-    log_error "mimocode binary not found after install"
+    log_error "$(_tr "jinx_tools_ai_mimocode_install.mimocode_binary_not_found_after_install")"
     return 1
   fi
 
@@ -197,11 +197,11 @@ _install_mimocode_proot_impl() {
 
 install_mimocode() {
   if command -v mimo &>/dev/null; then
-    log_info "mimocode is already installed"
+    log_info "$(_tr "jinx_tools_ai_mimocode_install.mimocode_is_already_installed")"
     return 2
   fi
 
-  log_info "Select installation method for mimocode:"
+  log_info "$(_tr "jinx_tools_ai_mimocode_install.select_installation_method_for_mimocode")"
 
   read_select "Installation method" SELECTED_METHOD \
     "Native (recommended) - Compile with glibc support" \
@@ -218,18 +218,18 @@ install_mimocode() {
 }
 
 uninstall_mimocode() {
-  log_info "Uninstalling mimocode..."
+  log_info "$(_tr "jinx_tools_ai_mimocode_install.uninstalling_mimocode")"
   mkdir -p "$(dirname "$LOG_FILE")"
 
   if [ ! -f "$PREFIX/bin/mimo" ]; then
-    log_warn "mimocode is not installed"
+    log_warn "$(_tr "jinx_tools_ai_mimocode_install.mimocode_is_not_installed")"
     return 1
   fi
 
   if [ -f "$MIMOCODE_DATA_DIR/mimocode" ]; then
     rm -f "$PREFIX/bin/mimo"
     rm -rf "$MIMOCODE_DATA_DIR"
-    log_success "mimocode (native) uninstalled"
+    log_success "$(_tr "jinx_tools_ai_mimocode_install.mimocode_native_uninstalled")"
     return 0
   fi
 
@@ -243,10 +243,10 @@ uninstall_mimocode() {
   fi
 
   if rm -f "$PREFIX/bin/mimo" &>>"$LOG_FILE"; then
-    log_success "mimocode (proot-distro) uninstalled"
+    log_success "$(_tr "jinx_tools_ai_mimocode_install.mimocode_proot_distro_uninstalled")"
     return 0
   else
-    log_error "Failed to uninstall mimocode"
+    log_error "$(_tr "jinx_tools_ai_mimocode_install.failed_to_uninstall_mimocode")"
     return 1
   fi
 }
@@ -273,11 +273,11 @@ _update_mimocode() {
   local mimo_bin="$ubuntu_root/root/.mimocode/bin/mimo"
 
   if [ ! -f "$mimo_bin" ]; then
-    log_error "mimocode binary not found after update"
+    log_error "$(_tr "jinx_tools_ai_mimocode_install.mimocode_binary_not_found_after_update")"
     return 1
   fi
 
-  log_success "mimocode (proot-distro) updated"
+  log_success "$(_tr "jinx_tools_ai_mimocode_install.mimocode_proot_distro_updated")"
   return 0
 }
 

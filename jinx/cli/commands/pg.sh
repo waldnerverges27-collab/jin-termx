@@ -11,11 +11,11 @@ PG_USER="postgres"
 # Mostrar ayuda
 pg_help() {
 	echo
-	box "Core PostgreSQL Manager"
+	box "$(_tr "jinx_cli_commands_pg.core_postgresql_manager")"
 	echo
-	log_info "Usage: jinx pg <command> [options]"
+	log_info "$(_tr "jinx_cli_commands_pg.usage_jinx_pg_command_options")"
 	echo
-	separator_section "Available Commands"
+	separator_section "$(_tr "jinx_cli_commands_pg.available_commands")"
 	echo
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "start" "Start PostgreSQL server"
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "stop" "Stop PostgreSQL server"
@@ -27,7 +27,7 @@ pg_help() {
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "list" "List all databases"
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "shell" "Open psql shell"
 	echo
-	separator_section "Examples"
+	separator_section "$(_tr "jinx_cli_commands_pg.examples")"
 	echo
 	printf "    ${D_CYAN}jinx pg start${NC}              # Start PostgreSQL\n"
 	printf "    ${D_CYAN}jinx pg stop${NC}               # Stop PostgreSQL\n"
@@ -39,7 +39,7 @@ pg_help() {
 # Verificar si PostgreSQL está instalado
 check_pg_installed() {
 	if ! command -v pg_ctl &>/dev/null; then
-		log_error "PostgreSQL is not installed"
+		log_error "$(_tr "jinx_cli_commands_pg.postgresql_is_not_installed")"
 		log_info "Run: ${D_CYAN}jinx install db${NC}"
 		return 1
 	fi
@@ -75,7 +75,7 @@ check_pg_initialized() {
 # Inicializar PostgreSQL
 pg_init() {
 	separator
-	box "Initializing PostgreSQL"
+	box "$(_tr "jinx_cli_commands_pg.initializing_postgresql")"
 	separator
 	echo
 
@@ -83,7 +83,7 @@ pg_init() {
 
 	# Verificar si ya está inicializado
 	if check_pg_initialized; then
-		log_warn "PostgreSQL is already initialized"
+		log_warn "$(_tr "jinx_cli_commands_pg.postgresql_is_already_initialized")"
 		echo
 		list_item "Data directory: $PG_DATA"
 		list_item "Run: ${D_CYAN}jinx pg start${NC}"
@@ -93,17 +93,17 @@ pg_init() {
 
 	mkdir -p "$PG_DATA"
 
-	log_info "Initializing PostgreSQL database..."
+	log_info "$(_tr "jinx_cli_commands_pg.initializing_postgresql_database")"
 
 	if loading "Initializing database" _pg_init_db; then
-		log_success "PostgreSQL initialized successfully"
+		log_success "$(_tr "jinx_cli_commands_pg.postgresql_initialized_successfully")"
 		echo
 		list_item "Data directory: $PG_DATA"
 		list_item "Default user: $PG_USER"
 		echo
 		log_info "Start PostgreSQL with: ${D_CYAN}jinx pg start${NC}"
 	else
-		log_error "Failed to initialize PostgreSQL"
+		log_error "$(_tr "jinx_cli_commands_pg.failed_to_initialize_postgresql")"
 		log_warn "Check log: $PG_LOG"
 		return 1
 	fi
@@ -118,7 +118,7 @@ _pg_init_db() {
 # Iniciar PostgreSQL
 pg_start() {
 	separator
-	box "Starting PostgreSQL"
+	box "$(_tr "jinx_cli_commands_pg.starting_postgresql")"
 	separator
 	echo
 
@@ -143,17 +143,17 @@ pg_start() {
 		fi
 	done
 
-	log_info "Starting PostgreSQL server..."
+	log_info "$(_tr "jinx_cli_commands_pg.starting_postgresql_server")"
 
 	if loading "Starting PostgreSQL" _pg_start_server; then
-		log_success "PostgreSQL started successfully"
+		log_success "$(_tr "jinx_cli_commands_pg.postgresql_started_successfully")"
 		echo
-		list_item "Listening on: localhost:5432"
+		list_item "$(_tr "jinx_cli_commands_pg.listening_on_localhost_5432")"
 		list_item "User: $PG_USER"
 		echo
 	else
-		log_error "Failed to start PostgreSQL"
-		log_warn "PostgreSQL may not be initialized. Run: jinx pg init"
+		log_error "$(_tr "jinx_cli_commands_pg.failed_to_start_postgresql")"
+		log_warn "$(_tr "jinx_cli_commands_pg.postgresql_may_not_be_initialized_run")"
 		return 1
 	fi
 
@@ -168,7 +168,7 @@ _pg_start_server() {
 # Detener PostgreSQL
 pg_stop() {
 	separator
-	box "Stopping PostgreSQL"
+	box "$(_tr "jinx_cli_commands_pg.stopping_postgresql")"
 	separator
 	echo
 
@@ -193,13 +193,13 @@ pg_stop() {
 		fi
 	done
 
-	log_info "Stopping PostgreSQL server..."
+	log_info "$(_tr "jinx_cli_commands_pg.stopping_postgresql_server")"
 
 	if loading "Stopping PostgreSQL" _pg_stop_server; then
-		log_success "PostgreSQL stopped successfully"
+		log_success "$(_tr "jinx_cli_commands_pg.postgresql_stopped_successfully")"
 	else
-		log_error "Failed to stop PostgreSQL"
-		log_warn "PostgreSQL may not be running"
+		log_error "$(_tr "jinx_cli_commands_pg.failed_to_stop_postgresql")"
+		log_warn "$(_tr "jinx_cli_commands_pg.postgresql_may_not_be_running")"
 		return 1
 	fi
 
@@ -213,7 +213,7 @@ _pg_stop_server() {
 # Reiniciar PostgreSQL
 pg_restart() {
 	separator
-	box "Restarting PostgreSQL"
+	box "$(_tr "jinx_cli_commands_pg.restarting_postgresql")"
 	separator
 	echo
 
@@ -226,7 +226,7 @@ pg_restart() {
 
 	echo
 	separator
-	log_success "PostgreSQL restarted"
+	log_success "$(_tr "jinx_cli_commands_pg.postgresql_restarted")"
 	separator
 	echo
 }
@@ -234,7 +234,7 @@ pg_restart() {
 # Estado de PostgreSQL
 pg_status() {
 	separator
-	box "PostgreSQL Status"
+	box "$(_tr "jinx_cli_commands_pg.postgresql_status")"
 	separator
 	echo
 
@@ -260,25 +260,25 @@ pg_status() {
 		fi
 	done
 
-	log_info "Checking PostgreSQL status..."
+	log_info "$(_tr "jinx_cli_commands_pg.checking_postgresql_status")"
 	echo
 
 	# Verificar estado
 	if [[ -n "$found_dir" ]]; then
 		if pg_ctl -D "$found_dir" status &>/dev/null; then
-			log_success "PostgreSQL is RUNNING"
+			log_success "$(_tr "jinx_cli_commands_pg.postgresql_is_running")"
 			echo
 			list_item "Data directory: $PG_DATA"
-			list_item "Port: 5432"
+			list_item "$(_tr "jinx_cli_commands_pg.port_5432")"
 			list_item "User: $PG_USER"
 		else
-			log_warn "PostgreSQL is STOPPED"
+			log_warn "$(_tr "jinx_cli_commands_pg.postgresql_is_stopped")"
 			echo
 			list_item "Data directory: $PG_DATA"
 			list_item "Run: ${D_CYAN}jinx pg start${NC}"
 		fi
 	else
-		log_info "PostgreSQL data directory not found"
+		log_info "$(_tr "jinx_cli_commands_pg.postgresql_data_directory_not_found")"
 		echo
 		list_item "Run: ${D_CYAN}jinx pg init${NC}"
 	fi
@@ -291,8 +291,8 @@ pg_create() {
 	local db_name="$1"
 
 	if [[ -z "$db_name" ]]; then
-		log_error "Database name required"
-		log_info "Usage: jinx pg create <database_name>"
+		log_error "$(_tr "jinx_cli_commands_pg.database_name_required")"
+		log_info "$(_tr "jinx_cli_commands_pg.usage_jinx_pg_create_database_name")"
 		return 1
 	fi
 
@@ -307,7 +307,7 @@ pg_create() {
 		log_success "Database '$db_name' created successfully"
 	else
 		log_error "Failed to create database '$db_name'"
-		log_warn "PostgreSQL may not be running or initialized"
+		log_warn "$(_tr "jinx_cli_commands_pg.postgresql_may_not_be_running_or_initial")"
 		return 1
 	fi
 }
@@ -317,8 +317,8 @@ pg_drop() {
 	local db_name="$1"
 
 	if [[ -z "$db_name" ]]; then
-		log_error "Database name required"
-		log_info "Usage: jinx pg drop <database_name>"
+		log_error "$(_tr "jinx_cli_commands_pg.database_name_required")"
+		log_info "$(_tr "jinx_cli_commands_pg.usage_jinx_pg_drop_database_name")"
 		return 1
 	fi
 
@@ -328,7 +328,7 @@ pg_drop() {
 
 	read_confirm "Are you sure?" CONFIRM
 	if [[ "$CONFIRM" != "y" ]]; then
-		log_warn "Operation cancelled"
+		log_warn "$(_tr "jinx_cli_commands_pg.operation_cancelled")"
 		return 0
 	fi
 
@@ -348,7 +348,7 @@ pg_drop() {
 # Listar bases de datos
 pg_list() {
 	separator
-	box "PostgreSQL Databases"
+	box "$(_tr "jinx_cli_commands_pg.postgresql_databases")"
 	separator
 	echo
 
@@ -357,12 +357,12 @@ pg_list() {
 	# Detectar ruta de datos
 	_detect_pg_data
 
-	log_info "Listing databases..."
+	log_info "$(_tr "jinx_cli_commands_pg.listing_databases")"
 	echo
 
 	su - "$PG_USER" -c "psql -c '\l'" 2>/dev/null || {
-		log_error "Failed to list databases"
-		log_warn "PostgreSQL may not be running"
+		log_error "$(_tr "jinx_cli_commands_pg.failed_to_list_databases")"
+		log_warn "$(_tr "jinx_cli_commands_pg.postgresql_may_not_be_running")"
 		return 1
 	}
 
@@ -376,7 +376,7 @@ pg_shell() {
 	# Detectar ruta de datos
 	_detect_pg_data
 
-	log_info "Opening psql shell..."
+	log_info "$(_tr "jinx_cli_commands_pg.opening_psql_shell")"
 	echo
 
 	su - "$PG_USER" -c "psql" 2>/dev/null

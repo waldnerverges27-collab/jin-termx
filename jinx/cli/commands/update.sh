@@ -7,28 +7,28 @@ update_main() {
 
   if [[ $# -eq 0 ]]; then
     echo
-    box "Jin Update"
+    box "$(_tr "jinx_cli_commands_update.jin_update")"
     echo
-    log_info "Usage: jinx update <target>"
-    log_info "Usage: jinx update <target> --tool1 --tool2"
+    log_info "$(_tr "jinx_cli_commands_update.usage_jinx_update_target")"
+    log_info "$(_tr "jinx_cli_commands_update.usage_jinx_update_target_tool1_to")"
     echo
-    log_info "Available targets:"
+    log_info "$(_tr "jinx_cli_commands_update.available_targets")"
     echo
-    list_item "jinx       - Update only Jin-TermX framework"
-    list_item "lang       - Update language packages (pkg upgrade)"
-    list_item "db         - Update databases"
-    list_item "ai         - Update AI tools (npm/pip/pkg)"
-    list_item "editor     - Update Neovim configuration"
-    list_item "dev        - Update development tools"
-    list_item "npm        - Update Node.js global modules"
-    list_item "shell      - Update ZSH plugins"
-    list_item "ui         - Update Termux UI"
-    list_item "auto       - Update Automation Tools"
+    list_item "$(_tr "jinx_cli_commands_update.jinx_update_only_jin_termx_frame")"
+    list_item "$(_tr "jinx_cli_commands_update.lang_update_language_packages_p")"
+    list_item "$(_tr "jinx_cli_commands_update.db_update_databases")"
+    list_item "$(_tr "jinx_cli_commands_update.ai_update_ai_tools_npm_pip_pk")"
+    list_item "$(_tr "jinx_cli_commands_update.editor_update_neovim_configuration")"
+    list_item "$(_tr "jinx_cli_commands_update.dev_update_development_tools")"
+    list_item "$(_tr "jinx_cli_commands_update.npm_update_node_js_global_modul")"
+    list_item "$(_tr "jinx_cli_commands_update.shell_update_zsh_plugins")"
+    list_item "$(_tr "jinx_cli_commands_update.ui_update_termux_ui")"
+    list_item "$(_tr "jinx_cli_commands_update.auto_update_automation_tools")"
     echo
-    log_info "Update specific tools with flags:"
+    log_info "$(_tr "jinx_cli_commands_update.update_specific_tools_with_flags")"
     echo
-    list_item "jinx update ai --qwen-code --ollama"
-    list_item "jinx update db --postgresql --sqlite"
+    list_item "$(_tr "jinx_cli_commands_update.jinx_update_ai_qwen_code_ollama")"
+    list_item "$(_tr "jinx_cli_commands_update.jinx_update_db_postgresql_sqlite")"
     list_item "Run ${D_CYAN}jinx list <target>${NC} to see all available tools"
     echo
     return
@@ -49,7 +49,7 @@ update_main() {
 
   # If no module target specified, show error
   if [[ -z "$module_target" ]]; then
-    log_error "No target specified"
+    log_error "$(_tr "jinx_cli_commands_update.no_target_specified")"
     echo "Run 'jinx update' to see available targets"
     return 1
   fi
@@ -681,7 +681,7 @@ _update_specific_tools() {
 # Actualizar Jin-TermX
 update_jinx() {
   separator
-  box "◈ UPDATING JIN-TERMX ◈"
+  box "$(_tr "jinx_cli_commands_update.updating_jin_termx")"
   separator
   echo
 
@@ -691,18 +691,18 @@ update_jinx() {
 
     echo
     if [[ $rc -eq 0 ]]; then
-      log_success "Jin-TermX updated"
+      log_success "$(_tr "jinx_cli_commands_update.jin_termx_updated")"
     elif [[ $rc -eq 2 ]]; then
-      log_success "Jin-TermX is already up to date"
+      log_success "$(_tr "jinx_cli_commands_update.jin_termx_is_already_up_to_date")"
     else
-      log_error "Failed to update Jin-TermX"
-      log_info "Check your internet connection or run git pull manually"
+      log_error "$(_tr "jinx_cli_commands_update.failed_to_update_jin_termx")"
+      log_info "$(_tr "jinx_cli_commands_update.check_your_internet_connection_or_run_gi")"
     fi
 
     rm -f "$JINX_CACHE/new_version" "$JINX_CACHE/last_version_check"
   else
-    log_warn "Not a git repository, cannot update"
-    log_info "If you installed via curl, reinstall with:"
+    log_warn "$(_tr "jinx_cli_commands_update.not_a_git_repository_cannot_update")"
+    log_info "$(_tr "jinx_cli_commands_update.if_you_installed_via_curl_reinstall_wit")"
     echo "  curl -fsSL https://raw.githubusercontent.com/waldnerverges27-collab/jin-termx/main/install.sh | bash"
   fi
 

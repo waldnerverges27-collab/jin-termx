@@ -11,7 +11,7 @@ _install_npmjs_pkg() {
 
 _install_npmjs_pkg_impl() {
 	if ! yes | pkg install nodejs-lts &>>"$LOG_FILE"; then
-		log_error "Failed to install Node.js LTS"
+		log_error "$(_tr "jinx_tools_lang_nodejs_install.failed_to_install_node_js_lts")"
 		return 1
 	fi
 	return 0
@@ -23,7 +23,7 @@ _enable_corepack() {
 
 _enable_corepack_impl() {
 	if ! corepack enable &>>"$LOG_FILE"; then
-		log_error "Failed to enable Corepack"
+		log_error "$(_tr "jinx_tools_lang_nodejs_install.failed_to_enable_corepack")"
 		return 1
 	fi
 	return 0
@@ -31,15 +31,15 @@ _enable_corepack_impl() {
 
 install_npmjs() {
 	if command -v node &>/dev/null; then
-		log_info "Node.js LTS is already installed"
+		log_info "$(_tr "jinx_tools_lang_nodejs_install.node_js_lts_is_already_installed")"
 		return 2
 	fi
-	log_info "Installing Node.js LTS..."
+	log_info "$(_tr "jinx_tools_lang_nodejs_install.installing_node_js_lts")"
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 	_install_npmjs_pkg || return 1
 	_enable_corepack || return 1
-	log_success "Node.js LTS installed (pnpm, yarn available via corepack)"
+	log_success "$(_tr "jinx_tools_lang_nodejs_install.node_js_lts_installed_pnpm_yarn_availa")"
 	return 0
 }
 
@@ -49,7 +49,7 @@ _uninstall_npmjs_pkg() {
 
 _uninstall_npmjs_pkg_impl() {
 	if ! pkg uninstall nodejs-lts -y &>>"$LOG_FILE"; then
-		log_error "Failed to uninstall Node.js LTS"
+		log_error "$(_tr "jinx_tools_lang_nodejs_install.failed_to_uninstall_node_js_lts")"
 		return 1
 	fi
 	return 0
@@ -57,13 +57,13 @@ _uninstall_npmjs_pkg_impl() {
 
 uninstall_npmjs() {
 	if ! command -v node &>/dev/null; then
-		log_info "Node.js LTS is not installed"
+		log_info "$(_tr "jinx_tools_lang_nodejs_install.node_js_lts_is_not_installed")"
 		return 2
 	fi
-	log_info "Uninstalling Node.js LTS..."
+	log_info "$(_tr "jinx_tools_lang_nodejs_install.uninstalling_node_js_lts")"
 	mkdir -p "$(dirname "$LOG_FILE")"
 	_uninstall_npmjs_pkg || return 1
-	log_success "Node.js LTS uninstalled"
+	log_success "$(_tr "jinx_tools_lang_nodejs_install.node_js_lts_uninstalled")"
 	return 0
 }
 
