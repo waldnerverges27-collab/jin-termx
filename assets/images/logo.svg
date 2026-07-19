@@ -57,7 +57,6 @@
   </defs>
 
   <!-- ══════════════════════ HEXAGON LOGO ══════════════════════ -->
-  <!-- Hex centered vertically: canvas height=148, hex top=14, bottom=110 → center y=62, offset x=24 to center the whole banner -->
 
   <polygon points="80,12 126,37 126,87 80,112 34,87 34,37"
     fill="#00bcd4" opacity="0.07"/>
@@ -100,24 +99,24 @@
   <rect x="154" y="18" width="1.5" height="112" fill="url(#divider-grad)"/>
 
   <!-- ══════════════════════ TEXT BLOCK ══════════════════════ -->
-  <text x="178" y="72"
+  <text x="190" y="72"
     font-family="'Trebuchet MS', 'Arial Narrow', Arial, sans-serif"
     font-size="58" font-weight="900" letter-spacing="5"
     fill="url(#core-grad)"
-    filter="url(#text-shadow)">CORE</text>
+    filter="url(#text-shadow)">JIN</text>
 
-  <text x="362" y="70"
+  <text x="360" y="70"
     font-family="'Trebuchet MS', sans-serif"
     font-size="34" font-weight="300"
     fill="#8baabb" opacity="0.7"> – </text>
 
-  <text x="397" y="72"
+  <text x="385" y="72"
     font-family="'Trebuchet MS', 'Arial Narrow', Arial, sans-serif"
     font-size="58" font-weight="900" letter-spacing="5"
-    fill="url(#termux-grad)">TERMUX</text>
+    fill="url(#termux-grad)">TERMX</text>
 
   <!-- Accent underline -->
-  <rect x="178" y="80" width="566" height="1.5" fill="url(#line-grad)"/>
+  <rect x="190" y="80" width="530" height="1.5" fill="url(#line-grad)"/>
 
   <!-- Tagline -->
   <text x="180" y="104"
@@ -127,15 +126,11 @@
 
   <circle cx="173" cy="100" r="2.2" fill="#39ff14" opacity="0.75" filter="url(#green-glow)"/>
 
-  <!-- Corner brackets — ahora abrazan el contenido real -->
+  <!-- Corner brackets -->
   <g stroke="#00bcd4" stroke-width="1.2" fill="none" opacity="0.45">
-    <!-- top-right -->
     <polyline points="748,6 766,6 766,24"/>
-    <!-- bottom-left -->
     <polyline points="6,124 6,142 24,142"/>
-    <!-- top-left -->
     <polyline points="24,6 6,6 6,24"/>
-    <!-- bottom-right -->
     <polyline points="748,142 766,142 766,124"/>
   </g>
 </svg>
