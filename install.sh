@@ -28,7 +28,7 @@ select_language() {
   echo -e "  ${P_PRIMARY}1)${P_NC}  English"
   echo -e "  ${P_PRIMARY}2)${P_NC}  Español"
   echo
-  echo -n "  ${P_HL}Choose [1/2]${P_NC}: "
+  echo -n -e "  ${P_HL}Choose [1/2]${P_NC}: "
   read -r lang_choice
   case "$lang_choice" in
     2|es|ES|español|spanish)
@@ -262,6 +262,8 @@ clone_repo() {
 
 create_symlink() {
   log_step 4 "Creating jinx command"
+
+  chmod +x "$JINX_DATA/jinx/bin/jinx"
 
   rm -f "$PREFIX/bin/jinx"
   ln -sf "$JINX_DATA/jinx/bin/jinx" "$PREFIX/bin/jinx"
