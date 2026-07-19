@@ -1,7 +1,7 @@
-# Core-Termux — Modular Dev Environment
+# Jin-TermX — Modular Dev Environment
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/DevCoreXOfficial/core-termux/main/assets/images/logo.svg" alt="Core-Termux Logo" width="600">
+  <img src="https://raw.githubusercontent.com/waldnerverges27-collab/jin-termx/main/assets/images/logo.svg" alt="Jin-TermX Logo" width="600">
 </p>
 
 <p align="center">
@@ -9,10 +9,10 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/DevCoreXOfficial/core-termux">
+  <a href="https://github.com/waldnerverges27-collab/jin-termx">
     <img src="https://img.shields.io/badge/version-4.11.3-0078D4?style=for-the-badge&logo=appveyor" alt="Version">
   </a>
-  <a href="https://github.com/DevCoreXOfficial/core-termux/blob/main/LICENSE">
+  <a href="https://github.com/waldnerverges27-collab/jin-termx/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-0078D4?style=for-the-badge&logo=bookstack" alt="License">
   </a>
   <a href="https://termux.dev/">
@@ -21,29 +21,29 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/DevCoreXOfficial/core-termux/stargazers">
-    <img src="https://img.shields.io/github/stars/DevCoreXOfficial/core-termux?style=for-the-badge&logo=github&color=f5c542" alt="Stars">
+  <a href="https://github.com/waldnerverges27-collab/jin-termx/stargazers">
+    <img src="https://img.shields.io/github/stars/waldnerverges27-collab/jin-termx?style=for-the-badge&logo=github&color=f5c542" alt="Stars">
   </a>
-  <a href="https://github.com/DevCoreXOfficial/core-termux/network/members">
-    <img src="https://img.shields.io/github/forks/DevCoreXOfficial/core-termux?style=for-the-badge&logo=github&color=94a3b8" alt="Forks">
+  <a href="https://github.com/waldnerverges27-collab/jin-termx/network/members">
+    <img src="https://img.shields.io/github/forks/waldnerverges27-collab/jin-termx?style=for-the-badge&logo=github&color=94a3b8" alt="Forks">
   </a>
-  <a href="https://github.com/DevCoreXOfficial/core-termux/issues">
-    <img src="https://img.shields.io/github/issues/DevCoreXOfficial/core-termux?style=for-the-badge&logo=github&color=ef4444" alt="Issues">
+  <a href="https://github.com/waldnerverges27-collab/jin-termx/issues">
+    <img src="https://img.shields.io/github/issues/waldnerverges27-collab/jin-termx?style=for-the-badge&logo=github&color=ef4444" alt="Issues">
   </a>
-  <a href="https://github.com/DevCoreXOfficial/core-termux/pulls">
-    <img src="https://img.shields.io/github/issues-pr/DevCoreXOfficial/core-termux?style=for-the-badge&logo=github&color=22c55e" alt="Pull Requests">
+  <a href="https://github.com/waldnerverges27-collab/jin-termx/pulls">
+    <img src="https://img.shields.io/github/issues-pr/waldnerverges27-collab/jin-termx?style=for-the-badge&logo=github&color=22c55e" alt="Pull Requests">
   </a>
 </p>
 
 <p align="center">
-  <a href="https://devcorex-web.vercel.app/core-termux">
+  <a href="https://devcorex-web.vercel.app/jin-termx">
     <img src="https://img.shields.io/badge/%F0%9F%9A%80_Get%20Started-0078D4?style=for-the-badge" alt="Get Started">
   </a>
 </p>
 
 <br>
 
-**CORE-TERMUX** is a _modular dev environment_ that turns Termux into a complete development workstation. Through a single core CLI, it provides a modular system that covers the full developer stack: programming languages, databases, AI agents, code editors, shell configuration, and automation — all manageable with simple, consistent commands like `core install`, `core update`, and `core uninstall`.
+**JIN-TERMX** is a _modular dev environment_ that turns Termux into a complete development workstation. Through a single core CLI, it provides a modular system that covers the full developer stack: programming languages, databases, AI agents, code editors, shell configuration, and automation — all manageable with simple, consistent commands like `jinx install`, `jinx update`, and `jinx uninstall`.
 
 > [!IMPORTANT]
 > This project is designed exclusively for **Termux on Android** and is not supported on other platforms.
@@ -53,13 +53,13 @@
 ## Quick Installation
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/DevCoreXOfficial/core-termux/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/waldnerverges27-collab/jin-termx/main/install.sh | bash
 ```
 
 Then run:
 
 ```bash
-core
+jinx
 ```
 
 ---
@@ -68,25 +68,25 @@ core
 
 | Command | Description |
 |---------|-------------|
-| [`core --version`](#core---version) | Show current version |
-| [`core brain`](#core-brain) | Second brain — save and search memories |
-| [`core env`](#core-env) | Manage environment variables |
-| [`core install`](#core-install) | Install specific modules |
-| [`core show`](#core-show) | Show tool documentation |
-| [`core update`](#core-update) | Update modules or framework |
-| [`core uninstall`](#core-uninstall) | Remove installed modules |
-| [`core reinstall`](#core-reinstall) | Uninstall + reinstall modules |
-| [`core voice`](#core-voice) | Speech-to-agent via microphone |
-| [`core open`](#core-open) | Open documentation in browser |
-| [`core list`](#core-list) | List available tools in modules |
-| [`core pg`](#core-pg) | PostgreSQL database manager |
-| [`core init`](#core-init) | Configure existing projects |
+| [`jinx --version`](#core---version) | Show current version |
+| [`jinx brain`](#core-brain) | Second brain — save and search memories |
+| [`jinx env`](#core-env) | Manage environment variables |
+| [`jinx install`](#core-install) | Install specific modules |
+| [`jinx show`](#core-show) | Show tool documentation |
+| [`jinx update`](#core-update) | Update modules or framework |
+| [`jinx uninstall`](#core-uninstall) | Remove installed modules |
+| [`jinx reinstall`](#core-reinstall) | Uninstall + reinstall modules |
+| [`jinx voice`](#core-voice) | Speech-to-agent via microphone |
+| [`jinx open`](#core-open) | Open documentation in browser |
+| [`jinx list`](#core-list) | List available tools in modules |
+| [`jinx pg`](#core-pg) | PostgreSQL database manager |
+| [`jinx init`](#core-init) | Configure existing projects |
 
 ---
 
 ## Common Modules
 
-These modules are available across most commands (`core list`, `core install`, `core update`, `core reinstall`, `core uninstall`, `core show`, and `core open`):
+These modules are available across most commands (`jinx list`, `jinx install`, `jinx update`, `jinx reinstall`, `jinx uninstall`, `jinx show`, and `jinx open`):
 
 | Module | Description |
 |--------|-------------|
@@ -107,8 +107,8 @@ These modules are available across most commands (`core list`, `core install`, `
 The `ai` module installs AI-powered coding agents and assistants. Install all agents or pick specific ones with `--flag`:
 
 ```bash
-core install ai                    # Install all agents
-core install ai --opencode --ollama  # Install only OpenCode and Ollama
+jinx install ai                    # Install all agents
+jinx install ai --opencode --ollama  # Install only OpenCode and Ollama
 ```
 
 | Agent | Flag | Description |
@@ -144,12 +144,12 @@ core install ai --opencode --ollama  # Install only OpenCode and Ollama
 
 ## Detailed Commands
 
-### `core --version`
+### `jinx --version`
 
-Display the installed version of Core-Termux.
+Display the installed version of Jin-TermX.
 
 ```bash
-core --version
+jinx --version
 ```
 
 **Output:**
@@ -159,15 +159,15 @@ core --version
 
 ---
 
-### `core env`
+### `jinx env`
 
 Manage environment variables in your shell rc file (`.zshrc` or `.bashrc`). All operations are interactive.
 
 ```bash
-core env                     # Show help
-core env set                 # Add or update a variable (value is hidden while typing)
-core env unset               # Remove a variable (shows list to choose from)
-core env ls                  # List all user-defined variables
+jinx env                     # Show help
+jinx env set                 # Add or update a variable (value is hidden while typing)
+jinx env unset               # Remove a variable (shows list to choose from)
+jinx env ls                  # List all user-defined variables
 ```
 
 **Features:**
@@ -180,7 +180,7 @@ core env ls                  # List all user-defined variables
 **Example session:**
 
 ```bash
-$ core env set
+$ jinx env set
 
     ┌─────────────────────────────────────────┐
     │         Set Environment Variable        │
@@ -196,7 +196,7 @@ $ core env set
     ✔ Variable OPENAI_API_KEY set in .zshrc
     • Run: source .zshrc to apply
 
-$ core env ls
+$ jinx env ls
 
     ─────── Environment Variables ───────
 
@@ -211,25 +211,25 @@ $ core env ls
 
 ---
 
-### `core brain`
+### `jinx brain`
 
 Save and search personal learnings and memories — your second brain in markdown files. All operations are local, synced optionally to a private GitHub repo.
 
 ```bash
-core brain                    # Dashboard with stats
-core brain init               # Initialize brain directory and GitHub repo
-core brain save               # Interactive: save a new memory
-core brain search <query>     # Search memories by keywords or tags
-core brain ls [category]      # List memories by category
-core brain edit               # Edit a memory in your $EDITOR
-core brain edit <slug>        # Edit a memory by slug name
-core brain delete             # Delete a memory permanently
-core brain show <slug>        # View a memory with its relations
-core brain reset              # Destroy the entire brain
-core brain graph              # Visual map of all connections
-core brain skill              # Create an AI skill from memories
-core brain relate             # Link two memories interactively
-core brain sync               # Push/pull to GitHub private repo
+jinx brain                    # Dashboard with stats
+jinx brain init               # Initialize brain directory and GitHub repo
+jinx brain save               # Interactive: save a new memory
+jinx brain search <query>     # Search memories by keywords or tags
+jinx brain ls [category]      # List memories by category
+jinx brain edit               # Edit a memory in your $EDITOR
+jinx brain edit <slug>        # Edit a memory by slug name
+jinx brain delete             # Delete a memory permanently
+jinx brain show <slug>        # View a memory with its relations
+jinx brain reset              # Destroy the entire brain
+jinx brain graph              # Visual map of all connections
+jinx brain skill              # Create an AI skill from memories
+jinx brain relate             # Link two memories interactively
+jinx brain sync               # Push/pull to GitHub private repo
 ```
 
 **Memory format (AI-consumable markdown):**
@@ -259,7 +259,7 @@ After hours of testing, the combination that worked...
 **Example session:**
 
 ```bash
-$ core brain save
+$ jinx brain save
 
     ┌─────────────────────────────────────────┐
     │            Save a New Memory            │
@@ -288,23 +288,23 @@ $ core brain save
 
 ---
 
-### `core voice`
+### `jinx voice`
 
 Capture voice from the microphone, review it in nvim, and launch an AI agent.
 
 ```bash
-core voice                    # Show help
-core voice <agent>            # Capture → nvim → launch agent
-core voice text               # Capture → nvim → print to stdout
-core voice !                  # Alias for 'text'
+jinx voice                    # Show help
+jinx voice <agent>            # Capture → nvim → launch agent
+jinx voice text               # Capture → nvim → print to stdout
+jinx voice !                  # Alias for 'text'
 ```
 
 **Requirements:**
 - Termux:API package: `pkg install termux-api`
-- Neovim for editing: `core install editor`
+- Neovim for editing: `jinx install editor`
 - Termux:API app: https://devcorex-web.vercel.app/termux/api
 
-> **Note:** `core voice` automatically runs `termux-api-start` before capturing audio to ensure the Termux:API service is running.
+> **Note:** `jinx voice` automatically runs `termux-api-start` before capturing audio to ensure the Termux:API service is running.
 
 **Supported agents:**
 
@@ -328,7 +328,7 @@ core voice !                  # Alias for 'text'
 **Example session:**
 
 ```bash
-$ core voice opencode
+$ jinx voice opencode
 
     ➜ Listening through the microphone...
     ➜ Review the prompt in nvim, fix mistakes, then save and quit
@@ -339,49 +339,49 @@ $ core voice opencode
 
 ---
 
-### `core show`
+### `jinx show`
 
 Display help documentation for any installed tool. Documentation is loaded from the tool's `README.md` file in its module directory.
 
 ```bash
-core show                    # Show help
-core show <module>           # List all tools in a module
-core show <module> --<tool>  # Show specific tool documentation
+jinx show                    # Show help
+jinx show <module>           # List all tools in a module
+jinx show <module> --<tool>  # Show specific tool documentation
 ```
 
 **Examples:**
 
 ```bash
-core show ai --opencode      # Show OpenCode documentation
-core show db --postgresql    # Show PostgreSQL documentation
-core show npm --typescript   # Show TypeScript documentation
+jinx show ai --opencode      # Show OpenCode documentation
+jinx show db --postgresql    # Show PostgreSQL documentation
+jinx show npm --typescript   # Show TypeScript documentation
 ```
 
 **Colorized output:** If `bat` is installed, documentation is displayed with syntax highlighting. Otherwise, plain text is shown.
 
 ---
 
-### `core list`
+### `jinx list`
 
 List available tools in a module and their installation status.
 
 ```bash
-core list                     # Show help
-core list <module>            # List tools in specific module
+jinx list                     # Show help
+jinx list <module>            # List tools in specific module
 ```
 
 All modules from [Common Modules](#common-modules) are valid targets.
 
 ---
 
-### `core install`
+### `jinx install`
 
 Install individual modules or specific tools within modules.
 
 ```bash
-core install                  # Show help
-core install <module>         # Install entire module
-core install <module> --tool1 --tool2  # Install specific tools
+jinx install                  # Show help
+jinx install <module>         # Install entire module
+jinx install <module> --tool1 --tool2  # Install specific tools
 ```
 
 All modules from [Common Modules](#common-modules) are valid targets.
@@ -389,151 +389,151 @@ All modules from [Common Modules](#common-modules) are valid targets.
 **Install entire module:**
 
 ```bash
-core install ai               # Install all AI tools
-core install db               # Install all databases
-core install dev              # Install all development tools
+jinx install ai               # Install all AI tools
+jinx install db               # Install all databases
+jinx install dev              # Install all development tools
 ```
 
 **Install specific tools:**
 
 ```bash
-core install ai --qwen-code --ollama          # Install only Qwen Code and Ollama
-core install db --postgresql --sqlite         # Install only PostgreSQL and SQLite
-core install dev --gh --fzf --jq              # Install only gh, fzf, and jq
-core install npm --typescript --prettier      # Install only TypeScript and Prettier
+jinx install ai --qwen-code --ollama          # Install only Qwen Code and Ollama
+jinx install db --postgresql --sqlite         # Install only PostgreSQL and SQLite
+jinx install dev --gh --fzf --jq              # Install only gh, fzf, and jq
+jinx install npm --typescript --prettier      # Install only TypeScript and Prettier
 ```
 
-> **Tip:** Run `core list <module>` to see all available tools and their flags.
+> **Tip:** Run `jinx list <module>` to see all available tools and their flags.
 
 ---
 
-### `core update`
+### `jinx update`
 
 Update modules or the complete framework.
 
 ```bash
-core update                   # Show help
-core update <target>          # Update specific target
-core update <target> --tool1 --tool2  # Update specific tools
-core update core              # Update framework only
+jinx update                   # Show help
+jinx update <target>          # Update specific target
+jinx update <target> --tool1 --tool2  # Update specific tools
+jinx update jinx              # Update framework only
 ```
 
-In addition to all [Common Modules](#common-modules), `core update` also supports:
+In addition to all [Common Modules](#common-modules), `jinx update` also supports:
 
 | Target | Description |
 |--------|-------------|
-| `core` | Core-Termux framework only |
+| `jinx` | Jin-TermX framework only |
 
 **Update entire module:**
 
 ```bash
-core update ai               # Update all AI tools
-core update db               # Update all databases
+jinx update ai               # Update all AI tools
+jinx update db               # Update all databases
 ```
 
 **Update specific tools:**
 
 ```bash
-core update ai --qwen-code --ollama          # Update only Qwen Code and Ollama
-core update db --postgresql --sqlite         # Update only PostgreSQL and SQLite
-core update dev --gh --fzf --jq             # Update only gh, fzf, and jq
+jinx update ai --qwen-code --ollama          # Update only Qwen Code and Ollama
+jinx update db --postgresql --sqlite         # Update only PostgreSQL and SQLite
+jinx update dev --gh --fzf --jq             # Update only gh, fzf, and jq
 ```
 
 ---
 
-### `core uninstall`
+### `jinx uninstall`
 
 Remove installed modules or specific tools.
 
 ```bash
-core uninstall                # Show help
-core uninstall <target>       # Uninstall specific target
-core uninstall <target> --tool1 --tool2  # Uninstall specific tools
+jinx uninstall                # Show help
+jinx uninstall <target>       # Uninstall specific target
+jinx uninstall <target> --tool1 --tool2  # Uninstall specific tools
 ```
 
-In addition to all [Common Modules](#common-modules), `core uninstall` supports per-module and per-tool removal. No "uninstall all" — desinstalá solo lo que necesitás.
+In addition to all [Common Modules](#common-modules), `jinx uninstall` supports per-module and per-tool removal. No "uninstall all" — desinstalá solo lo que necesitás.
 
 **Uninstall specific tools:**
 
 ```bash
-core uninstall ai --qwen-code --ollama        # Uninstall only Qwen Code and Ollama
-core uninstall db --postgresql --sqlite       # Uninstall only PostgreSQL and SQLite
-core uninstall dev --gh --fzf                 # Uninstall only gh and fzf
+jinx uninstall ai --qwen-code --ollama        # Uninstall only Qwen Code and Ollama
+jinx uninstall db --postgresql --sqlite       # Uninstall only PostgreSQL and SQLite
+jinx uninstall dev --gh --fzf                 # Uninstall only gh and fzf
 ```
 
 ---
 
-### `core reinstall`
+### `jinx reinstall`
 
 Reinstall modules or specific tools — uninstalls then installs from scratch.
 
 ```bash
-core reinstall                # Show help
-core reinstall <target>       # Reinstall specific target
-core reinstall <target> --tool1 --tool2  # Reinstall specific tools
+jinx reinstall                # Show help
+jinx reinstall <target>       # Reinstall specific target
+jinx reinstall <target> --tool1 --tool2  # Reinstall specific tools
 ```
 
-In addition to all [Common Modules](#common-modules), `core reinstall` supports per-module and per-tool reinstallation. No "reinstall all".
+In addition to all [Common Modules](#common-modules), `jinx reinstall` supports per-module and per-tool reinstallation. No "reinstall all".
 
 **Reinstall specific tools:**
 
 ```bash
-core reinstall ai --opencode --ollama       # Reinstall only OpenCode and Ollama
-core reinstall db --postgresql --sqlite     # Reinstall only PostgreSQL and SQLite
-core reinstall dev --gh --fzf               # Reinstall only gh and fzf
+jinx reinstall ai --opencode --ollama       # Reinstall only OpenCode and Ollama
+jinx reinstall db --postgresql --sqlite     # Reinstall only PostgreSQL and SQLite
+jinx reinstall dev --gh --fzf               # Reinstall only gh and fzf
 ```
 
 ---
 
-### `core open`
+### `jinx open`
 
 Open official documentation in browser
 
 ```bash
-core open                     # Show help
-core open <target>            # Open official documentation in browser
+jinx open                     # Show help
+jinx open <target>            # Open official documentation in browser
 ```
 
 All [Common Modules](#common-modules) are valid targets, plus:
 
 | Target | Description |
 |--------|-------------|
-| `core` | Core-Termux documentation |
+| `jinx` | Jin-TermX documentation |
 | `devcorex` | DevCoreX official website |
 
 ---
 
-### `core pg`
+### `jinx pg`
 
 PostgreSQL database manager.
 
 ```bash
-core pg                       # Show help
-core pg start                 # Start server
-core pg stop                  # Stop server
-core pg restart               # Restart server
-core pg status                # Check status
-core pg init                  # Initialize database
-core pg create <name>         # Create database
-core pg drop <name>           # Drop database
-core pg list                  # List databases
-core pg shell                 # Open psql console
+jinx pg                       # Show help
+jinx pg start                 # Start server
+jinx pg stop                  # Stop server
+jinx pg restart               # Restart server
+jinx pg status                # Check status
+jinx pg init                  # Initialize database
+jinx pg create <name>         # Create database
+jinx pg drop <name>           # Drop database
+jinx pg list                  # List databases
+jinx pg shell                 # Open psql console
 ```
 
 **Features:**
 - Automatic data directory detection
 - Support for existing installations
-- Logs in `~/.cache/core-termux/postgresql.log`
+- Logs in `~/.cache/jin-termx/postgresql.log`
 
 ---
 
-### `core init`
+### `jinx init`
 
 Configure existing projects with predefined dependencies, folder structure, and tooling. Detects your package manager (npm, pnpm, yarn, or bun) and installs dependencies accordingly.
 
 ```bash
-core init                     # Auto-detect project type and configure
-core init <template>          # Configure with specific template
+jinx init                     # Auto-detect project type and configure
+jinx init <template>          # Configure with specific template
 ```
 
 **What it does:**
@@ -556,16 +556,16 @@ core init <template>          # Configure with specific template
 **Usage:**
 
 ```bash
-cd my-next-app && core init next
-cd my-react-app && core init react
-cd api && core init express
-cd backend && core init nest
+cd my-next-app && jinx init next
+cd my-react-app && jinx init react
+cd api && jinx init express
+cd backend && jinx init nest
 ```
 
 **Example:**
 
 ```bash
-$ cd my-next-app && core init next
+$ cd my-next-app && jinx init next
 
 ──────────────────────────────────────────────────────────────
 ╭────────────────────────────────╮
@@ -603,11 +603,11 @@ $ cd my-next-app && core init next
 
 ## Template Details
 
-### Next.js (`core init next`)
+### Next.js (`jinx init next`)
 
 **Turbopack & LightningCSS Support:**
 
-When running in Termux, `core init next` offers optional Turbopack support (the native Rust-based bundler for Next.js). If the glibc toolchain is installed (`core install npm --turbopack`), you can enable Turbopack for faster dev/build times. The installer also adds platform-specific native bindings for LightningCSS and Tailwind CSS.
+When running in Termux, `jinx init next` offers optional Turbopack support (the native Rust-based bundler for Next.js). If the glibc toolchain is installed (`jinx install npm --turbopack`), you can enable Turbopack for faster dev/build times. The installer also adds platform-specific native bindings for LightningCSS and Tailwind CSS.
 
 **Installed dependencies:**
 ```json
@@ -640,7 +640,7 @@ When running in Termux, `core init next` offers optional Turbopack support (the 
 
 ---
 
-### React + Vite (`core init react`)
+### React + Vite (`jinx init react`)
 
 **Same dependencies as Next.js** (except Next.js-specific configs)
 
@@ -650,7 +650,7 @@ When running in Termux, `core init next` offers optional Turbopack support (the 
 
 ---
 
-### Express.js (`core init express`)
+### Express.js (`jinx init express`)
 
 **Dependencies:**
 ```
@@ -716,7 +716,7 @@ src/
 
 ---
 
-### NestJS (`core init nest`)
+### NestJS (`jinx init nest`)
 
 **Dependencies:**
 ```
@@ -733,7 +733,7 @@ bcryptjs, helmet, cloudinary
 The `lang` module installs the following programming languages and runtimes via `pkg`:
 
 ```bash
-core install lang
+jinx install lang
 ```
 
 | Language/Runtime | Package | Description |
@@ -754,7 +754,7 @@ core install lang
 The `dev` module installs the following development utilities via `pkg`:
 
 ```bash
-core install dev
+jinx install dev
 ```
 
 | Tool | Package | Description |
@@ -788,7 +788,7 @@ core install dev
 The `npm` module installs the following global npm packages:
 
 ```bash
-core install npm
+jinx install npm
 ```
 
 | Package | Command | Description |
@@ -807,10 +807,10 @@ core install npm
 
 **Turbopack Installation:**
 ```bash
-core install npm --turbopack
+jinx install npm --turbopack
 ```
 
-> **Note:** Turbopack requires the glibc toolchain to run on Termux. When enabled, `core init next` will configure your project with Turbopack for faster development and build times.
+> **Note:** Turbopack requires the glibc toolchain to run on Termux. When enabled, `jinx init next` will configure your project with Turbopack for faster development and build times.
 
 ---
 
@@ -820,7 +820,7 @@ The `editor` module installs **Neovim** with a custom configuration based on [Nv
 
 **Installation:**
 ```bash
-core install editor
+jinx install editor
 ```
 
 **Features:**
@@ -855,7 +855,7 @@ log_info "Info message"
 log_success "Success message"
 log_warn "Warning message"
 log_error "Error message"
-log_debug "Debug message (requires CORE_DEBUG=1)"
+log_debug "Debug message (requires JINX_DEBUG=1)"
 ```
 
 ### Loading Spinner
@@ -863,7 +863,7 @@ log_debug "Debug message (requires CORE_DEBUG=1)"
 Hides shell output while running commands:
 
 ```bash
-LOG_FILE="$CORE_CACHE/install.log"
+LOG_FILE="$JINX_CACHE/install.log"
 
 loading "Installing packages" _install_function
 
@@ -921,21 +921,21 @@ table_end
 
 ## Banner Tips
 
-Every time you open a new Termux session (or run the banner), Core-Termux shows a random tip to help you discover features you might not know about. Tips cover all modules: installing tools, using `core brain`, managing databases, voice commands, project initialization, and more.
+Every time you open a new Termux session (or run the banner), Jin-TermX shows a random tip to help you discover features you might not know about. Tips cover all modules: installing tools, using `jinx brain`, managing databases, voice commands, project initialization, and more.
 
 The tip system:
 - Picks a random tip from a pool of 65+ tips on each session
 - Never shows the same tip twice in a row
 - Covers every module and command in the framework
 
-To refresh the tips pool or customize them, edit `core/utils/banner.sh`.
+To refresh the tips pool or customize them, edit `jinx/utils/banner.sh`.
 
 ---
 
 ## Project Structure
 
 ```
-core-termux/
+jin-termx/
 ├── LICENSE
 ├── README.md
 ├── assets
@@ -943,9 +943,9 @@ core-termux/
 │   │   └── font.ttf
 │   └── images
 │       └── logo.svg
-├── core
+├── jinx
 │   ├── bin
-│   │   └── core
+│   │   └── jinx
 │   ├── cli
 │   │   ├── commands
 │   │   │   ├── --version.sh
@@ -960,7 +960,7 @@ core-termux/
 │   │   │   ├── uninstall.sh
 │   │   │   ├── update.sh
 │   │   │   └── voice.sh
-│   │   └── core.sh
+│   │   └── jinx.sh
 │   ├── modules
 │   │   ├── ai.sh
 │   │   ├── auto.sh
@@ -1027,23 +1027,23 @@ core-termux/
 ### Environment Variables
 
 ```bash
-export CORE_DEBUG=1    # Enable debug logs
+export JINX_DEBUG=1    # Enable debug logs
 ```
 
 ### Directories
 
 | Directory | Description |
 |-----------|-------------|
-| `~/.local/share/core-termux-data` | Persistent tool data (codegraph, engram, nvchad) |
-| `~/.cache/core-termux` | Logs and cache |
-| `~/.config/core-termux` | User configuration |
+| `~/.local/share/jin-termx-data` | Persistent tool data (codegraph, engram, nvchad) |
+| `~/.cache/jin-termx` | Logs and cache |
+| `~/.config/jin-termx` | User configuration |
 
 ### Log Files
 
 All processes save logs to:
 
 ```
-~/.cache/core-termux/
+~/.cache/jin-termx/
 ├── install_lang.log
 ├── install_db.log
 ├── install_ai.log
@@ -1066,22 +1066,22 @@ The framework checks for updates automatically:
 
 - **Frequency:** Once every 24 hours
 - **Impact:** None (runs in background)
-- **Notification:** Shown when running `core` if new version exists
+- **Notification:** Shown when running `jinx` if new version exists
 
 ```bash
-$ core
+$ jinx
 
 ── Update Available ─────────────────────────────────
 
 ⚠ New version available: 4.11.4 (current: 4.11.3)
 
-➜ Run: core update core to update
+➜ Run: jinx update jinx to update
 ```
 
 To update:
 
 ```bash
-core update core
+jinx update jinx
 ```
 
 ---
@@ -1120,7 +1120,7 @@ $ pwd
 ```
 
 **Configuration:**
-- Saves path to `~/.cache/core-termux/last_dir`
+- Saves path to `~/.cache/jin-termx/last_dir`
 - Automatically restored on startup
 - Falls back to `$HOME` if directory doesn't exist
 
@@ -1129,26 +1129,26 @@ $ pwd
 ### Install specific modules
 
 ```bash
-core install db
-core install shell
-core install npm
+jinx install db
+jinx install shell
+jinx install npm
 ```
 
 ### Install specific tools within a module
 
 ```bash
-core list ai                                    # See available AI tools
-core install ai --qwen-code --ollama            # Install only Qwen Code and Ollama
-core install dev --gh --fzf --jq                # Install only gh, fzf, and jq
-core install npm --typescript --prettier        # Install only TypeScript and Prettier
+jinx list ai                                    # See available AI tools
+jinx install ai --qwen-code --ollama            # Install only Qwen Code and Ollama
+jinx install dev --gh --fzf --jq                # Install only gh, fzf, and jq
+jinx install npm --typescript --prettier        # Install only TypeScript and Prettier
 ```
 
 ### Reinstall
 
 ```bash
-core reinstall ai             # Reinstall all AI agents
-core reinstall shell          # Reinstall ZSH + plugins
-core reinstall ai --opencode --ollama  # Reinstall specific tools
+jinx reinstall ai             # Reinstall all AI agents
+jinx reinstall shell          # Reinstall ZSH + plugins
+jinx reinstall ai --opencode --ollama  # Reinstall specific tools
 ```
 
 ### Configure Next.js project
@@ -1156,40 +1156,40 @@ core reinstall ai --opencode --ollama  # Reinstall specific tools
 ```bash
 npx create-next-app@latest my-app
 cd my-app
-core init next
+jinx init next
 ```
 
 ### Manage PostgreSQL
 
 ```bash
-core pg init              # First time
-core pg start             # Start
-core pg create mydb       # Create database
-core pg shell             # Open psql
-core pg stop              # Stop
+jinx pg init              # First time
+jinx pg start             # Start
+jinx pg create mydb       # Create database
+jinx pg shell             # Open psql
+jinx pg stop              # Stop
 ```
 
 ### Update
 
 ```bash
-core update core          # Framework only
-core update shell         # ZSH plugins only
-core update ai --qwen     # Specific AI tool only
+jinx update jinx          # Framework only
+jinx update shell         # ZSH plugins only
+jinx update ai --qwen     # Specific AI tool only
 ```
 
 ### Uninstall
 
 ```bash
-core uninstall npm        # Remove Node.js modules
-core uninstall ai --ollama   # Remove only Ollama
+jinx uninstall npm        # Remove Node.js modules
+jinx uninstall ai --ollama   # Remove only Ollama
 ```
 
 ### List available tools
 
 ```bash
-core list ai              # List all AI tools and their status
-core list dev             # List all development tools
-core list db              # List all databases
+jinx list ai              # List all AI tools and their status
+jinx list dev             # List all development tools
+jinx list db              # List all databases
 ```
 
 ---
@@ -1199,7 +1199,7 @@ core list db              # List all databases
 1. **Restart Termux:** After installing `shell` or `ui`, restart Termux to apply changes
 2. **Permissions:** Ensure you have write permissions in the installation directory
 3. **Connection:** Some installations require internet connection
-4. **Logs:** Check `~/.cache/core-termux/` if something fails
+4. **Logs:** Check `~/.cache/jin-termx/` if something fails
 
 ---
 
