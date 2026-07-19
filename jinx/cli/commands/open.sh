@@ -17,8 +17,8 @@ open_main() {
 		return
 		;;
 	*)
-		log_info "Documentation is available locally in the Jin-TermX repository."
-		log_info "Run ${D_CYAN}jinx <command> --help${NC} for command-specific help."
+		log_info "$(_tr "cmd_open.info")"
+		log_info "$(_tr "cmd_open.help_hint")"
 		return
 		;;
 	esac
@@ -26,13 +26,13 @@ open_main() {
 
 open_help() {
 	echo
-	box "Jin Open"
+	box "$(_tr "cmd_open.help_title")"
 	echo
-	log_info "Usage: jinx open"
+	log_info "$(_tr "cmd_open.usage")"
 	echo
-	log_info "Documentation is available locally in the Jin-TermX repository."
+	log_info "$(_tr "cmd_open.info")"
 	echo
-	list_item "Run ${D_CYAN}jinx <command> --help${NC} for command-specific help"
-	list_item "Read the README: ${D_CYAN}glow README.md${NC} (or ${D_CYAN}bat README.md${NC})"
+	list_item "$(_tr "cmd_open.help_hint")"
+	list_item "$(_tr "cmd_open.read_hint")"
 	echo
 }

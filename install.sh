@@ -17,6 +17,42 @@ JINX_TOOL_DATA="${XDG_DATA_HOME:-$HOME/.local/share}/jin-termx-data"
 JINX_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/jin-termx"
 JINX_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/jin-termx"
 
+# ── Language selection ─────────────────────────────────────────────
+select_language() {
+  echo
+  echo -e "  ${P_BORDER}┌────────────────────────────────────┐${P_NC}"
+  echo -e "  ${P_BORDER}│${P_NC}       ${P_PRIMARY}◈ JIN-TERMX ◈${P_NC}              ${P_BORDER}│${P_NC}"
+  echo -e "  ${P_BORDER}│${P_NC} ${P_DIM}Select language / Selecciona idioma${P_NC} ${P_BORDER}│${P_NC}"
+  echo -e "  ${P_BORDER}└────────────────────────────────────┘${P_NC}"
+  echo
+  echo -e "  ${P_PRIMARY}1)${P_NC}  English"
+  echo -e "  ${P_PRIMARY}2)${P_NC}  Español"
+  echo
+  echo -n "  ${P_HL}Choose [1/2]${P_NC}: "
+  read -r lang_choice
+  case "$lang_choice" in
+    2|es|ES|español|spanish)
+      JINX_LANG=es
+      echo -e "  ${P_OK}✔${P_NC}  Español seleccionado"
+      ;;
+    *)
+      JINX_LANG=en
+      echo -e "  ${P_OK}✔${P_NC}  English selected"
+      ;;
+  esac
+  echo
+  export JINX_LANG
+}
+
+select_language
+
+# ── Load translations ──────────────────────────────────────────────
+_script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -f "$_script_dir/jinx/utils/translations.sh" ]]; then
+  JINX_PATH="$_script_dir/jinx"
+  source "$_script_dir/jinx/utils/translations.sh"
+fi
+
 TOTAL_STEPS=6
 CURRENT_STEP=0
 
@@ -245,7 +281,7 @@ create_symlink() {
 }
 
 save_config() {
-  log_step 5 "Saving configuration"
+  log_step 5 "$(_tr "install.saving_config")"
 
   cat >"$JINX_CONFIG/config" <<EOF
 jinx_data='$JINX_DATA'
@@ -253,30 +289,31 @@ jinx_cache='$JINX_CACHE'
 jinx_config='$JINX_CONFIG'
 jinx_source='$JINX_DATA'
 jinx_tool_data='$JINX_TOOL_DATA'
+jinx_lang='$JINX_LANG'
 EOF
 
-  log_ok "Configuration saved"
+  log_ok "$(_tr "install.config_saved")"
 }
 
 show_final_message() {
   echo
   separator
-  echo -e "  ${P_OK}◆${P_NC}  ${P_PRIMARY}Installation Complete${P_NC}"
+  echo -e "  ${P_OK}◆${P_NC}  ${P_PRIMARY}$(_tr "install.complete")${P_NC}"
   separator
   echo
-  echo -e "  ${P_DIM}Run${P_NC}  ${P_HL}jinx${P_NC}  ${P_DIM}to get started${P_NC}"
+  echo -e "  ${P_DIM}$(_tr "install.run_start")${P_NC}  ${P_HL}jinx${P_NC}  ${P_DIM}$(_tr "install.to_start")${P_NC}"
   echo
-  echo -e "  ${P_DIM}Install modules:${P_NC}"
+  echo -e "  ${P_DIM}$(_tr "install.install_modules")${P_NC}"
   echo
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install lang" "Programming languages"
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install db" "Databases"
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install ai" "AI tools"
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install editor" "Code editor"
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install dev" "Dev tools"
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install npm" "Node.js tools"
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install shell" "ZSH shell"
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install ui" "Termux UI"
-  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install auto" "n8n"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install lang" "$(_tr "module.lang")"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install db" "$(_tr "module.db")"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install ai" "$(_tr "module.ai")"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install editor" "$(_tr "module.editor")"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install dev" "$(_tr "module.dev")"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install npm" "$(_tr "module.npm")"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install shell" "$(_tr "module.shell")"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install ui" "$(_tr "module.ui")"
+  printf "    ${P_PRIMARY}%-20s${P_NC} ${P_DIM}%s${P_NC}\n" "jinx install auto" "$(_tr "module.auto")"
   echo
 }
 

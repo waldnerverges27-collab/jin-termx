@@ -21,182 +21,73 @@ fi
 
 if [[ -n "$BANNER_VERSION" ]]; then
 	printf "\n"
-	printf " ${GRAY}JinDev ${NC}Software Development Community${NC}\n"
-	printf "     ${NC}Welcome to${GRAY} Jin-TermX ${DGREEN}v%s${NC}\n" "$BANNER_VERSION"
-	printf "        ${NC}Run ${DGREEN}jinx${NC} to get started${NC}\n"
+	printf " ${GRAY}$(_tr "banner.community")${NC}\n"
+	printf "     ${NC}$(_tr "banner.welcome" "$BANNER_VERSION")${NC}\n"
+	printf "        ${NC}$(_tr "banner.run_start")${NC}\n"
 fi
 
 # ── Random Tip ──────────────────────────────────────────────
 
-JINX_TIPS=(
-	# ── Framework ─────────────────────────────────────────────
-	"Keep Jin-TermX updated: ${D_CYAN}jinx update jinx${NC}"
-	"Check your version: ${D_CYAN}jinx --version${NC}"
-	"Enable debug logs: ${D_CYAN}export JINX_DEBUG=1${NC}"
-	"Shell remembers your last directory — open Termux where you left off"
-	"Open framework docs: ${D_CYAN}jinx open jinx${NC}"
-	"Visit JinDev website: ${D_CYAN}jinx open devcorex${NC}"
-
-	# ── Install / Update / Uninstall ─────────────────────────
-	"Install everything at once: ${D_CYAN}jinx install lang db dev npm${NC}"
-	"Install only what you need: ${D_CYAN}jinx install ai --opencode --ollama${NC}"
-	"See what's installed: ${D_CYAN}jinx list ai${NC} or ${D_CYAN}jinx list dev${NC}"
-	"Read tool docs: ${D_CYAN}jinx show ai --opencode${NC}"
-	"Update a specific tool: ${D_CYAN}jinx update ai --opencode${NC}"
-	"Update all AI tools: ${D_CYAN}jinx update ai${NC}"
-	"Update all databases: ${D_CYAN}jinx update db${NC}"
-	"Update ZSH plugins: ${D_CYAN}jinx update shell${NC}"
-	"Reinstall from scratch: ${D_CYAN}jinx reinstall shell${NC}"
-	"Reinstall specific tools: ${D_CYAN}jinx reinstall ai --opencode --ollama${NC}"
-	"Remove a module: ${D_CYAN}jinx uninstall npm${NC}"
-	"Remove specific tool: ${D_CYAN}jinx uninstall ai --ollama${NC}"
-	"Open tool docs in browser: ${D_CYAN}jinx open ai${NC}"
-
-	# ── Languages ────────────────────────────────────────────
-	"Install all languages: ${D_CYAN}jinx install lang${NC}"
-	"Install Python: ${D_CYAN}jinx install lang --python${NC}"
-	"Install Rust: ${D_CYAN}jinx install lang --rust${NC}"
-	"Install Go: ${D_CYAN}jinx install lang --golang${NC}"
-	"Install Bun: ${D_CYAN}jinx install lang --bun${NC}"
-	"Install PHP: ${D_CYAN}jinx install lang --php${NC}"
-	"Install Perl: ${D_CYAN}jinx install lang --perl${NC}"
-	"Install C/C++: ${D_CYAN}jinx install lang --clang${NC}"
-	"Install Node.js LTS: ${D_CYAN}jinx install lang --nodejs${NC}"
-
-	# ── Databases ────────────────────────────────────────────
-	"Install all databases: ${D_CYAN}jinx install db${NC}"
-	"Start PostgreSQL: ${D_CYAN}jinx pg init${NC} then ${D_CYAN}jinx pg start${NC}"
-	"Open psql shell: ${D_CYAN}jinx pg shell${NC}"
-	"Create a database: ${D_CYAN}jinx pg create mydb${NC}"
-	"Check PG status: ${D_CYAN}jinx pg status${NC}"
-	"List all databases: ${D_CYAN}jinx pg list${NC}"
-	"Stop PostgreSQL: ${D_CYAN}jinx pg stop${NC}"
-	"Restart PostgreSQL: ${D_CYAN}jinx pg restart${NC}"
-	"Drop a database safely: ${D_CYAN}jinx pg drop mydb${NC} (with confirmation)"
-	"Install MariaDB: ${D_CYAN}jinx install db --mariadb${NC}"
-	"Install SQLite: ${D_CYAN}jinx install db --sqlite${NC}"
-	"Install MongoDB: ${D_CYAN}jinx install db --mongodb${NC}"
-
-	# ── AI Agents ────────────────────────────────────────────
-	"Install all AI agents: ${D_CYAN}jinx install ai${NC}"
-	"Run Ollama locally on your phone: ${D_CYAN}jinx install ai --ollama${NC}"
-	"Install OpenCode: ${D_CYAN}jinx install ai --opencode${NC}"
-	"Install Qoder: ${D_CYAN}jinx install ai --qoder${NC}"
-	"Install Claude Code: ${D_CYAN}jinx install ai --claude-code${NC}"
-	"Install Codex CLI: ${D_CYAN}jinx install ai --codex${NC}"
-	"Install Gemini CLI: ${D_CYAN}jinx install ai --gemini-cli${NC}"
-	"Install MiMo Code: ${D_CYAN}jinx install ai --mimocode${NC}"
-	"Install Mistral Vibe: ${D_CYAN}jinx install ai --mistral-vibe${NC}"
-	"Install OpenClaude: ${D_CYAN}jinx install ai --openclaude${NC}"
-	"Install Pi agent: ${D_CYAN}jinx install ai --pi${NC}"
-	"Install Qwen Code: ${D_CYAN}jinx install ai --qwen-code${NC}"
-	"Install Hermes Agent: ${D_CYAN}jinx install ai --hermes-agent${NC}"
-	"Install Kimi Code: ${D_CYAN}jinx install ai --kimi-code${NC}"
-	"Install Gentle AI: ${D_CYAN}jinx install ai --gentle-ai${NC}"
-	"Install Engram memory: ${D_CYAN}jinx install ai --engram${NC}"
-	"Install CodeGraph: ${D_CYAN}jinx install ai --codegraph${NC}"
-	"Install GGA code review: ${D_CYAN}jinx install ai --gga${NC}"
-	"Install MiniMax CLI: ${D_CYAN}jinx install ai --minimax-cli${NC}"
-	"Install Command Code: ${D_CYAN}jinx install ai --command-code${NC}"
-	"Install Freebuff: ${D_CYAN}jinx install ai --freebuff${NC}"
-	"Install Kimchi: ${D_CYAN}jinx install ai --kimchi${NC}"
-	"Install Kilo Code CLI: ${D_CYAN}jinx install ai --kilocode-cli${NC}"
-	"Install Context7: ${D_CYAN}jinx install ai --ctx7${NC}"
-	"Install OpenSpec: ${D_CYAN}jinx install ai --openspec${NC}"
-
-	# ── Editor ───────────────────────────────────────────────
-	"Install Neovim + NvChad: ${D_CYAN}jinx install editor${NC}"
-	"Install just Neovim: ${D_CYAN}jinx install editor --neovim${NC}"
-	"Install NvChad config: ${D_CYAN}jinx install editor --nvchad${NC}"
-
-	# ── Dev Tools ────────────────────────────────────────────
-	"Fuzzy search commands: ${D_CYAN}jinx install dev --fzf${NC}"
-	"Modern ls with icons: ${D_CYAN}jinx install dev --lsd${NC}"
-	"Syntax-highlighted cat: ${D_CYAN}jinx install dev --bat${NC}"
-	"GitHub CLI for PRs and issues: ${D_CYAN}jinx install dev --gh${NC}"
-	"Share your terminal instantly: ${D_CYAN}jinx install dev --tmate${NC}"
-	"Run Docker without root: ${D_CYAN}jinx install dev --udocker${NC}"
-	"Translate text from terminal: ${D_CYAN}jinx install dev --translate${NC}"
-	"Convert HTML to text: ${D_CYAN}jinx install dev --html2text${NC}"
-	"Format shell scripts: ${D_CYAN}jinx install dev --shfmt${NC}"
-	"Process JSON from CLI: ${D_CYAN}jinx install dev --jq${NC}"
-	"Image manipulation: ${D_CYAN}jinx install dev --imagemagick${NC}"
-	"Arbitrary precision calculator: ${D_CYAN}jinx install dev --bc${NC}"
-	"Recursive directory listing: ${D_CYAN}jinx install dev --tree${NC}"
-	"Build automation: ${D_CYAN}jinx install dev --make${NC}"
-	"Chroot alternative: ${D_CYAN}jinx install dev --proot${NC}"
-	"Cloudflare Tunnel: ${D_CYAN}jinx install dev --cloudflared${NC}"
-
-	# ── NPM Packages ─────────────────────────────────────────
-	"Tunnel localhost to the web: ${D_CYAN}jinx install npm --ngrok${NC}"
-	"Deploy to Vercel from terminal: ${D_CYAN}jinx install npm --vercel${NC}"
-	"Format code with Prettier: ${D_CYAN}jinx install npm --prettier${NC}"
-	"TypeScript compiler: ${D_CYAN}jinx install npm --typescript${NC}"
-	"Live reload dev server: ${D_CYAN}jinx install npm --live-server${NC}"
-	"Expose localhost via tunnel: ${D_CYAN}jinx install npm --localtunnel${NC}"
-	"Markdown preview server: ${D_CYAN}jinx install npm --markserv${NC}"
-	"PostgreSQL query formatter: ${D_CYAN}jinx install npm --psqlformat${NC}"
-	"Find outdated npm packages: ${D_CYAN}jinx install npm --ncu${NC}"
-	"NestJS CLI: ${D_CYAN}jinx install npm --nestjs${NC}"
-
-	# ── Shell ────────────────────────────────────────────────
-	"Install ZSH + plugins: ${D_CYAN}jinx install shell${NC}"
-	"Install Powerlevel10k theme: ${D_CYAN}jinx install shell --powerlevel10k${NC}"
-	"Get fuzzy tab completion: ${D_CYAN}jinx install shell --fzf-tab${NC}"
-	"Smart command suggestions: ${D_CYAN}jinx install shell --you-should-use${NC}"
-	"Auto-close brackets: ${D_CYAN}jinx install shell --zsh-autopair${NC}"
-	"Deferred plugin loading: ${D_CYAN}jinx install shell --zsh-defer${NC}"
-	"Smart autocompletion: ${D_CYAN}jinx install shell --zsh-autosuggestions${NC}"
-	"Syntax highlighting: ${D_CYAN}jinx install shell --zsh-syntax-highlighting${NC}"
-	"History substring search: ${D_CYAN}jinx install shell --history-substring${NC}"
-	"Additional completions: ${D_CYAN}jinx install shell --zsh-completions${NC}"
-	"Better npm completion: ${D_CYAN}jinx install shell --better-npm${NC}"
-
-	# ── UI ───────────────────────────────────────────────────
-	"Customize Termux UI: ${D_CYAN}jinx install ui${NC}"
-	"Install Meslo Nerd Font: ${D_CYAN}jinx install ui --font${NC}"
-	"Configure cursor color: ${D_CYAN}jinx install ui --cursor${NC}"
-	"Setup extra keys bar: ${D_CYAN}jinx install ui --extra-keys${NC}"
-	"Install Core banner: ${D_CYAN}jinx install ui --banner${NC}"
-
-	# ── Automation ───────────────────────────────────────────
-	"Run n8n automation: ${D_CYAN}jinx install auto --n8n${NC}"
-	"Install automation tools: ${D_CYAN}jinx install auto${NC}"
-
-	# ── Environment ──────────────────────────────────────────
-	"Set API keys safely: ${D_CYAN}jinx env set${NC} — input is hidden with ●●●"
-	"List your env vars: ${D_CYAN}jinx env ls${NC}"
-	"Remove an env var: ${D_CYAN}jinx env unset${NC}"
-
-	# ── Brain ────────────────────────────────────────────────
-	"Set up your second brain: ${D_CYAN}jinx brain init${NC}"
-	"Save memories: ${D_CYAN}jinx brain save${NC}"
-	"Search your brain: ${D_CYAN}jinx brain search react${NC}"
-	"List memories by category: ${D_CYAN}jinx brain ls frontend${NC}"
-	"Edit a memory directly: ${D_CYAN}jinx brain edit slug-name${NC}"
-	"Delete a memory: ${D_CYAN}jinx brain delete${NC}"
-	"View a memory: ${D_CYAN}jinx brain show slug-name${NC}"
-	"Visualize connections: ${D_CYAN}jinx brain graph${NC}"
-	"Create AI skill from memories: ${D_CYAN}jinx brain skill${NC}"
-	"Link memories together: ${D_CYAN}jinx brain relate${NC}"
-	"Sync brain to GitHub: ${D_CYAN}jinx brain sync${NC}"
-	"Reset your brain entirely: ${D_CYAN}jinx brain reset${NC}"
-
-	# ── Voice ────────────────────────────────────────────────
-	"Voice-to-AI: ${D_CYAN}jinx voice opencode${NC} — speak, edit, launch agent"
-	"Quick voice output: ${D_CYAN}jinx voice text${NC} — capture speech to stdout"
-	"Use ${D_CYAN}jinx voice !${NC} as a shortcut for ${D_CYAN}jinx voice text${NC}"
-
-	# ── Project Init ─────────────────────────────────────────
-	"Init a Next.js project: ${D_CYAN}cd my-app && jinx init next${NC}"
-	"Init a React+Vite project: ${D_CYAN}cd my-app && jinx init react${NC}"
-	"Init an Express API: ${D_CYAN}cd api && jinx init express${NC}"
-	"Init a NestJS project: ${D_CYAN}cd backend && jinx init nest${NC}"
+# Tips are stored as translation keys (see translations.sh)
+JINX_TIP_KEYS=(
+	"tip.keep_updated"
+	"tip.check_version"
+	"tip.enable_debug"
+	"tip.remember_dir"
+	"tip.install_all"
+	"tip.install_specific"
+	"tip.list_tools"
+	"tip.show_tool"
+	"tip.update_tool"
+	"tip.update_module"
+	"tip.reinstall"
+	"tip.uninstall"
+	"tip.open_docs"
+	"tip.install_lang_all"
+	"tip.install_python"
+	"tip.install_rust"
+	"tip.install_go"
+	"tip.install_bun"
+	"tip.install_php"
+	"tip.install_perl"
+	"tip.install_clang"
+	"tip.install_nodejs"
+	"tip.install_db_all"
+	"tip.pg_init"
+	"tip.pg_shell"
+	"tip.pg_create"
+	"tip.pg_status"
+	"tip.pg_list"
+	"tip.pg_stop"
+	"tip.install_mariadb"
+	"tip.install_sqlite"
+	"tip.install_mongodb"
+	"tip.install_ai_all"
+	"tip.install_ollama"
+	"tip.install_opencode"
+	"tip.install_qoder"
+	"tip.install_claude"
+	"tip.install_codex"
+	"tip.install_gemini"
+	"tip.install_mimocode"
+	"tip.env_set"
+	"tip.env_ls"
+	"tip.brain_init"
+	"tip.brain_save"
+	"tip.brain_search"
+	"tip.brain_ls"
+	"tip.brain_edit"
+	"tip.voice_agent"
+	"tip.voice_text"
+	"tip.init_next"
+	"tip.init_react"
+	"tip.init_express"
+	"tip.init_nest"
 )
 
 _tip_index_file="${XDG_CACHE_HOME:-$HOME/.cache}/jin-termx/.last_tip_index"
 
-if [[ ${#JINX_TIPS[@]} -gt 0 ]]; then
+if [[ ${#JINX_TIP_KEYS[@]} -gt 0 ]]; then
 	last_index=-1
 	if [[ -f "$_tip_index_file" ]]; then
 		last_index=$(cat "$_tip_index_file" 2>/dev/null || echo "-1")
@@ -204,15 +95,15 @@ if [[ ${#JINX_TIPS[@]} -gt 0 ]]; then
 
 	new_index=$last_index
 	while [[ "$new_index" == "$last_index" ]]; do
-		new_index=$(( RANDOM % ${#JINX_TIPS[@]} ))
+		new_index=$(( RANDOM % ${#JINX_TIP_KEYS[@]} ))
 	done
 
 	echo "$new_index" >"$_tip_index_file"
 
-	_tip="${JINX_TIPS[$new_index]:-}"
-	if [[ -n "$_tip" ]]; then
+	_tip_key="${JINX_TIP_KEYS[$new_index]:-}"
+	if [[ -n "$_tip_key" ]]; then
 		echo
-		log_tip "$_tip"
+		log_tip "$(_tr "$_tip_key")"
 	fi
 fi
 
