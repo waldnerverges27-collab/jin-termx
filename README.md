@@ -68,19 +68,19 @@ jinx
 
 | Command | Description |
 |---------|-------------|
-| [`jinx --version`](#core---version) | Show current version |
-| [`jinx brain`](#core-brain) | Second brain — save and search memories |
-| [`jinx env`](#core-env) | Manage environment variables |
-| [`jinx install`](#core-install) | Install specific modules |
-| [`jinx show`](#core-show) | Show tool documentation |
-| [`jinx update`](#core-update) | Update modules or framework |
-| [`jinx uninstall`](#core-uninstall) | Remove installed modules |
-| [`jinx reinstall`](#core-reinstall) | Uninstall + reinstall modules |
-| [`jinx voice`](#core-voice) | Speech-to-agent via microphone |
-| [`jinx open`](#core-open) | Open documentation in browser |
-| [`jinx list`](#core-list) | List available tools in modules |
-| [`jinx pg`](#core-pg) | PostgreSQL database manager |
-| [`jinx init`](#core-init) | Configure existing projects |
+| [`jinx --version`](#jinx---version) | Show current version |
+| [`jinx brain`](#jinx-brain) | Second brain — save and search memories |
+| [`jinx env`](#jinx-env) | Manage environment variables |
+| [`jinx install`](#jinx-install) | Install specific modules |
+| [`jinx show`](#jinx-show) | Show tool documentation |
+| [`jinx update`](#jinx-update) | Update modules or framework |
+| [`jinx uninstall`](#jinx-uninstall) | Remove installed modules |
+| [`jinx reinstall`](#jinx-reinstall) | Uninstall + reinstall modules |
+| [`jinx voice`](#jinx-voice) | Speech-to-agent via microphone |
+| [`jinx open`](#jinx-open) | Open documentation in browser |
+| [`jinx list`](#jinx-list) | List available tools in modules |
+| [`jinx pg`](#jinx-pg) | PostgreSQL database manager |
+| [`jinx init`](#jinx-init) | Configure existing projects |
 
 ---
 
