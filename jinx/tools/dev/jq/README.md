@@ -3,7 +3,7 @@
 Lightweight and flexible command-line JSON processor
 
 **Package:** jq  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://jqlang.org  
 **Type:** Development tool (pkg)  

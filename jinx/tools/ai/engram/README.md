@@ -3,7 +3,7 @@
 Persistent memory system for AI coding agents
 
 **Package:** engram  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/Gentleman-Programming/engram  
 **Type:** AI memory system (Go binary)  

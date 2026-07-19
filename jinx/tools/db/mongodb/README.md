@@ -3,7 +3,7 @@
 NoSQL document database for modern applications
 
 **Package:** mongodb  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://www.mongodb.com  
 **Type:** Database (pkg)  

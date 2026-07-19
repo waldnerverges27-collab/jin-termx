@@ -3,7 +3,7 @@
 Open-source agent that helps you write code in your terminal
 
 **Package:** opencode  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/anomalyco/opencode  
 **Type:** AI coding agent (Binary + glibc bootstrapper)  

@@ -21,7 +21,7 @@ fi
 
 if [[ -n "$BANNER_VERSION" ]]; then
 	printf "\n"
-	printf " ${GRAY}DevCoreX ${NC}Software Development Community${NC}\n"
+	printf " ${GRAY}JinDev ${NC}Software Development Community${NC}\n"
 	printf "     ${NC}Welcome to${GRAY} Jin-TermX ${DGREEN}v%s${NC}\n" "$BANNER_VERSION"
 	printf "        ${NC}Run ${DGREEN}jinx${NC} to get started${NC}\n"
 fi
@@ -35,7 +35,7 @@ JINX_TIPS=(
 	"Enable debug logs: ${D_CYAN}export JINX_DEBUG=1${NC}"
 	"Shell remembers your last directory — open Termux where you left off"
 	"Open framework docs: ${D_CYAN}jinx open jinx${NC}"
-	"Visit DevCoreX website: ${D_CYAN}jinx open devcorex${NC}"
+	"Visit JinDev website: ${D_CYAN}jinx open devcorex${NC}"
 
 	# ── Install / Update / Uninstall ─────────────────────────
 	"Install everything at once: ${D_CYAN}jinx install lang db dev npm${NC}"

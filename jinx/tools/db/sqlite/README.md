@@ -3,7 +3,7 @@
 Self-contained, serverless, zero-configuration SQL database engine
 
 **Package:** sqlite  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://www.sqlite.org  
 **Type:** Database (pkg)  

@@ -2,7 +2,7 @@
 The self-improving AI agent built by Nous Research
 
 **Package:** hermes-agent
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/nousresearch/hermes-agent  
 **Type:** The agent that grows with you

@@ -3,7 +3,7 @@
 Patched font with Nerd Font icons for Termux
 
 **Package:** jin-termx-assets (font)  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/ryanoasis/nerd-fonts  
 **Type:** Termux UI customization  

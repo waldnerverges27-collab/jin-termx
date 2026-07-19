@@ -3,7 +3,7 @@
 The coding agent that learns your coding taste.
 
 **Package:** command-code  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/CommandCodeAI/command-code
 **Type:** AI coding assistant (npm local package with wrapper)  

@@ -3,7 +3,7 @@
 Personal AI Assistant
 
 **Package:** openclaw  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/openclaw/openclaw  
 **Type:** AI assistant aggregator (npm global package)  

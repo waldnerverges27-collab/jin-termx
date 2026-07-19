@@ -3,7 +3,7 @@
 PostgreSQL query formatter
 
 **Package:** psqlformat  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/long2ice/psqlformat  
 **Type:** Node.js global module (npm)  

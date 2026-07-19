@@ -3,7 +3,7 @@
 In-memory data structure store used as database, cache, and message broker
 
 **Package:** redis  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://redis.io  
 **Type:** Database (pkg)  

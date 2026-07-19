@@ -3,7 +3,7 @@
 Secure tunnel to expose local servers to the internet
 
 **Package:** ngrok  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://ngrok.com  
 **Type:** Node.js global module (npm)  

@@ -3,7 +3,7 @@
 Progressive Node.js framework for building efficient, reliable applications
 
 **Package:** @nestjs/cli  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://nestjs.com  
 **Type:** Node.js global module (npm)  

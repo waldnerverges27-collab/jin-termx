@@ -3,7 +3,7 @@
 Generate text, images, video, speech, and music from the terminal
 
 **Package:** mmx-cli  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/MiniMax-AI/cli  
 **Type:** AI CLI tool (npm global package)  

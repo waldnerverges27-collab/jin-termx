@@ -3,7 +3,7 @@
 SSH server and client for secure remote access
 
 **Package:** openssh  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://www.openssh.com  
 **Type:** Development tool (pkg)  

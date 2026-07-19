@@ -3,7 +3,7 @@
 Network downloader for retrieving files from the web
 
 **Package:** wget  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://www.gnu.org/software/wget  
 **Type:** Development tool (pkg)  

@@ -3,9 +3,9 @@
 Modern Neovim configuration with preconfigured plugins
 
 **Package:** nvchad (configuration)  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
-**Official:** https://github.com/DevCoreXOfficial/nvchad-termux  
+**Official:** https://github.com/JinDevOfficial/nvchad-termux  
 **Type:** Code editor configuration (git clone)  
 **License:** MIT
 
@@ -41,5 +41,5 @@ jinx update editor --nvchad
 - Installs to `~/.config/nvim/`
 - Includes GitHub Copilot and CodeCompanion
 - Preconfigured for TypeScript, JavaScript, Python, PHP, Perl, Rust, Lua
-- For detailed information: https://github.com/DevCoreXOfficial/nvchad-termux
+- For detailed information: https://github.com/JinDevOfficial/nvchad-termux
 

@@ -3,7 +3,7 @@
 Anthropic's CLI tool with Claude AI
 
 **Package:** claude-code  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/anthropics/claude-code  
 **Type:** AI coding assistant (Binary + glibc bootstrapper)  

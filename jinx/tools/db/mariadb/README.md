@@ -3,7 +3,7 @@
 Community-developed fork of MySQL relational database
 
 **Package:** mariadb  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://mariadb.org  
 **Type:** Database (pkg)  

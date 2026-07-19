@@ -3,7 +3,7 @@
 Command-line coding assistant powered by Mistral's models
 
 **Package:** mistral-vibe  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/mistralai/mistral-vibe  
 **Type:** AI coding assistant (pip package)  

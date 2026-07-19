@@ -3,7 +3,7 @@
 Chroot alternative for user-space sandboxing
 
 **Package:** proot  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://proot-me.github.io  
 **Type:** System tool (pkg)  

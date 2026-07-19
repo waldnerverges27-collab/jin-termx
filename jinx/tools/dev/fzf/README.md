@@ -3,7 +3,7 @@
 General-purpose command-line fuzzy finder
 
 **Package:** fzf  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/junegunn/fzf  
 **Type:** Development tool (pkg)  

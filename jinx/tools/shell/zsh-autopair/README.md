@@ -3,7 +3,7 @@
 Auto-close and delete matching parentheses and quotes
 
 **Package:** zsh-autopair  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/hlissner/zsh-autopair  
 **Type:** ZSH plugin (git clone)  

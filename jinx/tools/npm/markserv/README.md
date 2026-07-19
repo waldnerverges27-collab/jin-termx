@@ -3,7 +3,7 @@
 Markdown live-preview server
 
 **Package:** markserv  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/nice-registry/markserv  
 **Type:** Node.js global module (npm)  

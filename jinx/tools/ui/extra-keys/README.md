@@ -3,7 +3,7 @@
 Additional keyboard rows for Termux with navigation keys
 
 **Package:** jin-termx (extra-keys config)  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Type:** Termux UI customization  
 **License:** MIT

@@ -3,7 +3,7 @@
 Command-line translator powered by Google Translate
 
 **Package:** translate-shell  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/soimort/translate-shell  
 **Type:** Utility tool (pkg)  

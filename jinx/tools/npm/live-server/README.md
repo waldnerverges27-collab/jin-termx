@@ -3,7 +3,7 @@
 Development server with live reload capability
 
 **Package:** live-server  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/tapio/live-server  
 **Type:** Node.js global module (npm)  

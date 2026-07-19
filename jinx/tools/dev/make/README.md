@@ -3,7 +3,7 @@
 Build automation tool for managing compilation and dependencies
 
 **Package:** make  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://www.gnu.org/software/make  
 **Type:** Development tool (pkg)  

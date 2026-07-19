@@ -3,7 +3,7 @@
 Real-time syntax highlighting for ZSH commands
 
 **Package:** zsh-syntax-highlighting  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/zsh-users/zsh-syntax-highlighting  
 **Type:** ZSH plugin (git clone)  

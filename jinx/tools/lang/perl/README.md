@@ -3,7 +3,7 @@
 Highly capable, feature-rich programming language
 
 **Package:** perl  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://www.perl.org  
 **Type:** Language (pkg)  

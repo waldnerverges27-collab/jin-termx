@@ -3,7 +3,7 @@
 History search by typing substrings
 
 **Package:** zsh-history-substring-search  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/zsh-users/zsh-history-substring-search  
 **Type:** ZSH plugin (git clone)  

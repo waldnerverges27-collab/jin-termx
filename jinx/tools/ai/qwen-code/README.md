@@ -3,7 +3,7 @@
 Alibaba's AI coding assistant
 
 **Package:** @qwen-code/qwen-code  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/QwenLM/qwen-code  
 **Type:** AI coding assistant (npm global package)  

@@ -3,7 +3,7 @@
 Modern cat replacement with syntax highlighting
 
 **Package:** bat  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/sharkdp/bat  
 **Type:** Development tool (pkg)  

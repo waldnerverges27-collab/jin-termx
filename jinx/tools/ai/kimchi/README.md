@@ -3,7 +3,7 @@
 Terminal coding agent powered by Kimchi's multi-model orchestration
 
 **Package:** kimchi
-**Author:** DevCoreX
+**Author:** JinDev
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx
 **Official:** https://github.com/getkimchi/kimchi
 **Type:** AI coding agent (Binary + glibc bootstrapper)

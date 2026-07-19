@@ -3,7 +3,7 @@
 Analyzes your codebase structure and dependencies to improve navigation
 
 **Package:** codegraph  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/colbymchenry/codegraph  
 **Type:** Code analysis tool (Binary)  

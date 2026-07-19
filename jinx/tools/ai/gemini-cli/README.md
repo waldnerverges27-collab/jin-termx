@@ -3,7 +3,7 @@
 Google's AI assistant with Gemini
 
 **Package:** @google/gemini-cli  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/google-gemini/gemini-cli  
 **Type:** AI CLI assistant (npm global package)  

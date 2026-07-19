@@ -3,7 +3,7 @@
 Terminal UI manipulation utilities
 
 **Package:** ncurses-utils  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://invisible-island.net/ncurses  
 **Type:** System tool (pkg)  

@@ -3,7 +3,7 @@
 Find and update outdated npm dependencies
 
 **Package:** npm-check-updates  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/raineorshine/npm-check-updates  
 **Type:** Node.js global module (npm)  

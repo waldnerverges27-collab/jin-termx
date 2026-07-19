@@ -3,7 +3,7 @@
 Run Docker containers without root privileges
 
 **Package:** udocker  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/indigo-dc/udocker  
 **Type:** Container tool (pkg)  

@@ -3,7 +3,7 @@
 Open source Claude Code alternative
 
 **Package:** @gitlawb/openclaude  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/gitlawb/openclaude  
 **Type:** AI client (npm global package)  

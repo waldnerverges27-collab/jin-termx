@@ -3,7 +3,7 @@
 Run open-source LLMs locally on Termux
 
 **Package:** ollama  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://ollama.com  
 **Type:** Local LLM runtime (pkg)  

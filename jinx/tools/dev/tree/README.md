@@ -3,7 +3,7 @@
 Recursive directory listing in a tree-like format
 
 **Package:** tree  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://oldmanprogrammer.net/source.php?dir=projects/tree  
 **Type:** Utility tool (pkg)  

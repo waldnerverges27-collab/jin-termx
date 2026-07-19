@@ -3,7 +3,7 @@
 High-level, general-purpose programming language
 
 **Package:** python  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://www.python.org  
 **Type:** Language (pkg)  

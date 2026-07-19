@@ -3,7 +3,7 @@
 Terminal multiplexer for managing multiple sessions
 
 **Package:** tmux  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/tmux/tmux  
 **Type:** Development tool (pkg)  

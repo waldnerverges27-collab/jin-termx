@@ -3,7 +3,7 @@
 Popular general-purpose scripting language for web development
 
 **Package:** php  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://www.php.net  
 **Type:** Language (pkg)  

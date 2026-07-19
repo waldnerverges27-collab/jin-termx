@@ -3,7 +3,7 @@
 Kimi Code CLI — The Starting Point for Next-Gen Agents
 
 **Package:** @moonshot-ai/kimi-code
-**Author:** DevCoreX
+**Author:** JinDev
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx
 **Official:** https://github.com/MoonshotAI/kimi-code 
 **Type:** AI CLI tool (npm global package)

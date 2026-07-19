@@ -3,7 +3,7 @@
 Customize Termux with Jin-TermX Banner
 
 **Package:** jin-termx (banner config)  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Type:** Termux UI customization  
 **License:** MIT

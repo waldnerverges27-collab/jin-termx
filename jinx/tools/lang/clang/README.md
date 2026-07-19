@@ -3,7 +3,7 @@
 LLVM C/C++ compiler for systems programming
 
 **Package:** clang  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://clang.llvm.org  
 **Type:** Language compiler (pkg)  

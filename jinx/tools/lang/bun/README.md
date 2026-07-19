@@ -3,7 +3,7 @@
 JavaScript runtime, bundler, test runner, and package manager (all-in-one toolkit)
 
 **Package:** bun (binary)  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://bun.com
 **Type:** Language runtime (binary)  

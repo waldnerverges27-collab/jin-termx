@@ -3,7 +3,7 @@
 The open source coding agent for building with AI in VS Code, JetBrains, or the CLI
 
 **Package:** kilocode-cli  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/Kilo-Org/kilocode  
 **Type:** AI coding agent (Binary + glibc bootstrapper)  

@@ -3,7 +3,7 @@
 Shell script formatter with POSIX and Bash support
 
 **Package:** shfmt  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/mvdan/sh  
 **Type:** Development tool (pkg)  

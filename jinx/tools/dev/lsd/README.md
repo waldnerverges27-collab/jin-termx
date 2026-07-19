@@ -3,7 +3,7 @@
 Modern ls replacement with icons and colors
 
 **Package:** lsd  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/lsd-rs/lsd  
 **Type:** Development tool (pkg)  

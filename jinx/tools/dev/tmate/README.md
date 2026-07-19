@@ -3,7 +3,7 @@
 Instant terminal sharing for pair programming
 
 **Package:** tmate  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://tmate.io  
 **Type:** Development tool (pkg)  

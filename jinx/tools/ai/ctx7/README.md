@@ -3,7 +3,7 @@
 Up-to-date documentation for AI coding agents
 
 **Package:** ctx7 (npm global package)  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/upstash/context7  
 **Type:** AI documentation provider (MCP server)  

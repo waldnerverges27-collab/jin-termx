@@ -3,7 +3,7 @@
 Convert HTML documents to plain text
 
 **Package:** html2text  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/grobian/html2text  
 **Type:** Utility tool (pkg)  

@@ -3,7 +3,7 @@
 Modern and fast ZSH theme with customizable prompts
 
 **Package:** powerlevel10k  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/romkatv/powerlevel10k  
 **Type:** ZSH plugin (git clone)  

@@ -3,7 +3,7 @@
 Arbitrary precision calculator language
 
 **Package:** bc  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://www.gnu.org/software/bc  
 **Type:** Utility tool (pkg)  

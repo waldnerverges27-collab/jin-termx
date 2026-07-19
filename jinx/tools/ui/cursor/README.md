@@ -3,7 +3,7 @@
 Customize Termux terminal cursor color
 
 **Package:** jin-termx (cursor config)  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Type:** Termux UI customization  
 **License:** MIT

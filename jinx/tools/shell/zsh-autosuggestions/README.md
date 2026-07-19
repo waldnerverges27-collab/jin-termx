@@ -3,7 +3,7 @@
 Fish-like autosuggestions for ZSH
 
 **Package:** zsh-autosuggestions  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/zsh-users/zsh-autosuggestions  
 **Type:** ZSH plugin (git clone)  

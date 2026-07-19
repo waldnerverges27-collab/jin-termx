@@ -3,7 +3,7 @@
 Additional ZSH completion definitions for various tools
 
 **Package:** zsh-completions  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/zsh-users/zsh-completions  
 **Type:** ZSH plugin (git clone)  

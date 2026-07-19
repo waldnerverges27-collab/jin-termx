@@ -499,7 +499,7 @@ All [Common Modules](#common-modules) are valid targets, plus:
 | Target | Description |
 |--------|-------------|
 | `jinx` | Jin-TermX documentation |
-| `devcorex` | DevCoreX official website |
+| `devcorex` | JinDev official website |
 
 ---
 
@@ -816,7 +816,7 @@ jinx install npm --turbopack
 
 ## Code Editor
 
-The `editor` module installs **Neovim** with a custom configuration based on [NvChad](https://github.com/DevCoreXOfficial/nvchad-termux).
+The `editor` module installs **Neovim** with a custom configuration based on [NvChad](https://github.com/JinDevOfficial/nvchad-termux).
 
 **Installation:**
 ```bash
@@ -840,7 +840,7 @@ jinx install editor
 - And more...
 
 **For detailed information about the editor configuration, plugins, and usage:**
-→ Visit: [https://github.com/DevCoreXOfficial/nvchad-termux](https://github.com/DevCoreXOfficial/nvchad-termux)
+→ Visit: [https://github.com/JinDevOfficial/nvchad-termux](https://github.com/JinDevOfficial/nvchad-termux)
 
 ---
 
@@ -1200,6 +1200,14 @@ jinx list db              # List all databases
 2. **Permissions:** Ensure you have write permissions in the installation directory
 3. **Connection:** Some installations require internet connection
 4. **Logs:** Check `~/.cache/jin-termx/` if something fails
+
+---
+
+## Credits
+
+**Jin-TermX** is a fork of [Core-Termux](https://github.com/DevCoreXOfficial/core-termux), originally created by **DevCoreX** — a Software Development Community that builds modular dev environments for Termux on Android.
+
+We're grateful to the DevCoreX team for their foundational work on Core-Termux, which made this project possible. The original project is licensed under MIT and can be found at [github.com/DevCoreXOfficial/core-termux](https://github.com/DevCoreXOfficial/core-termux).
 
 ---
 

@@ -3,7 +3,7 @@
 Fuzzy completion with fzf for ZSH
 
 **Package:** fzf-tab  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/Aloxaf/fzf-tab  
 **Type:** ZSH plugin (git clone)  

@@ -3,7 +3,7 @@
 Workflow automation tool for connecting services
 
 **Package:** n8n  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://n8n.io  
 **Type:** Automation tool (npm global package)  

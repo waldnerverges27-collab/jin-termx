@@ -3,7 +3,7 @@
 Deploy frontend applications and serverless functions
 
 **Package:** vercel  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://vercel.com/docs/cli  
 **Type:** Node.js global module (npm)  

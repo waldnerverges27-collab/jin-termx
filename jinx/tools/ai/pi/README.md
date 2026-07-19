@@ -3,7 +3,7 @@
 Minimal terminal coding harness — adapt Pi to your workflows
 
 **Package:** @earendil-works/pi-coding-agent  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/earendil-works/pi  
 **Type:** AI coding agent (npm global package)  

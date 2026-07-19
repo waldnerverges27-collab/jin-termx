@@ -3,7 +3,7 @@
 Command-line tool for transferring data with URLs
 
 **Package:** curl  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://curl.se  
 **Type:** Development tool (pkg)  

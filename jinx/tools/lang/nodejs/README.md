@@ -3,7 +3,7 @@
 JavaScript runtime environment (Long Term Support version)
 
 **Package:** nodejs-lts  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://nodejs.org  
 **Type:** Language runtime (pkg)  

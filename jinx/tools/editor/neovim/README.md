@@ -3,7 +3,7 @@
 Fast, extensible code editor (modern Vim fork)
 
 **Package:** neovim  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://neovim.io  
 **Type:** Code editor (pkg)  

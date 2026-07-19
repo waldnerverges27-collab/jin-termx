@@ -3,7 +3,7 @@
 Expose localhost to the internet securely
 
 **Package:** localtunnel  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/localtunnel/localtunnel  
 **Type:** Node.js global module (npm)  

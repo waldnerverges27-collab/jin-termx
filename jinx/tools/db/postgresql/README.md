@@ -3,7 +3,7 @@
 Advanced open-source relational database
 
 **Package:** postgresql  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://www.postgresql.org  
 **Type:** Database (pkg)  

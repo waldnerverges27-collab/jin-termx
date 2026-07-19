@@ -3,7 +3,7 @@
 Official GitHub command-line tool for managing repositories, PRs, and issues
 
 **Package:** gh  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://cli.github.com  
 **Type:** Development tool (pkg)  

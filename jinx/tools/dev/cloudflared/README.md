@@ -3,7 +3,7 @@
 Cloudflare Tunnel client for secure connections
 
 **Package:** cloudflared  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://developers.cloudflare.com/cloudflare-one/connections/connect-networks  
 **Type:** Networking tool (pkg)  

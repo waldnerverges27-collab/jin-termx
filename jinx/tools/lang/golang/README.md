@@ -3,7 +3,7 @@
 Statically typed, compiled programming language by Google
 
 **Package:** golang  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://go.dev  
 **Type:** Language (pkg)  

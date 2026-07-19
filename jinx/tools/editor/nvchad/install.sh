@@ -4,7 +4,7 @@ import "@/utils/log"
 import "@/utils/version"
 
 LOG_FILE="$JINX_CACHE/install_editor.log"
-NVCHAD_REPO="https://github.com/DevCoreXOfficial/nvchad-termux.git"
+NVCHAD_REPO="https://github.com/JinDevOfficial/nvchad-termux.git"
 NVCHAD_DIR="$JINX_DATA/nvchad-termux"
 
 _nvchad_dependencies() {

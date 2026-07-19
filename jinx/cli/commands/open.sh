@@ -56,7 +56,7 @@ open_help() {
 	separator_section "Targets"
 	echo
 	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "jinx" "Jin-TermX documentation"
-	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "devcorex" "DevCoreX website"
+	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "devcorex" "JinDev website"
 	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "lang" "Language modules"
 	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "db" "Database modules"
 	printf "    ${D_GREEN}%-14s${NC} ${D_DIM}%s${NC}\n" "ai" "AI tools"

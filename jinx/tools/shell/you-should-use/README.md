@@ -3,7 +3,7 @@
 Suggests alternative commands when you use outdated ones
 
 **Package:** zsh-you-should-use  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/MichaelAquilina/zsh-you-should-use  
 **Type:** ZSH plugin (git clone)  

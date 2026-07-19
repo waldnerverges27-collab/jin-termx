@@ -3,7 +3,7 @@
 Opinionated code formatter supporting multiple languages
 
 **Package:** prettier  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://prettier.io  
 **Type:** Node.js global module (npm)  

@@ -3,7 +3,7 @@
 Image manipulation and conversion suite
 
 **Package:** imagemagick  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://imagemagick.org  
 **Type:** Graphics tool (pkg)  

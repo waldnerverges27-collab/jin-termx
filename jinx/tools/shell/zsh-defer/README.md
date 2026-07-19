@@ -3,7 +3,7 @@
 Deferred plugin loading for faster ZSH startup
 
 **Package:** zsh-defer  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/romkatv/zsh-defer  
 **Type:** ZSH plugin (git clone)  

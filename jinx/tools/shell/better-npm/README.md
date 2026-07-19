@@ -3,7 +3,7 @@
 Better npm completion for ZSH
 
 **Package:** zsh-better-npm-completion  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://github.com/lukechilds/zsh-better-npm-completion  
 **Type:** ZSH plugin (git clone)  

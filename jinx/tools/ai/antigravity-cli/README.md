@@ -3,7 +3,7 @@
 Lightweight, terminal-first surface for Antigravity agents
 
 **Package:** antigravity-cli  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://antigravity.google  
 **Type:** AI workflow assistant (Binary + glibc bootstrapper)  

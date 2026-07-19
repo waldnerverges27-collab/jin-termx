@@ -3,7 +3,7 @@
 Systems programming language with memory safety guarantees
 
 **Package:** rust  
-**Author:** DevCoreX  
+**Author:** JinDev  
 **Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://www.rust-lang.org  
 **Type:** Language (pkg)  
