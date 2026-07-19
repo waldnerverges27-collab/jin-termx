@@ -4,6 +4,37 @@ BANNER_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 BANNER_FILE="$(cd "$BANNER_SCRIPT_DIR/../.." && pwd)/assets/banner/devcorex.txt"
 BANNER_VERSION="$(grep "^JINX_VERSION=" "$BANNER_SCRIPT_DIR/env.sh" 2>/dev/null | cut -d'"' -f2)"
 
+# ── Self-contained translation for banner (avoids dependency on _tr) ──
+__BANNER_LANG="en"
+__BANNER_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/jin-termx/config"
+if [[ -f "$__BANNER_CONFIG" ]]; then
+	__lang_val=$(grep "^jinx_lang=" "$__BANNER_CONFIG" 2>/dev/null | cut -d"'" -f2)
+	[[ -n "$__lang_val" ]] && __BANNER_LANG="$__lang_val"
+fi
+
+__banner_tr() {
+	local key="$1"
+	shift
+	case "${__BANNER_LANG}:${key}" in
+		es:banner.community)  msg="JinDev Comunidad de Desarrollo de Software" ;;
+		es:banner.welcome)    msg="Bienvenido a Jin-TermX v%s" ;;
+		es:banner.run_start)  msg="Ejecuta ${DGREEN}jinx${NC} para empezar" ;;
+		*)                    msg="JinDev Software Development Community" ;;
+	esac
+	if [[ "$key" == "banner.welcome" && "$__BANNER_LANG" != "es" ]]; then
+		msg="Welcome to Jin-TermX v%s"
+	fi
+	if [[ "$key" == "banner.run_start" && "$__BANNER_LANG" != "es" ]]; then
+		msg="Run ${DGREEN}jinx${NC} to get started"
+	fi
+	if [[ $# -gt 0 ]]; then
+		printf "$msg" "$@"
+	else
+		echo -n "$msg"
+	fi
+}
+unset __lang_val
+
 # ── Colors (self-contained for shell startup sourcing) ─────
 DGREEN="\033[0;32m"
 NC="\033[0m"
@@ -21,73 +52,35 @@ fi
 
 if [[ -n "$BANNER_VERSION" ]]; then
 	printf "\n"
-	printf " ${GRAY}$(_tr "banner.community")${NC}\n"
-	printf "     ${NC}$(_tr "banner.welcome" "$BANNER_VERSION")${NC}\n"
-	printf "        ${NC}$(_tr "banner.run_start")${NC}\n"
+	printf " ${GRAY}$(__banner_tr "banner.community")${NC}\n"
+	printf "     ${NC}$(__banner_tr "banner.welcome" "$BANNER_VERSION")${NC}\n"
+	printf "        ${NC}$(__banner_tr "banner.run_start")${NC}\n"
 fi
 
 # ── Random Tip ──────────────────────────────────────────────
 
-# Tips are stored as translation keys (see translations.sh)
-JINX_TIP_KEYS=(
-	"tip.keep_updated"
-	"tip.check_version"
-	"tip.enable_debug"
-	"tip.remember_dir"
-	"tip.install_all"
-	"tip.install_specific"
-	"tip.list_tools"
-	"tip.show_tool"
-	"tip.update_tool"
-	"tip.update_module"
-	"tip.reinstall"
-	"tip.uninstall"
-	"tip.open_docs"
-	"tip.install_lang_all"
-	"tip.install_python"
-	"tip.install_rust"
-	"tip.install_go"
-	"tip.install_bun"
-	"tip.install_php"
-	"tip.install_perl"
-	"tip.install_clang"
-	"tip.install_nodejs"
-	"tip.install_db_all"
-	"tip.pg_init"
-	"tip.pg_shell"
-	"tip.pg_create"
-	"tip.pg_status"
-	"tip.pg_list"
-	"tip.pg_stop"
-	"tip.install_mariadb"
-	"tip.install_sqlite"
-	"tip.install_mongodb"
-	"tip.install_ai_all"
-	"tip.install_ollama"
-	"tip.install_opencode"
-	"tip.install_qoder"
-	"tip.install_claude"
-	"tip.install_codex"
-	"tip.install_gemini"
-	"tip.install_mimocode"
-	"tip.env_set"
-	"tip.env_ls"
-	"tip.brain_init"
-	"tip.brain_save"
-	"tip.brain_search"
-	"tip.brain_ls"
-	"tip.brain_edit"
-	"tip.voice_agent"
-	"tip.voice_text"
-	"tip.init_next"
-	"tip.init_react"
-	"tip.init_express"
-	"tip.init_nest"
+JINX_TIPS=(
+	"Keep Jin-TermX updated: ${D_CYAN}jinx update jinx${NC}"
+	"Check your version: ${D_CYAN}jinx --version${NC}"
+	"Enable debug logs: ${D_CYAN}export JINX_DEBUG=1${NC}"
+	"Install everything at once: ${D_CYAN}jinx install lang db dev npm${NC}"
+	"See what's installed: ${D_CYAN}jinx list ai${NC} or ${D_CYAN}jinx list dev${NC}"
+	"Update a specific tool: ${D_CYAN}jinx update ai --opencode${NC}"
+	"Reinstall from scratch: ${D_CYAN}jinx reinstall shell${NC}"
+	"Install all languages: ${D_CYAN}jinx install lang${NC}"
+	"Install Python: ${D_CYAN}jinx install lang --python${NC}"
+	"Install all databases: ${D_CYAN}jinx install db${NC}"
+	"Start PostgreSQL: ${D_CYAN}jinx pg init${NC} then ${D_CYAN}jinx pg start${NC}"
+	"Install all AI agents: ${D_CYAN}jinx install ai${NC}"
+	"Run Ollama locally on your phone: ${D_CYAN}jinx install ai --ollama${NC}"
+	"Set API keys safely: ${D_CYAN}jinx env set${NC} — input is hidden with ●●●"
+	"Set up your second brain: ${D_CYAN}jinx brain init${NC}"
+	"Voice-to-AI: ${D_CYAN}jinx voice opencode${NC} — speak, edit, launch agent"
 )
 
 _tip_index_file="${XDG_CACHE_HOME:-$HOME/.cache}/jin-termx/.last_tip_index"
 
-if [[ ${#JINX_TIP_KEYS[@]} -gt 0 ]]; then
+if [[ ${#JINX_TIPS[@]} -gt 0 ]]; then
 	last_index=-1
 	if [[ -f "$_tip_index_file" ]]; then
 		last_index=$(cat "$_tip_index_file" 2>/dev/null || echo "-1")
@@ -95,15 +88,15 @@ if [[ ${#JINX_TIP_KEYS[@]} -gt 0 ]]; then
 
 	new_index=$last_index
 	while [[ "$new_index" == "$last_index" ]]; do
-		new_index=$(( RANDOM % ${#JINX_TIP_KEYS[@]} ))
+		new_index=$(( RANDOM % ${#JINX_TIPS[@]} ))
 	done
 
 	echo "$new_index" >"$_tip_index_file"
 
-	_tip_key="${JINX_TIP_KEYS[$new_index]:-}"
-	if [[ -n "$_tip_key" ]]; then
+	_tip="${JINX_TIPS[$new_index]:-}"
+	if [[ -n "$_tip" ]]; then
 		echo
-		log_tip "$(_tr "$_tip_key")"
+		log_tip "$_tip"
 	fi
 fi
 
