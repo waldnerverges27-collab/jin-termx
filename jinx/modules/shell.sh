@@ -199,7 +199,7 @@ _install_shell_plugins_wrapper() {
 	install_all_shell_plugins
 
 	# Asegurar que Oh My Zsh se cargue al inicio de .zshrc
-	if [[ -d "$OH_MY_ZSH_DIR" ]] && ! grep -q "oh-my-zsh.sh" ~/.zshrc 2>/dev/null; then
+	if [[ -d "$OH_MY_ZSH_DIR" ]] && ! grep -q "^source.*oh-my-zsh.sh" ~/.zshrc 2>/dev/null; then
 		echo 'export ZSH="$HOME/.oh-my-zsh"' > /tmp/.zshrc_temp
 		echo 'source $ZSH/oh-my-zsh.sh' >> /tmp/.zshrc_temp
 		echo '' >> /tmp/.zshrc_temp
@@ -208,19 +208,18 @@ _install_shell_plugins_wrapper() {
 		log_info "Oh My Zsh agregado a .zshrc"
 	fi
 
-	# Asegurar compinit antes de plugins que usan compdef
-	if ! grep -q "compinit" ~/.zshrc 2>/dev/null; then
-		sed -i '/^source \$ZSH\/oh-my-zsh\.sh/a\\nautoload -Uz compinit \&\& compinit' ~/.zshrc 2>/dev/null
-	else
-		# Si compinit existe pero después del primer plugin, agregar otro antes
-		local first_plugin_line
-		first_plugin_line=$(grep -n "zsh-plugins" ~/.zshrc 2>/dev/null | head -1 | cut -d: -f1)
-		local compinit_line
-		compinit_line=$(grep -n "compinit" ~/.zshrc 2>/dev/null | head -1 | cut -d: -f1)
-		if [[ -n "$first_plugin_line" && -n "$compinit_line" && "$compinit_line" -gt "$first_plugin_line" ]]; then
-			sed -i "${first_plugin_line}i\\autoload -Uz compinit \&\& compinit" ~/.zshrc 2>/dev/null
-			log_info "compinit reordenado antes de los plugins"
+	# compinit SIEMPRE al inicio (antes de plugins que usan compdef)
+	# Llamar compinit múltiples veces es inocuo, así que lo insertamos siempre al principio
+	if ! head -5 ~/.zshrc | grep -q "compinit" 2>/dev/null; then
+		if grep -q "^source.*oh-my-zsh.sh" ~/.zshrc 2>/dev/null; then
+			# Insertar compinit justo después de Oh My Zsh
+			sed -i '/^source.*oh-my-zsh\.sh/a\\nautoload -Uz compinit \&\& compinit' ~/.zshrc 2>/dev/null
+		else
+			echo 'autoload -Uz compinit && compinit' > /tmp/.zshrc_temp
+			cat ~/.zshrc >> /tmp/.zshrc_temp
+			mv /tmp/.zshrc_temp ~/.zshrc
 		fi
+		log_info "compinit agregado al inicio de .zshrc"
 	fi
 
 	if command -v starship &>/dev/null; then
