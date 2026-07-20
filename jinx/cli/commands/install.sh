@@ -529,8 +529,6 @@ _install_specific_tools() {
         install_starship
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
         ;;
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
       zsh-defer)
         install_zsh_defer
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac

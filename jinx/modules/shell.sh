@@ -202,8 +202,6 @@ _install_shell_plugins_wrapper() {
 		log_info "Starship listo como prompt"
 	fi
 
-	# Powerlevel10k como alternativa (solo si se instaló explícitamente)
-	fi
 	if [[ -d "$ZSH_PLUGINS_DIR/zsh-defer" ]]; then
 		add_to_zshrc 'source ~/.zsh-plugins/zsh-defer/zsh-defer.plugin.zsh'
 	fi
