@@ -61,8 +61,8 @@ These modules are available across most commands (`jinx list`, `jinx install`, `
 | `db` | Databases (PostgreSQL, MariaDB, SQLite, MongoDB, Redis) |
 | `ai` | AI agents and coding assistants — see [AI Agents](#ai-agents) |
 | `editor` | Code editor components (Neovim, NvChad) |
-| `dev` | Development tools (gh, wget, curl, fzf, lsd, bat, etc.) |
-| `npm` | Node.js global npm packages |
+| `dev` | Development tools (gh, wget, curl, fzf, lsd, bat, jq, etc.) |
+| `npm` | Node.js global npm packages (TypeScript, NestJS, Vercel, etc.) |
 | `shell` | Shell environment (Starship + BLE + ZSH plugins) |
 | `ui` | Termux UI components (font, cursor, extra-keys, banner) |
 | `auto` | Automation tools (n8n) |
