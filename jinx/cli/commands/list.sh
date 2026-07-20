@@ -249,6 +249,7 @@ _list_shell() {
 
   table_start "Plugin" "Install Flag" "Status"
   table_row "Starship" "--starship" "$(_check_cmd "starship")"
+  table_row "BLE" "--ble" "$(_check_cmd "ble.sh")"
   table_row "zsh-defer" "--zsh-defer" "$(_check_plugin "zsh-defer")"
   table_row "zsh-autosuggestions" "--zsh-autosuggestions" "$(_check_plugin "zsh-autosuggestions")"
   table_row "zsh-syntax-highlighting" "--zsh-syntax-highlighting" "$(_check_plugin "zsh-syntax-highlighting")"

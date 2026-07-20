@@ -52,42 +52,65 @@ add_to_zshrc() {
 	fi
 }
 
-setup_zsh_aliases() {
-	log_info "Setting up ZSH aliases..."
+add_to_bashrc() {
+	local line="$1"
+	if ! grep -qxF "$line" ~/.bashrc 2>/dev/null; then
+		echo "$line" >>~/.bashrc
+	fi
+}
 
-	add_to_zshrc "alias ls=\"lsd\""
-	add_to_zshrc 'alias cat="bat --theme=Dracula --style=plain --paging=never"'
-	add_to_zshrc 'eval "$(zoxide init zsh)"'
+add_to_both_shells() {
+	add_to_zshrc "$1"
+	add_to_bashrc "$1"
+}
 
-	log_success "ZSH aliases configured"
+setup_shell_aliases() {
+	log_info "Configurando alias para ambos shells..."
+
+	local alias_ls='alias ls="lsd"'
+	local alias_cat='alias cat="bat --theme=Dracula --style=plain --paging=never"'
+	local zoxide_zsh='eval "$(zoxide init zsh)"'
+	local zoxide_bash='eval "$(zoxide init bash)"'
+
+	add_to_zshrc "$alias_ls"
+	add_to_zshrc "$alias_cat"
+	add_to_zshrc "$zoxide_zsh"
+	add_to_bashrc "$alias_ls"
+	add_to_bashrc "$alias_cat"
+	add_to_bashrc "$zoxide_bash"
+
+	log_success "Alias configurados para ZSH y Bash"
 }
 
 setup_shell_env() {
-	log_info "Setting up shell environment..."
+	log_info "Configurando variables de entorno para ambos shells..."
 
-	add_to_zshrc "unalias gga 2>/dev/null"
-	add_to_zshrc "export GOPATH=\"\$HOME/.local/go\""
-	add_to_zshrc "export GOCACHE=\"\$HOME/.cache/go\""
-	add_to_zshrc "export GOMODCACHE=\"\$GOPATH/pkg/mod\""
-	add_to_zshrc "export PATH=\$PATH:\$HOME/go/bin"
-	add_to_zshrc "export OPENCLAW_DISABLE_BONJOUR=1"
+	local env_vars=(
+		"unalias gga 2>/dev/null"
+		"export GOPATH=\"\$HOME/.local/go\""
+		"export GOCACHE=\"\$HOME/.cache/go\""
+		"export GOMODCACHE=\"\$GOPATH/pkg/mod\""
+		"export PATH=\$PATH:\$HOME/go/bin:\$HOME/.local/bin"
+		"export OPENCLAW_DISABLE_BONJOUR=1"
+	)
 
-	log_success "Shell environment configured"
+	for var in "${env_vars[@]}"; do
+		add_to_both_shells "$var"
+	done
+
+	log_success "Variables de entorno configuradas para ambos shells"
 }
 
 setupPersistentSession() {
-	log_info "Configuring persistent session..."
+	log_info "Configurando sesión persistente para ambos shells..."
 
 	mkdir -p "$JINX_CACHE" 2>/dev/null || mkdir -p ~/.cache/jin-termx
 
 	echo "$HOME" > ~/.cache/jin-termx/last_dir
 
-	if grep -q "# ===== Persistent Directory =====" ~/.zshrc 2>/dev/null; then
-		log_warn "Persistent session already configured"
-		return 0
-	fi
-
-	cat >>~/.zshrc <<'EOF'
+	# ZSH
+	if ! grep -q "# ===== Persistent Directory =====" ~/.zshrc 2>/dev/null; then
+		cat >>~/.zshrc <<'EOF'
 
 # ===== Persistent Directory =====
 LAST_DIR_FILE="$HOME/.cache/jin-termx/last_dir"
@@ -128,9 +151,49 @@ else
 fi
 echo
 EOF
+	fi
 
-	log_success "Persistent session configured"
-	log_info "New sessions within Termux will restore last directory"
+	# Bash
+	if ! grep -q "# ===== Persistent Directory =====" ~/.bashrc 2>/dev/null; then
+		cat >>~/.bashrc <<'EOF'
+
+# ===== Persistent Directory =====
+LAST_DIR_FILE="$HOME/.cache/jin-termx/last_dir"
+SESSION_TIMESTAMP="$HOME/.cache/jin-termx/.session_time"
+SESSION_TIMEOUT=5
+
+save_dir() {
+  mkdir -p ~/.cache/jin-termx 2>/dev/null
+  pwd > "$LAST_DIR_FILE"
+  date +%s > "$SESSION_TIMESTAMP"
+}
+
+restore_dir() {
+  if [[ -f "$SESSION_TIMESTAMP" ]] && [[ -f "$LAST_DIR_FILE" ]]; then
+    local current_time
+    local last_time
+    current_time=$(date +%s)
+    last_time=$(cat "$SESSION_TIMESTAMP" 2>/dev/null || echo 0)
+    local diff=$((current_time - last_time))
+
+    if [[ $diff -lt $SESSION_TIMEOUT ]]; then
+      local dir
+      dir=$(cat "$LAST_DIR_FILE" 2>/dev/null)
+      if [[ -d "$dir" ]] && [[ "$dir" != "$HOME" ]]; then
+        cd "$dir" 2>/dev/null
+      fi
+    fi
+  fi
+  date +%s > "$SESSION_TIMESTAMP"
+}
+
+restore_dir
+trap 'save_dir' EXIT
+echo
+EOF
+	fi
+
+	log_success "Sesión persistente configurada para ZSH y Bash"
 }
 
 install_shell() {
@@ -152,7 +215,10 @@ install_shell() {
 	log_success "Plugins instalados"
 	echo
 
-	setup_zsh_aliases
+	_setup_ble_for_bash
+	echo
+
+	setup_shell_aliases
 	echo
 
 	setup_shell_env
@@ -192,6 +258,23 @@ _setup_starship_for_both_shells() {
 	fi
 
 	log_success "Starship configurado para ZSH y Bash"
+}
+
+_setup_ble_for_bash() {
+	local ble_script
+	ble_script="${XDG_DATA_HOME:-$HOME/.local/share}/blesh/ble.sh"
+
+	if [[ -f "$ble_script" ]]; then
+		if ! grep -q "ble.sh" ~/.bashrc 2>/dev/null; then
+			echo "" >>~/.bashrc
+			echo "# BLE - Bash Line Editor" >>~/.bashrc
+			echo '[[ $- == *i* ]] && source "'"$ble_script"'" --attach=none' >>~/.bashrc
+			echo '[[ ${BLE_VERSION-} ]] && ble-attach' >>~/.bashrc
+			log_info "BLE configurado en .bashrc"
+		fi
+	else
+		log_warn "BLE no encontrado en $ble_script, se salta configuración"
+	fi
 }
 
 _install_shell_plugins_wrapper() {
@@ -313,6 +396,7 @@ update_shell() {
 	_update_shell_plugins_wrapper
 	log_success "Entorno shell actualizado"
 
+	_setup_ble_for_bash
 	_setup_starship_for_both_shells
 	setup_shell_env
 	echo
@@ -341,7 +425,10 @@ reinstall_shell() {
   log_success "Plugins reinstalados"
   echo
 
-  setup_zsh_aliases
+  _setup_ble_for_bash
+  echo
+
+  setup_shell_aliases
   echo
 
   setup_shell_env

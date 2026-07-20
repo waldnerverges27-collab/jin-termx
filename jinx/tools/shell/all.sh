@@ -7,6 +7,7 @@ ZSH_PLUGINS_DIR="$HOME/.zsh-plugins"
 
 SHELL_PLUGINS=(
 	"starship"
+	"ble"
 	"zsh-defer"
 	"zsh-autosuggestions"
 	"zsh-syntax-highlighting"
@@ -19,6 +20,7 @@ SHELL_PLUGINS=(
 )
 
 source "$(dirname "$BASH_SOURCE")/starship/install.sh"
+source "$(dirname "$BASH_SOURCE")/ble/install.sh"
 source "$(dirname "$BASH_SOURCE")/zsh-defer/install.sh"
 source "$(dirname "$BASH_SOURCE")/zsh-autosuggestions/install.sh"
 source "$(dirname "$BASH_SOURCE")/zsh-syntax-highlighting/install.sh"
@@ -36,6 +38,10 @@ install_all_shell_plugins() {
 	for tool in "${SHELL_PLUGINS[@]}"; do
 		case "$tool" in
 		starship)
+    ble)
+      install_ble
+      ;;
+
 			loading "Instalando Starship" install_starship
 			case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
 			;;
@@ -85,6 +91,10 @@ uninstall_all_shell_plugins() {
 	local uninstalled_count=0
 	local failed_count=0
 
+    ble)
+      uninstall_ble
+      ;;
+
 	for tool in "${SHELL_PLUGINS[@]}"; do
 		case "$tool" in
 		starship)
@@ -131,6 +141,10 @@ uninstall_all_shell_plugins() {
 	done
 
 	return 0
+    ble)
+      update_ble
+      ;;
+
 }
 
 update_all_shell_plugins() {
@@ -169,6 +183,10 @@ update_all_shell_plugins() {
     esac
   done
   echo
+    ble)
+      reinstall_ble
+      ;;
+
 }
 
 reinstall_all_shell_plugins() {
