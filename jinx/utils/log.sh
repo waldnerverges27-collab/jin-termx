@@ -427,6 +427,90 @@ read_select() {
 	echo -e "    ${GRAY}└─${D_CYAN}▶ ${D_NC}${options[$selected]}${D_NC}" >&2
 }
 
+# --- Checklist multi-selección (flechas + espacio) ---
+# Uso: read_checklist "Prompt" VAR_NAME "Opción1" "Opción2" ...
+# VAR_NAME recibe las opciones seleccionadas separadas por espacio
+read_checklist() {
+	local prompt="$1"
+	local var="$2"
+	shift 2
+	local -a options=("$@")
+	local -a checked=()
+	local selected=0
+	local total=${#options[@]}
+	local cols
+	cols=$(tput cols)
+	local margin=6
+	local max_width=$((cols - margin))
+
+	# Inicializar todas como no seleccionadas
+	for ((i = 0; i < total; i++)); do
+		checked[i]=0
+	done
+
+	_render_checklist() {
+		echo -e "    ${GRAY}┌─${D_CYAN} ${prompt}${NC}" >&2
+		echo -e "    ${GRAY}│${D_DIM}  (↑↓ mover  Espacio: marcar/desmarcar  Enter: confirmar)${D_NC}" >&2
+		for ((i = 0; i < total; i++)); do
+			local text="${options[$i]}"
+			if (( ${#text} > max_width )); then
+				text="${text:0:$((max_width - 3))}..."
+			fi
+			if ((i == selected)); then
+				if ((checked[i])); then
+					echo -e "    ${GRAY}│  ${D_GREEN}◉${NC} ${WHITE}${text}${D_NC}" >&2
+				else
+					echo -e "    ${GRAY}│  ${D_CYAN}▶${NC} ${WHITE}${text}${D_NC}" >&2
+				fi
+			else
+				if ((checked[i])); then
+					echo -e "    ${GRAY}│    ${D_GREEN}◉${NC} ${GRAY}${text}${D_NC}" >&2
+				else
+					echo -e "    ${GRAY}│    ${D_CYAN}○${NC} ${GRAY}${text}${D_NC}" >&2
+				fi
+			fi
+		done
+		echo -e -n "    ${GRAY}└─${D_NC} ${D_GREEN}$(echo "${checked[*]}" | tr -d ' ')${NC} seleccionado(s)" >&2
+	}
+
+	local lines=$((total + 2))
+
+	tput civis
+	_render_checklist
+
+	while true; do
+		IFS= read -rsn1 key
+		if [[ "$key" == $'\x1b' ]]; then
+			read -rsn2 -t 0.1 rest
+			key="${key}${rest}"
+		fi
+
+		case "$key" in
+		$'\x1b[A' | k) ((selected > 0)) && ((selected--)) ;;
+		$'\x1b[B' | j) ((selected < total - 1)) && ((selected++)) ;;
+		' ') checked[selected]=$((1 - checked[selected])) ;;
+		'') break ;;
+		esac
+
+		echo -en "\r\033[${lines}A\033[J" >&2
+		_render_checklist
+	done
+
+	echo >&2
+	tput cnorm
+
+	# Generar resultado: nombres de opciones seleccionadas
+	local result=""
+	for ((i = 0; i < total; i++)); do
+		if ((checked[i])); then
+			result+="${options[$i]} "
+		fi
+	done
+	result="${result%" "}"
+	read -r "$var" <<<"$result"
+	echo -e "    ${GRAY}└─${D_CYAN}▶ ${D_NC}Seleccionado(s): ${D_GREEN}$result${D_NC}" >&2
+}
+
 # --- Entrada multi-línea (shell interactiva, sin editor externo) ---
 # Lee contenido línea por línea hasta Ctrl+D.
 # Uso: local tmp; tmp=$(read_multiline "Initial header"); content=$(cat "$tmp"); rm -f "$tmp"

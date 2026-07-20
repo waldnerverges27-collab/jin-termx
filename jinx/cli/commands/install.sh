@@ -4,13 +4,25 @@ import "@/utils/log"
 import "@/utils/colors"
 
 install_main() {
+  local interactive=false
+
+  # Detectar flag --interactive / -i
+  for arg in "$@"; do
+    if [[ "$arg" == "-i" || "$arg" == "--interactive" ]]; then
+      interactive=true
+      break
+    fi
+  done
 
   if [[ $# -eq 0 ]]; then
     echo
     box "Core Install"
     echo
-    log_info "Uso: jinx install <target>"
+    log_info "Uso: jinx install <target> [opciones]"
     log_info "Uso: jinx install <target> --tool1 --tool2"
+    echo
+    log_info "Opciones:"
+    list_item "${D_CYAN}-i, --interactive${NC}  - Selección interactiva con checklist"
     echo
     log_info "Objetivos disponibles:"
     echo
@@ -56,8 +68,11 @@ install_main() {
     return 1
   fi
 
+  # Modo interactivo: mostrar checklist de herramientas disponibles
+  if $interactive; then
+    _interactive_install "$module_target"
   # If no tool flags, install entire module (original behavior)
-  if [[ ${#tool_flags[@]} -eq 0 ]]; then
+  elif [[ ${#tool_flags[@]} -eq 0 ]]; then
     _install_full_module "$module_target"
   else
     # Install specific tools
@@ -691,4 +706,78 @@ _install_specific_tools() {
     echo "Ejecuta 'jinx install' to see available targets"
     ;;
   esac
+}
+
+# ── Instalación interactiva con checklist ──────────────────────────
+_interactive_install() {
+  local module="$1"
+  local -a items=()
+
+  case "$module" in
+  ai)
+    import "@/tools/ai/all"
+    for tool in "${AI_TOOLS[@]}"; do items+=("${tool^}:${tool}"); done
+    ;;
+  lang)
+    import "@/tools/lang/all"
+    for tool in "${LANGUAGE_PACKAGES[@]}"; do items+=("${tool^}:${tool}"); done
+    ;;
+  db)
+    items=("PostgreSQL:postgresql" "MariaDB:mariadb" "SQLite:sqlite" "MongoDB:mongodb" "Redis:redis")
+    ;;
+  dev)
+    items=("GitHub CLI:gh" "Wget:wget" "Curl:curl" "LSD:lsd" "Bat:bat" "Proot:proot" "Ncurses:ncurses" "Tmate:tmate" "Tmux:tmux" "OpenSSH:openssh" "Cloudflared:cloudflared" "Translate:translate" "Html2text:html2text" "JQ:jq" "BC:bc" "Tree:tree" "Fzf:fzf" "ImageMagick:imagemagick" "Shfmt:shfmt" "Make:make" "UDocker:udocker")
+    ;;
+  shell)
+    import "@/tools/shell/all"
+    for plugin in "${SHELL_PLUGINS[@]}"; do items+=("${plugin^}:${plugin}"); done
+    ;;
+  npm)
+    items=("TypeScript:typescript" "NestJS:nestjs" "Prettier:prettier" "Live Server:live-server" "Localtunnel:localtunnel" "Vercel:vercel" "Markserv:markserv" "PSQL Format:psqlformat" "NCU:ncu" "Ngrok:ngrok" "Turbopack:turbopack")
+    ;;
+  editor)
+    items=("Neovim:neovim" "NvChad:nvchad")
+    ;;
+  ui)
+    items=("Font:font" "Cursor:cursor" "Extra Keys:extra-keys" "Banner:banner")
+    ;;
+  auto)
+    items=("n8n:n8n")
+    ;;
+  *)
+    log_warn "Módulo '$module' no soporta instalación interactiva"
+    _install_full_module "$module"
+    return
+    ;;
+  esac
+
+  # Preparar arrays
+  local -a display_opts=() flag_map=()
+  for item in "${items[@]}"; do
+    display_opts+=("${item%%:*}")
+    flag_map+=("${item##*:}")
+  done
+
+  echo
+  read_checklist "Selecciona herramientas a instalar en $module:" raw_selected "${display_opts[@]}"
+
+  if [[ -z "$raw_selected" ]]; then
+    log_info "No se seleccionó ninguna herramienta"
+    return
+  fi
+
+  # Convertir selección a flags
+  local -a selected_flags=()
+  local IFS=' '; for sel in $raw_selected; do
+    for i in "${!display_opts[@]}"; do
+      if [[ "${display_opts[$i]}" == "$sel" ]]; then
+        selected_flags+=("${flag_map[$i]}")
+        break
+      fi
+    done
+  done
+
+  echo
+  log_info "Instalando herramientas seleccionadas..."
+  _install_specific_tools "$module" "${selected_flags[@]}"
 }
