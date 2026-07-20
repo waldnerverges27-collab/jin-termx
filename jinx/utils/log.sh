@@ -495,7 +495,7 @@ read_checklist() {
 		'') break ;;
 		esac
 
-		echo -en "\r\033[${lines}A\033[J" >&2
+		echo -en "\033[2J\033[H" >&2
 		_render_checklist
 	done
 
