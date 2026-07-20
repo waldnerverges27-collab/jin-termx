@@ -198,14 +198,11 @@ _install_shell_plugins_wrapper() {
 	import "@/tools/shell/all"
 	install_all_shell_plugins
 
-	# Starship (reemplaza powerlevel10k como prompt principal)
 	if command -v starship &>/dev/null; then
 		log_info "Starship listo como prompt"
 	fi
 
 	# Powerlevel10k como alternativa (solo si se instaló explícitamente)
-	if [[ -d "$ZSH_PLUGINS_DIR/powerlevel10k" ]]; then
-		add_to_zshrc 'source ~/.zsh-plugins/powerlevel10k/powerlevel10k.zsh-theme'
 	fi
 	if [[ -d "$ZSH_PLUGINS_DIR/zsh-defer" ]]; then
 		add_to_zshrc 'source ~/.zsh-plugins/zsh-defer/zsh-defer.plugin.zsh'

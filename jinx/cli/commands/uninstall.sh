@@ -528,8 +528,6 @@ _uninstall_specific_tools() {
         uninstall_starship
         case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
         ;;
-      powerlevel10k)
-        uninstall_powerlevel10k
         case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
         ;;
       zsh-defer)

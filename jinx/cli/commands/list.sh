@@ -249,7 +249,6 @@ _list_shell() {
 
   table_start "Plugin" "Install Flag" "Status"
   table_row "Starship" "--starship" "$(_check_cmd "starship")"
-  table_row "powerlevel10k" "--powerlevel10k" "$(_check_plugin "powerlevel10k")"
   table_row "zsh-defer" "--zsh-defer" "$(_check_plugin "zsh-defer")"
   table_row "zsh-autosuggestions" "--zsh-autosuggestions" "$(_check_plugin "zsh-autosuggestions")"
   table_row "zsh-syntax-highlighting" "--zsh-syntax-highlighting" "$(_check_plugin "zsh-syntax-highlighting")"
@@ -262,7 +261,6 @@ _list_shell() {
   table_end
 
   echo
-  log_info "Install specific: ${D_CYAN}jinx install shell --powerlevel10k --fzf-tab${NC}"
   log_info "Install all: ${D_CYAN}jinx install shell${NC}"
   echo
 }

@@ -7,7 +7,6 @@ ZSH_PLUGINS_DIR="$HOME/.zsh-plugins"
 
 SHELL_PLUGINS=(
 	"starship"
-	"powerlevel10k"
 	"zsh-defer"
 	"zsh-autosuggestions"
 	"zsh-syntax-highlighting"
@@ -20,7 +19,6 @@ SHELL_PLUGINS=(
 )
 
 source "$(dirname "$BASH_SOURCE")/starship/install.sh"
-source "$(dirname "$BASH_SOURCE")/powerlevel10k/install.sh"
 source "$(dirname "$BASH_SOURCE")/zsh-defer/install.sh"
 source "$(dirname "$BASH_SOURCE")/zsh-autosuggestions/install.sh"
 source "$(dirname "$BASH_SOURCE")/zsh-syntax-highlighting/install.sh"
