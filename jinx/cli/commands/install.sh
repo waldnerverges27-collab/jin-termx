@@ -4,12 +4,12 @@ import "@/utils/log"
 import "@/utils/colors"
 
 install_main() {
-  local interactive=false
+  local all_mode=false
 
-  # Detectar flag --interactive / -i
+  # Detectar flag --all / -a
   for arg in "$@"; do
-    if [[ "$arg" == "-i" || "$arg" == "--interactive" ]]; then
-      interactive=true
+    if [[ "$arg" == "-a" || "$arg" == "--all" ]]; then
+      all_mode=true
       break
     fi
   done
@@ -22,9 +22,10 @@ install_main() {
     log_info "Uso: jinx install <target> --tool1 --tool2"
     echo
     log_info "Opciones:"
-    list_item "${D_CYAN}-i, --interactive${NC}  - Selección interactiva con checklist"
+    list_item "${D_CYAN}--all, -a${NC}  - Instalar todo sin interactivo"
+    list_item "${D_CYAN}--tool1${NC}    - Instalar herramientas específicas"
     echo
-    log_info "Objetivos disponibles:"
+    log_info "Por defecto: muestra checklist interactivo"
     echo
     list_item "lang       - Language packages (Node.js, Python, Perl, PHP, Rust, C, C++, Go)"
     list_item "db         - Bases de datos (PostgreSQL, MariaDB, SQLite, MongoDB)"
@@ -52,7 +53,9 @@ install_main() {
   local -a tool_flags=()
 
   for arg in "$@"; do
-    if [[ "$arg" == --* ]]; then
+    if [[ "$arg" == "--all" || "$arg" == "-a" ]]; then
+      continue
+    elif [[ "$arg" == --* ]]; then
       # Remove -- prefix and convert to lowercase
       local flag="${arg#--}"
       tool_flags+=("$flag")
@@ -68,15 +71,14 @@ install_main() {
     return 1
   fi
 
-  # Modo interactivo: mostrar checklist de herramientas disponibles
-  if $interactive; then
-    _interactive_install "$module_target"
-  # If no tool flags, install entire module (original behavior)
-  elif [[ ${#tool_flags[@]} -eq 0 ]]; then
+  # Modo interactivo por defecto (si no hay flags específicos ni --all)
+  if $all_mode; then
     _install_full_module "$module_target"
-  else
+  elif [[ ${#tool_flags[@]} -gt 0 ]]; then
     # Install specific tools
     _install_specific_tools "$module_target" "${tool_flags[@]}"
+  else
+    _interactive_install "$module_target"
   fi
 }
 
