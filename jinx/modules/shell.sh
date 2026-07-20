@@ -200,24 +200,24 @@ _install_shell_plugins_wrapper() {
 
 	# Asegurar que Oh My Zsh se cargue al inicio de .zshrc
 	if [[ -d "$OH_MY_ZSH_DIR" ]] && ! grep -q "^source.*oh-my-zsh.sh" ~/.zshrc 2>/dev/null; then
-		echo 'export ZSH="$HOME/.oh-my-zsh"' > /tmp/.zshrc_temp
-		echo 'source $ZSH/oh-my-zsh.sh' >> /tmp/.zshrc_temp
-		echo '' >> /tmp/.zshrc_temp
-		cat ~/.zshrc >> /tmp/.zshrc_temp
-		mv /tmp/.zshrc_temp ~/.zshrc
+		_TMPFILE="${PREFIX:-/data/data/com.termux/files/usr}/tmp/.jinx_zshrc_$$"
+		echo 'export ZSH="$HOME/.oh-my-zsh"' > "$_TMPFILE"
+		echo 'source $ZSH/oh-my-zsh.sh' >> "$_TMPFILE"
+		echo '' >> "$_TMPFILE"
+		cat ~/.zshrc >> "$_TMPFILE"
+		mv "$_TMPFILE" ~/.zshrc
 		log_info "Oh My Zsh agregado a .zshrc"
 	fi
 
 	# compinit SIEMPRE al inicio (antes de plugins que usan compdef)
-	# Llamar compinit múltiples veces es inocuo, así que lo insertamos siempre al principio
 	if ! head -5 ~/.zshrc | grep -q "compinit" 2>/dev/null; then
 		if grep -q "^source.*oh-my-zsh.sh" ~/.zshrc 2>/dev/null; then
-			# Insertar compinit justo después de Oh My Zsh
 			sed -i '/^source.*oh-my-zsh\.sh/a\\nautoload -Uz compinit \&\& compinit' ~/.zshrc 2>/dev/null
 		else
-			echo 'autoload -Uz compinit && compinit' > /tmp/.zshrc_temp
-			cat ~/.zshrc >> /tmp/.zshrc_temp
-			mv /tmp/.zshrc_temp ~/.zshrc
+			_TMPFILE="${PREFIX:-/data/data/com.termux/files/usr}/tmp/.jinx_zshrc_$$"
+			echo 'autoload -Uz compinit && compinit' > "$_TMPFILE"
+			cat ~/.zshrc >> "$_TMPFILE"
+			mv "$_TMPFILE" ~/.zshrc
 		fi
 		log_info "compinit agregado al inicio de .zshrc"
 	fi
