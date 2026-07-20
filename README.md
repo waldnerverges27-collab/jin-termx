@@ -106,6 +106,7 @@ jinx install ai --opencode --ollama  # Install only OpenCode and Ollama
 | **Freebuff** | `--freebuff` | A 100% free coding agent, right from your terminal |
 | **Context7** | `--ctx7` | Live documentation provider for AI coding agents |
 | **OpenSpec** | `--openspec` | Spec-Driven Development framework for AI coding agents |
+| **9Router** | `--9router` | FREE AI Router & Token Saver — 40+ providers, 100+ models, auto-fallback |
 
 ---
 
