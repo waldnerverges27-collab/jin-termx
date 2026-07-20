@@ -16,7 +16,7 @@ install_kotlin() {
 
 	if ! command -v java &>/dev/null; then
 		log_info "Java es necesario para Kotlin. Instalando OpenJDK..."
-		if ! yes | pkg install openjdk-17 &>>"$LOG_FILE"; then
+		if ! yes | pkg install openjdk-11 &>>"$LOG_FILE"; then
 			log_error "Error al instalar Java (requerido para Kotlin)"
 			return 1
 		fi

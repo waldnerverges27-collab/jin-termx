@@ -14,7 +14,7 @@ install_java() {
 	log_info "Instalando Java (OpenJDK)..."
 	mkdir -p "$(dirname "$LOG_FILE")"
 
-	if ! yes | pkg install openjdk-17 &>>"$LOG_FILE"; then
+	if ! yes | pkg install openjdk-11 &>>"$LOG_FILE"; then
 		log_error "Error al instalar Java"
 		return 1
 	fi
@@ -29,17 +29,17 @@ uninstall_java() {
 		return 2
 	fi
 	log_info "Desinstalando Java..."
-	pkg uninstall openjdk-17 -y &>>"$LOG_FILE"
+	pkg uninstall openjdk-11 -y &>>"$LOG_FILE"
 	log_success "Java desinstalado"
 	return 0
 }
 
 update_java() {
-	_check_update_needed "Java" "$(_get_installed_pkg_version openjdk-17 "Java")" "$(_get_remote_pkg_version openjdk-17)" _do_update_java
+	_check_update_needed "Java" "$(_get_installed_pkg_version openjdk-11 "Java")" "$(_get_remote_pkg_version openjdk-11)" _do_update_java
 }
 
 _do_update_java() {
-	loading "Actualizando Java" bash -c "yes | pkg upgrade openjdk-17 -y &>>$LOG_FILE"
+	loading "Actualizando Java" bash -c "yes | pkg upgrade openjdk-11 -y &>>$LOG_FILE"
 }
 
 reinstall_java() {
