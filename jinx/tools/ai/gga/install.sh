@@ -42,7 +42,7 @@ _gga_clone_or_update_repo_impl() {
 
 	if [ -d "$GGA_DATA_DIR/.git" ]; then
 		if ! git -C "$GGA_DATA_DIR" pull --ff-only &>>"$LOG_FILE"; then
-			log_error "Failed to update GGA repo"
+			log_error "Failed para actualizar GGA repo"
 			return 1
 		fi
 	else
@@ -125,7 +125,7 @@ uninstall_gga() {
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	if [ -d "$GGA_DATA_DIR" ] && [ -f "$GGA_DATA_DIR/uninstall.sh" ]; then
-		log_info "Running GGA uninstaller..."
+		log_info "Ejecutaning GGA uninstaller..."
 		# Apply patches first so uninstall.sh knows about Termux paths
 		_gga_apply_termux_patches_impl &>/dev/null || true
 		if ! (cd "$GGA_DATA_DIR" && printf "n\n" | bash ./uninstall.sh) &>>"$LOG_FILE"; then

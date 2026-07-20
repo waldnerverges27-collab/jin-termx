@@ -93,7 +93,7 @@ _update_minimax_cli() {
 
 _update_minimax_cli_impl() {
   if ! npm update -g mmx-cli &>>"$LOG_FILE"; then
-    log_error "Failed to update MiniMax CLI"
+    log_error "Failed para actualizar MiniMax CLI"
     return 1
   fi
   return 0

@@ -9,26 +9,26 @@ reinstall_main() {
     echo
     box "Core Reinstall"
     echo
-    log_info "Usage: jinx reinstall <target>"
-    log_info "Usage: jinx reinstall <target> --tool1 --tool2"
+    log_info "Uso: jinx reinstall <target>"
+    log_info "Uso: jinx reinstall <target> --tool1 --tool2"
     echo
-    log_info "Available targets:"
+    log_info "Objetivos disponibles:"
     echo
     list_item "lang       - Reinstall language packages"
     list_item "db         - Reinstall databases"
-    list_item "ai         - Reinstall AI tools"
+    list_item "ai         - Reinstall Herramientas AI"
     list_item "editor     - Reinstall code editor"
     list_item "dev        - Reinstall development tools"
     list_item "npm        - Reinstall Node.js global modules"
     list_item "shell      - Reinstall ZSH + Oh My Zsh"
-    list_item "ui         - Reinstall Termux UI"
+    list_item "ui         - Reinstall Interfaz Termux"
     list_item "auto       - Reinstall automation tools"
     echo
-    log_info "Reinstall specific tools with flags:"
+    log_info "Reinstala herramientas específicas:"
     echo
     list_item "jinx reinstall ai --qwen-code --ollama"
     list_item "jinx reinstall db --postgresql --sqlite"
-    list_item "Run ${D_CYAN}jinx list <target>${NC} to see all available tools"
+    list_item "Ejecuta ${D_CYAN}jinx list <target>${NC} to see all available tools"
     echo
     log_warn "This will uninstall and then install the selected components!"
     echo
@@ -48,8 +48,8 @@ reinstall_main() {
   done
 
   if [[ -z "$module_target" ]]; then
-    log_error "No target specified"
-    echo "Run 'jinx reinstall' to see available targets"
+    log_error "No se especificó objetivo"
+    echo "Ejecuta 'jinx reinstall' to see available targets"
     return 1
   fi
 
@@ -101,8 +101,8 @@ _reinstall_full_module() {
     reinstall_auto
     ;;
   *)
-    log_warn "Unknown reinstall target: $target"
-    echo "Run 'jinx reinstall' to see available targets"
+    log_warn "Objetivo de reinstalación desconocido: $target"
+    echo "Ejecuta 'jinx reinstall' to see available targets"
     ;;
   esac
 }
@@ -373,7 +373,7 @@ _reinstall_specific_tools() {
         case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
         ;;
       *)
-        log_warn "Unknown tool: --$tool"
+        log_warn "Herramienta desconocida: --$tool"
         ;;
       esac
     done
@@ -664,8 +664,8 @@ _reinstall_specific_tools() {
     echo
     ;;
   *)
-    log_warn "Unknown reinstall target: $module"
-    echo "Run 'jinx reinstall' to see available targets"
+    log_warn "Objetivo de reinstalación desconocido: $module"
+    echo "Ejecuta 'jinx reinstall' to see available targets"
     ;;
   esac
 }

@@ -9,7 +9,7 @@ LOG_FILE="$JINX_CACHE/install_ui.log"
 
 setup_ui() {
 	separator
-	box "Configuring Termux UI"
+	box "Configuring Interfaz Termux"
 	separator
 	echo
 
@@ -22,7 +22,7 @@ setup_ui() {
 
 	_setup_ui_wrapper
 	separator
-	log_success "Termux UI configuration completed"
+	log_success "Interfaz Termux configuration completed"
 	separator
 	echo
 	list_item "Cursor: Green (#00FF00)"
@@ -41,11 +41,11 @@ _setup_ui_wrapper() {
 
 uninstall_ui() {
 	if [[ ! -d "$TERMUX_DIR" ]]; then
-		log_info "Termux UI Configuration is not installed"
+		log_info "Interfaz Termux Configuration is not installed"
 		return 0
 	fi
 	separator
-	box "Uninstalling Termux UI Configuration"
+	box "Uninstalling Interfaz Termux Configuration"
 	separator
 	echo
 
@@ -54,7 +54,7 @@ uninstall_ui() {
 	_uninstall_ui_wrapper
 	echo
 	separator
-	log_success "Termux UI configuration uninstalled"
+	log_success "Interfaz Termux configuration uninstalled"
 	separator
 	echo
 	log_warn "Please restart Termux to apply changes"
@@ -68,7 +68,7 @@ _uninstall_ui_wrapper() {
 
 update_ui() {
 	separator
-	box "Updating Termux UI Configuration"
+	box "Updating Interfaz Termux Configuration"
 	separator
 	echo
 
@@ -77,7 +77,7 @@ update_ui() {
 	_update_ui_wrapper
 	echo
 	separator
-	log_success "Termux UI configuration updated"
+	log_success "Interfaz Termux configuration updated"
 	separator
 	echo
 }
@@ -89,7 +89,7 @@ _update_ui_wrapper() {
 
 reinstall_ui() {
   separator
-  box "Reinstalling Termux UI Configuration"
+  box "Reinstalling Interfaz Termux Configuration"
   separator
   echo
 
@@ -97,7 +97,7 @@ reinstall_ui() {
 
   _reinstall_ui_wrapper
   separator
-  log_success "Termux UI configuration reinstalled"
+  log_success "Interfaz Termux configuration reinstalled"
   separator
   echo
   list_item "Cursor: Green (#00FF00)"

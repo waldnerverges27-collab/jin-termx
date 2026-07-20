@@ -9,27 +9,27 @@ update_main() {
     echo
     box "Jin Update"
     echo
-    log_info "Usage: jinx update <target>"
-    log_info "Usage: jinx update <target> --tool1 --tool2"
+    log_info "Uso: jinx update <target>"
+    log_info "Uso: jinx update <target> --tool1 --tool2"
     echo
-    log_info "Available targets:"
+    log_info "Objetivos disponibles:"
     echo
-    list_item "jinx       - Update only Jin-TermX framework"
-    list_item "lang       - Update language packages (pkg upgrade)"
-    list_item "db         - Update databases"
-    list_item "ai         - Update AI tools (npm/pip/pkg)"
+    list_item "jinx       - Actualiza solo el framework Jin-TermX"
+    list_item "lang       - Actualiza paquetes de lenguaje (pkg upgrade)"
+    list_item "db         - Actualiza bases de datos"
+    list_item "ai         - Actualiza herramientas AI (npm/pip/pkg)"
     list_item "editor     - Update Neovim configuration"
-    list_item "dev        - Update development tools"
-    list_item "npm        - Update Node.js global modules"
-    list_item "shell      - Update ZSH plugins"
-    list_item "ui         - Update Termux UI"
+    list_item "dev        - Actualiza herramientas de desarrollo"
+    list_item "npm        - Actualiza módulos globales Node.js"
+    list_item "shell      - Actualiza plugins ZSH"
+    list_item "ui         - Update Interfaz Termux"
     list_item "auto       - Update Automation Tools"
     echo
-    log_info "Update specific tools with flags:"
+    log_info "Actualiza herramientas específicas:"
     echo
     list_item "jinx update ai --qwen-code --ollama"
     list_item "jinx update db --postgresql --sqlite"
-    list_item "Run ${D_CYAN}jinx list <target>${NC} to see all available tools"
+    list_item "Ejecuta ${D_CYAN}jinx list <target>${NC} to see all available tools"
     echo
     return
   fi
@@ -49,8 +49,8 @@ update_main() {
 
   # If no module target specified, show error
   if [[ -z "$module_target" ]]; then
-    log_error "No target specified"
-    echo "Run 'jinx update' to see available targets"
+    log_error "No se especificó objetivo"
+    echo "Ejecuta 'jinx update' to see available targets"
     return 1
   fi
 
@@ -108,8 +108,8 @@ _update_full_module() {
     update_auto
     ;;
   *)
-    log_warn "Unknown update target: $target"
-    echo "Run 'jinx update' to see available targets"
+    log_warn "Objetivo de actualización desconocido: $target"
+    echo "Ejecuta 'jinx update' to see available targets"
     ;;
   esac
 }
@@ -243,7 +243,7 @@ _update_specific_tools() {
       log_success "$updated_count AI tool(s) updated"
     fi
     if [[ $failed_count -gt 0 ]]; then
-      log_warn "$failed_count tool(s) failed to update"
+      log_warn "$failed_count tool(s) failed para actualizar"
     fi
     echo
     ;;
@@ -285,7 +285,7 @@ _update_specific_tools() {
       log_success "$updated_count database(s) updated"
     fi
     if [[ $failed_count -gt 0 ]]; then
-      log_warn "$failed_count database(s) failed to update"
+      log_warn "$failed_count database(s) failed para actualizar"
     fi
     echo
     ;;
@@ -381,7 +381,7 @@ _update_specific_tools() {
         case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
         ;;
       *)
-        log_warn "Unknown tool: --$tool"
+        log_warn "Herramienta desconocida: --$tool"
         ;;
       esac
     done
@@ -391,7 +391,7 @@ _update_specific_tools() {
       log_success "$updated_count tool(s) updated"
     fi
     if [[ $failed_count -gt 0 ]]; then
-      log_warn "$failed_count tool(s) failed to update"
+      log_warn "$failed_count tool(s) failed para actualizar"
     fi
     echo
     ;;
@@ -457,7 +457,7 @@ _update_specific_tools() {
       log_success "$updated_count Node.js module(s) updated"
     fi
     if [[ $failed_count -gt 0 ]]; then
-      log_warn "$failed_count module(s) failed to update"
+      log_warn "$failed_count module(s) failed para actualizar"
     fi
     echo
     ;;
@@ -511,7 +511,7 @@ _update_specific_tools() {
       log_success "$updated_count language(s) updated"
     fi
     if [[ $failed_count -gt 0 ]]; then
-      log_warn "$failed_count language(s) failed to update"
+      log_warn "$failed_count language(s) failed para actualizar"
     fi
     echo
     ;;
@@ -573,7 +573,7 @@ _update_specific_tools() {
       log_success "$updated_count plugin(s) updated"
     fi
     if [[ $failed_count -gt 0 ]]; then
-      log_warn "$failed_count plugin(s) failed to update"
+      log_warn "$failed_count plugin(s) failed para actualizar"
     fi
     echo
     ;;
@@ -603,7 +603,7 @@ _update_specific_tools() {
       log_success "$updated_count editor component(s) updated"
     fi
     if [[ $failed_count -gt 0 ]]; then
-      log_warn "$failed_count component(s) failed to update"
+      log_warn "$failed_count component(s) failed para actualizar"
     fi
     echo
     ;;
@@ -641,7 +641,7 @@ _update_specific_tools() {
       log_success "$updated_count UI component(s) updated"
     fi
     if [[ $failed_count -gt 0 ]]; then
-      log_warn "$failed_count component(s) failed to update"
+      log_warn "$failed_count component(s) failed para actualizar"
     fi
     echo
     ;;
@@ -667,13 +667,13 @@ _update_specific_tools() {
       log_success "$updated_count automation tool(s) updated"
     fi
     if [[ $failed_count -gt 0 ]]; then
-      log_warn "$failed_count tool(s) failed to update"
+      log_warn "$failed_count tool(s) failed para actualizar"
     fi
     echo
     ;;
   *)
-    log_warn "Unknown update target: $module"
-    echo "Run 'jinx update' to see available targets"
+    log_warn "Objetivo de actualización desconocido: $module"
+    echo "Ejecuta 'jinx update' to see available targets"
     ;;
   esac
 }
@@ -695,7 +695,7 @@ update_jinx() {
     elif [[ $rc -eq 2 ]]; then
       log_success "Jin-TermX is already up to date"
     else
-      log_error "Failed to update Jin-TermX"
+      log_error "Failed para actualizar Jin-TermX"
       log_info "Check your internet connection or run git pull manually"
     fi
 

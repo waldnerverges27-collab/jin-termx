@@ -117,7 +117,7 @@ _compile_claude_helper() {
 _compile_claude_helper_impl() {
   local HELPER_SRC="$JINX_PATH/tools/ai/claude-code/helper/claude_helper.c"
   if [ ! -f "$HELPER_SRC" ]; then
-    log_error "Helper source not found at $HELPER_SRC"
+    log_error "Ayudaer source not found at $HELPER_SRC"
     return 1
   fi
 

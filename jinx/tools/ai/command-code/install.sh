@@ -129,7 +129,7 @@ _update_command_code_impl() {
   if (cd "$COMMAND_CODE_DATA_DIR" && npm install command-code@latest &>>"$LOG_FILE"); then
     return 0
   else
-    log_error "Failed to update Command Code"
+    log_error "Failed para actualizar Command Code"
     return 1
   fi
 }

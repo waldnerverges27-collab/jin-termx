@@ -8,11 +8,11 @@ show_main() {
 		echo
 		box "Core Show"
 		echo
-		log_info "Usage: jinx show <module> --<tool>"
+		log_info "Uso: jinx show <module> --<tool>"
 		echo
 		log_info "Display help information for a specific tool."
 		echo
-		log_info "Available targets:"
+		log_info "Objetivos disponibles:"
 		echo
 		list_item "jinx show ai --opencode"
 		list_item "jinx show ai --ollama"
@@ -21,7 +21,7 @@ show_main() {
 		list_item "jinx show npm --typescript"
 		list_item "jinx show all --<tool>"
 		echo
-		log_info "Run ${D_CYAN}jinx list <module>${NC} to see available tools"
+		log_info "Ejecuta ${D_CYAN}jinx list <module>${NC} to see available tools"
 		echo
 		return
 	fi
@@ -38,7 +38,7 @@ show_main() {
 	done
 
 	if [[ -z "$module" ]]; then
-		log_error "Usage: jinx show <module> --<tool>"
+		log_error "Uso: jinx show <module> --<tool>"
 		return 1
 	fi
 
@@ -60,7 +60,7 @@ show_main() {
 			fi
 		done
 		echo
-		log_info "Run ${D_CYAN}jinx show $module --<tool>${NC} for details"
+		log_info "Ejecuta ${D_CYAN}jinx show $module --<tool>${NC} for details"
 		echo
 		return
 	fi

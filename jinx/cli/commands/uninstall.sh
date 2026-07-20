@@ -9,26 +9,26 @@ uninstall_main() {
     echo
     box "Core Uninstall"
     echo
-    log_info "Usage: jinx uninstall <target>"
-    log_info "Usage: jinx uninstall <target> --tool1 --tool2"
+    log_info "Uso: jinx uninstall <target>"
+    log_info "Uso: jinx uninstall <target> --tool1 --tool2"
     echo
-    log_info "Available targets:"
+    log_info "Objetivos disponibles:"
     echo
-    list_item "lang       - Remove language packages"
-    list_item "db         - Remove databases"
-    list_item "ai         - Remove AI tools"
-    list_item "editor     - Remove code editor"
-    list_item "dev        - Remove development tools"
-    list_item "npm        - Remove Node.js global modules"
+    list_item "lang       - Elimina paquetes de lenguaje"
+    list_item "db         - Elimina bases de datos"
+    list_item "ai         - Elimina herramientas AI"
+    list_item "editor     - Elimina editor de código"
+    list_item "dev        - Elimina herramientas de desarrollo"
+    list_item "npm        - Elimina módulos globales Node.js"
     list_item "shell      - Remove ZSH + Oh My Zsh"
-    list_item "ui         - Restore Termux UI to default"
+    list_item "ui         - Restore Interfaz Termux to default"
     list_item "auto       - Remove automation tools"
     echo
-    log_info "Uninstall specific tools with flags:"
+    log_info "Desinstala herramientas específicas con banderas:"
     echo
     list_item "jinx uninstall ai --qwen-code --ollama"
     list_item "jinx uninstall db --postgresql --sqlite"
-    list_item "Run ${D_CYAN}jinx list <target>${NC} to see all available tools"
+    list_item "Ejecuta ${D_CYAN}jinx list <target>${NC} to see all available tools"
     echo
     log_warn "Warning: This will remove installed packages and configurations!"
     echo
@@ -50,8 +50,8 @@ uninstall_main() {
 
   # If no module target specified, show error
   if [[ -z "$module_target" ]]; then
-    log_error "No target specified"
-    echo "Run 'jinx uninstall' to see available targets"
+    log_error "No se especificó objetivo"
+    echo "Ejecuta 'jinx uninstall' to see available targets"
     return 1
   fi
 
@@ -106,8 +106,8 @@ _uninstall_full_module() {
     uninstall_auto
     ;;
   *)
-    log_warn "Unknown uninstall target: $target"
-    echo "Run 'jinx uninstall' to see available targets"
+    log_warn "Objetivo de desinstalación desconocido: $target"
+    echo "Ejecuta 'jinx uninstall' to see available targets"
     ;;
   esac
 }
@@ -379,7 +379,7 @@ _uninstall_specific_tools() {
         case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
         ;;
       *)
-        log_warn "Unknown tool: --$tool"
+        log_warn "Herramienta desconocida: --$tool"
         ;;
       esac
     done
@@ -670,8 +670,8 @@ _uninstall_specific_tools() {
     echo
     ;;
   *)
-    log_warn "Unknown uninstall target: $module"
-    echo "Run 'jinx uninstall' to see available targets"
+    log_warn "Objetivo de desinstalación desconocido: $module"
+    echo "Ejecuta 'jinx uninstall' to see available targets"
     ;;
   esac
 }

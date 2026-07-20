@@ -9,8 +9,8 @@ readonly BRAIN_DIR="$JINX_DATA/brain"
 
 _brain_ensure() {
 	if [[ ! -d "$BRAIN_DIR" ]]; then
-		log_error "Brain not initialized"
-		list_item "Run: ${D_CYAN}jinx brain init${D_NC}"
+		log_error "Cerebro not initialized"
+		list_item "Ejecuta: ${D_CYAN}jinx brain init${D_NC}"
 		return 1
 	fi
 }
@@ -179,20 +179,20 @@ _brain_editor() {
 
 brain_help() {
 	echo
-	box "Core Brain — Your Second Brain"
+	box "Core Cerebro — Your Segundo Cerebro"
 	echo
-	log_info "Usage: jinx brain <subcommand> [options]"
+	log_info "Uso: jinx brain <subcommand> [options]"
 	echo
 	separator_section "Subcommands"
 	echo
-	printf "    ${D_CYAN}%-12s${NC} %s\n" "init" "Initialize brain directory and GitHub repo"
-	printf "    ${D_CYAN}%-12s${NC} %s\n" "save" "Save a new memory interactively"
-	printf "    ${D_CYAN}%-12s${NC} %s\n" "search" "Search memories by keywords or tags"
-	printf "    ${D_CYAN}%-12s${NC} %s\n" "ls" "List memories by category"
-	printf "    ${D_CYAN}%-12s${NC} %s\n" "edit" "Edit a memory in your \$EDITOR"
-	printf "    ${D_CYAN}%-12s${NC} %s\n" "delete" "Delete a memory permanently"
+	printf "    ${D_CYAN}%-12s${NC} %s\n" "init" "Inicializa el directorio del cerebro and GitHub repo"
+	printf "    ${D_CYAN}%-12s${NC} %s\n" "save" "Guarda un nuevo recuerdo interactively"
+	printf "    ${D_CYAN}%-12s${NC} %s\n" "search" "Busca recuerdos by keywords or tags"
+	printf "    ${D_CYAN}%-12s${NC} %s\n" "ls" "Lista recuerdos por categoría"
+	printf "    ${D_CYAN}%-12s${NC} %s\n" "edit" "Edita un recuerdo in your \$EDITOR"
+	printf "    ${D_CYAN}%-12s${NC} %s\n" "delete" "Elimina un recuerdo permanently"
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "reset" "Destroy the entire brain"
-	printf "    ${D_CYAN}%-12s${NC} %s\n" "show" "View a memory with its relations"
+	printf "    ${D_CYAN}%-12s${NC} %s\n" "show" "Ver un recuerdo with its relations"
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "graph" "Visual map of all connections"
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "skill" "Create an AI skill from memories"
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "relate" "Link two memories"
@@ -220,12 +220,12 @@ brain_help() {
 
 brain_init() {
 	separator
-	box "Initialize Core Brain"
+	box "Initialize Core Cerebro"
 	separator
 	echo
 
 	if [[ -d "$BRAIN_DIR" ]]; then
-		log_warn "Brain already exists at: ${D_CYAN}$BRAIN_DIR${D_NC}"
+		log_warn "Cerebro already exists at: ${D_CYAN}$BRAIN_DIR${D_NC}"
 		separator
 		return 0
 	fi
@@ -253,7 +253,7 @@ brain_init() {
 		read_confirm "Clone it to restore your memories?" confirm
 		if [[ "$confirm" == "y" ]]; then
 			loading "Cloning repository..." gh repo clone "$gh_user/$repo_name" "$BRAIN_DIR"
-			log_success "Brain restored from GitHub"
+			log_success "Cerebro restored from GitHub"
 			separator
 			return 0
 		fi
@@ -274,7 +274,7 @@ brain_init() {
 	if gh repo create "$repo_name" --private &>/dev/null; then
 		cd "$BRAIN_DIR" || return 1
 		git init &>/dev/null
-		echo "# Core Brain" >README.md
+		echo "# Core Cerebro" >README.md
 		git add -A
 		git commit -m "init brain" &>/dev/null
 		git remote add origin "https://github.com/$gh_user/$repo_name.git"
@@ -754,13 +754,13 @@ brain_sync() {
 	_brain_ensure || return 1
 
 	separator
-	box "Sync Brain"
+	box "Sync Cerebro"
 	separator
 	echo
 
 	if [[ ! -d "$BRAIN_DIR/.git" ]]; then
 		log_warn "Not a git repository"
-		list_item "Run: ${D_CYAN}jinx brain init${D_NC} to set up Git"
+		list_item "Ejecuta: ${D_CYAN}jinx brain init${D_NC} to set up Git"
 		separator
 		return 1
 	fi
@@ -788,7 +788,7 @@ brain_sync() {
 	if ! git rev-parse --abbrev-ref --symbolic-full-name @{upstream} &>/dev/null; then
 		loading "Pushing to origin/$branch..." git push -u origin "$branch"
 		if [[ $? -eq 0 ]]; then
-			log_success "Brain synced with GitHub"
+			log_success "Cerebro synced with GitHub"
 		else
 			log_error "Push failed"
 			list_item "Check your GitHub authentication: ${D_CYAN}gh auth login${D_NC}"
@@ -809,7 +809,7 @@ brain_sync() {
 
 	loading "Pushing to remote..." git push
 	if [[ $? -eq 0 ]]; then
-		log_success "Brain synced with GitHub"
+		log_success "Cerebro synced with GitHub"
 	else
 		log_error "Push failed"
 		list_item "Check your connection and permissions"
@@ -1160,12 +1160,12 @@ brain_delete() {
 
 brain_reset() {
 	separator
-	box "Reset Brain"
+	box "Reset Cerebro"
 	separator
 	echo
 
 	if [[ ! -d "$BRAIN_DIR" ]]; then
-		log_warn "Brain does not exist"
+		log_warn "Cerebro does not exist"
 		separator
 		return 0
 	fi
@@ -1183,7 +1183,7 @@ brain_reset() {
 
 	echo
 	loading "Deleting local brain..." rm -rf "$BRAIN_DIR"
-	log_success "Brain destroyed"
+	log_success "Cerebro destroyed"
 	list_item "Recreate with: ${D_CYAN}jinx brain init${D_NC}"
 	separator
 }
@@ -1197,7 +1197,7 @@ brain_dashboard() {
 	fi
 
 	echo
-	separator_section "Core Brain Dashboard"
+	separator_section "Core Cerebro Dashboard"
 	echo
 
 	local total_files
@@ -1213,7 +1213,7 @@ brain_dashboard() {
 	printf "    ${D_CYAN}%-20s${NC} ${GRAY}=${NC} ${D_DIM}%s${D_NC}\n" "Location" "$BRAIN_DIR"
 	echo
 
-	separator_section "Quick Start"
+	separator_section "Inicio Rápido"
 	echo
 	list_item "Save: ${D_CYAN}jinx brain save${D_NC}"
 	list_item "Show: ${D_CYAN}jinx brain show${D_NC}"

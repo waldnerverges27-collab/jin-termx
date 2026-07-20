@@ -106,7 +106,7 @@ _update_mistral_vibe_impl() {
   export GYP_DEFINES="android_ndk_path=''"
 
   if ! pip install --upgrade mistral-vibe &>>"$LOG_FILE"; then
-    log_error "Failed to update Mistral Vibe"
+    log_error "Failed para actualizar Mistral Vibe"
     return 1
   fi
   return 0

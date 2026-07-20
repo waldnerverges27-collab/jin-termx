@@ -11,11 +11,11 @@ PG_USER="postgres"
 # Mostrar ayuda
 pg_help() {
 	echo
-	box "Core PostgreSQL Manager"
+	box "Core Gestor PostgreSQL"
 	echo
-	log_info "Usage: jinx pg <command> [options]"
+	log_info "Uso: jinx pg <command> [options]"
 	echo
-	separator_section "Available Commands"
+	separator_section "Comandos Disponibles"
 	echo
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "start" "Start PostgreSQL server"
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "stop" "Stop PostgreSQL server"
@@ -31,7 +31,7 @@ pg_help() {
 	echo
 	printf "    ${D_CYAN}jinx pg start${NC}              # Start PostgreSQL\n"
 	printf "    ${D_CYAN}jinx pg stop${NC}               # Stop PostgreSQL\n"
-	printf "    ${D_CYAN}jinx pg create mydb${NC}        # Create database 'mydb'\n"
+	printf "    ${D_CYAN}jinx pg create mydb${NC}        # Crea la base de datos 'mydb'\n"
 	printf "    ${D_CYAN}jinx pg shell${NC}              # Open psql shell\n"
 	echo
 }
@@ -40,7 +40,7 @@ pg_help() {
 check_pg_installed() {
 	if ! command -v pg_ctl &>/dev/null; then
 		log_error "PostgreSQL is not installed"
-		log_info "Run: ${D_CYAN}jinx install db${NC}"
+		log_info "Ejecuta: ${D_CYAN}jinx install db${NC}"
 		return 1
 	fi
 	return 0
@@ -86,7 +86,7 @@ pg_init() {
 		log_warn "PostgreSQL is already initialized"
 		echo
 		list_item "Data directory: $PG_DATA"
-		list_item "Run: ${D_CYAN}jinx pg start${NC}"
+		list_item "Ejecuta: ${D_CYAN}jinx pg start${NC}"
 		echo
 		return 0
 	fi
@@ -153,7 +153,7 @@ pg_start() {
 		echo
 	else
 		log_error "Failed to start PostgreSQL"
-		log_warn "PostgreSQL may not be initialized. Run: jinx pg init"
+		log_warn "PostgreSQL may not be initialized. Ejecuta: jinx pg init"
 		return 1
 	fi
 
@@ -275,12 +275,12 @@ pg_status() {
 			log_warn "PostgreSQL is STOPPED"
 			echo
 			list_item "Data directory: $PG_DATA"
-			list_item "Run: ${D_CYAN}jinx pg start${NC}"
+			list_item "Ejecuta: ${D_CYAN}jinx pg start${NC}"
 		fi
 	else
 		log_info "PostgreSQL data directory not found"
 		echo
-		list_item "Run: ${D_CYAN}jinx pg init${NC}"
+		list_item "Ejecuta: ${D_CYAN}jinx pg init${NC}"
 	fi
 
 	echo
@@ -292,7 +292,7 @@ pg_create() {
 
 	if [[ -z "$db_name" ]]; then
 		log_error "Database name required"
-		log_info "Usage: jinx pg create <database_name>"
+		log_info "Uso: jinx pg create <database_name>"
 		return 1
 	fi
 
@@ -318,7 +318,7 @@ pg_drop() {
 
 	if [[ -z "$db_name" ]]; then
 		log_error "Database name required"
-		log_info "Usage: jinx pg drop <database_name>"
+		log_info "Uso: jinx pg drop <database_name>"
 		return 1
 	fi
 
@@ -348,7 +348,7 @@ pg_drop() {
 # Listar bases de datos
 pg_list() {
 	separator
-	box "PostgreSQL Databases"
+	box "PostgreSQL Bases de datos"
 	separator
 	echo
 

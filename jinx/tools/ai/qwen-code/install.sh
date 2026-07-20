@@ -98,7 +98,7 @@ _update_qwen_code_impl() {
   export ANDROID_API_LEVEL=24
 
   if ! npm update -g @qwen-code/qwen-code &>>"$LOG_FILE"; then
-    log_error "Failed to update Qwen Code"
+    log_error "Failed para actualizar Qwen Code"
     return 1
   fi
   return 0

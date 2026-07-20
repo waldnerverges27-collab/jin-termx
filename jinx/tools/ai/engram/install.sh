@@ -120,7 +120,7 @@ _update_engram_impl() {
 
 _update_engram_pull() {
   if ! git -C "$JINX_DATA/engram" pull &>>"$LOG_FILE"; then
-    log_error "Failed to update Engram repository"
+    log_error "Failed para actualizar Engram repository"
     return 1
   fi
   return 0

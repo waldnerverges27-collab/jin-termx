@@ -90,7 +90,7 @@ _update_openspec() {
 
 _update_openspec_impl() {
   if ! npm update -g @fission-ai/openspec &>>"$LOG_FILE"; then
-    log_error "Failed to update OpenSpec"
+    log_error "Failed para actualizar OpenSpec"
     return 1
   fi
   return 0

@@ -26,7 +26,7 @@ install_lang() {
   list_item "Rust"
   list_item "C/C++ (clang)"
   list_item "Go (golang)"
-  list_item "Bun.js (JS Runtime)"
+  list_item "Bun.js (JS Ejecutatime)"
   echo
 }
 
@@ -92,7 +92,7 @@ reinstall_lang() {
   list_item "Rust"
   list_item "C/C++ (clang)"
   list_item "Go (golang)"
-  list_item "Bun.js (JS Runtime)"
+  list_item "Bun.js (JS Ejecutatime)"
   echo
 }
 

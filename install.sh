@@ -200,7 +200,7 @@ clone_repo() {
 
   if [[ $is_dev_install -eq 1 ]]; then
     JINX_DATA="$script_dir"
-    log_info "Developer installation detected"
+    log_info "Instalación de desarrollador detectada"
     log_ok "Using local repository"
   elif [[ -d "$JINX_DATA/.git" ]]; then
     progress_bar 3 10

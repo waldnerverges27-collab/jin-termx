@@ -15,7 +15,7 @@ import() {
 	fi
 
 	if [[ ! -f "$path" ]]; then
-		echo "jinx: import error: $path not found" >&2
+		echo "jinx: error de importación: $path not found" >&2
 		exit 1
 	fi
 

@@ -98,7 +98,7 @@ _update_gemini_cli_impl() {
   export ANDROID_API_LEVEL=24
 
   if ! npm update -g @google/gemini-cli &>>"$LOG_FILE"; then
-    log_error "Failed to update Gemini CLI"
+    log_error "Failed para actualizar Gemini CLI"
     return 1
   fi
   return 0

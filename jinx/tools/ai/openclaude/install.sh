@@ -97,7 +97,7 @@ _update_openclaude_impl() {
   export ANDROID_API_LEVEL=24
 
   if ! npm update -g @gitlawb/openclaude &>>"$LOG_FILE"; then
-    log_error "Failed to update OpenClaude"
+    log_error "Failed para actualizar OpenClaude"
     return 1
   fi
   return 0

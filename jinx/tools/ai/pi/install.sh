@@ -91,7 +91,7 @@ _update_pi() {
 
 _update_pi_impl() {
   if ! npm install -g --ignore-scripts @earendil-works/pi-coding-agent &>>"$LOG_FILE"; then
-    log_error "Failed to update Pi"
+    log_error "Failed para actualizar Pi"
     return 1
   fi
   return 0

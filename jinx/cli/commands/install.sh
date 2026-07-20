@@ -9,28 +9,28 @@ install_main() {
     echo
     box "Core Install"
     echo
-    log_info "Usage: jinx install <target>"
-    log_info "Usage: jinx install <target> --tool1 --tool2"
+    log_info "Uso: jinx install <target>"
+    log_info "Uso: jinx install <target> --tool1 --tool2"
     echo
-    log_info "Available targets:"
+    log_info "Objetivos disponibles:"
     echo
     list_item "lang       - Language packages (Node.js, Python, Perl, PHP, Rust, C, C++, Go)"
-    list_item "db         - Databases (PostgreSQL, MariaDB, SQLite, MongoDB)"
-    list_item "ai         - AI tools (OpenCode, Gentle AI, Claude Code, etc.)"
-    list_item "editor     - Code editor (Neovim + NvChad)"
+    list_item "db         - Bases de datos (PostgreSQL, MariaDB, SQLite, MongoDB)"
+    list_item "ai         - Herramientas AI (OpenCode, Gentle AI, Claude Code, etc.)"
+    list_item "editor     - Editor de código (Neovim + NvChad)"
     list_item "dev        - Development tools"
     list_item "npm        - Node.js global modules (npm packages)"
     list_item "shell      - ZSH + Oh My Zsh + plugins"
-    list_item "ui         - Termux UI (font, cursor, extra-keys, banner)"
-    list_item "auto       - Automation Tools (n8n)"
+    list_item "ui         - Interfaz Termux (font, cursor, extra-keys, banner)"
+    list_item "auto       - Automatización (n8n)"
 
     echo
-    log_info "Install specific tools with flags:"
+    log_info "Instala herramientas específicas con banderas:"
     echo
     list_item "jinx install ai --qwen-code --ollama"
     list_item "jinx install db --postgresql --sqlite"
     list_item "jinx install dev --gh --fzf --jq"
-    list_item "Run ${D_CYAN}jinx list <target>${NC} to see all available tools"
+    list_item "Ejecuta ${D_CYAN}jinx list <target>${NC} to see all available tools"
     echo
     return
   fi
@@ -51,8 +51,8 @@ install_main() {
 
   # If no module target specified, show error
   if [[ -z "$module_target" ]]; then
-    log_error "No target specified"
-    echo "Run 'jinx install' to see available targets"
+    log_error "No se especificó objetivo"
+    echo "Ejecuta 'jinx install' to see available targets"
     return 1
   fi
 
@@ -107,8 +107,8 @@ _install_full_module() {
     install_auto
     ;;
   *)
-    log_warn "Unknown install target: $target"
-    echo "Run 'jinx install' to see available targets"
+    log_warn "Objetivo de instalación desconocido: $target"
+    echo "Ejecuta 'jinx install' to see available targets"
     ;;
   esac
 }
@@ -239,10 +239,10 @@ _install_specific_tools() {
 
     echo
     if [[ $installed_count -gt 0 ]]; then
-      log_success "$installed_count AI tool(s) installed"
+      log_success "$installed_count AI herramienta(s) instalada(s)"
     fi
     if [[ $failed_count -gt 0 ]]; then
-      log_warn "$failed_count tool(s) failed to install"
+      log_warn "$failed_count herramienta(s) fallaron"
     fi
     echo
     ;;
@@ -380,17 +380,17 @@ _install_specific_tools() {
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
         ;;
       *)
-        log_warn "Unknown tool: --$tool"
+        log_warn "Herramienta desconocida: --$tool"
         ;;
       esac
     done
 
     echo
     if [[ $installed_count -gt 0 ]]; then
-      log_success "$installed_count tool(s) installed"
+      log_success "$installed_count herramienta(s) instalada(s)"
     fi
     if [[ $failed_count -gt 0 ]]; then
-      log_warn "$failed_count tool(s) failed to install"
+      log_warn "$failed_count herramienta(s) fallaron"
     fi
     echo
     ;;
@@ -663,16 +663,16 @@ _install_specific_tools() {
 
     echo
     if [[ $installed_count -gt 0 ]]; then
-      log_success "$installed_count automation tool(s) installed"
+      log_success "$installed_count automation herramienta(s) instalada(s)"
     fi
     if [[ $failed_count -gt 0 ]]; then
-      log_warn "$failed_count tool(s) failed to install"
+      log_warn "$failed_count herramienta(s) fallaron"
     fi
     echo
     ;;
   *)
-    log_warn "Unknown install target: $module"
-    echo "Run 'jinx install' to see available targets"
+    log_warn "Objetivo de instalación desconocido: $module"
+    echo "Ejecuta 'jinx install' to see available targets"
     ;;
   esac
 }

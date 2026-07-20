@@ -65,7 +65,7 @@ _update_ollama() {
 
 _update_ollama_impl() {
   if ! pkg upgrade ollama -y &>>"$LOG_FILE"; then
-    log_error "Failed to update Ollama"
+    log_error "Failed para actualizar Ollama"
     return 1
   fi
   return 0

@@ -138,7 +138,7 @@ _compile_qoder_helper() {
 _compile_qoder_helper_impl() {
   local HELPER_SRC="$JINX_PATH/tools/ai/qoder/helper/qoder_helper.c"
   if [ ! -f "$HELPER_SRC" ]; then
-    log_error "Helper source not found at $HELPER_SRC"
+    log_error "Ayudaer source not found at $HELPER_SRC"
     return 1
   fi
 

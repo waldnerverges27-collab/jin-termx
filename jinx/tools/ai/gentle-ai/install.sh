@@ -59,7 +59,7 @@ _gentle_ai_ensure_go_impl() {
   fi
 
   if ! _version_ge "$go_installed" "$go_required"; then
-    log_error "Go $go_required+ required (detected $go_installed). Run: pkg upgrade golang"
+    log_error "Go $go_required+ required (detected $go_installed). Ejecuta: pkg upgrade golang"
     return 1
   fi
 

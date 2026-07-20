@@ -90,7 +90,7 @@ _update_ctx7() {
 
 _update_ctx7_impl() {
   if ! npm update -g ctx7 &>>"$LOG_FILE"; then
-    log_error "Failed to update Context7"
+    log_error "Failed para actualizar Context7"
     return 1
   fi
   return 0

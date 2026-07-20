@@ -7,18 +7,18 @@ LOG_FILE="$JINX_CACHE/init_project.log"
 
 init_help() {
 	echo
-	box "Jin Project Initializer"
+	box "Inicializador de Proyectos Jin"
 	echo
-	log_info "Usage: jinx init <template>"
+	log_info "Uso: jinx init <template>"
 	echo
-	log_info "Run this inside an existing project to configure it."
+	log_info "Ejecuta this inside an existing project to configure it."
 	echo
-	separator_section "Available Templates"
+	separator_section "Plantillas Disponibles"
 	echo
-	printf "    ${D_CYAN}%-12s${NC} %s\n" "next" "Configure Next.js project"
-	printf "    ${D_CYAN}%-12s${NC} %s\n" "react" "Configure React + Vite project"
-	printf "    ${D_CYAN}%-12s${NC} %s\n" "nest" "Configure NestJS project"
-	printf "    ${D_CYAN}%-12s${NC} %s\n" "express" "Configure Express.js API"
+	printf "    ${D_CYAN}%-12s${NC} %s\n" "next" "Configura proyecto Next.js"
+	printf "    ${D_CYAN}%-12s${NC} %s\n" "react" "Configura proyecto React + Vite"
+	printf "    ${D_CYAN}%-12s${NC} %s\n" "nest" "Configura proyecto NestJS"
+	printf "    ${D_CYAN}%-12s${NC} %s\n" "express" "Configura API Express.js"
 	echo
 	separator_section "Examples"
 	echo

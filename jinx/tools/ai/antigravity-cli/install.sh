@@ -187,7 +187,7 @@ _antigravity_compile_helper() {
 _antigravity_compile_helper_impl() {
   local HELPER_SRC="$JINX_PATH/tools/ai/antigravity-cli/helper/agy_helper.c"
   if [ ! -f "$HELPER_SRC" ]; then
-    log_error "Helper source not found at $HELPER_SRC"
+    log_error "Ayudaer source not found at $HELPER_SRC"
     return 1
   fi
 

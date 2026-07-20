@@ -129,7 +129,7 @@ _compile_kimchi_helper() {
 _compile_kimchi_helper_impl() {
   local HELPER_SRC="$JINX_PATH/tools/ai/kimchi/helper/kimchi_helper.c"
   if [ ! -f "$HELPER_SRC" ]; then
-    log_error "Helper source not found at $HELPER_SRC"
+    log_error "Ayudaer source not found at $HELPER_SRC"
     return 1
   fi
 

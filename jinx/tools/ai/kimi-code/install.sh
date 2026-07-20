@@ -93,7 +93,7 @@ _update_kimi_code() {
 
 _update_kimi_code_impl() {
   if ! npm update -g @moonshot-ai/kimi-code &>>"$LOG_FILE"; then
-    log_error "Failed to update Kimi Code"
+    log_error "Failed para actualizar Kimi Code"
     return 1
   fi
   return 0

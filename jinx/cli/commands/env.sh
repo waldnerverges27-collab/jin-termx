@@ -29,15 +29,15 @@ _env_valid_key() {
 # ── Help ────────────────────────────────────────────────────
 env_help() {
 	echo
-	box "Environment Variables Manager"
+	box "Variables de Entorno Manager"
 	echo
-	log_info "Usage: jinx env [options]"
+	log_info "Uso: jinx env [options]"
 	echo
-	separator_section "Available Commands"
+	separator_section "Comandos Disponibles"
 	echo
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "set" "Create or update an environment variable"
 	printf "    ${D_CYAN}%-12s${NC} %s\n" "unset" "Remove an environment variable"
-	printf "    ${D_CYAN}%-12s${NC} %s\n" "ls" "List all user-defined variables"
+	printf "    ${D_CYAN}%-12s${NC} %s\n" "ls" "Lista todas las variables definidas"
 	echo
 	separator_section "Examples"
 	echo
@@ -87,7 +87,7 @@ env_set() {
 
 	echo
 	log_success "Variable ${D_CYAN}${key}${D_GREEN} set in ${D_NC}$(basename "$rc_file")"
-	list_item "Run: ${D_CYAN}source $(basename "$rc_file")${D_NC} to apply, or restart your terminal"
+	list_item "Ejecuta: ${D_CYAN}source $(basename "$rc_file")${D_NC} to apply, or restart your terminal"
 	separator
 }
 
@@ -159,7 +159,7 @@ env_unset() {
 
 	echo
 	log_success "Variable ${D_CYAN}${key}${D_GREEN} removed from ${D_NC}$(basename "$rc_file")"
-	list_item "Run: ${D_CYAN}source $(basename "$rc_file")${D_NC} to apply, or restart your terminal"
+	list_item "Ejecuta: ${D_CYAN}source $(basename "$rc_file")${D_NC} to apply, or restart your terminal"
 	separator
 }
 
@@ -169,7 +169,7 @@ env_ls() {
 	rc_file=$(_env_rc_file)
 
 	separator
-	box "Environment Variables"
+	box "Variables de Entorno"
 	separator
 	echo
 	log_info "File: $(basename "$rc_file")"

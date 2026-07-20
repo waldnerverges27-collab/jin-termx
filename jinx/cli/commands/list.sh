@@ -9,18 +9,18 @@ list_main() {
     echo
     box "Core List"
     echo
-    log_info "Usage: jinx list <target>"
+    log_info "Uso: jinx list <target>"
     echo
-    log_info "Available targets:"
+    log_info "Objetivos disponibles:"
     echo
     list_item "lang       - List language packages"
     list_item "db         - List database packages"
-    list_item "ai         - List AI tools"
+    list_item "ai         - List Herramientas AI"
     list_item "editor     - List code editor components"
     list_item "dev        - List development tools"
     list_item "npm        - List Node.js global modules"
     list_item "shell      - List ZSH plugins"
-    list_item "ui         - List Termux UI components"
+    list_item "ui         - List Interfaz Termux components"
     list_item "auto       - List automation tools"
     echo
     return
@@ -57,7 +57,7 @@ list_main() {
       ;;
     *)
       log_warn "Unknown list target: $arg"
-      echo "Run 'jinx list' to see available targets"
+      echo "Ejecuta 'jinx list' to see available targets"
       ;;
     esac
   done
@@ -115,7 +115,7 @@ _list_ai() {
   echo
   box "AI Tools"
   echo
-  log_info "Available AI tools and install commands:"
+  log_info "Available Herramientas AI and install commands:"
   echo
 
   table_start "Tool" "Install Flag" "Command" "Status"
@@ -268,7 +268,7 @@ _list_shell() {
 # ===== LIST UI =====
 _list_ui() {
   echo
-  box "Termux UI Components"
+  box "Interfaz Termux Components"
   echo
   log_info "Available components and install commands:"
   echo

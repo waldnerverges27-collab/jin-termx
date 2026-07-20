@@ -9,7 +9,7 @@ voice_help() {
 	echo
 	log_info "Capture voice from the microphone, review it in nvim, copy to clipboard, and launch an AI agent."
 	echo
-	log_info "Usage: jinx voice [agent]"
+	log_info "Uso: jinx voice [agent]"
 	echo
 	separator_section "Agents"
 	echo
@@ -39,9 +39,9 @@ voice_help() {
 	echo
 	separator_section "Requirements"
 	echo
-	list_item "Termux:API package: ${D_CYAN}pkg install termux-api${NC}"
-	list_item "Neovim for editing: ${D_CYAN}jinx install editor${NC}"
-	list_item "Termux:API app: ${D_CYAN}https://f-droid.org/packages/com.termux.api${NC}"
+	list_item "Paquete Termux:API: ${D_CYAN}pkg install termux-api${NC}"
+	list_item "Neovim para editar: ${D_CYAN}jinx install editor${NC}"
+	list_item "App Termux:API: ${D_CYAN}https://f-droid.org/packages/com.termux.api${NC}"
 	echo
 }
 
@@ -56,8 +56,8 @@ voice_main() {
 	# ── dependency checks ──
 	if ! command -v termux-dialog &>/dev/null; then
 		log_error "Termux:API is not installed"
-		list_item "Install the package: ${D_CYAN}pkg install termux-api${NC}"
-		list_item "Install the app from: https://f-droid.org/packages/com.termux.api"
+		list_item "Instala el paquete: ${D_CYAN}pkg install termux-api${NC}"
+		list_item "Instala la app desde: https://f-droid.org/packages/com.termux.api"
 		separator
 		exit 1
 	fi

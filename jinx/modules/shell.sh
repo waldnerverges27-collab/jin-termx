@@ -162,7 +162,7 @@ install_shell() {
 	echo
 
 	separator
-	log_success "ZSH shell environment setup completed"
+	log_success "Terminal ZSH environment setup completed"
 	separator
 	echo
 	log_warn "Please restart Termux or run: exec zsh"
@@ -242,7 +242,7 @@ uninstall_shell() {
 
 	echo
 	separator
-	log_success "ZSH shell environment uninstalled"
+	log_success "Terminal ZSH environment uninstalled"
 	separator
 	echo
 }
@@ -261,7 +261,7 @@ update_shell() {
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_update_shell_plugins_wrapper
-	log_success "ZSH shell environment updated"
+	log_success "Terminal ZSH environment updated"
 
 	setup_shell_env
 	echo
@@ -299,7 +299,7 @@ reinstall_shell() {
   echo
 
   separator
-  log_success "ZSH shell environment reinstallation completed"
+  log_success "Terminal ZSH environment reinstallation completed"
   separator
   echo
   log_warn "Please restart Termux or run: exec zsh"

@@ -98,7 +98,7 @@ _compile_mimocode_helper() {
 _compile_mimocode_helper_impl() {
   local HELPER_SRC="$JINX_PATH/tools/ai/mimocode/helper/mimocode_helper.c"
   if [ ! -f "$HELPER_SRC" ]; then
-    log_error "Helper source not found at $HELPER_SRC"
+    log_error "Ayudaer source not found at $HELPER_SRC"
     return 1
   fi
 

@@ -99,7 +99,7 @@ _update_openclaw_impl() {
   export ANDROID_API_LEVEL=24
 
   if ! npm update -g openclaw @larksuiteoapi/node-sdk nostr-tools @slack/web-api @whiskeysockets/baileys &>>"$LOG_FILE"; then
-    log_error "Failed to update OpenClaw"
+    log_error "Failed para actualizar OpenClaw"
     return 1
   fi
   return 0

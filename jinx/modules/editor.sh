@@ -19,7 +19,7 @@ install_editor() {
 	log_success "Neovim dependencies installed"
 
 	_install_editor_wrapper
-	log_success "Code editor installed successfully"
+	log_success "Editor de código installed successfully"
 	separator
 	echo
 	list_item "Neovim (code editor)"
@@ -51,7 +51,7 @@ uninstall_editor() {
 	log_info "Uninstalling Neovim configuration..."
 
 	_uninstall_editor_wrapper
-	log_success "Code editor uninstalled"
+	log_success "Editor de código uninstalled"
 }
 
 _uninstall_editor_wrapper() {
@@ -68,7 +68,7 @@ update_editor() {
 	log_info "Updating NvChad configuration..."
 
 	_update_editor_wrapper
-	log_success "Code editor updated"
+	log_success "Editor de código updated"
 }
 
 _update_editor_wrapper() {
@@ -85,7 +85,7 @@ reinstall_editor() {
   log_info "Reinstalling Neovim and dependencies..."
 
   _reinstall_editor_wrapper
-  log_success "Code editor reinstalled successfully"
+  log_success "Editor de código reinstalled successfully"
   separator
   echo
   list_item "Neovim (code editor)"

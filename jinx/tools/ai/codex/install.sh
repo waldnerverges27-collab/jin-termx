@@ -99,7 +99,7 @@ _update_codex_npm() {
 
 _update_codex_npm_impl() {
   if ! npm update -g @mmmbuto/codex-cli-termux &>>"$LOG_FILE"; then
-    log_error "Failed to update Codex CLI"
+    log_error "Failed para actualizar Codex CLI"
     return 1
   fi
   return 0

@@ -7,7 +7,7 @@ LOG_FILE="$JINX_CACHE/install_db.log"
 
 install_db() {
 	separator
-	box "Installing Databases"
+	box "Installing Bases de datos"
 	separator
 	echo
 
@@ -16,7 +16,7 @@ install_db() {
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_install_db_tools_wrapper
-	log_success "Databases installed successfully"
+	log_success "Bases de datos installed successfully"
 	separator
 	echo
 	list_item "PostgreSQL"
@@ -34,18 +34,18 @@ _install_db_tools_wrapper() {
 
 uninstall_db() {
 	if ! command -v postgres &>/dev/null; then
-		log_info "Databases are not installed"
+		log_info "Bases de datos are not installed"
 		return 0
 	fi
 	separator
-	box "Uninstalling Databases"
+	box "Uninstalling Bases de datos"
 	separator
 	echo
 
 	log_info "Uninstalling databases..."
 
 	_uninstall_db_tools_wrapper
-	log_success "Databases uninstalled"
+	log_success "Bases de datos uninstalled"
 }
 
 _uninstall_db_tools_wrapper() {
@@ -55,14 +55,14 @@ _uninstall_db_tools_wrapper() {
 
 update_db() {
 	separator
-	box "Updating Databases"
+	box "Updating Bases de datos"
 	separator
 	echo
 
 	log_info "Updating databases..."
 
 	_update_db_tools_wrapper
-	log_success "Databases updated"
+	log_success "Bases de datos updated"
 }
 
 _update_db_tools_wrapper() {
@@ -72,14 +72,14 @@ _update_db_tools_wrapper() {
 
 reinstall_db() {
   separator
-  box "Reinstalling Databases"
+  box "Reinstalling Bases de datos"
   separator
   echo
 
   log_info "Reinstalling databases..."
 
   _reinstall_db_tools_wrapper
-  log_success "Databases reinstalled successfully"
+  log_success "Bases de datos reinstalled successfully"
   separator
   echo
   list_item "PostgreSQL"

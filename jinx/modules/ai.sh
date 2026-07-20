@@ -11,7 +11,7 @@ install_ai() {
   separator
   echo
 
-  log_info "Installing AI tools..."
+  log_info "Installing Herramientas AI..."
   echo
   log_info "☕ Grab a coffee! This process typically takes 1h-2h hours."
   log_info "   Don't worry, it's normal for this to take a while..."
@@ -20,7 +20,7 @@ install_ai() {
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _install_ai_tools_wrapper
-  log_success "AI tools installed successfully"
+  log_success "Herramientas AI installed successfully"
   separator
   echo
   list_item "Qwen Code ${GRAY}(${D_GREEN}qwen${GRAY})"
@@ -67,10 +67,10 @@ uninstall_ai() {
   separator
   echo
 
-  log_info "Uninstalling AI tools..."
+  log_info "Uninstalling Herramientas AI..."
 
   _uninstall_ai_tools_wrapper
-  log_success "AI tools uninstalled"
+  log_success "Herramientas AI uninstalled"
 }
 
 _uninstall_ai_tools_wrapper() {
@@ -84,10 +84,10 @@ update_ai() {
   separator
   echo
 
-  log_info "Updating AI tools..."
+  log_info "Updating Herramientas AI..."
 
   _update_ai_tools_wrapper
-  log_success "AI tools updated"
+  log_success "Herramientas AI updated"
 }
 
 _update_ai_tools_wrapper() {
@@ -101,11 +101,11 @@ reinstall_ai() {
   separator
   echo
 
-  log_info "Reinstalling AI tools..."
+  log_info "Reinstalling Herramientas AI..."
   echo
 
   _reinstall_ai_tools_wrapper
-  log_success "AI tools reinstalled successfully"
+  log_success "Herramientas AI reinstalled successfully"
   separator
   echo
   list_item "Qwen Code"
