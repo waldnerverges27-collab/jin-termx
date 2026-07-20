@@ -18,7 +18,7 @@ fi
 declare -A _TR
 
 _tr_set() {
-	_TR[$1]=$2
+	_TR[$1]="$2"
 }
 
 # INSTALL
