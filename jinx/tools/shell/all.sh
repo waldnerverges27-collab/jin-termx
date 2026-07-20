@@ -150,10 +150,6 @@ update_all_shell_plugins() {
     ble)
       update_ble
       ;;
-    case "$tool" in
-    starship)
-      update_starship
-      ;;
     zsh-defer)
       update_zsh_defer
       ;;
