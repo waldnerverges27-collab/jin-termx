@@ -240,7 +240,7 @@ install_shell() {
 
 	separator
 	log_success "Entorno shell configurado correctamente"
-	log_info "Reinicia Termux o ejecuta: ${D_CYAN}exec zsh${NC} o ${D_CYAN}exec bash${NC}"
+	log_info "Reinicia Termux o ejecuta: ${D_CYAN}exec zsh${NC} (${D_CYAN}ez${NC}) o ${D_CYAN}exec bash${NC} (${D_CYAN}eb${NC})"
 	separator
 	echo
 }
@@ -461,7 +461,7 @@ reinstall_shell() {
   log_success "Reinstalación de shell completada"
   separator
   echo
-  log_warn "Reinicia Termux o ejecuta: exec zsh o exec bash"
+  log_warn "Reinicia Termux o ejecuta: exec zsh (ez) o exec bash (eb)"
   echo
 }
 
