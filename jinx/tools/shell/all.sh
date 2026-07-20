@@ -38,12 +38,11 @@ install_all_shell_plugins() {
 	for tool in "${SHELL_PLUGINS[@]}"; do
 		case "$tool" in
 		starship)
-    ble)
-      install_ble
-      ;;
-
 			loading "Instalando Starship" install_starship
 			case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+			;;
+		ble)
+			install_ble
 			;;
 		zsh-defer)
 			loading "Installing zsh-defer" install_zsh_defer
@@ -91,15 +90,15 @@ uninstall_all_shell_plugins() {
 	local uninstalled_count=0
 	local failed_count=0
 
-    ble)
-      uninstall_ble
-      ;;
-
 	for tool in "${SHELL_PLUGINS[@]}"; do
 		case "$tool" in
 		starship)
 			loading "Desinstalando Starship" uninstall_starship
 			case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+			;;
+		ble)
+			uninstall_ble
+			;;
 			;;
 		zsh-defer)
 			loading "Uninstalling zsh-defer" uninstall_zsh_defer
@@ -141,14 +140,17 @@ uninstall_all_shell_plugins() {
 	done
 
 	return 0
-    ble)
-      update_ble
-      ;;
-
 }
 
 update_all_shell_plugins() {
   for tool in "${SHELL_PLUGINS[@]}"; do
+    case "$tool" in
+    starship)
+      update_starship
+      ;;
+    ble)
+      update_ble
+      ;;
     case "$tool" in
     starship)
       update_starship
@@ -183,10 +185,6 @@ update_all_shell_plugins() {
     esac
   done
   echo
-    ble)
-      reinstall_ble
-      ;;
-
 }
 
 reinstall_all_shell_plugins() {
@@ -198,6 +196,10 @@ reinstall_all_shell_plugins() {
     starship)
       loading "Reinstalando Starship" reinstall_starship
       case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+      ;;
+    ble)
+      reinstall_ble
+      ;;
       ;;
     zsh-defer)
       loading "Reinstalling zsh-defer" reinstall_zsh_defer
