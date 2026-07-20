@@ -87,6 +87,8 @@ setup_shell_env() {
 
 	local env_vars=(
 		"unalias gga 2>/dev/null"
+		"export LC_ALL=C.UTF-8"
+		"export LANG=C.UTF-8"
 		"export GOPATH=\"\$HOME/.local/go\""
 		"export GOCACHE=\"\$HOME/.cache/go\""
 		"export GOMODCACHE=\"\$GOPATH/pkg/mod\""
