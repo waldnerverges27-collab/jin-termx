@@ -4,6 +4,11 @@
 import "@/utils/log"
 import "@/utils/colors"
 
+JINX_COMMANDS=(
+  "--version" "brain" "env" "install" "show" "update"
+  "uninstall" "reinstall" "open" "list" "pg" "init" "voice"
+)
+
 jinx_main() {
   local cmd="$1"
   shift || true
@@ -22,9 +27,44 @@ jinx_main() {
     "${cmd}_main" "$@"
   else
     log_error "Comando no encontrado: $cmd"
+    # Buscar comandos similares
+    local similar
+    similar=$(_find_similar "$cmd")
+    if [[ -n "$similar" ]]; then
+      echo
+      log_info "Quizás quisiste decir:"
+      for s in $similar; do
+        echo "    ${D_CYAN}jinx $s${NC}"
+      done
+    fi
     echo
     jinx_help
     exit 1
+  fi
+}
+
+# Buscar comandos similares por prefijo o errores comunes
+_find_similar() {
+  local cmd="$1"
+  local candidates=()
+  local c
+
+  for c in "${JINX_COMMANDS[@]}"; do
+    # Prefijo coincide (ej: "up" → "update")
+    if [[ "$c" == "$cmd"* ]]; then
+      candidates+=("$c")
+    # Error común de tipeo (1 char diferente)
+    elif [[ ${#c} -eq ${#cmd} ]]; then
+      local diff=0
+      for ((i=0; i<${#c}; i++)); do
+        [[ "${c:$i:1}" != "${cmd:$i:1}" ]] && ((diff++))
+      done
+      [[ $diff -le 1 ]] && candidates+=("$c")
+    fi
+  done
+
+  if [[ ${#candidates[@]} -gt 0 ]]; then
+    echo "${candidates[*]:0:3}"
   fi
 }
 
