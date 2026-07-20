@@ -2,10 +2,8 @@
 
 import "@/utils/log"
 import "@/utils/version"
-import "@/utils/deps"
 
 LOG_FILE="$JINX_CACHE/install_lang.log"
-JAVA_PKG="openjdk-17"
 
 install_java() {
 	if command -v java &>/dev/null; then
@@ -16,7 +14,11 @@ install_java() {
 	log_info "Instalando Java (OpenJDK)..."
 	mkdir -p "$(dirname "$LOG_FILE")"
 
-	_ensure_deps "$JAVA_PKG:java" || return 1
+	if ! yes | pkg install openjdk-17 &>>"$LOG_FILE"; then
+		log_error "Error al instalar Java"
+		return 1
+	fi
+
 	log_success "Java instalado"
 	return 0
 }
@@ -27,17 +29,17 @@ uninstall_java() {
 		return 2
 	fi
 	log_info "Desinstalando Java..."
-	pkg uninstall "$JAVA_PKG" -y &>>"$LOG_FILE"
+	pkg uninstall openjdk-17 -y &>>"$LOG_FILE"
 	log_success "Java desinstalado"
 	return 0
 }
 
 update_java() {
-	_check_update_needed "Java" "$(_get_installed_pkg_version "$JAVA_PKG" "Java")" "$(_get_remote_pkg_version "$JAVA_PKG")" _do_update_java
+	_check_update_needed "Java" "$(_get_installed_pkg_version openjdk-17 "Java")" "$(_get_remote_pkg_version openjdk-17)" _do_update_java
 }
 
 _do_update_java() {
-	loading "Actualizando Java" bash -c "yes | pkg upgrade $JAVA_PKG -y &>>$LOG_FILE"
+	loading "Actualizando Java" bash -c "yes | pkg upgrade openjdk-17 -y &>>$LOG_FILE"
 }
 
 reinstall_java() {
