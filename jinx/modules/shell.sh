@@ -262,18 +262,27 @@ _setup_starship_for_both_shells() {
 
 _setup_ble_for_bash() {
 	local ble_script
-	ble_script="${XDG_DATA_HOME:-$HOME/.local/share}/blesh/ble.sh"
+	# Buscar ble.sh en las ubicaciones posibles de instalación
+	for path in \
+		"${XDG_DATA_HOME:-$HOME/.local/share}/blesh/ble.sh" \
+		"${PREFIX:-/data/data/com.termux/files/usr}/share/blesh/ble.sh" \
+		"$HOME/.local/share/blesh/out/ble.sh"; do
+		if [[ -f "$path" ]]; then
+			ble_script="$path"
+			break
+		fi
+	done
 
-	if [[ -f "$ble_script" ]]; then
+	if [[ -n "$ble_script" ]]; then
 		if ! grep -q "ble.sh" ~/.bashrc 2>/dev/null; then
 			echo "" >>~/.bashrc
 			echo "# BLE - Bash Line Editor" >>~/.bashrc
 			echo '[[ $- == *i* ]] && source "'"$ble_script"'" --attach=none' >>~/.bashrc
 			echo '[[ ${BLE_VERSION-} ]] && ble-attach' >>~/.bashrc
-			log_info "BLE configurado en .bashrc"
+			log_info "BLE configurado en .bashrc ($ble_script)"
 		fi
 	else
-		log_warn "BLE no encontrado en $ble_script, se salta configuración"
+		log_warn "BLE no encontrado. Intentá: find ~ -name ble.sh 2>/dev/null"
 	fi
 }
 

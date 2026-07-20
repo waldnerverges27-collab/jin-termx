@@ -99,7 +99,6 @@ uninstall_all_shell_plugins() {
 		ble)
 			uninstall_ble
 			;;
-			;;
 		zsh-defer)
 			loading "Uninstalling zsh-defer" uninstall_zsh_defer
 			case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
