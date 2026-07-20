@@ -448,6 +448,9 @@ read_checklist() {
 		checked[i]=0
 	done
 
+	# Contar cuántas líneas ocupa el checklist
+	local checklist_lines=$((total + 3))  # header + instrucciones + opciones + footer
+
 	_render_checklist() {
 		echo -e "    ${GRAY}┌─${D_CYAN} ${prompt}${NC}" >&2
 		echo -e "    ${GRAY}│${D_DIM}  (↑↓ mover  Espacio: marcar/desmarcar  Enter: confirmar)${D_NC}" >&2
@@ -470,12 +473,13 @@ read_checklist() {
 				fi
 			fi
 		done
-		echo -e -n "    ${GRAY}└─${D_NC} ${D_GREEN}$(echo "${checked[*]}" | tr -d ' ')${NC} seleccionado(s)" >&2
+		# Contar cuántos están seleccionados
+		local sel_count=0
+		for ((c = 0; c < total; c++)); do ((checked[c])) && ((sel_count++)); done
+		echo -e "    ${GRAY}└─${D_NC} ${sel_count} seleccionado(s)" >&2
 	}
 
-	local lines=$((total + 2))
-
-	tput civis
+	tput civis 2>/dev/null
 	_render_checklist
 
 	while true; do
@@ -492,12 +496,18 @@ read_checklist() {
 		'') break ;;
 		esac
 
-		echo -en "\r\033[${lines}A\033[J" >&2
+		# Mover cursor arriba y limpiar usando tput si está disponible
+		if command -v tput &>/dev/null; then
+			tput cuu "$checklist_lines" 2>/dev/null
+			tput ed 2>/dev/null
+		else
+			echo -en "\r\033[${checklist_lines}A\033[J" >&2
+		fi
 		_render_checklist
 	done
 
 	echo >&2
-	tput cnorm
+	tput cnorm 2>/dev/null
 
 	# Generar resultado: nombres de opciones seleccionadas
 	local result=""
