@@ -69,14 +69,20 @@ setup_shell_aliases() {
 
 	local alias_ls='alias ls="lsd"'
 	local alias_cat='alias cat="bat --theme=Dracula --style=plain --paging=never"'
+	local alias_eb='alias eb="exec bash"'
+	local alias_ez='alias ez="exec zsh"'
 	local zoxide_zsh='eval "$(zoxide init zsh)"'
 	local zoxide_bash='eval "$(zoxide init bash)"'
 
 	add_to_zshrc "$alias_ls"
 	add_to_zshrc "$alias_cat"
+	add_to_zshrc "$alias_eb"
+	add_to_zshrc "$alias_ez"
 	add_to_zshrc "$zoxide_zsh"
 	add_to_bashrc "$alias_ls"
 	add_to_bashrc "$alias_cat"
+	add_to_bashrc "$alias_eb"
+	add_to_bashrc "$alias_ez"
 	add_to_bashrc "$zoxide_bash"
 
 	log_success "Alias configurados para ZSH y Bash"
