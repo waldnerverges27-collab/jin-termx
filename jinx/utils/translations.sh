@@ -18,7 +18,7 @@ fi
 declare -A _TR
 
 _tr_set() {
-	_TR[$1]="$2"
+	eval "_TR[\$1]=\$2"
 }
 
 # INSTALL
@@ -192,10 +192,11 @@ _tr() {
 	local lang="${JINX_LANG:-en}"
 	# Replace dots with underscores for array key lookup
 	local lookup_key="${lang}_${key//./_}"
-	local msg="${_TR[$lookup_key]}"
+	local msg
+	eval 'msg="${_TR[$lookup_key]}"'
 	if [[ -z "$msg" && "$lang" != "en" ]]; then
 		lookup_key="en_${key//./_}"
-		msg="${_TR[$lookup_key]}"
+		eval 'msg="${_TR[$lookup_key]}"'
 	fi
 	msg="${msg:-$key}"
 	if [[ $# -gt 0 ]]; then
