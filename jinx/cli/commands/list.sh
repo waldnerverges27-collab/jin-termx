@@ -68,24 +68,37 @@ _list_lang() {
   echo
   box "Language Packages"
   echo
-  log_info "Available packages and install commands:"
+  log_info "Available packages, versions and install commands:"
   echo
 
-  table_start "Package" "Install Flag" "Status"
-  table_row "Node.js LTS" "--nodejs" "$(_check_pkg "nodejs-lts")"
-  table_row "Python" "--python" "$(_check_pkg "python")"
-  table_row "Perl" "--perl" "$(_check_pkg "perl")"
-  table_row "PHP" "--php" "$(_check_pkg "php")"
-  table_row "Rust" "--rust" "$(_check_pkg "rust")"
-  table_row "C/C++ (clang)" "--clang" "$(_check_pkg "clang")"
-  table_row "Go (golang)" "--golang" "$(_check_pkg "golang")"
-  table_row "Bun (JS runtime)" "--bun" "$(_check_cmd "bun")"
+  table_start "Package" "Install Flag" "Version" "Status"
+  table_row "Node.js LTS" "--nodejs" "$(_get_ver node)" "$(_check_pkg "nodejs-lts")"
+  table_row "Python" "--python" "$(_get_ver python)" "$(_check_pkg "python")"
+  table_row "Perl" "--perl" "$(_get_ver perl)" "$(_check_pkg "perl")"
+  table_row "PHP" "--php" "$(_get_ver php)" "$(_check_pkg "php")"
+  table_row "Rust" "--rust" "$(_get_ver rustc)" "$(_check_pkg "rust")"
+  table_row "C/C++ (clang)" "--clang" "$(_get_ver clang)" "$(_check_pkg "clang")"
+  table_row "Go (golang)" "--golang" "$(_get_ver go)" "$(_check_pkg "golang")"
+  table_row "Bun (JS runtime)" "--bun" "$(_get_ver bun)" "$(_check_cmd "bun")"
+  table_row "Java (OpenJDK)" "--java" "$(_get_ver java)" "$(_check_cmd "java")"
+  table_row "Kotlin" "--kotlin" "$(_get_ver kotlin)" "$(_check_cmd "kotlin")"
   table_end
 
   echo
   log_info "Install specific: ${D_CYAN}jinx install lang --nodejs --python${NC}"
   log_info "Install all: ${D_CYAN}jinx install lang${NC}"
   echo
+}
+
+_get_ver() {
+  local cmd="$1"
+  if command -v "$cmd" &>/dev/null; then
+    local ver
+    ver=$("$cmd" --version 2>&1 | head -1 | grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1)
+    echo "${D_GREEN}${ver:-✓}${NC}"
+  else
+    echo "${D_DIM}--${NC}"
+  fi
 }
 
 # ===== LIST DB =====

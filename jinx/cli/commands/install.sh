@@ -503,6 +503,14 @@ _install_specific_tools() {
         install_bun
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
         ;;
+      java)
+        install_java
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
+      kotlin)
+        install_kotlin
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
       *)
         log_warn "Unknown language: --$tool"
         ;;
