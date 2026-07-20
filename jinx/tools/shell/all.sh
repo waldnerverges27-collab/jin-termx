@@ -195,7 +195,6 @@ reinstall_all_shell_plugins() {
     ble)
       reinstall_ble
       ;;
-      ;;
     zsh-defer)
       loading "Reinstalling zsh-defer" reinstall_zsh_defer
       case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
