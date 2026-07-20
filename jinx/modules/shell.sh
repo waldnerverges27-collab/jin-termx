@@ -198,6 +198,13 @@ _install_shell_plugins_wrapper() {
 	import "@/tools/shell/all"
 	install_all_shell_plugins
 
+	# Asegurar que compinit se ejecute antes de plugins que usan compdef
+	if ! grep -q "compinit" ~/.zshrc 2>/dev/null; then
+		add_to_zshrc ''
+		add_to_zshrc '# Inicializar completion system'
+		add_to_zshrc 'autoload -Uz compinit && compinit'
+	fi
+
 	if command -v starship &>/dev/null; then
 		log_info "Starship listo como prompt"
 	fi
