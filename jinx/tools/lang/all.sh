@@ -12,7 +12,7 @@ LANGUAGE_PACKAGES=(
 	"rust"
 	"clang"
 	"golang"
-  "bun"
+	"bun"
 	"java"
 	"kotlin"
 )
@@ -24,9 +24,9 @@ source "$(dirname "$BASH_SOURCE")/php/install.sh"
 source "$(dirname "$BASH_SOURCE")/rust/install.sh"
 source "$(dirname "$BASH_SOURCE")/clang/install.sh"
 source "$(dirname "$BASH_SOURCE")/golang/install.sh"
-source "$(dirname "$BASH_SOURCE")/bun/install.sh
+source "$(dirname "$BASH_SOURCE")/bun/install.sh"
 source "$(dirname "$BASH_SOURCE")/java/install.sh"
-source "$(dirname "$BASH_SOURCE")/kotlin/install.sh""
+source "$(dirname "$BASH_SOURCE")/kotlin/install.sh"
 
 install_all_lang_packages() {
 	local installed_count=0
@@ -115,15 +115,15 @@ uninstall_all_lang_packages() {
 			case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
 			;;
 		bun)
+			loading "Uninstalling Bun" uninstall_bun
+			case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+			;;
 		java)
 			loading "Uninstalling Java" uninstall_java
 			case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
 			;;
 		kotlin)
 			loading "Uninstalling Kotlin" uninstall_kotlin
-			case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-			;;
-			loading "Uninstalling Bun" uninstall_bun
 			case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
 			;;
 		esac
@@ -158,12 +158,12 @@ update_all_lang_packages() {
 			;;
 		bun)
 			update_bun
-      java)
-        update_java
-        ;;
-      kotlin)
-        update_kotlin
-        ;;
+			;;
+		java)
+			update_java
+			;;
+		kotlin)
+			update_kotlin
 			;;
 		esac
 	done
@@ -206,13 +206,13 @@ reinstall_all_lang_packages() {
 			;;
 		bun)
 			loading "Reinstalling Bun" reinstall_bun
-      java)
-        reinstall_java
-        ;;
-      kotlin)
-        reinstall_kotlin
-        ;;
 			case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+			;;
+		java)
+			reinstall_java
+			;;
+		kotlin)
+			reinstall_kotlin
 			;;
 		esac
 	done
