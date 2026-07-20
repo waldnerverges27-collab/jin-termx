@@ -719,10 +719,22 @@ _interactive_install() {
 
   case "$module" in
   ai)
+    # Mapa de cada herramienta AI a su binario real
+    declare -A AI_BINS=(
+      [qwen-code]="qwen" [gemini-cli]="gemini" [claude-code]="claude"
+      [mistral-vibe]="vibe" [openclaude]="openclaude" [openclaw]="openclaw"
+      [ollama]="ollama" [codex]="codex" [opencode]="opencode"
+      [qoder]="qodercli" [kilocode-cli]="kilo" [kimchi]="kimchi"
+      [mimocode]="mimo" [engram]="engram" [codegraph]="codegraph"
+      [pi]="pi" [antigravity-cli]="agy" [gentle-ai]="gentle-ai"
+      [minimax-cli]="minimax" [gga]="gga" [hermes-agent]="hermes"
+      [kimi-code]="kimi" [command-code]="cmdc" [freebuff]="freebuff"
+      [ctx7]="ctx7" [openspec]="openspec" [9router]="9router"
+    )
     import "@/tools/ai/all"
     for tool in "${AI_TOOLS[@]}"; do
-      local bin="${tool%% *}"
-      _is_cmd_installed "$bin" || { items+=("${tool^}:${tool}"); }
+      local bin="${AI_BINS[$tool]:-$tool}"
+      _is_cmd_installed "$bin" || items+=("${tool}:${tool}")
     done
     ;;
   lang)
