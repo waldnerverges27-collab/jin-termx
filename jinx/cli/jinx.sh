@@ -7,6 +7,7 @@ import "@/utils/colors"
 JINX_COMMANDS=(
   "--version" "brain" "env" "install" "show" "update"
   "uninstall" "reinstall" "open" "list" "pg" "init" "voice"
+  "doctor"
 )
 
 jinx_main() {
@@ -89,6 +90,7 @@ jinx_help() {
   printf "    ${D_CYAN}%-12s${NC} %s\n" "pg" "Gestor de PostgreSQL"
   printf "    ${D_CYAN}%-12s${NC} %s\n" "init" "Configura proyectos existentes"
   printf "    ${D_CYAN}%-12s${NC} %s\n" "voice" "Voz-a-agente por micrófono"
+  printf "    ${D_CYAN}%-12s${NC} %s\n" "doctor" "Diagnóstico del sistema"
   echo
   separator_section "Inicio Rápido"
   echo

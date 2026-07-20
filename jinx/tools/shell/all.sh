@@ -142,44 +142,20 @@ uninstall_all_shell_plugins() {
 }
 
 update_all_shell_plugins() {
+  local updated=0
   for tool in "${SHELL_PLUGINS[@]}"; do
-    case "$tool" in
-    starship)
-      update_starship
-      ;;
-    ble)
-      update_ble
-      ;;
-    zsh-defer)
-      update_zsh_defer
-      ;;
-    zsh-autosuggestions)
-      update_zsh_autosuggestions
-      ;;
-    zsh-syntax-highlighting)
-      update_zsh_syntax_highlighting
-      ;;
-    history-substring)
-      update_history_substring
-      ;;
-    zsh-completions)
-      update_zsh_completions
-      ;;
-    fzf-tab)
-      update_fzf_tab
-      ;;
-    you-should-use)
-      update_you_should_use
-      ;;
-    zsh-autopair)
-      update_zsh_autopair
-      ;;
-    better-npm)
-      update_better_npm
-      ;;
-    esac
+    local dir="$ZSH_PLUGINS_DIR/$tool"
+    if [[ -d "$dir/.git" ]]; then
+      loading "Actualizando $tool" _git_pull_plugin "$dir"
+      ((updated++))
+    fi
   done
-  echo
+  [[ $updated -gt 0 ]] && echo
+}
+
+_git_pull_plugin() {
+  local dir="$1"
+  git -C "$dir" pull --ff-only &>>"$LOG_FILE" 2>/dev/null || true
 }
 
 reinstall_all_shell_plugins() {
