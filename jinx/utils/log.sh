@@ -449,7 +449,7 @@ read_checklist() {
 	done
 
 	# Contar cuántas líneas ocupa el checklist
-	local checklist_lines=$((total + 3))  # header + instrucciones + opciones + footer
+	# Contar cuántas líneas ocupa el checklist
 
 	_render_checklist() {
 		echo -e "    ${GRAY}┌─${D_CYAN} ${prompt}${NC}" >&2
@@ -480,6 +480,8 @@ read_checklist() {
 	}
 
 	tput civis 2>/dev/null
+	# Guardar posición del cursor
+	tput sc 2>/dev/null
 	_render_checklist
 
 	while true; do
@@ -496,13 +498,9 @@ read_checklist() {
 		'') break ;;
 		esac
 
-		# Mover cursor arriba y limpiar usando tput si está disponible
-		if command -v tput &>/dev/null; then
-			tput cuu "$checklist_lines" 2>/dev/null
-			tput ed 2>/dev/null
-		else
-			echo -en "\r\033[${checklist_lines}A\033[J" >&2
-		fi
+		# Restaurar cursor y limpiar desde allí hasta el final
+		tput rc 2>/dev/null
+		tput ed 2>/dev/null
 		_render_checklist
 	done
 
