@@ -326,6 +326,7 @@ update_shell() {
 _update_shell_plugins_wrapper() {
   import "@/tools/shell/all"
   update_all_shell_plugins
+  _install_shell_plugins_wrapper
 }
 
 reinstall_shell() {
@@ -363,4 +364,6 @@ reinstall_shell() {
 _reinstall_shell_plugins_wrapper() {
   import "@/tools/shell/all"
   reinstall_all_shell_plugins
+  # Aplicar configuración de .zshrc (Oh My Zsh, compinit, etc.)
+  _install_shell_plugins_wrapper
 }
