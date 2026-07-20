@@ -21,7 +21,7 @@ jinx_main() {
     import "@/cli/commands/$cmd"
     "${cmd}_main" "$@"
   else
-    log_error "Command not found: $cmd"
+    log_error "Comando no encontrado: $cmd"
     echo
     jinx_help
     exit 1
@@ -32,49 +32,48 @@ jinx_help() {
   echo
   box "◈ JIN-TERMX v${JINX_VERSION} ◈"
   echo
-  log_info "$(_tr "cli.usage")"
+  log_info "Uso: jinx <comando> [opciones]"
   echo
-  separator_section "$(_tr "cli.available")"
+  separator_section "Comandos Disponibles"
   echo
-  printf "    ${D_CYAN}%-12s${NC} %s\n" "--version" "$(_tr "cli.show_version")"
-  printf "    ${D_CYAN}%-12s${NC} %s\n" "brain" "$(_tr "cli.cmd_brain")"
-  printf "    ${D_CYAN}%-12s${NC} %s\n" "env" "$(_tr "cli.cmd_env")"
-  printf "    ${D_CYAN}%-12s${NC} %s\n" "install" "$(_tr "cli.cmd_install")"
-  printf "    ${D_CYAN}%-12s${NC} %s\n" "show" "$(_tr "cli.cmd_show")"
-  printf "    ${D_CYAN}%-12s${NC} %s\n" "update" "$(_tr "cli.cmd_update")"
-  printf "    ${D_CYAN}%-12s${NC} %s\n" "uninstall" "$(_tr "cli.cmd_uninstall")"
-  printf "    ${D_CYAN}%-12s${NC} %s\n" "reinstall" "$(_tr "cli.cmd_reinstall")"
-  printf "    ${D_CYAN}%-12s${NC} %s\n" "open" "$(_tr "cli.cmd_open")"
-  printf "    ${D_CYAN}%-12s${NC} %s\n" "list" "$(_tr "cli.cmd_list")"
-  printf "    ${D_CYAN}%-12s${NC} %s\n" "pg" "$(_tr "cli.cmd_pg")"
-  printf "    ${D_CYAN}%-12s${NC} %s\n" "init" "$(_tr "cli.cmd_init")"
-  printf "    ${D_CYAN}%-12s${NC} %s\n" "voice" "$(_tr "cli.cmd_voice")"
+  printf "    ${D_CYAN}%-12s${NC} %s\n" "--version" "Muestra la versión"
+  printf "    ${D_CYAN}%-12s${NC} %s\n" "brain" "Segundo cerebro — guarda recuerdos"
+  printf "    ${D_CYAN}%-12s${NC} %s\n" "env" "Variables de entorno"
+  printf "    ${D_CYAN}%-12s${NC} %s\n" "install" "Instala módulos y paquetes"
+  printf "    ${D_CYAN}%-12s${NC} %s\n" "show" "Muestra documentación"
+  printf "    ${D_CYAN}%-12s${NC} %s\n" "update" "Actualiza módulos o framework"
+  printf "    ${D_CYAN}%-12s${NC} %s\n" "uninstall" "Elimina módulos instalados"
+  printf "    ${D_CYAN}%-12s${NC} %s\n" "reinstall" "Reinstala módulos"
+  printf "    ${D_CYAN}%-12s${NC} %s\n" "open" "Abre documentación"
+  printf "    ${D_CYAN}%-12s${NC} %s\n" "list" "Lista herramientas disponibles"
+  printf "    ${D_CYAN}%-12s${NC} %s\n" "pg" "Gestor de PostgreSQL"
+  printf "    ${D_CYAN}%-12s${NC} %s\n" "init" "Configura proyectos existentes"
+  printf "    ${D_CYAN}%-12s${NC} %s\n" "voice" "Voz-a-agente por micrófono"
   echo
-  separator_section "$(_tr "cli.quick_start")"
+  separator_section "Inicio Rápido"
   echo
-  _tr_echo "cli.run_cmd"
-  _tr_echo "cli.run_open"
-  _tr_echo "cli.run_install"
+  list_item "Ejecuta: ${D_CYAN}jinx${NC} para ver los comandos disponibles"
+  list_item "Ejecuta: ${D_CYAN}jinx <comando> --help${NC} para ayuda específica"
+  list_item "Ejecuta: ${D_CYAN}jinx install <módulo>${NC} para instalar"
   echo
-  separator_section "$(_tr "cli.module_targets")"
+  separator_section "Módulos Disponibles"
   echo
-  log_info "$(_tr "cli.mod_help")"
+  log_info "Instala, actualiza, reinstala, desinstala, lista o muestra:"
   echo
-  printf "    ${D_GREEN}%-10s${NC} %s\n" "lang" "$(_tr "module.lang")"
-  printf "    ${D_GREEN}%-10s${NC} %s\n" "db" "$(_tr "module.db")"
-  printf "    ${D_GREEN}%-10s${NC} %s\n" "ai" "$(_tr "module.ai")"
-  printf "    ${D_GREEN}%-10s${NC} %s\n" "editor" "$(_tr "module.editor")"
-  printf "    ${D_GREEN}%-10s${NC} %s\n" "dev" "$(_tr "module.dev")"
-  printf "    ${D_GREEN}%-10s${NC} %s\n" "npm" "$(_tr "module.npm")"
-  printf "    ${D_GREEN}%-10s${NC} %s\n" "shell" "$(_tr "module.shell")"
-  printf "    ${D_GREEN}%-10s${NC} %s\n" "ui" "$(_tr "module.ui")"
-  printf "    ${D_GREEN}%-10s${NC} %s\n" "auto" "$(_tr "module.auto")"
-
+  printf "    ${D_GREEN}%-10s${NC} %s\n" "lang" "Node, Bun, Python, Rust, C/C++, Go, etc."
+  printf "    ${D_GREEN}%-10s${NC} %s\n" "db" "PostgreSQL, MongoDB, SQLite, Redis, etc."
+  printf "    ${D_GREEN}%-10s${NC} %s\n" "ai" "OpenCode, Gentle AI, Claude Code, etc."
+  printf "    ${D_GREEN}%-10s${NC} %s\n" "editor" "Neovim + NvChad + Plugins"
+  printf "    ${D_GREEN}%-10s${NC} %s\n" "dev" "GitHub CLI, wget, curl, fzf, etc."
+  printf "    ${D_GREEN}%-10s${NC} %s\n" "npm" "Vercel, Live Server, NCU, etc."
+  printf "    ${D_GREEN}%-10s${NC} %s\n" "shell" "ZSH + Oh My Zsh + 10 plugins"
+  printf "    ${D_GREEN}%-10s${NC} %s\n" "ui" "Letra, Cursor, Teclas extra, Banner"
+  printf "    ${D_GREEN}%-10s${NC} %s\n" "auto" "Herramientas de automatización (n8n)"
   echo
-  separator_section "$(_tr "cli.help_title")"
+  separator_section "Ayuda"
   echo
-  _tr_echo "cli.run_help"
-  _tr_echo "cli.example"
-  _tr_echo "cli.docs"
+  list_item "Ejecuta ${D_CYAN}jinx <comando>${NC} para ayuda específica"
+  list_item "Ejemplo: ${D_CYAN}jinx pg${NC}, ${D_CYAN}jinx init${NC}"
+  list_item "Lee el README: ${D_CYAN}glow README.md${NC} o ${D_CYAN}jinx <comando> --help${NC}"
   echo
 }

@@ -20,9 +20,6 @@ source "$JINX_PATH/utils/bootstrap.sh"
 # cargar entorno
 import "@/utils/env"
 
-# cargar traducciones
-import "@/utils/translations"
-
 # ===== CHECK UPDATES =====
 check_for_updates() {
   local version_file="$JINX_CACHE/last_version_check"
@@ -62,11 +59,11 @@ show_update_notification() {
   if [[ -f "$new_version_file" ]]; then
     local new_version=$(cat "$new_version_file")
     echo
-    separator_section "$(_tr "update.available")"
+    separator_section "Actualización Disponible"
     echo
-    log_warn "$(_tr "update.new_version" "$new_version" "$JINX_VERSION")"
+    log_warn "Nueva versión disponible: ${D_GREEN}$new_version${D_NC} (actual: ${D_CYAN}$JINX_VERSION${D_NC})"
     echo
-    list_item "$(_tr "update.run_update")"
+    list_item "Ejecuta: ${D_CYAN}jinx update jinx${D_NC} para actualizar"
     echo
   fi
 }

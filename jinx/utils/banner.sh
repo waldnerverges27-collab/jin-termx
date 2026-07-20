@@ -4,37 +4,6 @@ BANNER_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 BANNER_FILE="$(cd "$BANNER_SCRIPT_DIR/../.." && pwd)/assets/banner/devcorex.txt"
 BANNER_VERSION="$(grep "^JINX_VERSION=" "$BANNER_SCRIPT_DIR/env.sh" 2>/dev/null | cut -d'"' -f2)"
 
-# ── Self-contained translation for banner (avoids dependency on _tr) ──
-__BANNER_LANG="en"
-__BANNER_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/jin-termx/config"
-if [[ -f "$__BANNER_CONFIG" ]]; then
-	__lang_val=$(grep "^jinx_lang=" "$__BANNER_CONFIG" 2>/dev/null | cut -d"'" -f2)
-	[[ -n "$__lang_val" ]] && __BANNER_LANG="$__lang_val"
-fi
-
-__banner_tr() {
-	local key="$1"
-	shift
-	case "${__BANNER_LANG}:${key}" in
-		es:banner.community)  msg="JinDev Comunidad de Desarrollo de Software" ;;
-		es:banner.welcome)    msg="Bienvenido a Jin-TermX v%s" ;;
-		es:banner.run_start)  msg="Ejecuta ${DGREEN}jinx${NC} para empezar" ;;
-		*)                    msg="JinDev Software Development Community" ;;
-	esac
-	if [[ "$key" == "banner.welcome" && "$__BANNER_LANG" != "es" ]]; then
-		msg="Welcome to Jin-TermX v%s"
-	fi
-	if [[ "$key" == "banner.run_start" && "$__BANNER_LANG" != "es" ]]; then
-		msg="Run ${DGREEN}jinx${NC} to get started"
-	fi
-	if [[ $# -gt 0 ]]; then
-		printf "$msg" "$@"
-	else
-		echo -n "$msg"
-	fi
-}
-unset __lang_val
-
 # ── Colors (self-contained for shell startup sourcing) ─────
 DGREEN="\033[0;32m"
 NC="\033[0m"
@@ -52,9 +21,9 @@ fi
 
 if [[ -n "$BANNER_VERSION" ]]; then
 	printf "\n"
-	printf " ${GRAY}$(__banner_tr "banner.community")${NC}\n"
-	printf "     ${NC}$(__banner_tr "banner.welcome" "$BANNER_VERSION")${NC}\n"
-	printf "        ${NC}$(__banner_tr "banner.run_start")${NC}\n"
+	printf " ${GRAY}JinDev Comunidad de Desarrollo de Software${NC}\n"
+	printf "     ${NC}Bienvenido a Jin-TermX ${DGREEN}v%s${NC}\n" "$BANNER_VERSION"
+	printf "        ${NC}Ejecuta ${DGREEN}jinx${NC} para empezar${NC}\n"
 fi
 
 # ── Random Tip ──────────────────────────────────────────────
