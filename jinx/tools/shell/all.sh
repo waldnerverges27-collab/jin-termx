@@ -6,6 +6,7 @@ LOG_FILE="$JINX_CACHE/install_shell.log"
 ZSH_PLUGINS_DIR="$HOME/.zsh-plugins"
 
 SHELL_PLUGINS=(
+	"starship"
 	"powerlevel10k"
 	"zsh-defer"
 	"zsh-autosuggestions"
@@ -18,6 +19,7 @@ SHELL_PLUGINS=(
 	"better-npm"
 )
 
+source "$(dirname "$BASH_SOURCE")/starship/install.sh"
 source "$(dirname "$BASH_SOURCE")/powerlevel10k/install.sh"
 source "$(dirname "$BASH_SOURCE")/zsh-defer/install.sh"
 source "$(dirname "$BASH_SOURCE")/zsh-autosuggestions/install.sh"
@@ -35,8 +37,8 @@ install_all_shell_plugins() {
 
 	for tool in "${SHELL_PLUGINS[@]}"; do
 		case "$tool" in
-		powerlevel10k)
-			loading "Installing powerlevel10k" install_powerlevel10k
+		starship)
+			loading "Instalando Starship" install_starship
 			case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
 			;;
 		zsh-defer)
@@ -87,8 +89,8 @@ uninstall_all_shell_plugins() {
 
 	for tool in "${SHELL_PLUGINS[@]}"; do
 		case "$tool" in
-		powerlevel10k)
-			loading "Uninstalling powerlevel10k" uninstall_powerlevel10k
+		starship)
+			loading "Desinstalando Starship" uninstall_starship
 			case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
 			;;
 		zsh-defer)
@@ -136,8 +138,8 @@ uninstall_all_shell_plugins() {
 update_all_shell_plugins() {
   for tool in "${SHELL_PLUGINS[@]}"; do
     case "$tool" in
-    powerlevel10k)
-      update_powerlevel10k
+    starship)
+      update_starship
       ;;
     zsh-defer)
       update_zsh_defer
@@ -177,8 +179,8 @@ reinstall_all_shell_plugins() {
 
   for tool in "${SHELL_PLUGINS[@]}"; do
     case "$tool" in
-    powerlevel10k)
-      loading "Reinstalling powerlevel10k" reinstall_powerlevel10k
+    starship)
+      loading "Reinstalando Starship" reinstall_starship
       case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
       ;;
     zsh-defer)

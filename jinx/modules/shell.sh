@@ -135,21 +135,21 @@ EOF
 
 install_shell() {
 	separator
-	box "Installing ZSH Shell Environment"
+	box "Instalando Entorno Shell"
 	separator
 	echo
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
-	loading "Installing base packages" install_termux_packages
-	log_success "Base packages installed"
+	loading "Instalando paquetes base" install_termux_packages
+	log_success "Paquetes base instalados"
 	echo
 
 	install_oh_my_zsh
 	echo
 
 	_install_shell_plugins_wrapper
-	log_success "ZSH plugins installed"
+	log_success "Plugins instalados"
 	echo
 
 	setup_zsh_aliases
@@ -161,18 +161,49 @@ install_shell() {
 	setupPersistentSession
 	echo
 
+	_setup_starship_for_both_shells
+	echo
+
 	separator
-	log_success "Terminal ZSH environment setup completed"
+	log_success "Entorno shell configurado correctamente"
+	log_info "Reinicia Termux o ejecuta: ${D_CYAN}exec zsh${NC} o ${D_CYAN}exec bash${NC}"
 	separator
 	echo
-	log_warn "Please restart Termux or run: exec zsh"
-	echo
+}
+
+_setup_starship_for_both_shells() {
+	if ! command -v starship &>/dev/null; then
+		log_warn "Starship no instalado, se salta configuración de prompt"
+		return 0
+	fi
+
+	# ZSH
+	if ! grep -q "starship init zsh" ~/.zshrc 2>/dev/null; then
+		echo "" >>~/.zshrc
+		echo "# Starship prompt" >>~/.zshrc
+		echo 'eval "$(starship init zsh)"' >>~/.zshrc
+	fi
+
+	# Bash
+	if ! grep -q "starship init bash" ~/.bashrc 2>/dev/null; then
+		echo "" >>~/.bashrc
+		echo "# Starship prompt" >>~/.bashrc
+		echo 'eval "$(starship init bash)"' >>~/.bashrc
+	fi
+
+	log_success "Starship configurado para ZSH y Bash"
 }
 
 _install_shell_plugins_wrapper() {
 	import "@/tools/shell/all"
 	install_all_shell_plugins
 
+	# Starship (reemplaza powerlevel10k como prompt principal)
+	if command -v starship &>/dev/null; then
+		log_info "Starship listo como prompt"
+	fi
+
+	# Powerlevel10k como alternativa (solo si se instaló explícitamente)
 	if [[ -d "$ZSH_PLUGINS_DIR/powerlevel10k" ]]; then
 		add_to_zshrc 'source ~/.zsh-plugins/powerlevel10k/powerlevel10k.zsh-theme'
 	fi
@@ -227,22 +258,22 @@ uninstall_oh_my_zsh() {
 
 uninstall_shell() {
 	if [[ ! -d "$OH_MY_ZSH_DIR" ]]; then
-		log_info "ZSH Shell Environment is not installed"
+		log_info "El entorno Shell no está instalado"
 		return 0
 	fi
 	separator
-	box "Uninstalling ZSH Shell Environment"
+	box "Desinstalando Entorno Shell"
 	separator
 	echo
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_uninstall_shell_plugins_wrapper
-	loading "Removing Oh My Zsh" uninstall_oh_my_zsh
+	loading "Eliminando Oh My Zsh" uninstall_oh_my_zsh
 
 	echo
 	separator
-	log_success "Terminal ZSH environment uninstalled"
+	log_success "Entorno shell desinstalado"
 	separator
 	echo
 }
@@ -254,20 +285,21 @@ _uninstall_shell_plugins_wrapper() {
 
 update_shell() {
 	separator
-	box "Updating ZSH Shell Environment"
+	box "Actualizando Entorno Shell"
 	separator
 	echo
 
 	mkdir -p "$(dirname "$LOG_FILE")"
 
 	_update_shell_plugins_wrapper
-	log_success "Terminal ZSH environment updated"
+	log_success "Entorno shell actualizado"
 
+	_setup_starship_for_both_shells
 	setup_shell_env
 	echo
 
 	separator
-	log_success "ZSH update completed"
+	log_success "Actualización de shell completada"
 	separator
 	echo
 }
@@ -279,14 +311,14 @@ _update_shell_plugins_wrapper() {
 
 reinstall_shell() {
   separator
-  box "Reinstalling ZSH Shell Environment"
+  box "Reinstalando Entorno Shell"
   separator
   echo
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
   _reinstall_shell_plugins_wrapper
-  log_success "ZSH plugins reinstalled"
+  log_success "Plugins reinstalados"
   echo
 
   setup_zsh_aliases
@@ -298,11 +330,14 @@ reinstall_shell() {
   setupPersistentSession
   echo
 
+  _setup_starship_for_both_shells
+  echo
+
   separator
-  log_success "Terminal ZSH environment reinstallation completed"
+  log_success "Reinstalación de shell completada"
   separator
   echo
-  log_warn "Please restart Termux or run: exec zsh"
+  log_warn "Reinicia Termux o ejecuta: exec zsh o exec bash"
   echo
 }
 

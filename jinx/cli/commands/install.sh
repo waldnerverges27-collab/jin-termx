@@ -525,6 +525,10 @@ _install_specific_tools() {
 
     for tool in "${tools[@]}"; do
       case "$tool" in
+      starship)
+        install_starship
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
       powerlevel10k)
         install_powerlevel10k
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac

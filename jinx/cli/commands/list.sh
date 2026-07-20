@@ -248,6 +248,7 @@ _list_shell() {
   echo
 
   table_start "Plugin" "Install Flag" "Status"
+  table_row "Starship" "--starship" "$(_check_cmd "starship")"
   table_row "powerlevel10k" "--powerlevel10k" "$(_check_plugin "powerlevel10k")"
   table_row "zsh-defer" "--zsh-defer" "$(_check_plugin "zsh-defer")"
   table_row "zsh-autosuggestions" "--zsh-autosuggestions" "$(_check_plugin "zsh-autosuggestions")"

@@ -524,6 +524,10 @@ _uninstall_specific_tools() {
 
     for tool in "${tools[@]}"; do
       case "$tool" in
+      starship)
+        uninstall_starship
+        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+        ;;
       powerlevel10k)
         uninstall_powerlevel10k
         case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac

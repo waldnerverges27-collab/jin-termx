@@ -1,0 +1,126 @@
+# ── Jin-TermX Starship Config ─────────────────────────────────────
+# Personalizado para Termux en Android
+
+# ── Formato del prompt ────────────────────────────────────────────
+format = """\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$git_metrics\
+$cmd_duration\
+$line_break\
+$python\
+$nodejs\
+$golang\
+$rust\
+$fill\
+$character"""
+
+right_format = """$time"""
+
+# ── Tiempo de espera ──────────────────────────────────────────────
+command_timeout = 500
+
+# ── Personaje del prompt ─────────────────────────────────────────
+[character]
+success_symbol = "[❯](bold blue)"
+error_symbol = "[❯](bold red)"
+vicmd_symbol = "[❮](bold green)"
+
+# ── Directorio ────────────────────────────────────────────────────
+[directory]
+truncation_length = 3
+truncation_symbol = "…/"
+truncate_to_repo = true
+style = "bold cyan"
+home_symbol = "🏠"
+
+# ── Git branch ────────────────────────────────────────────────────
+[git_branch]
+format = " [$branch]($style)"
+style = "bold purple"
+always_show_remote = true
+
+# ── Git status ────────────────────────────────────────────────────
+[git_status]
+conflicted = "🏳"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕${count}"
+untracked = "?${count}"
+stashed = "📦"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
+style = "bold yellow"
+format = "[$all_status$ahead_behind]($style) "
+
+# ── Git metrics ──────────────────────────────────────────────────
+[git_metrics]
+added_style = "bold green"
+deleted_style = "bold red"
+format = "([+$added]($added_style))([-$deleted]($deleted_style)) "
+disabled = false
+
+# ── Node.js ──────────────────────────────────────────────────────
+[nodejs]
+format = "via [⬢ $version](bold green) "
+detect_files = ["package.json", ".node-version"]
+detect_folders = ["node_modules"]
+style = "bold green"
+
+# ── Python ────────────────────────────────────────────────────────
+[python]
+format = "via [🐍 $version](bold yellow) "
+python_binary = ["python", "python3"]
+detect_files = ["requirements.txt", "Pipfile", "pyproject.toml", "setup.py"]
+
+# ── Golang ────────────────────────────────────────────────────────
+[golang]
+format = "via [🦎 $version](bold cyan) "
+detect_files = ["go.mod", "go.sum", "go.work"]
+
+# ── Rust ──────────────────────────────────────────────────────────
+[rust]
+format = "via [🦀 $version](bold red) "
+detect_files = ["Cargo.toml"]
+
+# ── Tiempo de ejecución ──────────────────────────────────────────
+[cmd_duration]
+format = "⏱️ [$duration]($style)"
+min_time_to_show = 2000
+show_milliseconds = false
+style = "bold yellow"
+
+# ── Usuario ───────────────────────────────────────────────────────
+[username]
+show_always = false
+style_user = "bold green"
+style_root = "bold red"
+format = "[$user]($style) "
+disabled = false
+
+# ── Hostname ──────────────────────────────────────────────────────
+[hostname]
+ssh_only = true
+format = "@[$hostname](bold red) "
+disabled = false
+
+# ── Hora ─────────────────────────────────────────────────────────
+[time]
+format = "🕐 [$time]($style)"
+time_format = "%H:%M"
+style = "bold dimmed white"
+disabled = false
+
+# ── Relleno ──────────────────────────────────────────────────────
+[fill]
+symbol = " "
+style = "bold dimmed white"
+
+# ── Linea de separacion ──────────────────────────────────────────
+[line_break]
+disabled = false
