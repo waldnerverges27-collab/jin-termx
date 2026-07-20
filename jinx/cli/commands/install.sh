@@ -231,6 +231,10 @@ _install_specific_tools() {
         install_openspec
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
         ;;
+      9router)
+        install_9router
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
       *)
         log_warn "Unknown AI tool: --$tool"
         ;;

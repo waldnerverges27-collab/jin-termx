@@ -145,6 +145,7 @@ _list_ai() {
   table_row "Freebuff" "--freebuff" "freebuff" "$(_check_cmd "freebuff")"
   table_row "Context7" "--ctx7" "ctx7" "$(_check_cmd "ctx7")"
   table_row "OpenSpec" "--openspec" "openspec" "$(_check_cmd "openspec")"
+  table_row "9Router" "--9router" "9router" "$(_check_cmd "9router")"
   table_end
 
   echo

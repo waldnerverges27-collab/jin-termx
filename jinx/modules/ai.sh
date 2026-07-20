@@ -49,6 +49,7 @@ install_ai() {
   list_item "Freebuff ${GRAY}(${D_GREEN}freebuff${GRAY})"
   list_item "Context7 ${GRAY}(${D_GREEN}ctx7${GRAY})"
   list_item "OpenSpec ${GRAY}(${D_GREEN}openspec${GRAY})"
+  list_item "9Router ${GRAY}(${D_GREEN}9router${GRAY})"
   echo
 }
 
