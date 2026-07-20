@@ -66,26 +66,57 @@ add_to_both_shells() {
 
 setup_shell_aliases() {
 	log_info "Configurando alias para ambos shells..."
+	echo
 
-	local alias_ls='alias ls="lsd"'
-	local alias_cat='alias cat="bat --theme=Dracula --style=plain --paging=never"'
-	local alias_eb='alias eb="exec bash"'
-	local alias_ez='alias ez="exec zsh"'
-	local zoxide_zsh='eval "$(zoxide init zsh)"'
-	local zoxide_bash='eval "$(zoxide init bash)"'
+	local -a ZSH_ALIASES=()
+	local -a BASH_ALIASES=()
 
-	add_to_zshrc "$alias_ls"
-	add_to_zshrc "$alias_cat"
-	add_to_zshrc "$alias_eb"
-	add_to_zshrc "$alias_ez"
-	add_to_zshrc "$zoxide_zsh"
-	add_to_bashrc "$alias_ls"
-	add_to_bashrc "$alias_cat"
-	add_to_bashrc "$alias_eb"
-	add_to_bashrc "$alias_ez"
-	add_to_bashrc "$zoxide_bash"
+	# Aliases que se sugieren
+	echo "  ${D_CYAN}Alias disponibles:${NC}"
+	echo
+	printf "    ${D_GREEN}%-20s${NC} ${D_DIM}→${NC} %s\n" "ls" "lsd (ls con iconos y colores)"
+	printf "    ${D_GREEN}%-20s${NC} ${D_DIM}→${NC} %s\n" "cat" "bat (cat con resaltado de sintaxis)"
+	printf "    ${D_GREEN}%-20s${NC} ${D_DIM}→${NC} %s\n" "eb" "exec bash (cambiar a Bash)"
+	printf "    ${D_GREEN}%-20s${NC} ${D_DIM}→${NC} %s\n" "ez" "exec zsh (cambiar a ZSH)"
+	printf "    ${D_GREEN}%-20s${NC} ${D_DIM}→${NC} %s\n" "zoxide" "cd inteligente con aprendizaje"
+	echo
 
-	log_success "Alias configurados para ZSH y Bash"
+	# Preguntar por cada alias
+	if read_confirm_default "Alias ${D_GREEN}ls${NC} → ${D_CYAN}lsd${NC}?" "y" confirm_ls; then
+		ZSH_ALIASES+=('alias ls="lsd"')
+		BASH_ALIASES+=('alias ls="lsd"')
+	fi
+
+	if read_confirm_default "Alias ${D_GREEN}cat${NC} → ${D_CYAN}bat${NC}?" "y" confirm_cat; then
+		ZSH_ALIASES+=('alias cat="bat --theme=Dracula --style=plain --paging=never"')
+		BASH_ALIASES+=('alias cat="bat --theme=Dracula --style=plain --paging=never"')
+	fi
+
+	if read_confirm_default "Alias ${D_GREEN}eb${NC} → ${D_CYAN}exec bash${NC}?" "y" confirm_eb; then
+		ZSH_ALIASES+=('alias eb="exec bash"')
+		BASH_ALIASES+=('alias eb="exec bash"')
+	fi
+
+	if read_confirm_default "Alias ${D_GREEN}ez${NC} → ${D_CYAN}exec zsh${NC}?" "y" confirm_ez; then
+		ZSH_ALIASES+=('alias ez="exec zsh"')
+		BASH_ALIASES+=('alias ez="exec zsh"')
+	fi
+
+	# Zoxide para ZSH y Bash
+	if read_confirm_default "Usar ${D_GREEN}zoxide${NC} (cd inteligente)?" "y" confirm_zoxide; then
+		ZSH_ALIASES+=('eval "$(zoxide init zsh)"')
+		BASH_ALIASES+=('eval "$(zoxide init bash)"')
+	fi
+
+	# Aplicar alias
+	for alias_line in "${ZSH_ALIASES[@]}"; do
+		add_to_zshrc "$alias_line"
+	done
+	for alias_line in "${BASH_ALIASES[@]}"; do
+		add_to_bashrc "$alias_line"
+	done
+
+	log_success "Alias configurados: ${#ZSH_ALIASES[@]} en ZSH, ${#BASH_ALIASES[@]} en Bash"
 }
 
 setup_shell_env() {
