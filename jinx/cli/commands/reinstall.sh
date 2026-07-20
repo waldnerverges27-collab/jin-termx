@@ -522,8 +522,6 @@ _reinstall_specific_tools() {
         reinstall_starship
         case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
         ;;
-        case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
-        ;;
       zsh-defer)
         reinstall_zsh_defer
         case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
