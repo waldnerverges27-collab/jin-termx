@@ -48,6 +48,7 @@ jinx
 | [`jinx list`](#jinx-list) | List available tools in modules |
 | [`jinx pg`](#jinx-pg) | PostgreSQL database manager |
 | [`jinx init`](#jinx-init) | Configure existing projects |
+| [`jinx doctor`](#jinx-doctor) | Diagnostic and repair |
 
 ---
 
@@ -57,7 +58,7 @@ These modules are available across most commands (`jinx list`, `jinx install`, `
 
 | Module | Description |
 |--------|-------------|
-| `lang` | Language packages (Node.js, Python, Perl, PHP, Rust, C/C++, Go, Bun.js) |
+| `lang` | Language packages (Node.js, Python, Perl, PHP, Rust, C/C++, Go, Bun, Java, Kotlin) |
 | `db` | Databases (PostgreSQL, MariaDB, SQLite, MongoDB, Redis) |
 | `ai` | AI agents and coding assistants — see [AI Agents](#ai-agents) |
 | `editor` | Code editor components (Neovim, NvChad) |
@@ -569,6 +570,32 @@ $ cd my-next-app && jinx init next
 
 ---
 
+### `jinx doctor`
+
+Diagnostic and repair tool for your Jin-TermX environment.
+
+```bash
+jinx doctor              # Run diagnostics
+jinx doctor --fix        # Auto-fix detected issues
+```
+
+**Checks performed:**
+
+- **Network** — Internet connectivity via GitHub
+- **Disk space** — Available space and usage percentage
+- **Shell config** — Oh My Zsh, compinit, BLE, Starship in `.zshrc`/`.bashrc`
+- **Tools** — Base tools installed (git, curl, node, python, starship, etc.)
+- **Updates** — Framework version behind remote
+- **Environment** — Go variables, locale UTF-8
+
+**`--fix` mode** automatically resolves:
+- Missing shell configuration
+- Uninstalled base tools
+- Environment variables not set
+- Outdated shell plugins (via git pull)
+
+---
+
 ## Template Details
 
 ### Next.js (`jinx init next`)
@@ -714,6 +741,8 @@ jinx install lang
 | **C/C++** | `clang` | LLVM C/C++ compiler |
 | **Go** | `golang` | Go programming language |
 | **Bun** | `bun` | Bun JavaScript runtime |
+| **Java** | `openjdk-17` | Java 17 (OpenJDK) |
+| **Kotlin** | `kotlin` | Kotlin programming language |
 
 ---
 
