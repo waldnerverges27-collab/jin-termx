@@ -453,7 +453,6 @@ read_checklist() {
 
 	_render_checklist() {
 		echo -e "    ${GRAY}┌─${D_CYAN} ${prompt}${NC}" >&2
-		echo -e "    ${GRAY}│${D_DIM}  (↑↓ mover  Espacio: marcar/desmarcar  Enter: confirmar)${D_NC}" >&2
 		for ((i = 0; i < total; i++)); do
 			local text="${options[$i]}"
 			if (( ${#text} > max_width )); then
@@ -473,15 +472,13 @@ read_checklist() {
 				fi
 			fi
 		done
-		# Contar cuántos están seleccionados
 		local sel_count=0
 		for ((c = 0; c < total; c++)); do ((checked[c])) && ((sel_count++)); done
-		echo -e "    ${GRAY}└─${D_NC} ${sel_count} seleccionado(s)" >&2
+		echo -e -n "    ${GRAY}└─${D_NC} ${sel_count} seleccionado(s)  ${D_DIM}(↑↓ espacio enter)${D_NC}" >&2
 	}
 
+	local lines=$((total + 1))
 	tput civis 2>/dev/null
-	# Guardar posición del cursor
-	tput sc 2>/dev/null
 	_render_checklist
 
 	while true; do
@@ -498,9 +495,7 @@ read_checklist() {
 		'') break ;;
 		esac
 
-		# Restaurar cursor y limpiar desde allí hasta el final
-		tput rc 2>/dev/null
-		tput ed 2>/dev/null
+		echo -en "\r\033[${lines}A\033[J" >&2
 		_render_checklist
 	done
 
