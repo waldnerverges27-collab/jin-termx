@@ -741,8 +741,8 @@ jinx install lang
 | **C/C++** | `clang` | LLVM C/C++ compiler |
 | **Go** | `golang` | Go programming language |
 | **Bun** | `bun` | Bun JavaScript runtime |
-| **Java** | `openjdk-17` | Java 17 (OpenJDK) |
-| **Kotlin** | `kotlin` | Kotlin programming language |
+| **Java** | `--java` | Java 17 (Temurin JDK via glibc) |
+| **Kotlin** | `--kotlin` | Kotlin programming language |
 
 ---
 
