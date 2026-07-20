@@ -711,40 +711,86 @@ _install_specific_tools() {
 }
 
 # ── Instalación interactiva con checklist ──────────────────────────
+# Solo muestra herramientas NO instaladas
 _interactive_install() {
   local module="$1"
   local -a items=()
+  local -a aliases=()
 
   case "$module" in
   ai)
     import "@/tools/ai/all"
-    for tool in "${AI_TOOLS[@]}"; do items+=("${tool^}:${tool}"); done
+    for tool in "${AI_TOOLS[@]}"; do
+      local bin="${tool%% *}"
+      _is_cmd_installed "$bin" || { items+=("${tool^}:${tool}"); }
+    done
     ;;
   lang)
     import "@/tools/lang/all"
-    for tool in "${LANGUAGE_PACKAGES[@]}"; do items+=("${tool^}:${tool}"); done
+    for tool in "${LANGUAGE_PACKAGES[@]}"; do
+      local bin=""
+      case "$tool" in
+        nodejs) bin="node";; python) bin="python3";; perl) bin="perl";;
+        php) bin="php";; rust) bin="rustc";; clang) bin="clang";;
+        golang) bin="go";; bun) bin="bun";; java) bin="java";;
+        kotlin) bin="kotlin";;
+      esac
+      _is_cmd_installed "$bin" || { items+=("${tool^}:${tool}"); }
+    done
     ;;
   db)
-    items=("PostgreSQL:postgresql" "MariaDB:mariadb" "SQLite:sqlite" "MongoDB:mongodb" "Redis:redis")
+    aliases=("postgresql:psql" "mariadb:mariadb" "sqlite:sqlite3" "mongodb:mongosh" "redis:redis-cli")
+    for entry in "${aliases[@]}"; do
+      local name="${entry%%:*}"
+      local bin="${entry##*:}"
+      _is_cmd_installed "$bin" || { items+=("${name^}:$name"); }
+    done
     ;;
   dev)
-    items=("GitHub CLI:gh" "Wget:wget" "Curl:curl" "LSD:lsd" "Bat:bat" "Proot:proot" "Ncurses:ncurses" "Tmate:tmate" "Tmux:tmux" "OpenSSH:openssh" "Cloudflared:cloudflared" "Translate:translate" "Html2text:html2text" "JQ:jq" "BC:bc" "Tree:tree" "Fzf:fzf" "ImageMagick:imagemagick" "Shfmt:shfmt" "Make:make" "UDocker:udocker")
+    aliases=("GitHub CLI:gh" "Wget:wget" "Curl:curl" "LSD:lsd" "Bat:bat" "Proot:proot"
+             "Ncurses:ncurses" "Tmate:tmate" "Tmux:tmux" "OpenSSH:openssh"
+             "Cloudflared:cloudflared" "Translate:translate" "Html2text:html2text"
+             "JQ:jq" "BC:bc" "Tree:tree" "Fzf:fzf" "ImageMagick:imagemagick"
+             "Shfmt:shfmt" "Make:make" "UDocker:udocker")
+    for entry in "${aliases[@]}"; do
+      local name="${entry%%:*}"
+      local bin="${entry##*:}"
+      _is_cmd_installed "$bin" || { items+=("$name:$bin"); }
+    done
     ;;
   shell)
     import "@/tools/shell/all"
-    for plugin in "${SHELL_PLUGINS[@]}"; do items+=("${plugin^}:${plugin}"); done
+    for plugin in "${SHELL_PLUGINS[@]}"; do
+      local dir="$ZSH_PLUGINS_DIR/$plugin"
+      if [[ "$plugin" == "starship" ]]; then
+        command -v starship &>/dev/null && continue
+      elif [[ "$plugin" == "ble" ]]; then
+        command -v ble.sh &>/dev/null && continue
+      elif [[ -d "$dir" ]]; then
+        continue
+      fi
+      items+=("${plugin^}:${plugin}")
+    done
     ;;
   npm)
-    items=("TypeScript:typescript" "NestJS:nestjs" "Prettier:prettier" "Live Server:live-server" "Localtunnel:localtunnel" "Vercel:vercel" "Markserv:markserv" "PSQL Format:psqlformat" "NCU:ncu" "Ngrok:ngrok" "Turbopack:turbopack")
+    aliases=("TypeScript:tsc" "NestJS:nest" "Prettier:prettier" "Live Server:live-server"
+             "Localtunnel:lt" "Vercel:vercel" "Markserv:markserv"
+             "PSQL Format:psqlformat" "NCU:ncu" "Ngrok:ngrok" "Turbopack:turbopack")
+    for entry in "${aliases[@]}"; do
+      local name="${entry%%:*}"
+      local bin="${entry##*:}"
+      _is_cmd_installed "$bin" || { items+=("$name:$bin"); }
+    done
     ;;
   editor)
-    items=("Neovim:neovim" "NvChad:nvchad")
+    _is_cmd_installed "nvim" || items+=("Neovim:neovim")
+    [[ -d "$HOME/.config/nvim" ]] || items+=("NvChad:nvchad")
     ;;
   ui)
     items=("Font:font" "Cursor:cursor" "Extra Keys:extra-keys" "Banner:banner")
     ;;
   auto)
-    items=("n8n:n8n")
+    _is_cmd_installed "n8n" || items+=("n8n:n8n")
     ;;
   *)
     log_warn "Módulo '$module' no soporta instalación interactiva"
@@ -752,6 +798,11 @@ _interactive_install() {
     return
     ;;
   esac
+
+  if [[ ${#items[@]} -eq 0 ]]; then
+    log_success "Todas las herramientas de $module ya están instaladas"
+    return
+  fi
 
   # Preparar arrays
   local -a display_opts=() flag_map=()
@@ -761,7 +812,7 @@ _interactive_install() {
   done
 
   echo
-  read_checklist "Selecciona herramientas a instalar en $module:" raw_selected "${display_opts[@]}"
+  read_checklist "Selecciona herramientas a instalar en $module (${#items[@]} disponible(s)):" raw_selected "${display_opts[@]}"
 
   if [[ -z "$raw_selected" ]]; then
     log_info "No se seleccionó ninguna herramienta"
@@ -782,4 +833,8 @@ _interactive_install() {
   echo
   log_info "Instalando herramientas seleccionadas..."
   _install_specific_tools "$module" "${selected_flags[@]}"
+}
+
+_is_cmd_installed() {
+  command -v "$1" &>/dev/null
 }
