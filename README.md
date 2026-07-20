@@ -10,7 +10,7 @@
 
 <br>
 
-**JIN-TERMX** is a _modular dev environment_ that turns Termux into a complete development workstation. Through a single core CLI, it provides a modular system that covers the full developer stack: programming languages, databases, AI agents, code editors, shell configuration, and automation — all manageable with simple, consistent commands like `jinx install`, `jinx update`, and `jinx uninstall`.
+**JIN-TERMX** is a _modular dev environment_ that turns Termux into a complete development workstation. Through a single CLI (`jinx`), it provides a modular system that covers the full developer stack: programming languages, databases, AI agents, code editors, shell configuration, and automation — all manageable with simple, consistent commands like `jinx install`, `jinx update`, and `jinx uninstall`.
 
 > [!IMPORTANT]
 > This project is designed exclusively for **Termux on Android** and is not supported on other platforms.
@@ -44,7 +44,7 @@ jinx
 | [`jinx uninstall`](#jinx-uninstall) | Remove installed modules |
 | [`jinx reinstall`](#jinx-reinstall) | Uninstall + reinstall modules |
 | [`jinx voice`](#jinx-voice) | Speech-to-agent via microphone |
-| [`jinx open`](#jinx-open) | Open documentation in browser |
+| [`jinx open`](#jinx-open) | Open local documentation |
 | [`jinx list`](#jinx-list) | List available tools in modules |
 | [`jinx pg`](#jinx-pg) | PostgreSQL database manager |
 | [`jinx init`](#jinx-init) | Configure existing projects |
@@ -63,8 +63,8 @@ These modules are available across most commands (`jinx list`, `jinx install`, `
 | `editor` | Code editor components (Neovim, NvChad) |
 | `dev` | Development tools (gh, wget, curl, fzf, lsd, bat, etc.) |
 | `npm` | Node.js global npm packages |
-| `shell` | ZSH plugins |
-| `ui` | Termux UI components |
+| `shell` | Shell environment (Starship + BLE + ZSH plugins) |
+| `ui` | Termux UI components (font, cursor, extra-keys, banner) |
 | `auto` | Automation tools (n8n) |
 
 ---
@@ -1054,24 +1054,37 @@ jinx update jinx
 
 ---
 
-## ZSH Shell
+## Shell Environment
 
-When installing the `shell` module:
+When installing the `shell` module, both **ZSH** and **Bash** are configured:
 
-### Installed Plugins
+- **ZSH**: Oh My Zsh + plugins + Starship prompt
+- **Bash**: BLE (Bash Line Editor) + Starship prompt
+- **PATH** and environment variables are shared between both shells
 
-| Plugin | Description |
-|--------|-------------|
-| powerlevel10k | Modern and fast theme |
-| zsh-defer | Deferred plugin loading |
-| zsh-autosuggestions | Smart autocompletion |
-| zsh-syntax-highlighting | Syntax highlighting |
-| zsh-history-substring-search | History search |
-| zsh-completions | Additional completions |
-| fzf-tab | Fuzzy navigation in completions |
-| zsh-you-should-use | Command suggestions |
-| zsh-autopair | Auto-close parentheses |
-| zsh-better-npm-completion | Better npm completion |
+### Installed Components
+
+| Component | Type | Description |
+|-----------|------|-------------|
+| **Starship** | Prompt | Custom Jin-TermX themed prompt (Rust, ultra-fast) |
+| **BLE** | Editor | Bash Line Editor — syntax highlighting, completions, menus |
+| **Oh My Zsh** | Framework | ZSH configuration framework |
+| **zsh-defer** | Plugin | Deferred plugin loading for faster startup |
+| **zsh-autosuggestions** | Plugin | Smart autocompletion based on history |
+| **zsh-syntax-highlighting** | Plugin | Syntax highlighting |
+| **zsh-history-substring-search** | Plugin | History search with arrow keys |
+| **zsh-completions** | Plugin | Additional completions |
+| **fzf-tab** | Plugin | Fuzzy tab completions |
+| **zsh-you-should-use** | Plugin | Command suggestions |
+| **zsh-autopair** | Plugin | Auto-close parentheses and quotes |
+| **zsh-better-npm-completion** | Plugin | Better npm completion |
+
+### Change Shell
+
+```bash
+exec zsh      # Switch to ZSH with Oh My Zsh
+exec bash     # Switch to Bash with BLE
+```
 
 ### Persistent Session
 
