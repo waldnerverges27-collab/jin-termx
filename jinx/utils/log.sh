@@ -165,7 +165,7 @@ table_row() {
 # ===== STRIP ANSI =====
 # Elimina códigos de escape ANSI para medir la longitud visual real
 strip_ansi() {
-	echo -e "$1" | sed 's/\x1b\[[0-9;]*m//g'
+	echo -e "$1" | sed $'s/\x1b\[[0-9;]*m//g'
 }
 
 # ===== CALCULATE COLUMN WIDTHS =====
@@ -267,25 +267,16 @@ read_input() {
 # Lee carácter por carácter y muestra ● para cada uno.
 # Uso: read_secret "Prompt" VAR_NAME
 read_secret() {
-	local prompt="$1"
-	local var="$2"
-	local _val=""
-	local char
+	local prompt="$1" var="$2" _val="" char
 
 	echo -e -n "    ${GRAY}┌─${D_CYAN} ${prompt} ${NC}\n" >&2
 	echo -e -n "    ${GRAY}│${D_DIM} (input will be hidden)${D_NC}\n" >&2
 	echo -e -n "    ${GRAY}└─${D_CYAN}▶ ${D_NC}" >&2
 
-	local old_stty
-	old_stty=$(stty -g 2>/dev/null)
-	stty -echo -icanon min 1 time 0 2>/dev/null
-
-	while true; do
-		char=$(dd bs=1 count=1 2>/dev/null)
-		if [[ "$char" == $'\n' ]] || [[ "$char" == $'\r' ]] || [[ -z "$char" ]]; then
+	while IFS= read -r -n 1 -s char; do
+		if [[ -z "$char" ]] || [[ "$char" == $'\n' ]] || [[ "$char" == $'\r' ]]; then
 			break
-		fi
-		if [[ "$char" == $'\177' ]] || [[ "$char" == $'\b' ]] || [[ "$char" == $'\x7f' ]]; then
+		elif [[ "$char" == $'\x7f' ]] || [[ "$char" == $'\b' ]]; then
 			if [[ -n "$_val" ]]; then
 				_val="${_val%?}"
 				echo -ne "\b \b" >&2
@@ -296,9 +287,20 @@ read_secret() {
 		fi
 	done
 
-	stty "$old_stty" 2>/dev/null
 	echo >&2
 	read -r "$var" <<<"$_val"
+}
+
+# --- Verificación de comando con sugerencia ---
+# Uso: require_cmd "jq" "pkg install jq" || return 1
+require_cmd() {
+	local cmd="$1" hint="$2"
+	if ! command -v "$cmd" &>/dev/null; then
+		log_error "Comando requerido no encontrado: ${D_CYAN}$cmd${NC}"
+		[[ -n "$hint" ]] && list_item "Instala con: ${D_GREEN}$hint${NC}"
+		return 1
+	fi
+	return 0
 }
 
 # --- Confirmación s/n ---
@@ -400,6 +402,7 @@ read_select() {
 
 	local lines=$((total + 1))
 
+	trap 'tput cnorm 2>/dev/null; echo; exit 1' INT TERM
 	tput civis
 	_render_select
 
@@ -421,6 +424,7 @@ read_select() {
 	done
 
 	echo >&2
+	trap - INT TERM
 	tput cnorm
 
 	read -r "$var" <<<"${options[$selected]}"
@@ -478,6 +482,7 @@ read_checklist() {
 	}
 
 	local lines=$((total + 1))
+	trap 'tput cnorm 2>/dev/null; echo; exit 1' INT TERM
 	tput civis 2>/dev/null
 	_render_checklist
 
@@ -500,6 +505,7 @@ read_checklist() {
 	done
 
 	echo >&2
+	trap - INT TERM
 	tput cnorm 2>/dev/null
 
 	# Generar resultado: nombres de opciones seleccionadas

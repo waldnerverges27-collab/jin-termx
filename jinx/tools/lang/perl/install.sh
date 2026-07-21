@@ -10,7 +10,7 @@ _install_perl_pkg() {
 }
 
 _install_perl_pkg_impl() {
-	if ! yes | pkg install perl &>>"$LOG_FILE"; then
+	if ! pkg install -y perl &>>"$LOG_FILE"; then
 		log_error "Failed to install Perl"
 		return 1
 	fi
@@ -60,7 +60,7 @@ _update_perl_pkg() {
 
 _do_perl_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade perl -y &>>"$LOG_FILE"
+  pkg upgrade -y perl -y &>>"$LOG_FILE"
 }
 
 update_perl() {

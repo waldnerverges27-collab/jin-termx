@@ -10,7 +10,7 @@ _install_php_pkg() {
 }
 
 _install_php_pkg_impl() {
-	if ! yes | pkg install php &>>"$LOG_FILE"; then
+	if ! pkg install -y php &>>"$LOG_FILE"; then
 		log_error "Failed to install PHP"
 		return 1
 	fi
@@ -60,7 +60,7 @@ _update_php_pkg() {
 
 _do_php_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade php -y &>>"$LOG_FILE"
+  pkg upgrade -y php -y &>>"$LOG_FILE"
 }
 
 update_php() {

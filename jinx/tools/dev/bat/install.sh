@@ -10,7 +10,7 @@ _install_bat_pkg() {
 }
 
 _install_bat_pkg_impl() {
-	if ! yes | pkg install bat &>>"$LOG_FILE"; then
+	if ! pkg install -y bat &>>"$LOG_FILE"; then
 		log_error "Failed to install Bat"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_bat_pkg() {
 
 _do_bat_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade bat -y &>>"$LOG_FILE"
+  pkg upgrade -y bat -y &>>"$LOG_FILE"
 }
 
 install_bat() {

@@ -10,7 +10,7 @@ _install_make_pkg() {
 }
 
 _install_make_pkg_impl() {
-	if ! yes | pkg install make &>>"$LOG_FILE"; then
+	if ! pkg install -y make &>>"$LOG_FILE"; then
 		log_error "Failed to install Make"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_make_pkg() {
 
 _do_make_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade make -y &>>"$LOG_FILE"
+  pkg upgrade -y make -y &>>"$LOG_FILE"
 }
 
 install_make() {

@@ -10,7 +10,7 @@ _install_html2text_pkg() {
 }
 
 _install_html2text_pkg_impl() {
-	if ! yes | pkg install html2text &>>"$LOG_FILE"; then
+	if ! pkg install -y html2text &>>"$LOG_FILE"; then
 		log_error "Failed to install html2text"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_html2text_pkg() {
 
 _do_html2text_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade html2text -y &>>"$LOG_FILE"
+  pkg upgrade -y html2text -y &>>"$LOG_FILE"
 }
 
 install_html2text() {

@@ -10,7 +10,7 @@ _install_shfmt_pkg() {
 }
 
 _install_shfmt_pkg_impl() {
-	if ! yes | pkg install shfmt &>>"$LOG_FILE"; then
+	if ! pkg install -y shfmt &>>"$LOG_FILE"; then
 		log_error "Failed to install Shfmt"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_shfmt_pkg() {
 
 _do_shfmt_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade shfmt -y &>>"$LOG_FILE"
+  pkg upgrade -y shfmt -y &>>"$LOG_FILE"
 }
 
 install_shfmt() {

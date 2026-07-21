@@ -28,7 +28,7 @@ _mistral_vibe_dependencies_impl() {
     if [[ -n "$bin_name" ]] && command -v "$bin_name" &>/dev/null; then
       continue
     fi
-    if ! yes | pkg install "$pkg_name" &>>"$LOG_FILE"; then
+    if ! pkg install -y "$pkg_name" &>>"$LOG_FILE"; then
       log_error "Failed to install $pkg_name"
       return 1
     fi

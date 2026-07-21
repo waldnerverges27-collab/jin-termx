@@ -10,7 +10,7 @@ _install_cloudflared_pkg() {
 }
 
 _install_cloudflared_pkg_impl() {
-	if ! yes | pkg install cloudflared &>>"$LOG_FILE"; then
+	if ! pkg install -y cloudflared &>>"$LOG_FILE"; then
 		log_error "Failed to install Cloudflared"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_cloudflared_pkg() {
 
 _do_cloudflared_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade cloudflared -y &>>"$LOG_FILE"
+  pkg upgrade -y cloudflared -y &>>"$LOG_FILE"
 }
 
 install_cloudflared() {

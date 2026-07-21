@@ -77,14 +77,14 @@ voice_main() {
 
 	# ── capture voice ──
 	$is_text || log_info "Listening through the microphone..."
-	local raw
-	raw="$(termux-dialog speech 2>/dev/null | grep -i "text" | cut -d '"' -f 4)"
-
-	if [[ -z "$raw" ]]; then
+	local json_output raw
+	json_output="$(termux-dialog speech 2>/dev/null)"
+	if ! echo "$json_output" | jq -e '.text' >/dev/null 2>&1; then
 		log_error "No speech detected or dialog cancelled"
 		separator
 		exit 1
 	fi
+	raw="$(echo "$json_output" | jq -r '.text')"
 
 	# ── edit prompt in nvim (skip if no TTY) ──
 	local tmpfile prompt
@@ -98,7 +98,7 @@ voice_main() {
 		$is_text || log_warn "No TTY available, skipping editor — using raw capture"
 	fi
 
-	prompt="$(cat "$tmpfile" | xargs)"
+	prompt="$(<"$tmpfile")"
 	rm -f "$tmpfile"
 
 	if [[ -z "$prompt" ]]; then

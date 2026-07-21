@@ -10,7 +10,7 @@ _install_golang_pkg() {
 }
 
 _install_golang_pkg_impl() {
-	if ! yes | pkg install golang &>>"$LOG_FILE"; then
+	if ! pkg install -y golang &>>"$LOG_FILE"; then
 		log_error "Failed to install Go (Golang)"
 		return 1
 	fi
@@ -60,7 +60,7 @@ _update_golang_pkg() {
 
 _do_golang_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade golang -y &>>"$LOG_FILE"
+  pkg upgrade -y golang -y &>>"$LOG_FILE"
 }
 
 update_golang() {

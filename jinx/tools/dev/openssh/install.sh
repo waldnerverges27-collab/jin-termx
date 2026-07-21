@@ -10,7 +10,7 @@ _install_openssh_pkg() {
 }
 
 _install_openssh_pkg_impl() {
-  if ! yes | pkg install openssh &>>"$LOG_FILE"; then
+  if ! pkg install -y openssh &>>"$LOG_FILE"; then
     log_error "Failed to install OpenSSH"
     return 1
   fi
@@ -62,7 +62,7 @@ _update_openssh_pkg() {
 
 _do_openssh_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade openssh -y &>>"$LOG_FILE"
+  pkg upgrade -y openssh -y &>>"$LOG_FILE"
 }
 
 update_openssh() {

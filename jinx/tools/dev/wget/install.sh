@@ -10,7 +10,7 @@ _install_wget_pkg() {
 }
 
 _install_wget_pkg_impl() {
-	if ! yes | pkg install wget &>>"$LOG_FILE"; then
+	if ! pkg install -y wget &>>"$LOG_FILE"; then
 		log_error "Failed to install Wget"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_wget_pkg() {
 
 _do_wget_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade wget -y &>>"$LOG_FILE"
+  pkg upgrade -y wget -y &>>"$LOG_FILE"
 }
 
 install_wget() {

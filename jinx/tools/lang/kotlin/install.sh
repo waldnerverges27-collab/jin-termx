@@ -20,7 +20,7 @@ install_kotlin() {
 		install_java || return 1
 	fi
 
-	if ! yes | pkg install kotlin &>>"$LOG_FILE"; then
+	if ! pkg install -y kotlin &>>"$LOG_FILE"; then
 		log_error "Error al instalar Kotlin"
 		return 1
 	fi
@@ -45,7 +45,7 @@ update_kotlin() {
 }
 
 _do_update_kotlin() {
-	loading "Actualizando Kotlin" bash -c "yes | pkg upgrade kotlin -y &>>$LOG_FILE"
+	loading "Actualizando Kotlin" bash -c "pkg upgrade -y kotlin -y &>>$LOG_FILE"
 }
 
 reinstall_kotlin() {

@@ -10,7 +10,7 @@ _install_ncurses_pkg() {
 }
 
 _install_ncurses_pkg_impl() {
-	if ! yes | pkg install ncurses-utils &>>"$LOG_FILE"; then
+	if ! pkg install -y ncurses-utils &>>"$LOG_FILE"; then
 		log_error "Failed to install Ncurses Utils"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_ncurses_pkg() {
 
 _do_ncurses_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade ncurses-utils -y &>>"$LOG_FILE"
+  pkg upgrade -y ncurses-utils -y &>>"$LOG_FILE"
 }
 
 install_ncurses() {

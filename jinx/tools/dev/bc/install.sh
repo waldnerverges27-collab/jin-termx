@@ -10,7 +10,7 @@ _install_bc_pkg() {
 }
 
 _install_bc_pkg_impl() {
-	if ! yes | pkg install bc &>>"$LOG_FILE"; then
+	if ! pkg install -y bc &>>"$LOG_FILE"; then
 		log_error "Failed to install bc"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_bc_pkg() {
 
 _do_bc_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade bc -y &>>"$LOG_FILE"
+  pkg upgrade -y bc -y &>>"$LOG_FILE"
 }
 
 install_bc() {

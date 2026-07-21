@@ -13,7 +13,7 @@ _psqlformat_dependencies() {
 
   log_info "Installing Nodejs and Perl..."
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg install nodejs-lts perl &>>"$LOG_FILE"
+  pkg install -y nodejs-lts perl &>>"$LOG_FILE"
 }
 
 _install_psqlformat_npm() {

@@ -10,7 +10,7 @@ _install_fzf_pkg() {
 }
 
 _install_fzf_pkg_impl() {
-	if ! yes | pkg install fzf &>>"$LOG_FILE"; then
+	if ! pkg install -y fzf &>>"$LOG_FILE"; then
 		log_error "Failed to install Fzf"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_fzf_pkg() {
 
 _do_fzf_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade fzf -y &>>"$LOG_FILE"
+  pkg upgrade -y fzf -y &>>"$LOG_FILE"
 }
 
 install_fzf() {

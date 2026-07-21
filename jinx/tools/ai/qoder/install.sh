@@ -49,14 +49,14 @@ _qoder_install_deps_native() {
 
 _qoder_install_deps_native_impl() {
   if [[ ! -f $PREFIX/etc/apt/sources.list.d/glibc.list ]]; then
-    if ! yes | pkg install glibc-repo &>>"$LOG_FILE"; then
+    if ! pkg install -y glibc-repo &>>"$LOG_FILE"; then
       log_error "Failed to install glibc-repo"
       return 1
     fi
   fi
 
   if [[ ! -f $PREFIX/glibc/lib/libc.so.6 ]]; then
-    if ! yes | pkg install glibc &>>"$LOG_FILE"; then
+    if ! pkg install -y glibc &>>"$LOG_FILE"; then
       log_error "Failed to install glibc"
       return 1
     fi
@@ -76,7 +76,7 @@ _qoder_install_deps_native_impl() {
   for pkg_name in "${!DEPS[@]}"; do
     bin_name="${DEPS[$pkg_name]}"
     if ! command -v "$bin_name" &>/dev/null; then
-      if ! yes | pkg install "$pkg_name" &>>"$LOG_FILE"; then
+      if ! pkg install -y "$pkg_name" &>>"$LOG_FILE"; then
         log_error "Failed to install $pkg_name"
         return 1
       fi
@@ -167,7 +167,7 @@ _install_qoder_proot_impl() {
   mkdir -p "$(dirname "$LOG_FILE")"
 
   if ! command -v proot-distro &>/dev/null; then
-    yes | pkg install proot-distro &>>"$LOG_FILE"
+    pkg install -y proot-distro &>>"$LOG_FILE"
   fi
 
   if [ ! -d "$(_qoder_detect_ubuntu_root)" ]; then

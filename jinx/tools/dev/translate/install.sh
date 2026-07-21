@@ -10,7 +10,7 @@ _install_translate_pkg() {
 }
 
 _install_translate_pkg_impl() {
-	if ! yes | pkg install translate-shell &>>"$LOG_FILE"; then
+	if ! pkg install -y translate-shell &>>"$LOG_FILE"; then
 		log_error "Failed to install Translate Shell"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_translate_pkg() {
 
 _do_translate_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade translate-shell -y &>>"$LOG_FILE"
+  pkg upgrade -y translate-shell -y &>>"$LOG_FILE"
 }
 
 install_translate() {

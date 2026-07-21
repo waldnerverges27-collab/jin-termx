@@ -10,7 +10,7 @@ _install_jq_pkg() {
 }
 
 _install_jq_pkg_impl() {
-	if ! yes | pkg install jq &>>"$LOG_FILE"; then
+	if ! pkg install -y jq &>>"$LOG_FILE"; then
 		log_error "Failed to install jq"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_jq_pkg() {
 
 _do_jq_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade jq -y &>>"$LOG_FILE"
+  pkg upgrade -y jq -y &>>"$LOG_FILE"
 }
 
 install_jq() {

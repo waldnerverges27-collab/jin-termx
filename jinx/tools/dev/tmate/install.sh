@@ -10,7 +10,7 @@ _install_tmate_pkg() {
 }
 
 _install_tmate_pkg_impl() {
-	if ! yes | pkg install tmate &>>"$LOG_FILE"; then
+	if ! pkg install -y tmate &>>"$LOG_FILE"; then
 		log_error "Failed to install Tmate"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_tmate_pkg() {
 
 _do_tmate_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade tmate -y &>>"$LOG_FILE"
+  pkg upgrade -y tmate -y &>>"$LOG_FILE"
 }
 
 install_tmate() {

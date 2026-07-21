@@ -18,12 +18,12 @@ _install_glibc() {
 
 _install_glibc_impl() {
 	if [[ ! -f $PREFIX/etc/apt/sources.list.d/glibc.list ]]; then
-		if ! yes | pkg install glibc-repo &>>"$LOG_FILE"; then
+		if ! pkg install -y glibc-repo &>>"$LOG_FILE"; then
 			log_error "Error al instalar glibc-repo"
 			return 1
 		fi
 	fi
-	if ! yes | pkg install glibc &>>"$LOG_FILE"; then
+	if ! pkg install -y glibc &>>"$LOG_FILE"; then
 		log_error "Error al instalar glibc"
 		return 1
 	fi

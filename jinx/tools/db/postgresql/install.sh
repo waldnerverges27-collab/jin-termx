@@ -7,7 +7,7 @@ LOG_FILE="$JINX_CACHE/install_db.log"
 
 _install_postgresql_impl() {
 	mkdir -p "$(dirname "$LOG_FILE")"
-	if yes | pkg install postgresql &>>"$LOG_FILE"; then
+	if pkg install -y postgresql &>>"$LOG_FILE"; then
 		log_success "PostgreSQL installed"
 		return 0
 	else

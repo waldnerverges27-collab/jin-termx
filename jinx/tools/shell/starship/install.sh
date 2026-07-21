@@ -13,7 +13,7 @@ _install_starship_pkg() {
 }
 
 _install_starship_pkg_impl() {
-  if yes | pkg install starship &>>"$LOG_FILE"; then
+  if pkg install -y starship &>>"$LOG_FILE"; then
     return 0
   fi
   # Fallback: install via script

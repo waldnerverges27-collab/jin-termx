@@ -10,7 +10,7 @@ LOG_FILE="$JINX_CACHE/install_shell.log"
 install_termux_packages() {
 	log_info "Installing dependencies..."
 
-	if yes | pkg install zsh lsd bat fzf zoxide &>>"$LOG_FILE"; then
+	if pkg install -y zsh lsd bat fzf zoxide &>>"$LOG_FILE"; then
 		log_success "Dependencies installed successfully"
 		return 0
 	else

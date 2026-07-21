@@ -10,7 +10,7 @@ _install_imagemagick_pkg() {
 }
 
 _install_imagemagick_pkg_impl() {
-	if ! yes | pkg install imagemagick &>>"$LOG_FILE"; then
+	if ! pkg install -y imagemagick &>>"$LOG_FILE"; then
 		log_error "Failed to install ImageMagick"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_imagemagick_pkg() {
 
 _do_imagemagick_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade imagemagick -y &>>"$LOG_FILE"
+  pkg upgrade -y imagemagick -y &>>"$LOG_FILE"
 }
 
 install_imagemagick() {

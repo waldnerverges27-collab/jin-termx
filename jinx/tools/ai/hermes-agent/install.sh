@@ -20,7 +20,7 @@ _hermes_install_deps_impl() {
   for pkg_name in "${!DEPS[@]}"; do
     bin_name="${DEPS[$pkg_name]}"
     if ! command -v "$bin_name" &>/dev/null; then
-      if ! yes | pkg install "$pkg_name" &>>"$LOG_FILE"; then
+      if ! pkg install -y "$pkg_name" &>>"$LOG_FILE"; then
         log_error "Failed to install $pkg_name"
         return 1
       fi
@@ -51,7 +51,7 @@ _hermes_install_python_pkgs_impl() {
   fi
 
   if [ ${#need_install[@]} -gt 0 ]; then
-    if ! yes | pkg install "${need_install[@]}" &>>"$LOG_FILE"; then
+    if ! pkg install -y "${need_install[@]}" &>>"$LOG_FILE"; then
       log_error "Failed to install Python packages: ${need_install[*]}"
       return 1
     fi

@@ -10,7 +10,7 @@ _install_clang_pkg() {
 }
 
 _install_clang_pkg_impl() {
-	if ! yes | pkg install clang &>>"$LOG_FILE"; then
+	if ! pkg install -y clang &>>"$LOG_FILE"; then
 		log_error "Failed to install C/C++ (Clang)"
 		return 1
 	fi
@@ -60,7 +60,7 @@ _update_clang_pkg() {
 
 _do_clang_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade clang -y &>>"$LOG_FILE"
+  pkg upgrade -y clang -y &>>"$LOG_FILE"
 }
 
 update_clang() {

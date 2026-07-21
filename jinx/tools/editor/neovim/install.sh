@@ -7,7 +7,7 @@ LOG_FILE="$JINX_CACHE/install_editor.log"
 
 _install_neovim_impl() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  if yes | pkg install neovim &>>"$LOG_FILE"; then
+  if pkg install -y neovim &>>"$LOG_FILE"; then
     log_success "Neovim installed"
     return 0
   else
@@ -51,7 +51,7 @@ _update_neovim_impl() {
 
 _do_neovim_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade neovim -y &>>"$LOG_FILE"
+  pkg upgrade -y neovim -y &>>"$LOG_FILE"
 }
 
 update_neovim() {

@@ -12,7 +12,7 @@ _zsh_syntax_highlighting_dependencies() {
   fi
 
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg install zsh zoxide git &>>"$LOG_FILE"
+  pkg install -y zsh zoxide git &>>"$LOG_FILE"
 }
 
 _install_zsh_syntax_highlighting_git() {

@@ -242,7 +242,7 @@ _doctor_fix_tools() {
 	
 	if [[ ${#to_install[@]} -gt 0 ]]; then
 		log_info "Instalando: ${to_install[*]}"
-		yes | pkg install "${to_install[@]}" &>>"$DOCTOR_LOG" || true
+		pkg install -y "${to_install[@]}" &>>"$DOCTOR_LOG" || true
 	fi
 	log_success "Herramientas base verificadas"
 	return 0

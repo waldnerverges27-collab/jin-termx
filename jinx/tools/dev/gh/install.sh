@@ -10,7 +10,7 @@ _install_gh_pkg() {
 }
 
 _install_gh_pkg_impl() {
-	if ! yes | pkg install gh &>>"$LOG_FILE"; then
+	if ! pkg install -y gh &>>"$LOG_FILE"; then
 		log_error "Failed to install GitHub CLI"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_gh_pkg() {
 
 _do_gh_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade gh -y &>>"$LOG_FILE"
+  pkg upgrade -y gh -y &>>"$LOG_FILE"
 }
 
 install_gh() {

@@ -10,7 +10,7 @@ _install_rust_pkg() {
 }
 
 _install_rust_pkg_impl() {
-	if ! yes | pkg install rust &>>"$LOG_FILE"; then
+	if ! pkg install -y rust &>>"$LOG_FILE"; then
 		log_error "Failed to install Rust"
 		return 1
 	fi
@@ -60,7 +60,7 @@ _update_rust_pkg() {
 
 _do_rust_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade rust -y &>>"$LOG_FILE"
+  pkg upgrade -y rust -y &>>"$LOG_FILE"
 }
 
 update_rust() {

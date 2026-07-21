@@ -10,7 +10,7 @@ _install_lsd_pkg() {
 }
 
 _install_lsd_pkg_impl() {
-	if ! yes | pkg install lsd &>>"$LOG_FILE"; then
+	if ! pkg install -y lsd &>>"$LOG_FILE"; then
 		log_error "Failed to install LSD"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_lsd_pkg() {
 
 _do_lsd_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade lsd -y &>>"$LOG_FILE"
+  pkg upgrade -y lsd -y &>>"$LOG_FILE"
 }
 
 install_lsd() {

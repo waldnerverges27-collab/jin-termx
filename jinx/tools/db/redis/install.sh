@@ -7,7 +7,7 @@ LOG_FILE="$JINX_CACHE/install_db.log"
 
 _install_redis_impl() {
 	mkdir -p "$(dirname "$LOG_FILE")"
-	if yes | pkg install redis &>>"$LOG_FILE"; then
+	if pkg install -y redis &>>"$LOG_FILE"; then
 		log_success "Redis installed"
 		return 0
 	else

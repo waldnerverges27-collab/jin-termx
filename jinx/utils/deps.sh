@@ -22,7 +22,7 @@ _ensure_deps() {
 	fi
 	
 	log_info "Instalando dependencias faltantes: ${missing[*]}"
-	yes | pkg install "${missing[@]}" &>>"$LOG_FILE" || {
+	pkg install -y "${missing[@]}" &>>"$LOG_FILE" || {
 		log_error "Error al instalar dependencias: ${missing[*]}"
 		return 1
 	}

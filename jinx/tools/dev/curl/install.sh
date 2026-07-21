@@ -10,7 +10,7 @@ _install_curl_pkg() {
 }
 
 _install_curl_pkg_impl() {
-	if ! yes | pkg install curl &>>"$LOG_FILE"; then
+	if ! pkg install -y curl &>>"$LOG_FILE"; then
 		log_error "Failed to install Curl"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_curl_pkg() {
 
 _do_curl_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade curl -y &>>"$LOG_FILE"
+  pkg upgrade -y curl -y &>>"$LOG_FILE"
 }
 
 install_curl() {

@@ -10,7 +10,7 @@ _install_proot_pkg() {
 }
 
 _install_proot_pkg_impl() {
-	if ! yes | pkg install proot &>>"$LOG_FILE"; then
+	if ! pkg install -y proot &>>"$LOG_FILE"; then
 		log_error "Failed to install Proot"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_proot_pkg() {
 
 _do_proot_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade proot -y &>>"$LOG_FILE"
+  pkg upgrade -y proot -y &>>"$LOG_FILE"
 }
 
 install_proot() {

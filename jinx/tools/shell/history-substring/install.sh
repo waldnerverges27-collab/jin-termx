@@ -17,7 +17,7 @@ _history_substring_dependencies() {
   for pkg_name in "${!DEPS[@]}"; do
     bin_name="${DEPS[$pkg_name]}"
     if ! command -v "$bin_name" &>/dev/null; then
-      if ! yes | pkg install "$pkg_name" &>>"$LOG_FILE"; then
+      if ! pkg install -y "$pkg_name" &>>"$LOG_FILE"; then
         log_error "Failed to install $pkg_name"
         return 1
       fi

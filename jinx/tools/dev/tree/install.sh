@@ -10,7 +10,7 @@ _install_tree_pkg() {
 }
 
 _install_tree_pkg_impl() {
-	if ! yes | pkg install tree &>>"$LOG_FILE"; then
+	if ! pkg install -y tree &>>"$LOG_FILE"; then
 		log_error "Failed to install Tree"
 		return 1
 	fi
@@ -35,7 +35,7 @@ _update_tree_pkg() {
 
 _do_tree_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade tree -y &>>"$LOG_FILE"
+  pkg upgrade -y tree -y &>>"$LOG_FILE"
 }
 
 install_tree() {

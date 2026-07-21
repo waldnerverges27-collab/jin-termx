@@ -12,7 +12,7 @@ _9router_install_deps() {
 
 _9router_install_deps_impl() {
   if ! command -v node &>/dev/null; then
-    if ! yes | pkg install nodejs-lts &>>"$LOG_FILE"; then
+    if ! pkg install -y nodejs-lts &>>"$LOG_FILE"; then
       log_error "Error al instalar Node.js"
       return 1
     fi

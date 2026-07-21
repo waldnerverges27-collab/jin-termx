@@ -10,7 +10,7 @@ _install_python_pkg() {
 }
 
 _install_python_pkg_impl() {
-	if ! yes | pkg install python &>>"$LOG_FILE"; then
+	if ! pkg install -y python &>>"$LOG_FILE"; then
 		log_error "Failed to install Python"
 		return 1
 	fi
@@ -60,7 +60,7 @@ _update_python_pkg() {
 
 _do_python_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade python -y &>>"$LOG_FILE"
+  pkg upgrade -y python -y &>>"$LOG_FILE"
 }
 
 update_python() {

@@ -10,7 +10,7 @@ _install_tmux_pkg() {
 }
 
 _install_tmux_pkg_impl() {
-  if ! yes | pkg install tmux &>>"$LOG_FILE"; then
+  if ! pkg install -y tmux &>>"$LOG_FILE"; then
     log_error "Failed to install Tmux"
     return 1
   fi
@@ -62,7 +62,7 @@ _update_tmux_pkg() {
 
 _do_tmux_update() {
   mkdir -p "$(dirname "$LOG_FILE")"
-  yes | pkg upgrade tmux -y &>>"$LOG_FILE"
+  pkg upgrade -y tmux -y &>>"$LOG_FILE"
 }
 
 update_tmux() {
