@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
 
     // 3. Construct paths for the glibc loader and the real omp binary
     char* loader = "/data/data/com.termux/files/usr/glibc/lib/ld-linux-aarch64.so.1";
-    char real_bin[] = "/data/data/com.termux/files/home/.local/share/core-termux-data/oh-my-pi/omp";
+    char real_bin[] = "/data/data/com.termux/files/home/.local/share/jin-termx-data/oh-my-pi/omp";
     char lib_path[] = "/data/data/com.termux/files/usr/glibc/lib";
 
     // 5. Construct argument array for execv

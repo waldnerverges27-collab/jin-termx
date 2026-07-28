@@ -4,7 +4,7 @@ AI-powered coding agent that runs in your terminal
 
 **Package:** cursor-cli  
 **Author:** DevCoreX  
-**Repository:** https://github.com/DevCoreXOfficial/core-termux  
+**Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://cursor.com  
 **Type:** AI coding agent (Binary + glibc bootstrapper)  
 **License:** Proprietary
@@ -44,7 +44,7 @@ core update ai --cursor-cli
 ## Notes
 
 - **Native mode** requires `glibc-repo`, `glibc`, and other dependencies (installed automatically)
-- The package is stored in `~/.local/share/core-termux-data/cursor/`
+- The package is stored in `~/.local/share/jin-termx-data/cursor/`
 - `cursor-agent` is a **bash script** (not an ELF binary); it runs a bundled `node` (ELF glibc binary) with `index.js`
 - A bash wrapper at `$PREFIX/bin/cursor` runs the bundled `node` via the glibc dynamic linker (`ld-linux-aarch64.so.1`)
 - `cursor` is the primary command, with `cursor-agent` as a symlink

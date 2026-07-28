@@ -4,7 +4,7 @@ Amp is the frontier agent, for people who want the most out of an agent, rather 
 
 **Package:** `@ampcode/cli`  
 **Author:** DevCoreX
-**Repository:** https://github.com/DevCoreXOfficial/core-termux  
+**Repository:** https://github.com/waldnerverges27-collab/jin-termx  
 **Official:** https://ampcode.com  
 **Type:** glibc-binary
 
