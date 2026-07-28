@@ -233,6 +233,9 @@ _update_specific_tools() {
         case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
         ;;
       9router)
+        update_9router
+        case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
+        ;;
       oh-my-pi)
         update_oh_my_pi
         case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac

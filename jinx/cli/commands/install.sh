@@ -249,6 +249,9 @@ _install_specific_tools() {
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
         ;;
       9router)
+        install_9router
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
       oh-my-pi)
         install_oh_my_pi
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
