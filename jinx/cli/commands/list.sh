@@ -158,6 +158,10 @@ _list_ai() {
   table_row "Freebuff" "--freebuff" "freebuff" "$(_check_cmd "freebuff")"
   table_row "Context7" "--ctx7" "ctx7" "$(_check_cmd "ctx7")"
   table_row "OpenSpec" "--openspec" "openspec" "$(_check_cmd "openspec")"
+  table_row "AMP Code" "--ampcode" "ampcode" "$(_check_cmd "ampcode")"
+  table_row "Cline" "--cline" "cline" "$(_check_cmd "cline")"
+  table_row "Cursor CLI" "--cursor-cli" "cursor-cli" "$(_check_cmd "cursor")"
+  table_row "Oh-My-Pi" "--oh-my-pi" "oh-my-pi" "$(_check_cmd "omp")"
   table_row "9Router" "--9router" "9router" "$(_check_cmd "9router")"
   table_end
 

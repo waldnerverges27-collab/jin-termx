@@ -225,6 +225,22 @@ _reinstall_specific_tools() {
         case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
         ;;
       9router)
+      oh-my-pi)
+        reinstall_oh_my_pi
+        case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      cursor-cli)
+        reinstall_cursor_cli
+        case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      cline)
+        reinstall_cline
+        case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      ampcode)
+        reinstall_ampcode
+        case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+        ;;
         reinstall_9router
         case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
         ;;

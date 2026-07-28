@@ -233,6 +233,22 @@ _update_specific_tools() {
         case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
         ;;
       9router)
+      oh-my-pi)
+        update_oh_my_pi
+        case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
+        ;;
+      cursor-cli)
+        update_cursor_cli
+        case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
+        ;;
+      cline)
+        update_cline
+        case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
+        ;;
+      ampcode)
+        update_ampcode
+        case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
+        ;;
         update_9router
         case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
         ;;

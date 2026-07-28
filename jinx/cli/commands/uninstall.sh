@@ -231,6 +231,22 @@ _uninstall_specific_tools() {
         case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
         ;;
       9router)
+      oh-my-pi)
+        uninstall_oh_my_pi
+        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      cursor-cli)
+        uninstall_cursor_cli
+        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      cline)
+        uninstall_cline
+        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      ampcode)
+        uninstall_ampcode
+        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+        ;;
         uninstall_9router
         case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
         ;;

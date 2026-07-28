@@ -32,6 +32,10 @@ AI_TOOLS=(
   "ctx7"
   "openspec"
   "9router"
+  "ampcode"
+  "cline"
+  "cursor-cli"
+  "oh-my-pi"
 )
 
 source "$(dirname "$BASH_SOURCE")/qwen-code/install.sh"
@@ -61,6 +65,10 @@ source "$(dirname "$BASH_SOURCE")/freebuff/install.sh"
 source "$(dirname "$BASH_SOURCE")/ctx7/install.sh"
 source "$(dirname "$BASH_SOURCE")/openspec/install.sh"
 source "$(dirname "$BASH_SOURCE")/9router/install.sh"
+source "$(dirname "$BASH_SOURCE")/ampcode/install.sh"
+source "$(dirname "$BASH_SOURCE")/cline/install.sh"
+source "$(dirname "$BASH_SOURCE")/cursor-cli/install.sh"
+source "$(dirname "$BASH_SOURCE")/oh-my-pi/install.sh"
 
 install_all_ai_tools() {
   local installed_count=0
@@ -176,7 +184,23 @@ install_all_ai_tools() {
       loading "Installing 9Router" install_9router
       case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
       ;;
-    esac
+      ampcode)
+        loading "Installing AMP Code CLI" install_ampcode
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
+          cline)
+        loading "Installing Cline CLI" install_cline
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
+          cursor-cli)
+        loading "Installing Cursor CLI" install_cursor_cli
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
+          oh-my-pi)
+        loading "Installing Oh-My-Pi" install_oh_my_pi
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
+        esac
   done
 
   return 0
@@ -386,7 +410,19 @@ update_all_ai_tools() {
     9router)
       update_9router
       ;;
-    esac
+      ampcode)
+        update_ampcode
+        ;;
+          cline)
+        update_cline
+        ;;
+          cursor-cli)
+        update_cursor_cli
+        ;;
+          oh-my-pi)
+        update_oh_my_pi
+        ;;
+        esac
   done
   echo
 }

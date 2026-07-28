@@ -249,6 +249,22 @@ _install_specific_tools() {
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
         ;;
       9router)
+      oh-my-pi)
+        install_oh_my_pi
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
+      cursor-cli)
+        install_cursor_cli
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
+      cline)
+        install_cline
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
+      ampcode)
+        install_ampcode
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
         install_9router
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
         ;;
@@ -729,7 +745,8 @@ _interactive_install() {
       [pi]="pi" [antigravity-cli]="agy" [gentle-ai]="gentle-ai"
       [minimax-cli]="minimax" [gga]="gga" [hermes-agent]="hermes"
       [kimi-code]="kimi" [command-code]="cmdc" [freebuff]="freebuff"
-      [ctx7]="ctx7" [openspec]="openspec" [9router]="9router"
+      [ctx7]="ctx7" [openspec]="openspec" [9router]="9router" \
+      [ampcode]="ampcode" [cline]="cline" [cursor-cli]="cursor" [oh-my-pi]="omp"
     )
     import "@/tools/ai/all"
     for tool in "${AI_TOOLS[@]}"; do

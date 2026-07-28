@@ -49,6 +49,10 @@ install_ai() {
   list_item "Freebuff ${GRAY}(${D_GREEN}freebuff${GRAY})"
   list_item "Context7 ${GRAY}(${D_GREEN}ctx7${GRAY})"
   list_item "OpenSpec ${GRAY}(${D_GREEN}openspec${GRAY})"
+  list_item "AMP Code ${GRAY}(${D_GREEN}ampcode${GRAY})"
+  list_item "Cline ${GRAY}(${D_GREEN}cline${GRAY})"
+  list_item "Cursor CLI ${GRAY}(${D_GREEN}cursor${GRAY})"
+  list_item "Oh-My-Pi ${GRAY}(${D_GREEN}omp${GRAY})"
   list_item "9Router ${GRAY}(${D_GREEN}9router${GRAY})"
   echo
 }
@@ -135,6 +139,10 @@ reinstall_ai() {
   list_item "Freebuff"
   list_item "Context7"
   list_item "OpenSpec"
+  list_item "AMP Code ${GRAY}(${D_GREEN}ampcode${GRAY})"
+  list_item "Cline ${GRAY}(${D_GREEN}cline${GRAY})"
+  list_item "Cursor CLI ${GRAY}(${D_GREEN}cursor${GRAY})"
+  list_item "Oh-My-Pi ${GRAY}(${D_GREEN}omp${GRAY})"
   echo
 }
 
