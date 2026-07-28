@@ -231,9 +231,6 @@ _uninstall_specific_tools() {
         case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
         ;;
       9router)
-        uninstall_9router
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
       oh-my-pi)
         uninstall_oh_my_pi
         case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
@@ -248,9 +245,6 @@ _uninstall_specific_tools() {
         ;;
       ampcode)
         uninstall_ampcode
-        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-        uninstall_9router
         case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
         ;;
       *)

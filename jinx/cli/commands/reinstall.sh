@@ -225,9 +225,6 @@ _reinstall_specific_tools() {
         case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
         ;;
       9router)
-        reinstall_9router
-        case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
-        ;;
       oh-my-pi)
         reinstall_oh_my_pi
         case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
@@ -242,9 +239,6 @@ _reinstall_specific_tools() {
         ;;
       ampcode)
         reinstall_ampcode
-        case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
-        ;;
-        reinstall_9router
         case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
         ;;
       *)
