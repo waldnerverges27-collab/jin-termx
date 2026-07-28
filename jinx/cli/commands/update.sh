@@ -252,9 +252,6 @@ _update_specific_tools() {
         update_ampcode
         case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
         ;;
-        update_9router
-        case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
-        ;;
       *)
         log_warn "Unknown AI tool: --$tool"
         ;;
