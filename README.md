@@ -108,6 +108,10 @@ jinx install ai --opencode --ollama  # Install only OpenCode and Ollama
 | **Context7** | `--ctx7` | Live documentation provider for AI coding agents |
 | **OpenSpec** | `--openspec` | Spec-Driven Development framework for AI coding agents |
 | **9Router** | `--9router` | FREE AI Router & Token Saver — 40+ providers, 100+ models, auto-fallback |
+| **AMP Code CLI** | `--ampcode` | AI coding agent with native and proot-distro installers |
+| **Cline CLI** | `--cline` | Cline AI coding agent |
+| **Cursor CLI** | `--cursor-cli` | Cursor AI coding agent |
+| **Oh-My-Pi** | `--oh-my-pi` | Oh-My-Pi AI coding agent |
 
 ---
 
