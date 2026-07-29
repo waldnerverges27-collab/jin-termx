@@ -730,7 +730,51 @@ update_jinx() {
     echo "  curl -fsSL https://raw.githubusercontent.com/waldnerverges27-collab/jin-termx/main/install.sh | bash"
   fi
 
+  # Update TUI binary if installed
+  _update_tui
+
   echo
+}
+
+# Actualizar binario de la TUI (jinx-tui)
+_update_tui() {
+  local tui_binary="$PREFIX/bin/jinx-tui"
+
+  if [[ ! -f "$tui_binary" ]]; then
+    return 0
+  fi
+
+  separator_section "TUI"
+  echo
+
+  # Detectar arquitectura
+  local arch
+  case "$(uname -m)" in
+    aarch64) arch="arm64" ;;
+    armv7l|arm) arch="arm" ;;
+    x86_64|amd64) arch="amd64" ;;
+    *)
+      log_warn "Unknown architecture: $(uname -m), skipping TUI update"
+      return 0
+      ;;
+  esac
+
+  local url="https://raw.githubusercontent.com/waldnerverges27-collab/jin-termx/main/bin/jinx-tui-${arch}"
+  local tmp_file="$JINX_CACHE/jinx-tui-${arch}"
+
+  mkdir -p "$JINX_CACHE"
+
+  log_info "Updating jinx-tui (${arch})..."
+
+  if curl -fsSL -o "$tmp_file" "$url"; then
+    chmod +x "$tmp_file"
+    cp "$tmp_file" "$tui_binary"
+    rm -f "$tmp_file"
+    log_success "jinx-tui updated"
+  else
+    log_warn "Failed to download jinx-tui (${url})"
+    log_info "The TUI will continue to work with the current version"
+  fi
 }
 
 _update_jinx_repo() {
