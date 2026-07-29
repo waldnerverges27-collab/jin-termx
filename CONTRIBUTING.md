@@ -3,8 +3,8 @@
 ## Development Setup
 
 1. Ensure Go 1.22+ is installed: `pkg install golang`
-2. Clone the repo: `git clone https://github.com/waldnerverges27-collab/jin-termx.git`
-3. Enter TUI directory: `cd jin-termx/tui`
+2. Clone the repo: `git clone https://github.com/waldnerverges27-collab/jin-termx-tui.git`
+3. Enter TUI directory: `cd jin-termx-tui/tui`
 4. Build: `go build -o jinx-tui ./cmd/jinx-tui/`
 5. Run: `./jinx-tui`
 
@@ -45,9 +45,17 @@ tui/
 
 ## Pull Request Process
 
-1. Ensure `go test ./... -v -count=1` passes
-2. Ensure `golangci-lint run ./...` has no errors
-3. Tag releases as `tui/vX.Y.Z`
+1. `go test ./... -v -count=1` — all tests pass
+2. `golangci-lint run ./...` — no lint errors
+3. After merge to main, recompile and commit the binary:
+   ```bash
+   cd tui
+   go build -ldflags="-s -w" -o ../bin/jinx-tui-arm64 ./cmd/jinx-tui/
+   cd ..
+   git add bin/
+   git commit -m "chore: update pre-compiled binary"
+   ```
+   The install script at `install-tui.sh` downloads from `bin/jinx-tui-{arch}` directly.
 
 ## Reporting Issues
 
