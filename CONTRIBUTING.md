@@ -3,7 +3,7 @@
 ## Development Setup
 
 1. Ensure Go 1.22+ is installed: `pkg install golang`
-2. Clone the repo: `git clone https://github.com/waldnerverges27-collab/jin-termx-tui.git`
+2. Clone the repo: `git clone https://github.com/waldnerverges27-collab/jin-termx.git`
 3. Enter TUI directory: `cd jin-termx-tui/tui`
 4. Build: `go build -o jinx-tui ./cmd/jinx-tui/`
 5. Run: `./jinx-tui`

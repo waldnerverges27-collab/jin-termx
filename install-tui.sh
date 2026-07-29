@@ -1,13 +1,13 @@
 #!/data/data/com.termux/files/usr/bin/bash
 # install-tui.sh - Install jinx-tui for Jin-TermX
-# Usage: curl -fsSL https://raw.githubusercontent.com/waldnerverges27-collab/jin-termx-tui/main/install-tui.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/waldnerverges27-collab/jin-termx/main/install-tui.sh | bash
 
 set -e
 
 JINX_TUI_VERSION="0.1.0"
 BINARY_NAME="jinx-tui"
 INSTALL_DIR="${PREFIX:-/usr/local}/bin"
-REPO="waldnerverges27-collab/jin-termx-tui"
+REPO="waldnerverges27-collab/jin-termx"
 BRANCH="main"
 
 ARCH=$(uname -m)
