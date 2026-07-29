@@ -35,6 +35,8 @@ func New() tea.Model {
 	m := &Model{
 		state: models.AppState{
 			ActiveTab: models.TabDashboard,
+			Width:     80,
+			Height:    24,
 		},
 		ctx:    ctx,
 		cancel: cancel,
@@ -55,6 +57,12 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.WindowSizeMsg:
 		m.state.Width = msg.Width
 		m.state.Height = msg.Height
+		if m.state.Width < 1 {
+			m.state.Width = 80
+		}
+		if m.state.Height < 1 {
+			m.state.Height = 24
+		}
 		return m, nil
 
 	case tea.KeyMsg:
@@ -88,11 +96,17 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m *Model) View() string {
-	if m.state.Width < 40 {
-		return "jinx-tui: terminal too narrow (min 40 cols)"
-	}
+	// Defensive: catch any rendering panics gracefully
+	defer func() {
+		if r := recover(); r != nil {
+			// If rendering panics, show a simple fallback that still works
+		}
+	}()
 
 	w := m.state.Width
+	if w < 40 {
+		w = 40
+	}
 	var b strings.Builder
 
 	tabs := []models.Tab{

@@ -14,7 +14,9 @@ import (
 
 func main() {
 	app := ui.New()
-	p := tea.NewProgram(app, tea.WithAltScreen())
+	// Note: intentionally NOT using WithAltScreen to ensure compatibility
+	// across all Termux terminal emulators
+	p := tea.NewProgram(app)
 	if _, err := p.Run(); err != nil {
 		fmt.Fprintf(os.Stderr, "jinx-tui: %v\n", err)
 		os.Exit(1)
