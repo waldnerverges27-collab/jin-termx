@@ -5,7 +5,6 @@ import (
 	"strings"
 )
 
-// RenderProgressBar renders an animated progress bar.
 func RenderProgressBar(pct float64, label string, width int) string {
 	if width < 10 {
 		width = 10
@@ -23,15 +22,11 @@ func RenderProgressBar(pct float64, label string, width int) string {
 	}
 	bar := strings.Repeat("\u2588", filled) + strings.Repeat("\u2591", barWidth-filled)
 	pctStr := fmt.Sprintf("%3.0f%%", pct)
-
-	result := mutedStyleLocal.Render(label) + "\n"
-	result += accentStyleLocal.Render(bar) + " " + successStyleLocal.Render(pctStr)
-	return result
+	return mutedStyle.Render(label) + "\n" + accentStyle.Render(bar) + " " + successStyle.Render(pctStr)
 }
 
-// RenderSpinner renders an indeterminate progress indicator.
 func RenderSpinner(label string, frame int) string {
 	spinners := []string{"\u23f5", "\u23f4", "\u25b2", "\u25bc"}
 	s := spinners[frame%len(spinners)]
-	return accentStyleLocal.Render(s + " " + label)
+	return accentStyle.Render(s + " " + label)
 }

@@ -17,7 +17,7 @@ const (
 	StatusError   StatusBadge = "error"
 )
 
-func statusColor(s StatusBadge) string {
+func badgeColor(s StatusBadge) string {
 	switch s {
 	case StatusActive, StatusOK:
 		return green
@@ -45,11 +45,10 @@ func RenderCard(d CardData, width int) string {
 	}
 	var b strings.Builder
 
-	icon := d.Icon + " "
-	titleLine := icon + d.Title
+	titleLine := d.Icon + " " + d.Title
 
 	if d.BadgeLabel != "" {
-		badgeStr := lipgloss.NewStyle().Foreground(lipgloss.Color(statusColor(d.Badge))).Render(d.BadgeLabel)
+		badgeStr := lipgloss.NewStyle().Foreground(lipgloss.Color(badgeColor(d.Badge))).Render(d.BadgeLabel)
 		pad := width - len(titleLine) - len(d.BadgeLabel) - 2
 		if pad < 0 {
 			pad = 0
@@ -57,15 +56,15 @@ func RenderCard(d CardData, width int) string {
 		titleLine += strings.Repeat(" ", pad) + badgeStr
 	}
 
-	b.WriteString(accentStyleLocal.Render(titleLine))
+	b.WriteString(accentStyle.Render(titleLine))
 	if d.Subtitle != "" {
 		b.WriteString("\n")
-		b.WriteString(mutedStyleLocal.Render("  " + d.Subtitle))
+		b.WriteString(mutedStyle.Render("  " + d.Subtitle))
 	}
 	if d.Metadata != "" {
 		b.WriteString("\n")
-		b.WriteString(mutedStyleLocal.Render("  " + d.Metadata))
+		b.WriteString(mutedStyle.Render("  " + d.Metadata))
 	}
 
-	return cardStyleLocal.Width(width).Render(b.String())
+	return cardStyle.Width(width).Render(b.String())
 }

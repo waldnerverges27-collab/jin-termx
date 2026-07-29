@@ -10,9 +10,9 @@ func RenderTabBar(tabs []models.Tab, active models.Tab) string {
 	var b strings.Builder
 	for _, t := range tabs {
 		if t == active {
-			b.WriteString(activeTabStyleLocal.Render(t.String()))
+			b.WriteString(activeTabStyle.Render(t.String()))
 		} else {
-			b.WriteString(inactiveTabStyleLocal.Render(t.String()))
+			b.WriteString(tabStyle.Render(t.String()))
 		}
 		b.WriteString(" ")
 	}
