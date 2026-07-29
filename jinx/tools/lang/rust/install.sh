@@ -32,6 +32,8 @@ install_rust() {
 
 _uninstall_rust_pkg() {
 	loading "Uninstalling Rust" _uninstall_rust_pkg_impl
+
+	_uninstall_cleanup "rust" "rustc"
 }
 
 _uninstall_rust_pkg_impl() {

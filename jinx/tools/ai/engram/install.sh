@@ -89,6 +89,8 @@ uninstall_engram() {
 
   log_success "Engram uninstalled"
   return 0
+
+	_uninstall_cleanup "engram" "engram"
 }
 
 _uninstall_engram_impl() {

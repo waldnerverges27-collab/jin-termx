@@ -71,6 +71,8 @@ uninstall_codex() {
 
 	log_success "Codex CLI uninstalled"
 	return 0
+
+	_uninstall_cleanup "codex" "codex"
 }
 
 _uninstall_codex_impl() {

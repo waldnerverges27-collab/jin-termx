@@ -45,6 +45,8 @@ install_ncu() {
 
 _uninstall_ncu_npm() {
   loading "Uninstalling NPM Check Updates" _uninstall_ncu_npm_impl
+
+	_uninstall_cleanup "ncu" "ncu"
 }
 
 _uninstall_ncu_npm_impl() {

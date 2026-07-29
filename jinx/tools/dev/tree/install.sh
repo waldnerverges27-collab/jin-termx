@@ -19,6 +19,8 @@ _install_tree_pkg_impl() {
 
 _uninstall_tree_pkg() {
 	loading "Uninstalling Tree" _uninstall_tree_pkg_impl
+
+	_uninstall_cleanup "tree" "tree"
 }
 
 _uninstall_tree_pkg_impl() {

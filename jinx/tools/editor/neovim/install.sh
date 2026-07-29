@@ -34,6 +34,8 @@ _uninstall_neovim_impl() {
     log_error "Failed to uninstall Neovim"
     return 1
   fi
+
+	_uninstall_cleanup "neovim" "nvim"
 }
 
 uninstall_neovim() {

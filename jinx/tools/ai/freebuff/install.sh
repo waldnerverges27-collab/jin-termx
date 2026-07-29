@@ -253,6 +253,8 @@ uninstall_freebuff() {
     log_error "Failed to uninstall Freebuff"
     return 1
   fi
+
+	_uninstall_cleanup "freebuff" "freebuff"
 }
 
 _update_freebuff() {

@@ -19,6 +19,8 @@ _install_jq_pkg_impl() {
 
 _uninstall_jq_pkg() {
 	loading "Uninstalling jq" _uninstall_jq_pkg_impl
+
+	_uninstall_cleanup "jq" "jq"
 }
 
 _uninstall_jq_pkg_impl() {

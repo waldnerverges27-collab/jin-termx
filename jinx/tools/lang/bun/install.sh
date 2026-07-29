@@ -278,6 +278,8 @@ _uninstall_bun_native() {
 	rm -rf "$BUN_DATA_DIR"
 	log_success "Bun (native) uninstalled"
 	return 0
+
+	_uninstall_cleanup "bun" "bun" "bunx"
 }
 
 _uninstall_bun_proot() {

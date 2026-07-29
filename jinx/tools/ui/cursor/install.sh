@@ -33,6 +33,8 @@ _uninstall_cursor_impl() {
 	else
 		log_warn "Cursor Color not configured"
 	fi
+
+	_uninstall_cleanup "cursor" 
 }
 
 uninstall_cursor() {

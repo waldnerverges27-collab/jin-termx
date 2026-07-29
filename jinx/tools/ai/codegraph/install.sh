@@ -105,6 +105,8 @@ uninstall_codegraph() {
 
 	log_success "CodeGraph uninstalled"
 	return 0
+
+	_uninstall_cleanup "codegraph" "codegraph"
 }
 
 _uninstall_codegraph_impl() {

@@ -45,6 +45,8 @@ install_ngrok() {
 
 _uninstall_ngrok_npm() {
   loading "Uninstalling Ngrok" _uninstall_ngrok_npm_impl
+
+	_uninstall_cleanup "ngrok" "ngrok"
 }
 
 _uninstall_ngrok_npm_impl() {

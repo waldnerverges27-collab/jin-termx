@@ -19,6 +19,8 @@ _install_lsd_pkg_impl() {
 
 _uninstall_lsd_pkg() {
 	loading "Uninstalling LSD" _uninstall_lsd_pkg_impl
+
+	_uninstall_cleanup "lsd" "lsd"
 }
 
 _uninstall_lsd_pkg_impl() {

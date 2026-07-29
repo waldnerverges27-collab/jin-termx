@@ -247,6 +247,8 @@ uninstall_kimchi() {
   fi
 
   loading "Uninstalling Kimchi" _uninstall_kimchi_impl
+
+	_uninstall_cleanup "kimchi" "kimchi"
 }
 
 _uninstall_kimchi_impl() {

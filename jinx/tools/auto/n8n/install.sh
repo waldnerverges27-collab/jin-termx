@@ -67,6 +67,8 @@ _uninstall_n8n_impl() {
     log_error "Failed to uninstall n8n"
     return 1
   fi
+
+	_uninstall_cleanup "n8n" "n8n"
 }
 
 uninstall_n8n() {

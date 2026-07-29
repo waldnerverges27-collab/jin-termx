@@ -33,6 +33,8 @@ install_openssh() {
 
 _uninstall_openssh_pkg() {
   loading "Uninstalling OpenSSH" _uninstall_openssh_pkg_impl
+
+	_uninstall_cleanup "openssh" "ssh"
 }
 
 _uninstall_openssh_pkg_impl() {

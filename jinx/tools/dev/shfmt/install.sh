@@ -19,6 +19,8 @@ _install_shfmt_pkg_impl() {
 
 _uninstall_shfmt_pkg() {
 	loading "Uninstalling Shfmt" _uninstall_shfmt_pkg_impl
+
+	_uninstall_cleanup "shfmt" "shfmt"
 }
 
 _uninstall_shfmt_pkg_impl() {

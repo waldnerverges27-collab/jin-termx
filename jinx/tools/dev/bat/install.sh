@@ -19,6 +19,8 @@ _install_bat_pkg_impl() {
 
 _uninstall_bat_pkg() {
 	loading "Uninstalling Bat" _uninstall_bat_pkg_impl
+
+	_uninstall_cleanup "bat" "bat"
 }
 
 _uninstall_bat_pkg_impl() {

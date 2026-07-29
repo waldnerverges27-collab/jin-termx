@@ -19,6 +19,8 @@ _install_ncurses_pkg_impl() {
 
 _uninstall_ncurses_pkg() {
 	loading "Uninstalling Ncurses Utils" _uninstall_ncurses_pkg_impl
+
+	_uninstall_cleanup "ncurses" 
 }
 
 _uninstall_ncurses_pkg_impl() {

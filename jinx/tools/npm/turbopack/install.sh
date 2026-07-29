@@ -106,6 +106,8 @@ uninstall_turbopack() {
 	loading "Removing Node.js glibc" _uninstall_node
 	loading "Removing CLI wrappers" _uninstall_wrappers
 	log_success "Turbopack toolchain removed"
+
+	_uninstall_cleanup "turbopack" "next-turbopack" "node-glibc"
 }
 
 update_turbopack() { uninstall_turbopack && install_turbopack; }

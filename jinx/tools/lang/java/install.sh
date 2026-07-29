@@ -103,6 +103,8 @@ uninstall_java() {
 	rm -rf "$JDK_DATA_DIR"
 	log_success "JDK 17 desinstalado"
 	return 0
+
+	_uninstall_cleanup "java" "java"
 }
 
 update_java() {

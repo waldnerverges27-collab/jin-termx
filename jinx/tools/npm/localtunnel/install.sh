@@ -62,6 +62,8 @@ install_localtunnel() {
 
 _uninstall_localtunnel_npm() {
   loading "Uninstalling Localtunnel" _uninstall_localtunnel_npm_impl
+
+	_uninstall_cleanup "localtunnel" "lt"
 }
 
 _uninstall_localtunnel_npm_impl() {

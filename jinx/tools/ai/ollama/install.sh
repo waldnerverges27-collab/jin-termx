@@ -45,6 +45,8 @@ uninstall_ollama() {
 
   log_success "Ollama uninstalled"
   return 0
+
+	_uninstall_cleanup "ollama" "ollama"
 }
 
 _uninstall_ollama_impl() {

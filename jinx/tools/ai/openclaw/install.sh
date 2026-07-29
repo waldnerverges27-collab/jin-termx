@@ -76,6 +76,8 @@ uninstall_openclaw() {
 
   log_success "OpenClaw uninstalled"
   return 0
+
+	_uninstall_cleanup "openclaw" "openclaw"
 }
 
 _uninstall_openclaw_impl() {

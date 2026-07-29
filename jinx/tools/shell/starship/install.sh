@@ -118,6 +118,8 @@ uninstall_starship() {
 
   log_success "Starship desinstalado"
   return 0
+
+	_uninstall_cleanup "starship" "starship"
 }
 
 _uninstall_starship_impl() {

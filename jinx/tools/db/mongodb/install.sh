@@ -41,6 +41,8 @@ _uninstall_mongodb_impl() {
 		log_error "Failed to uninstall MongoDB"
 		return 1
 	fi
+
+	_uninstall_cleanup "mongodb" "mongosh" "mongo"
 }
 
 uninstall_mongodb() {

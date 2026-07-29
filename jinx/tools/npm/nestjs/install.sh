@@ -45,6 +45,8 @@ install_nestjs() {
 
 _uninstall_nestjs_npm() {
   loading "Uninstalling NestJS CLI" _uninstall_nestjs_npm_impl
+
+	_uninstall_cleanup "nestjs" "nest"
 }
 
 _uninstall_nestjs_npm_impl() {

@@ -19,6 +19,8 @@ _install_tmate_pkg_impl() {
 
 _uninstall_tmate_pkg() {
 	loading "Uninstalling Tmate" _uninstall_tmate_pkg_impl
+
+	_uninstall_cleanup "tmate" "tmate"
 }
 
 _uninstall_tmate_pkg_impl() {

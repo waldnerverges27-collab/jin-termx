@@ -125,6 +125,8 @@ _uninstall_banner_impl() {
 	_restore_motd
 
 	return 0
+
+	_uninstall_cleanup "banner" 
 }
 
 uninstall_banner() {

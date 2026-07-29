@@ -79,6 +79,8 @@ uninstall_ble() {
 
   log_success "BLE desinstalado"
   return 0
+
+	_uninstall_cleanup "ble" 
 }
 
 update_ble() {

@@ -32,6 +32,8 @@ install_clang() {
 
 _uninstall_clang_pkg() {
 	loading "Uninstalling C/C++ (Clang)" _uninstall_clang_pkg_impl
+
+	_uninstall_cleanup "clang" "clang"
 }
 
 _uninstall_clang_pkg_impl() {

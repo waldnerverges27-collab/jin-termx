@@ -19,6 +19,8 @@ _install_cloudflared_pkg_impl() {
 
 _uninstall_cloudflared_pkg() {
 	loading "Uninstalling Cloudflared" _uninstall_cloudflared_pkg_impl
+
+	_uninstall_cleanup "cloudflared" "cloudflared"
 }
 
 _uninstall_cloudflared_pkg_impl() {

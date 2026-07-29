@@ -19,6 +19,8 @@ _install_wget_pkg_impl() {
 
 _uninstall_wget_pkg() {
 	loading "Uninstalling Wget" _uninstall_wget_pkg_impl
+
+	_uninstall_cleanup "wget" "wget"
 }
 
 _uninstall_wget_pkg_impl() {

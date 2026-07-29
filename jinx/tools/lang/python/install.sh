@@ -32,6 +32,8 @@ install_python() {
 
 _uninstall_python_pkg() {
 	loading "Uninstalling Python" _uninstall_python_pkg_impl
+
+	_uninstall_cleanup "python" "python3" "pip"
 }
 
 _uninstall_python_pkg_impl() {

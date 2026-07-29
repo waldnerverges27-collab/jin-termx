@@ -19,6 +19,8 @@ _install_gh_pkg_impl() {
 
 _uninstall_gh_pkg() {
 	loading "Uninstalling GitHub CLI" _uninstall_gh_pkg_impl
+
+	_uninstall_cleanup "gh" "gh"
 }
 
 _uninstall_gh_pkg_impl() {

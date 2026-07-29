@@ -74,6 +74,8 @@ uninstall_openclaude() {
 
   log_success "OpenClaude uninstalled"
   return 0
+
+	_uninstall_cleanup "openclaude" "openclaude"
 }
 
 _uninstall_openclaude_impl() {

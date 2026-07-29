@@ -32,6 +32,8 @@ install_php() {
 
 _uninstall_php_pkg() {
 	loading "Uninstalling PHP" _uninstall_php_pkg_impl
+
+	_uninstall_cleanup "php" "php"
 }
 
 _uninstall_php_pkg_impl() {

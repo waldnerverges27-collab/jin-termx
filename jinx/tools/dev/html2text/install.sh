@@ -19,6 +19,8 @@ _install_html2text_pkg_impl() {
 
 _uninstall_html2text_pkg() {
 	loading "Uninstalling html2text" _uninstall_html2text_pkg_impl
+
+	_uninstall_cleanup "html2text" "html2text"
 }
 
 _uninstall_html2text_pkg_impl() {

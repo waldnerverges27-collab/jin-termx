@@ -38,6 +38,8 @@ _uninstall_font_impl() {
 	else
 		log_warn "Meslo Nerd Font not installed"
 	fi
+
+	_uninstall_cleanup "font" 
 }
 
 uninstall_font() {

@@ -33,6 +33,8 @@ _uninstall_mariadb_impl() {
 		log_error "Failed to uninstall MariaDB"
 		return 1
 	fi
+
+	_uninstall_cleanup "mariadb" "mariadb" "mysql"
 }
 
 uninstall_mariadb() {

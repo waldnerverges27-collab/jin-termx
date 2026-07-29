@@ -62,6 +62,8 @@ uninstall_9router() {
 
   log_success "9Router desinstalado"
   return 0
+
+	_uninstall_cleanup "9router" "9router"
 }
 
 _uninstall_9router_impl() {

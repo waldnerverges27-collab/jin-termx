@@ -45,6 +45,8 @@ install_typescript() {
 
 _uninstall_typescript_npm() {
   loading "Uninstalling TypeScript" _uninstall_typescript_npm_impl
+
+	_uninstall_cleanup "typescript" "tsc"
 }
 
 _uninstall_typescript_npm_impl() {

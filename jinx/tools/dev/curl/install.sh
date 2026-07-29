@@ -19,6 +19,8 @@ _install_curl_pkg_impl() {
 
 _uninstall_curl_pkg() {
 	loading "Uninstalling Curl" _uninstall_curl_pkg_impl
+
+	_uninstall_cleanup "curl" "curl"
 }
 
 _uninstall_curl_pkg_impl() {

@@ -33,6 +33,8 @@ _uninstall_postgresql_impl() {
 		log_error "Failed to uninstall PostgreSQL"
 		return 1
 	fi
+
+	_uninstall_cleanup "postgresql" "psql"
 }
 
 uninstall_postgresql() {

@@ -33,6 +33,8 @@ install_tmux() {
 
 _uninstall_tmux_pkg() {
   loading "Uninstalling Tmux" _uninstall_tmux_pkg_impl
+
+	_uninstall_cleanup "tmux" "tmux"
 }
 
 _uninstall_tmux_pkg_impl() {

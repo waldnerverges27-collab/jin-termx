@@ -45,6 +45,8 @@ install_markserv() {
 
 _uninstall_markserv_npm() {
   loading "Uninstalling Markserv" _uninstall_markserv_npm_impl
+
+	_uninstall_cleanup "markserv" "markserv"
 }
 
 _uninstall_markserv_npm_impl() {

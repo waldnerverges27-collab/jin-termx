@@ -263,6 +263,8 @@ uninstall_qoder() {
   fi
 
   loading "Uninstalling Qoder" _uninstall_qoder_impl
+
+	_uninstall_cleanup "qoder" "qodercli"
 }
 
 _uninstall_qoder_impl() {

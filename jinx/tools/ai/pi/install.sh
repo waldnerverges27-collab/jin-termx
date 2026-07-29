@@ -71,6 +71,8 @@ uninstall_pi() {
 
   log_success "Pi uninstalled"
   return 0
+
+	_uninstall_cleanup "pi" "pi"
 }
 
 _uninstall_pi_impl() {

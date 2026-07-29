@@ -70,6 +70,8 @@ uninstall_ctx7() {
 
   log_success "Context7 uninstalled"
   return 0
+
+	_uninstall_cleanup "ctx7" "ctx7"
 }
 
 _uninstall_ctx7_impl() {

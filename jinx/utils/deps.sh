@@ -67,3 +67,34 @@ _ensure_pip_deps() {
 	done
 	return 0
 }
+
+# ── Limpieza completa de desinstalación ────────────────────────────
+# Elimina data, configs, logs, binarios y cualquier rastro del tool
+# Uso: _uninstall_cleanup "toolname" "bin1" "bin2" ...
+_uninstall_cleanup() {
+	local tool="$1"
+	shift
+	local -a bins=("$@")
+
+	# 1. Binarios en $PREFIX/bin
+	for bin in "${bins[@]}"; do
+		rm -f "$PREFIX/bin/$bin" 2>/dev/null
+	done
+
+	# 2. Data del tool en directorio de datos
+	rm -rf "$HOME/.local/share/jin-termx-data/$tool" 2>/dev/null
+
+	# 3. Configuraciones específicas del tool en .config
+	rm -rf "$HOME/.config/$tool" 2>/dev/null
+
+	# 4. Logs de instalación
+	rm -f "$JINX_CACHE/install_$tool"* 2>/dev/null
+
+	# 5. Caché del tool en .cache si existe
+	rm -rf "$HOME/.cache/jin-termx/$tool" 2>/dev/null
+
+	# 6. Directorio temporal si la instalación usa $PREFIX/tmp
+	rm -f "$PREFIX/tmp/${tool}"* 2>/dev/null
+
+	return 0
+}

@@ -19,6 +19,8 @@ _install_translate_pkg_impl() {
 
 _uninstall_translate_pkg() {
 	loading "Uninstalling Translate Shell" _uninstall_translate_pkg_impl
+
+	_uninstall_cleanup "translate" "trans"
 }
 
 _uninstall_translate_pkg_impl() {

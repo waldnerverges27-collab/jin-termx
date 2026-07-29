@@ -33,6 +33,8 @@ _uninstall_sqlite_impl() {
 		log_error "Failed to uninstall SQLite"
 		return 1
 	fi
+
+	_uninstall_cleanup "sqlite" "sqlite3"
 }
 
 uninstall_sqlite() {

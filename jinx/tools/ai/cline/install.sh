@@ -244,6 +244,8 @@ uninstall_cline() {
   fi
 
   loading "Uninstalling Cline CLI" _uninstall_cline_impl
+
+	_uninstall_cleanup "cline" "cline"
 }
 
 _uninstall_cline_impl() {

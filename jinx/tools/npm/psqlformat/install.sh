@@ -45,6 +45,8 @@ install_psqlformat() {
 
 _uninstall_psqlformat_npm() {
   loading "Uninstalling PSQL Format" _uninstall_psqlformat_npm_impl
+
+	_uninstall_cleanup "psqlformat" "psqlformat"
 }
 
 _uninstall_psqlformat_npm_impl() {

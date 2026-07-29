@@ -38,6 +38,8 @@ uninstall_kotlin() {
 	pkg uninstall kotlin -y &>>"$LOG_FILE"
 	log_success "Kotlin desinstalado"
 	return 0
+
+	_uninstall_cleanup "kotlin" "kotlin"
 }
 
 update_kotlin() {

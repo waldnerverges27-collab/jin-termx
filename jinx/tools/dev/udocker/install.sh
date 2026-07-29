@@ -19,6 +19,8 @@ _install_udocker_pkg_impl() {
 
 _uninstall_udocker_pkg() {
 	loading "Uninstalling Udocker" _uninstall_udocker_pkg_impl
+
+	_uninstall_cleanup "udocker" "udocker"
 }
 
 _uninstall_udocker_pkg_impl() {

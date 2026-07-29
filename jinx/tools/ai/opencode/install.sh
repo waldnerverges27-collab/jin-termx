@@ -228,6 +228,8 @@ uninstall_opencode() {
   fi
 
   loading "Uninstalling OpenCode" _uninstall_opencode_impl
+
+	_uninstall_cleanup "opencode" "opencode"
 }
 
 _uninstall_opencode_impl() {

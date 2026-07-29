@@ -32,6 +32,8 @@ install_perl() {
 
 _uninstall_perl_pkg() {
 	loading "Uninstalling Perl" _uninstall_perl_pkg_impl
+
+	_uninstall_cleanup "perl" "perl"
 }
 
 _uninstall_perl_pkg_impl() {

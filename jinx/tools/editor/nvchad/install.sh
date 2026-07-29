@@ -75,6 +75,8 @@ _uninstall_nvchad_impl() {
   else
     log_warn "NvChad not installed"
   fi
+
+	_uninstall_cleanup "nvchad" 
 }
 
 uninstall_nvchad() {

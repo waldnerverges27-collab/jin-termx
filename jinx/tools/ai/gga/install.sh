@@ -144,6 +144,8 @@ uninstall_gga() {
 		log_error "Failed to uninstall GGA"
 		return 1
 	fi
+
+	_uninstall_cleanup "gga" "gga"
 }
 
 _update_gga() {

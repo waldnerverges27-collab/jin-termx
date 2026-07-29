@@ -45,6 +45,8 @@ install_prettier() {
 
 _uninstall_prettier_npm() {
   loading "Uninstalling Prettier" _uninstall_prettier_npm_impl
+
+	_uninstall_cleanup "prettier" "prettier"
 }
 
 _uninstall_prettier_npm_impl() {

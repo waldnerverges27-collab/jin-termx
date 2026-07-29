@@ -19,6 +19,8 @@ _install_proot_pkg_impl() {
 
 _uninstall_proot_pkg() {
 	loading "Uninstalling Proot" _uninstall_proot_pkg_impl
+
+	_uninstall_cleanup "proot" "proot"
 }
 
 _uninstall_proot_pkg_impl() {

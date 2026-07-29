@@ -249,6 +249,8 @@ uninstall_mimocode() {
     log_error "Failed to uninstall mimocode"
     return 1
   fi
+
+	_uninstall_cleanup "mimocode" "mimo"
 }
 
 _update_mimocode() {

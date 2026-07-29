@@ -19,6 +19,8 @@ _install_fzf_pkg_impl() {
 
 _uninstall_fzf_pkg() {
 	loading "Uninstalling Fzf" _uninstall_fzf_pkg_impl
+
+	_uninstall_cleanup "fzf" "fzf"
 }
 
 _uninstall_fzf_pkg_impl() {

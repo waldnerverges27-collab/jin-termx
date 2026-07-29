@@ -45,6 +45,8 @@ install_vercel() {
 
 _uninstall_vercel_npm() {
   loading "Uninstalling Vercel CLI" _uninstall_vercel_npm_impl
+
+	_uninstall_cleanup "vercel" "vercel"
 }
 
 _uninstall_vercel_npm_impl() {

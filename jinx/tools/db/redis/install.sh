@@ -33,6 +33,8 @@ _uninstall_redis_impl() {
 		log_error "Failed to uninstall Redis"
 		return 1
 	fi
+
+	_uninstall_cleanup "redis" "redis-cli"
 }
 
 uninstall_redis() {

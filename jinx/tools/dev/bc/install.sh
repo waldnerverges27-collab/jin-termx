@@ -19,6 +19,8 @@ _install_bc_pkg_impl() {
 
 _uninstall_bc_pkg() {
 	loading "Uninstalling bc" _uninstall_bc_pkg_impl
+
+	_uninstall_cleanup "bc" "bc"
 }
 
 _uninstall_bc_pkg_impl() {

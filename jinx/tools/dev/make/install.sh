@@ -19,6 +19,8 @@ _install_make_pkg_impl() {
 
 _uninstall_make_pkg() {
 	loading "Uninstalling Make" _uninstall_make_pkg_impl
+
+	_uninstall_cleanup "make" "make"
 }
 
 _uninstall_make_pkg_impl() {

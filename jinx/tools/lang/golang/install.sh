@@ -32,6 +32,8 @@ install_golang() {
 
 _uninstall_golang_pkg() {
 	loading "Uninstalling Go (Golang)" _uninstall_golang_pkg_impl
+
+	_uninstall_cleanup "golang" "go"
 }
 
 _uninstall_golang_pkg_impl() {

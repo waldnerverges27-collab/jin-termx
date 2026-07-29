@@ -70,6 +70,8 @@ uninstall_openspec() {
 
   log_success "OpenSpec uninstalled"
   return 0
+
+	_uninstall_cleanup "openspec" "openspec"
 }
 
 _uninstall_openspec_impl() {

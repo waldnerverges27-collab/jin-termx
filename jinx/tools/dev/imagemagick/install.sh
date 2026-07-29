@@ -19,6 +19,8 @@ _install_imagemagick_pkg_impl() {
 
 _uninstall_imagemagick_pkg() {
 	loading "Uninstalling ImageMagick" _uninstall_imagemagick_pkg_impl
+
+	_uninstall_cleanup "imagemagick" "convert"
 }
 
 _uninstall_imagemagick_pkg_impl() {
