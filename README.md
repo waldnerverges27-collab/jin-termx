@@ -29,24 +29,9 @@ Then run:
 jinx
 ```
 
-## Terminal UI (TUI)
-
-Jin-TermX includes an optional mobile-first TUI built with Go + Bubble Tea:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/waldnerverges27-collab/jin-termx/main/install-tui.sh | bash
-```
-
-Features:
-- Vertical layout optimized for phone screens
-- Module installer with search, filter, and live progress
-- Brain explorer with category pills and memory cards
-- PostgreSQL manager with server controls and query
-- System diagnostics and configuration
-
-The TUI wraps existing jinx commands — no Bash scripts are modified.
-
 ---
+
+## Main Commands
 
 ## Main Commands
 
