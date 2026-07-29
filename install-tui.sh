@@ -37,8 +37,9 @@ if curl -fsSL -o "$INSTALL_DIR/$BINARY_NAME" "$URL"; then
     chmod +x "$INSTALL_DIR/$BINARY_NAME"
     echo -e "${GREEN}✔ Installed to $INSTALL_DIR/$BINARY_NAME${NC}"
     echo
-    echo -e "Run: ${BLUE}jinx-tui${NC}"
-    exit 0
+    echo -e "${BLUE}Launching jinx-tui...${NC}"
+    sleep 0.5
+    exec "$INSTALL_DIR/$BINARY_NAME"
 else
     echo -e "${RED}✗ Download failed${NC}"
     echo -e "Check: ${URL}"
