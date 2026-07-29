@@ -7,6 +7,7 @@ package bash
 import (
 	"bufio"
 	"context"
+	"os"
 	"os/exec"
 	"sync"
 
@@ -18,13 +19,34 @@ type Executor struct {
 	jinxPath string
 }
 
-// NewExecutor creates an Executor by resolving the jinx binary path.
+// NewExecutor creates an Executor by finding the jinx binary.
+// Uses os.Stat instead of exec.LookPath to avoid the faccessat2 syscall
+// which is blocked by Android's seccomp filter (causes SIGSYS crash).
 func NewExecutor() (*Executor, error) {
-	path, err := exec.LookPath("jinx")
-	if err != nil {
-		return nil, err
+	path := findJinx()
+	if path == "" {
+		return nil, &RunError{Stderr: "jinx not found in PATH"}
 	}
 	return &Executor{jinxPath: path}, nil
+}
+
+// findJinx locates the jinx binary by checking common paths with os.Stat.
+func findJinx() string {
+	candidates := []string{
+		"/data/data/com.termux/files/usr/bin/jinx",
+		"/usr/bin/jinx",
+		"/usr/local/bin/jinx",
+	}
+	// Also check PREFIX if set
+	if prefix := os.Getenv("PREFIX"); prefix != "" {
+		candidates = append([]string{prefix + "/bin/jinx"}, candidates...)
+	}
+	for _, p := range candidates {
+		if fi, err := os.Stat(p); err == nil && !fi.IsDir() {
+			return p
+		}
+	}
+	return ""
 }
 
 // Run executes a jinx command and returns stdout as a string.
