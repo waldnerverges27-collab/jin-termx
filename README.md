@@ -35,7 +35,6 @@ Jin-TermX includes an optional mobile-first TUI built with Go + Bubble Tea:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/waldnerverges27-collab/jin-termx/main/install-tui.sh | bash
-jinx-tui
 ```
 
 Features:
