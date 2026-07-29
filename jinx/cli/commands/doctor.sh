@@ -65,7 +65,7 @@ doctor_help() {
 	echo
 	log_info "Opciones:"
 	printf "    ${D_CYAN}%-20s${NC} %s\n" "--fix" "Intenta resolver problemas automáticamente"
-	printf "    ${D_CYAN}%-20s${NC} %s\n} " "--help" "Muestra esta ayuda"
+	printf "    ${D_CYAN}%-20s${NC} %s\n" "--help" "Muestra esta ayuda"
 	echo
 }
 
@@ -173,7 +173,7 @@ _doctor_check_tools() {
 	local missing=0
 	
 	for tool in "${tools[@]}"; do
-		if command -v "$tool" &>/dev/null 2>&1; then
+		if command -v "$tool" &>/dev/null; then
 			:
 		else
 			((missing++))
@@ -235,7 +235,7 @@ _doctor_fix_tools() {
 	local tools=("git" "curl" "nodejs-lts" "python" "zsh" "bash" "starship" "lsd" "bat" "fzf" "zoxide" "gh" "glow" "jq" "ripgrep")
 	local to_install=()
 	for tool in "${tools[@]}"; do
-		if ! command -v "$tool" &>/dev/null 2>&1; then
+		if ! command -v "$tool" &>/dev/null; then
 			to_install+=("$tool")
 		fi
 	done

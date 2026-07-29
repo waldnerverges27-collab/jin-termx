@@ -337,7 +337,19 @@ _check_cmd() {
 # Check if package is installed via pkg
 _check_pkg() {
   local pkg="$1"
-  if dpkg -s "$pkg" 2>/dev/null | grep -q "Status: install ok installed"; then
+  local installed=false
+
+  if command -v dpkg &>/dev/null; then
+    if dpkg -s "$pkg" 2>/dev/null | grep -q "Status: install ok installed"; then
+      installed=true
+    fi
+  elif command -v pkg &>/dev/null; then
+    if pkg list-installed 2>/dev/null | grep -q "^${pkg} "; then
+      installed=true
+    fi
+  fi
+
+  if $installed; then
     echo -e "${D_GREEN}installed${NC}"
   else
     echo -e "${D_RED}not installed${NC}"

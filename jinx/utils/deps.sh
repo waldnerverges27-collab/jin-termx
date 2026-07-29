@@ -57,7 +57,7 @@ _ensure_node_deps() {
 _ensure_pip_deps() {
 	local pkg
 	for pkg in "$@"; do
-		if ! pip show "$pkg" &>/dev/null 2>&1; then
+		if ! pip show "$pkg" &>/dev/null; then
 			log_info "Instalando pip: $pkg"
 			pip install "$pkg" &>>"$LOG_FILE" || {
 				log_error "Error al instalar pip: $pkg"

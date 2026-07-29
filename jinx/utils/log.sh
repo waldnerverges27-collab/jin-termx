@@ -582,13 +582,11 @@ loading() {
 
 	if [[ $exit_code -eq 0 ]]; then
 		printf "\r    ${GREEN}✔${D_GREEN} %s${NC}\n" "$message"
-		[[ -s "$tmpfile" ]] && cat "$tmpfile"
 	elif [[ $exit_code -eq 2 ]]; then
 		printf "\r    ${CYAN}➜${D_CYAN} %s${NC}\n" "$message"
-		[[ -s "$tmpfile" ]] && cat "$tmpfile"
 	else
 		printf "\r    ${RED}✖${D_RED} %s${NC}\n" "$message"
-		cat "$tmpfile"
+		[[ -s "$tmpfile" ]] && cat "$tmpfile"
 	fi
 
 	rm -f "$tmpfile"

@@ -9,7 +9,7 @@ CYAN="\e[1;36m"
 RED="\e[1;31m"
 PURPLE="\e[1;35m"
 YELLOW="\e[1;33m"
-NC="\e[1;37m" # no color or white
+NC="\e[0m" # reset all attributes
 
 # dark colors
 D_BLACK="\e[0;30m"
@@ -19,7 +19,7 @@ D_CYAN="\e[0;36m"
 D_RED="\e[0;31m"
 D_PURPLE="\e[0;35m"
 D_YELLOW="\e[0;33m"
-D_NC="\e[0;37m" # no color or white
+D_NC="\e[0m" # reset all attributes
 
 # background colors
 BG_BLACK=$(setterm -background black)

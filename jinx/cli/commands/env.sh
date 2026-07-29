@@ -61,7 +61,7 @@ env_set() {
 	read_input "Variable name" key
 	_env_valid_key "$key" || return 1
 
-	read_secret "Value for $key" value
+	read_input "Value for $key" value
 
 	if grep -q "^export $key=" "$rc_file" 2>/dev/null; then
 		local current_value
@@ -83,7 +83,7 @@ env_set() {
 		echo
 	fi
 
-	echo "export $key=$value" >>"$rc_file"
+	printf "export %s=%s\n" "$key" "$(printf '%q' "$value")" >> "$rc_file"
 
 	echo
 	log_success "Variable ${D_CYAN}${key}${D_GREEN} set in ${D_NC}$(basename "$rc_file")"

@@ -8,7 +8,7 @@ __JINX_BOOTSTRAP_LOADED=1
 declare -A __JINX_IMPORTED
 
 import() {
-	local path="${1//@/$JINX_PATH}.sh"
+	local path="${1/#@/$JINX_PATH}.sh"
 
 	if [[ -n "${__JINX_IMPORTED[$path]}" ]]; then
 		return

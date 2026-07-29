@@ -102,63 +102,96 @@ bootstrap_dependencies() {
 
   if [[ $needed_tput -eq 1 ]]; then
     echo -e "  ${P_BORDER}→${P_NC}  Installing ncurses-utils..."
-    pkg install -y ncurses-utils &>/dev/null
-    echo -e "  ${P_OK}✔${P_NC}  ncurses-utils installed"
+    if pkg install -y ncurses-utils &>/dev/null; then
+      echo -e "  ${P_OK}✔${P_NC}  ncurses-utils installed"
+    else
+      echo -e "  ${P_FAIL}✖${P_NC}  ncurses-utils installation failed"
+    fi
     echo
   fi
 
   if [[ $needed_git -eq 1 ]]; then
     log_info "Installing git..."
     progress_bar 0 10
-    pkg install -y git &>/dev/null
-    progress_bar 10 10
-    echo
-    log_ok "git installed"
+    if pkg install -y git &>/dev/null; then
+      progress_bar 10 10
+      echo
+      log_ok "git installed"
+    else
+      progress_bar 10 10
+      echo
+      log_fail "git installation failed"
+    fi
   fi
 
   if [[ $needed_glow -eq 1 ]]; then
     log_info "Installing glow..."
     progress_bar 0 10
-    pkg install -y glow &>/dev/null
-    progress_bar 10 10
-    echo
-    log_ok "glow installed"
+    if pkg install -y glow &>/dev/null; then
+      progress_bar 10 10
+      echo
+      log_ok "glow installed"
+    else
+      progress_bar 10 10
+      echo
+      log_fail "glow installation failed"
+    fi
   fi
 
   if [[ $needed_gh -eq 1 ]]; then
     log_info "Installing gh (GitHub CLI)..."
     progress_bar 0 10
-    pkg install -y gh &>/dev/null
-    progress_bar 10 10
-    echo
-    log_ok "gh installed"
+    if pkg install -y gh &>/dev/null; then
+      progress_bar 10 10
+      echo
+      log_ok "gh installed"
+    else
+      progress_bar 10 10
+      echo
+      log_fail "gh installation failed"
+    fi
   fi
 
   if [[ $needed_rg -eq 1 ]]; then
     log_info "Installing ripgrep..."
     progress_bar 0 10
-    pkg install -y ripgrep &>/dev/null
-    progress_bar 10 10
-    echo
-    log_ok "ripgrep installed"
+    if pkg install -y ripgrep &>/dev/null; then
+      progress_bar 10 10
+      echo
+      log_ok "ripgrep installed"
+    else
+      progress_bar 10 10
+      echo
+      log_fail "ripgrep installation failed"
+    fi
   fi
 
   if [[ $needed_jq -eq 1 ]]; then
     log_info "Installing jq..."
     progress_bar 0 10
-    pkg install -y jq &>/dev/null
-    progress_bar 10 10
-    echo
-    log_ok "jq installed"
+    if pkg install -y jq &>/dev/null; then
+      progress_bar 10 10
+      echo
+      log_ok "jq installed"
+    else
+      progress_bar 10 10
+      echo
+      log_fail "jq installation failed"
+    fi
   fi
 
   if [[ $needed_bat -eq 1 ]]; then
     log_info "Installing bat..."
     progress_bar 0 10
-    pkg install -y bat &>/dev/null
-    progress_bar 10 10
-    echo
-    log_ok "bat installed"
+    if pkg install -y bat &>/dev/null; then
+      progress_bar 10 10
+      echo
+      log_ok "bat installed"
+    else
+      progress_bar 10 10
+      echo
+      log_fail "bat installation failed"
+    fi
   fi
 
   if [[ $needed_tput -eq 1 || $needed_git -eq 1 || $needed_glow -eq 1 || $needed_gh -eq 1 || $needed_rg -eq 1 || $needed_jq -eq 1 || $needed_bat -eq 1 ]]; then

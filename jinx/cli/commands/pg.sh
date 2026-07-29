@@ -8,6 +8,17 @@ PG_DATA="$PREFIX/var/lib/postgresql"
 PG_LOG="$JINX_CACHE/postgresql.log"
 PG_USER="postgres"
 
+# ── Ejecutar comandos PostgreSQL compatibles con Termux ──
+# En Termux no existe `su`, los comandos se ejecutan directamente.
+# En Linux completo se usa `su - postgres -c`.
+_pg_exec() {
+  if command -v su &>/dev/null; then
+    su - "$PG_USER" -c "$*"
+  else
+    "$@"
+  fi
+}
+
 # Mostrar ayuda
 pg_help() {
 	echo
@@ -303,7 +314,7 @@ pg_create() {
 
 	log_info "Creating database: $db_name..."
 
-	if su - "$PG_USER" -c "createdb $db_name" &>/dev/null; then
+	if _pg_exec createdb "$db_name" &>/dev/null; then
 		log_success "Database '$db_name' created successfully"
 	else
 		log_error "Failed to create database '$db_name'"
@@ -337,7 +348,7 @@ pg_drop() {
 
 	log_info "Dropping database: $db_name..."
 
-	if su - "$PG_USER" -c "dropdb $db_name" &>/dev/null; then
+	if _pg_exec dropdb "$db_name" &>/dev/null; then
 		log_success "Database '$db_name' dropped successfully"
 	else
 		log_error "Failed to drop database '$db_name'"
@@ -360,7 +371,7 @@ pg_list() {
 	log_info "Listing databases..."
 	echo
 
-	su - "$PG_USER" -c "psql -c '\l'" 2>/dev/null || {
+	_pg_exec psql -c '\l' 2>/dev/null || {
 		log_error "Failed to list databases"
 		log_warn "PostgreSQL may not be running"
 		return 1
@@ -379,7 +390,7 @@ pg_shell() {
 	log_info "Opening psql shell..."
 	echo
 
-	su - "$PG_USER" -c "psql" 2>/dev/null
+	_pg_exec psql 2>/dev/null
 }
 
 # Función auxiliar para detectar ruta de datos

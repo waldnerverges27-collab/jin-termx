@@ -358,7 +358,7 @@ brain_save() {
 					for r in "${related_slugs[@]}"; do
 						[[ "$r" == "$match_slug" ]] && already=true && break
 					done
-					$already || related_slugs+=("$match_slug")
+					if ! "$already"; then related_slugs+=("$match_slug"); fi
 				fi
 			done < <(rg -l -i "tags:.*$tag" "$BRAIN_DIR" 2>/dev/null || true)
 		done
@@ -477,7 +477,7 @@ brain_search() {
 		for mf in "${menu_files[@]}"; do
 			[[ "$mf" == "$f" ]] && seen=true && break
 		done
-		if ! $seen; then
+		if ! "$seen"; then
 			menu_files+=("$f")
 			menu_titles+=("$title")
 			printf "    ${D_GREEN}%2d.${D_NC} ${D_CYAN}%s${D_NC}\n" $((idx + 1)) "$title"
@@ -895,7 +895,7 @@ brain_skill() {
 			for s in "${seen[@]}"; do
 				[[ "$s" == "$slug" ]] && dup=true && break
 			done
-			$dup && continue
+			if "$dup"; then continue; fi
 			seen+=("$slug")
 			expanded+=("$f")
 
@@ -912,7 +912,7 @@ brain_skill() {
 					for s in "${seen[@]}"; do
 						[[ "$s" == "$r" ]] && rdup=true && break
 					done
-					$rdup && continue
+					if "$rdup"; then continue; fi
 					seen+=("$r")
 					local rf
 					rf=$(find "$BRAIN_DIR" -name "${r}.md" 2>/dev/null | head -1)
@@ -1209,7 +1209,11 @@ brain_dashboard() {
 
 	printf "    ${D_CYAN}%-20s${NC} ${GRAY}=${NC} %s\n" "Memories" "$total_files"
 	printf "    ${D_CYAN}%-20s${NC} ${GRAY}=${NC} %s\n" "Categories" "$total_categories"
-	printf "    ${D_CYAN}%-20s${NC} ${GRAY}=${NC} %s\n" "Git" "$($has_git && echo '✓' || echo '✗')"
+		if $has_git; then
+			printf "    ${D_CYAN}%-20s${NC} ${GRAY}=${NC} %s\n" "Git" "✓"
+		else
+			printf "    ${D_CYAN}%-20s${NC} ${GRAY}=${NC} %s\n" "Git" "✗"
+		fi
 	printf "    ${D_CYAN}%-20s${NC} ${GRAY}=${NC} ${D_DIM}%s${D_NC}\n" "Location" "$BRAIN_DIR"
 	echo
 
