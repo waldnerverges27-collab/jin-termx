@@ -2,14 +2,21 @@
 //
 // It executes jinx commands as subprocesses, captures stdout/stderr in real-time,
 // and parses JSON output into Go types. All Bash scripts remain untouched.
+//
+// IMPORTANT: This package uses os.StartProcess + os.Pipe instead of os/exec.Command
+// because Termux's Go build uses unix.Eaccess in findExecutable which calls the
+// faccessat2 syscall (0x1b7) — blocked by Android's seccomp filter (SIGSYS crash).
 package bash
 
 import (
 	"bufio"
+	"bytes"
 	"context"
+	"fmt"
 	"os"
-	"os/exec"
 	"sync"
+	"syscall"
+	"time"
 
 	"github.com/waldnerverges27-collab/jin-termx/tui/internal/models"
 )
@@ -20,29 +27,28 @@ type Executor struct {
 }
 
 // NewExecutor creates an Executor by finding the jinx binary.
-// Uses os.Stat instead of exec.LookPath to avoid the faccessat2 syscall
-// which is blocked by Android's seccomp filter (causes SIGSYS crash).
 func NewExecutor() (*Executor, error) {
 	path := findJinx()
 	if path == "" {
-		return nil, &RunError{Stderr: "jinx not found in PATH"}
+		return nil, fmt.Errorf("jinx not found in PATH")
 	}
 	return &Executor{jinxPath: path}, nil
 }
 
-// findJinx locates the jinx binary by checking common paths with os.Stat.
 func findJinx() string {
+	if prefix := os.Getenv("PREFIX"); prefix != "" {
+		p := prefix + "/bin/jinx"
+		if fi, err := os.Stat(p); err == nil && !fi.IsDir() && fi.Mode()&0111 != 0 {
+			return p
+		}
+	}
 	candidates := []string{
 		"/data/data/com.termux/files/usr/bin/jinx",
 		"/usr/bin/jinx",
 		"/usr/local/bin/jinx",
 	}
-	// Also check PREFIX if set
-	if prefix := os.Getenv("PREFIX"); prefix != "" {
-		candidates = append([]string{prefix + "/bin/jinx"}, candidates...)
-	}
 	for _, p := range candidates {
-		if fi, err := os.Stat(p); err == nil && !fi.IsDir() {
+		if fi, err := os.Stat(p); err == nil && !fi.IsDir() && fi.Mode()&0111 != 0 {
 			return p
 		}
 	}
@@ -51,62 +57,116 @@ func findJinx() string {
 
 // Run executes a jinx command and returns stdout as a string.
 func (e *Executor) Run(ctx context.Context, args ...string) (string, error) {
-	cmd := exec.CommandContext(ctx, e.jinxPath, args...)
-	out, err := cmd.Output()
+	argv := append([]string{e.jinxPath}, args...)
+
+	stdoutR, stdoutW, err := os.Pipe()
 	if err != nil {
-		if ee, ok := err.(*exec.ExitError); ok {
-			return string(out), &RunError{Stderr: string(ee.Stderr), ExitCode: ee.ExitCode()}
-		}
-		return string(out), err
+		return "", err
 	}
-	return string(out), nil
+	defer stdoutR.Close()
+	defer stdoutW.Close()
+
+	_, err = os.StartProcess(e.jinxPath, argv, &os.ProcAttr{
+		Files: []*os.File{nil, stdoutW, nil},
+		Sys:   &syscall.SysProcAttr{},
+	})
+	if err != nil {
+		return "", err
+	}
+	stdoutW.Close()
+
+	var buf bytes.Buffer
+	done := make(chan error, 1)
+	go func() {
+		_, err := buf.ReadFrom(stdoutR)
+		done <- err
+	}()
+
+	select {
+	case <-done:
+	case <-ctx.Done():
+		return buf.String(), ctx.Err()
+	case <-time.After(30 * time.Second):
+		return buf.String(), fmt.Errorf("timeout executing jinx")
+	}
+
+	return buf.String(), nil
 }
 
-// RunStream executes a command and streams stdout line by line.
-// Lines are sent to the lineCh channel. The final models.InstallProgress with Done=true
-// is sent when the process completes.
+// RunStream executes a command and streams stdout/stderr line by line.
 func (e *Executor) RunStream(ctx context.Context, lineCh chan<- models.InstallProgress, args ...string) error {
 	defer close(lineCh)
 
-	cmd := exec.CommandContext(ctx, e.jinxPath, args...)
+	argv := append([]string{e.jinxPath}, args...)
 
-	stdout, err := cmd.StdoutPipe()
+	stdoutR, stdoutW, err := os.Pipe()
 	if err != nil {
 		return err
 	}
-	stderr, err := cmd.StderrPipe()
+	stderrR, stderrW, err := os.Pipe()
 	if err != nil {
+		stdoutR.Close()
+		stdoutW.Close()
 		return err
 	}
+
+	proc, err := os.StartProcess(e.jinxPath, argv, &os.ProcAttr{
+		Files: []*os.File{nil, stdoutW, stderrW},
+		Sys:   &syscall.SysProcAttr{},
+	})
+	if err != nil {
+		stdoutR.Close()
+		stdoutW.Close()
+		stderrR.Close()
+		stderrW.Close()
+		return err
+	}
+
+	stdoutW.Close()
+	stderrW.Close()
 
 	var wg sync.WaitGroup
 	wg.Add(2)
 
-	// Stream stdout
 	go func() {
 		defer wg.Done()
-		scanner := bufio.NewScanner(stdout)
-		for scanner.Scan() {
-			lineCh <- models.InstallProgress{Line: scanner.Text()}
+		s := bufio.NewScanner(stdoutR)
+		for s.Scan() {
+			select {
+			case lineCh <- models.InstallProgress{Line: s.Text()}:
+			case <-ctx.Done():
+				return
+			}
 		}
 	}()
 
-	// Stream stderr
 	go func() {
 		defer wg.Done()
-		scanner := bufio.NewScanner(stderr)
-		for scanner.Scan() {
-			lineCh <- models.InstallProgress{Line: scanner.Text()}
+		s := bufio.NewScanner(stderrR)
+		for s.Scan() {
+			select {
+			case lineCh <- models.InstallProgress{Line: s.Text()}:
+			case <-ctx.Done():
+				return
+			}
 		}
 	}()
 
-	if err := cmd.Start(); err != nil {
+	wg.Wait()
+	stdoutR.Close()
+	stderrR.Close()
+
+	state, err := proc.Wait()
+	if err != nil {
 		return err
 	}
-	wg.Wait()
-	err = cmd.Wait()
+
 	lineCh <- models.InstallProgress{Done: true}
-	return err
+
+	if !state.Success() {
+		return &RunError{ExitCode: state.ExitCode()}
+	}
+	return nil
 }
 
 // RunError represents a failed subprocess execution.
@@ -116,5 +176,8 @@ type RunError struct {
 }
 
 func (e *RunError) Error() string {
-	return e.Stderr
+	if e.Stderr != "" {
+		return e.Stderr
+	}
+	return fmt.Sprintf("exit code %d", e.ExitCode)
 }
