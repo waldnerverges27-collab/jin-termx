@@ -66,28 +66,35 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, nil
 
 	case tea.KeyMsg:
-		switch msg.String() {
-		case "q", "ctrl+c":
-			m.cancel()
-			return m, tea.Quit
-		case "tab":
+		switch msg.Type {
+		case tea.KeyRunes:
+			switch string(msg.Runes) {
+			case "q":
+				m.cancel()
+				return m, tea.Quit
+			case "1":
+				m.state.ActiveTab = models.TabDashboard
+			case "2":
+				m.state.ActiveTab = models.TabModules
+			case "3":
+				m.state.ActiveTab = models.TabBrain
+			case "4":
+				m.state.ActiveTab = models.TabPG
+			case "5":
+				m.state.ActiveTab = models.TabDoctor
+			case "6":
+				m.state.ActiveTab = models.TabConfig
+			case "?":
+				m.state.ShowHelp = !m.state.ShowHelp
+			}
+			return m, nil
+		case tea.KeyTab:
 			next := (int(m.state.ActiveTab) + 1) % 6
 			m.state.ActiveTab = models.Tab(next)
 			return m, nil
-		case "1":
-			m.state.ActiveTab = models.TabDashboard
-		case "2":
-			m.state.ActiveTab = models.TabModules
-		case "3":
-			m.state.ActiveTab = models.TabBrain
-		case "4":
-			m.state.ActiveTab = models.TabPG
-		case "5":
-			m.state.ActiveTab = models.TabDoctor
-		case "6":
-			m.state.ActiveTab = models.TabConfig
-		case "?":
-			m.state.ShowHelp = !m.state.ShowHelp
+		case tea.KeyCtrlC:
+			m.cancel()
+			return m, tea.Quit
 		}
 		return m, nil
 	}
@@ -96,19 +103,19 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m *Model) View() string {
-	// Defensive: catch any rendering panics gracefully
-	defer func() {
-		if r := recover(); r != nil {
-			// If rendering panics, show a simple fallback that still works
-		}
-	}()
-
+	// Ensure minimum dimensions for rendering
 	w := m.state.Width
 	if w < 40 {
 		w = 40
 	}
+	h := m.state.Height
+	if h < 10 {
+		h = 10
+	}
+
 	var b strings.Builder
 
+	// Header bar
 	tabs := []models.Tab{
 		models.TabDashboard, models.TabModules, models.TabBrain,
 		models.TabPG, models.TabDoctor, models.TabConfig,
@@ -119,36 +126,40 @@ func (m *Model) View() string {
 	b.WriteString("\n")
 
 	// Content area
+	// Guard: catch rendering panics silently
 	contentWidth := w - 2
-	if contentWidth < 1 {
-		contentWidth = 1
+	if contentWidth < 10 {
+		contentWidth = 10
 	}
 
-	switch m.state.ActiveTab {
-	case models.TabDashboard:
-		b.WriteString(renderDashboard(m, contentWidth))
-	case models.TabModules:
-		b.WriteString(renderInstaller(m, contentWidth))
-	case models.TabBrain:
-		b.WriteString(renderBrain(m, contentWidth))
-	case models.TabPG:
-		b.WriteString(renderPG(m, contentWidth))
-	case models.TabDoctor:
-		b.WriteString(renderDoctor(m, contentWidth))
-	case models.TabConfig:
-		b.WriteString(renderConfig(m, contentWidth))
-	}
+	func() {
+		defer func() { recover() }()
+		switch m.state.ActiveTab {
+		case models.TabDashboard:
+			b.WriteString(renderDashboard(m, contentWidth))
+		case models.TabModules:
+			b.WriteString(renderInstaller(m, contentWidth))
+		case models.TabBrain:
+			b.WriteString(renderBrain(m, contentWidth))
+		case models.TabPG:
+			b.WriteString(renderPG(m, contentWidth))
+		case models.TabDoctor:
+			b.WriteString(renderDoctor(m, contentWidth))
+		case models.TabConfig:
+			b.WriteString(renderConfig(m, contentWidth))
+		}
+	}()
 
 	b.WriteString("\n")
 
-	// Status bar
-	globalHints := []components.KeyHint{
+	// Status bar with keyboard hints
+	hints := []components.KeyHint{
+		{Key: "1-6", Desc: "tab"},
 		{Key: "↑↓", Desc: "scroll"},
-		{Key: "Tab", Desc: "switch"},
 		{Key: "/", Desc: "search"},
 		{Key: "q", Desc: "quit"},
 	}
-	b.WriteString(components.RenderStatusBar(globalHints))
+	b.WriteString(components.RenderStatusBar(hints))
 
 	return BaseStyle.Width(w).Render(b.String())
 }
