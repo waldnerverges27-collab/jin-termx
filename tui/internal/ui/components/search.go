@@ -2,8 +2,6 @@ package components
 
 import (
 	"strings"
-
-	"github.com/waldnerverges27-collab/jin-termx/tui/internal/ui"
 )
 
 // RenderSearchInput renders a search bar with magnifying glass icon.
@@ -21,5 +19,5 @@ func RenderSearchInput(query string, width int) string {
 		pad = 0
 	}
 	content := display + strings.Repeat(" ", pad)
-	return ui.CardStyle.Width(width).Render(content)
+	return cardStyleLocal.Width(width).Render(content)
 }

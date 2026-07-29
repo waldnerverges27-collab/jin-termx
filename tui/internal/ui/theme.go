@@ -2,9 +2,7 @@
 package ui
 
 import (
-	"github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/waldnerverges27-collab/jin-termx/tui/internal/models"
 )
 
 // Catppuccin Mocha palette
@@ -44,37 +42,3 @@ var (
 	ProgressBarFilled = lipgloss.NewStyle().Background(lipgloss.Color(Accent)).Foreground(lipgloss.Color(BgDark))
 	ProgressBarEmpty  = lipgloss.NewStyle().Background(lipgloss.Color(BgSurface2))
 )
-
-// model is the root Bubble Tea model for the TUI.
-type model struct {
-	state models.AppState
-}
-
-// New creates and returns a new root program model.
-func New() tea.Model {
-	return &model{
-		state: models.AppState{
-			ActiveTab: models.TabDashboard,
-		},
-	}
-}
-
-func (m *model) Init() tea.Cmd { return nil }
-
-func (m *model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
-	switch msg := msg.(type) {
-	case tea.WindowSizeMsg:
-		m.state.Width = msg.Width
-		m.state.Height = msg.Height
-	case tea.KeyMsg:
-		switch msg.String() {
-		case "q", "ctrl+c":
-			return m, tea.Quit
-		}
-	}
-	return m, nil
-}
-
-func (m *model) View() string {
-	return BaseStyle.Render("jinx-tui v0.1.0")
-}

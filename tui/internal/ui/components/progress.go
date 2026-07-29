@@ -3,8 +3,6 @@ package components
 import (
 	"fmt"
 	"strings"
-
-	"github.com/waldnerverges27-collab/jin-termx/tui/internal/ui"
 )
 
 // RenderProgressBar renders an animated progress bar.
@@ -26,8 +24,8 @@ func RenderProgressBar(pct float64, label string, width int) string {
 	bar := strings.Repeat("\u2588", filled) + strings.Repeat("\u2591", barWidth-filled)
 	pctStr := fmt.Sprintf("%3.0f%%", pct)
 
-	result := ui.MutedStyle.Render(label) + "\n"
-	result += ui.AccentStyle.Render(bar) + " " + ui.SuccessStyle.Render(pctStr)
+	result := mutedStyleLocal.Render(label) + "\n"
+	result += accentStyleLocal.Render(bar) + " " + successStyleLocal.Render(pctStr)
 	return result
 }
 
@@ -35,5 +33,5 @@ func RenderProgressBar(pct float64, label string, width int) string {
 func RenderSpinner(label string, frame int) string {
 	spinners := []string{"\u23f5", "\u23f4", "\u25b2", "\u25bc"}
 	s := spinners[frame%len(spinners)]
-	return ui.AccentStyle.Render(s + " " + label)
+	return accentStyleLocal.Render(s + " " + label)
 }

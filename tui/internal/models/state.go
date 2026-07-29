@@ -53,12 +53,6 @@ type SystemStats struct {
 	PackageCount int
 }
 
-// Module represents a jinx module entry.
-type Module struct {
-	Name   string
-	Status string
-}
-
 // DashboardData holds data for the home screen.
 type DashboardData struct {
 	System  SystemStats
