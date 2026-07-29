@@ -93,7 +93,19 @@ _uninstall_cleanup() {
 	# 5. Caché del tool en .cache si existe
 	rm -rf "$HOME/.cache/jin-termx/$tool" 2>/dev/null
 
-	# 6. Directorio temporal si la instalación usa $PREFIX/tmp
+	# 6. Dotfiles en $HOME/.<tool> (ej: ~/.npm, ~/.cargo, ~/.oh-my-zsh)
+	rm -rf "$HOME/.$tool" 2>/dev/null
+
+	# Mapa de dotfiles cuyo nombre no coincide con el tool
+	case "$tool" in
+		nodejs)   rm -rf "$HOME/.npm" "$HOME/.node_repl_history" 2>/dev/null ;;
+		python)   rm -rf "$HOME/.python_history" 2>/dev/null ;;
+		bun)      rm -rf "$HOME/.bun" 2>/dev/null ;;
+		rust)     rm -rf "$HOME/.rustup" "$HOME/.cargo" 2>/dev/null ;;
+		oh-my-zsh) rm -rf "$HOME/.oh-my-zsh" 2>/dev/null ;;
+	esac
+
+	# 7. Directorio temporal si la instalación usa $PREFIX/tmp
 	rm -f "$PREFIX/tmp/${tool}"* 2>/dev/null
 
 	return 0
