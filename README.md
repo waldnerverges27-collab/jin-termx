@@ -90,10 +90,12 @@ jinx install ai --opencode --ollama  # Install only OpenCode and Ollama
 | **OpenClaude** | `--openclaude` | Open source Claude Code alternative |
 | **OpenClaw** | `--openclaw` | Personal AI Assistant |
 | **Ollama** | `--ollama` | Run open-source LLMs locally on Termux |
+| **Droid Factory** | `--droid-factory` | Factory's AI coding agent — droid CLI for the terminal |
 | **Codex CLI** | `--codex` | Coding agent from OpenAI that runs locally on your computer |
 | **OpenCode** | `--opencode` | Open-source agent that helps you write code in your terminal |
 | **Qoder** | `--qoder` | A terminal-native AI coding partner—and an agent engine you can build on |
 | **Kilo Code CLI** | `--kilocode-cli` | The open source coding agent for building with AI in VS Code, JetBrains, or the CLI |
+| **KeelCode** | `--keelcode` | Hosted coding agent for your terminal — inspect a project, edit files, run commands, and verify its work |
 | **Kimchi** | `--kimchi` | Terminal coding agent powered by Kimchi's multi-model orchestration |
 | **MiMoCode** | `--mimocode` | Xiaomi's AI coding agent — fast, local, and open-source |
 | **Engram** | `--engram` | Persistent memory system for coding agents |
@@ -109,6 +111,7 @@ jinx install ai --opencode --ollama  # Install only OpenCode and Ollama
 | **Freebuff** | `--freebuff` | A 100% free coding agent, right from your terminal |
 | **Context7** | `--ctx7` | Live documentation provider for AI coding agents |
 | **OpenSpec** | `--openspec` | Spec-Driven Development framework for AI coding agents |
+| **SuperCode CLI** | `--supercode` | Open source SWE agent — free models included, or bring your own |
 | **9Router** | `--9router` | FREE AI Router & Token Saver — 40+ providers, 100+ models, auto-fallback |
 | **AMP Code CLI** | `--ampcode` | AI coding agent with native and proot-distro installers |
 | **Cline CLI** | `--cline` | Cline AI coding agent |
@@ -783,6 +786,7 @@ jinx install dev
 | **Shfmt** | `shfmt` | Shell script formatter |
 | **Make** | `make` | Build automation tool |
 | **Udocker** | `udocker` | Run Docker containers without root |
+| **SuperFile** | `spf` | Terminal file manager with TUI, themes, and hotkeys |
 
 ---
 
@@ -998,7 +1002,22 @@ jin-termx/
 │   │   │   │   ├── bin/freebuff
 │   │   │   │   ├── helper/freebuff_helper.c
 │   │   │   │   └── README.md
-│   │   │   └── ... (13 tools, each with own directory)
+│   │   │   ├── keelcode/
+│   │   │   │   ├── install.sh
+│   │   │   │   ├── bin/keelcode
+│   │   │   │   ├── bin/keelcode.proot
+│   │   │   │   ├── helper/keelcode_helper.c
+│   │   │   │   └── README.md
+│   │   │   ├── droid-factory/
+│   │   │   │   ├── install.sh
+│   │   │   │   ├── bin/droid
+│   │   │   │   ├── bin/droid.proot
+│   │   │   │   ├── helper/droid_helper.c
+│   │   │   │   └── README.md
+│   │   │   ├── supercode/
+│   │   │   │   ├── install.sh
+│   │   │   │   └── README.md
+│   │   │   └── ... (34 tools, each with own directory)
 │   │   ├── npm/
 │   │   ├── lang/
 │   │   ├── db/
@@ -1010,6 +1029,9 @@ jin-termx/
 │   │   │   └── redis/
 │   │   ├── editor/
 │   │   ├── dev/
+│   │   │   └── superfile/
+│   │   │       ├── install.sh
+│   │   │       └── README.md
 │   │   ├── shell/
 │   │   ├── ui/
 │   │   └── auto/
