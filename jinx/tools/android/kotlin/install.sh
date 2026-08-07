@@ -3,7 +3,7 @@
 import "@/utils/log"
 import "@/utils/version"
 
-LOG_FILE="$JINX_CACHE/install_lang.log"
+LOG_FILE="$JINX_CACHE/install_android.log"
 
 install_kotlin() {
 	if command -v kotlin &>/dev/null; then
@@ -16,7 +16,7 @@ install_kotlin() {
 
 	if ! command -v java &>/dev/null; then
 		log_info "Java es necesario para Kotlin. Instalando JDK 17..."
-		import "@/tools/lang/java/install"
+		import "@/tools/android/java/install"
 		install_java || return 1
 	fi
 
