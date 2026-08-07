@@ -139,10 +139,12 @@ _list_ai() {
   table_row "OpenClaude" "--openclaude" "openclaude" "$(_check_cmd "openclaude")"
   table_row "OpenClaw" "--openclaw" "openclaw" "$(_check_cmd "openclaw")"
   table_row "Ollama" "--ollama" "ollama" "$(_check_pkg "ollama")"
+  table_row "Droid Factory" "--droid-factory" "droid" "$(_check_cmd "droid")"
   table_row "Codex CLI" "--codex" "codex" "$(_check_cmd "codex")"
   table_row "OpenCode" "--opencode" "opencode" "$(_check_cmd "opencode")"
   table_row "Qoder" "--qoder" "qodercli" "$(_check_cmd "qodercli")"
   table_row "Kilo Code CLI" "--kilocode-cli" "kilo" "$(_check_cmd "kilo")"
+  table_row "KeelCode" "--keelcode" "keelcode" "$(_check_cmd "keelcode")"
   table_row "Kimchi" "--kimchi" "kimchi" "$(_check_cmd "kimchi")"
   table_row "MiMoCode" "--mimocode" "mimo" "$(_check_cmd "mimo")"
   table_row "Engram" "--engram" "engram" "$(_check_cmd "engram")"
@@ -158,6 +160,7 @@ _list_ai() {
   table_row "Freebuff" "--freebuff" "freebuff" "$(_check_cmd "freebuff")"
   table_row "Context7" "--ctx7" "ctx7" "$(_check_cmd "ctx7")"
   table_row "OpenSpec" "--openspec" "openspec" "$(_check_cmd "openspec")"
+  table_row "SuperCode" "--supercode" "supercode" "$(_check_cmd "supercode")"
   table_row "AMP Code" "--ampcode" "ampcode" "$(_check_cmd "ampcode")"
   table_row "Cline" "--cline" "cline" "$(_check_cmd "cline")"
   table_row "Cursor CLI" "--cursor-cli" "cursor-cli" "$(_check_cmd "cursor")"
@@ -220,6 +223,7 @@ _list_dev() {
   table_row "Shfmt" "--shfmt" "$(_check_pkg "shfmt")"
   table_row "Make" "--make" "$(_check_pkg "make")"
   table_row "Udocker" "--udocker" "$(_check_pkg "udocker")"
+  table_row "SuperFile" "--superfile" "$(_check_cmd "spf")"
   table_end
 
   echo
