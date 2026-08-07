@@ -3,7 +3,7 @@
 import "@/utils/log"
 import "@/utils/version"
 
-LOG_FILE="$JINX_CACHE/install_lang.log"
+LOG_FILE="$JINX_CACHE/install_android.log"
 JDK_DATA_DIR="$HOME/.local/share/jin-termx-data/jdk-17"
 JDK_URL="https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.19%2B10/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.19_10.tar.gz"
 GLIBC_LINKER="$PREFIX/glibc/lib/ld-linux-aarch64.so.1"

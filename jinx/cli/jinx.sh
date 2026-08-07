@@ -103,6 +103,7 @@ jinx_help() {
   log_info "Instala, actualiza, reinstala, desinstala, lista o muestra:"
   echo
   printf "    ${D_GREEN}%-10s${NC} %s\n" "lang" "Node, Bun, Python, Rust, C/C++, Go, etc."
+  printf "    ${D_GREEN}%-10s${NC} %s\n" "android" "Java (OpenJDK 17), Kotlin"
   printf "    ${D_GREEN}%-10s${NC} %s\n" "db" "PostgreSQL, MongoDB, SQLite, Redis, etc."
   printf "    ${D_GREEN}%-10s${NC} %s\n" "ai" "OpenCode, Gentle AI, Claude Code, etc."
   printf "    ${D_GREEN}%-10s${NC} %s\n" "editor" "Neovim + NvChad + Plugins"

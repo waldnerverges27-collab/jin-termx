@@ -28,6 +28,7 @@ install_main() {
     log_info "Por defecto: muestra checklist interactivo"
     echo
     list_item "lang       - Language packages (Node.js, Python, Perl, PHP, Rust, C, C++, Go)"
+    list_item "android    - Android tools (Java/JDK 17, Kotlin)"
     list_item "db         - Bases de datos (PostgreSQL, MariaDB, SQLite, MongoDB)"
     list_item "ai         - Herramientas AI (OpenCode, Gentle AI, Claude Code, etc.)"
     list_item "editor     - Editor de código (Neovim + NvChad)"
@@ -102,6 +103,10 @@ _install_full_module() {
   lang)
     import "@/modules/lang"
     install_lang
+    ;;
+  android)
+    import "@/modules/android"
+    install_android
     ;;
   dev)
     import "@/modules/dev"
@@ -552,14 +557,6 @@ _install_specific_tools() {
         install_bun
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
         ;;
-      java)
-        install_java
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
-      kotlin)
-        install_kotlin
-        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
-        ;;
       *)
         log_warn "Unknown language: --$tool"
         ;;
@@ -572,6 +569,36 @@ _install_specific_tools() {
     fi
     if [[ $failed_count -gt 0 ]]; then
       log_warn "$failed_count language(s) failed to install"
+    fi
+    echo
+    ;;
+  android)
+    import "@/tools/android/all"
+    local installed_count=0
+    local failed_count=0
+
+    for tool in "${tools[@]}"; do
+      case "$tool" in
+      java)
+        install_java
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
+      kotlin)
+        install_kotlin
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
+      *)
+        log_warn "Unknown android tool: --$tool"
+        ;;
+      esac
+    done
+
+    echo
+    if [[ $installed_count -gt 0 ]]; then
+      log_success "$installed_count android tool(s) installed"
+    fi
+    if [[ $failed_count -gt 0 ]]; then
+      log_warn "$failed_count android tool(s) failed to install"
     fi
     echo
     ;;
@@ -777,8 +804,17 @@ _interactive_install() {
       case "$tool" in
         nodejs) bin="node";; python) bin="python3";; perl) bin="perl";;
         php) bin="php";; rust) bin="rustc";; clang) bin="clang";;
-        golang) bin="go";; bun) bin="bun";; java) bin="java";;
-        kotlin) bin="kotlin";;
+        golang) bin="go";; bun) bin="bun";;
+      esac
+      _is_cmd_installed "$bin" || { items+=("${tool^}:${tool}"); }
+    done
+    ;;
+  android)
+    import "@/tools/android/all"
+    for tool in "${ANDROID_TOOLS[@]}"; do
+      local bin=""
+      case "$tool" in
+        java) bin="java";; kotlin) bin="kotlin";;
       esac
       _is_cmd_installed "$bin" || { items+=("${tool^}:${tool}"); }
     done

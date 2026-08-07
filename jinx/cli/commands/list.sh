@@ -14,6 +14,7 @@ list_main() {
     log_info "Objetivos disponibles:"
     echo
     list_item "lang       - List language packages"
+    list_item "android    - List Android tools"
     list_item "db         - List database packages"
     list_item "ai         - List Herramientas AI"
     list_item "editor     - List code editor components"
@@ -30,6 +31,9 @@ list_main() {
     case "$arg" in
     lang)
       _list_lang
+      ;;
+    android)
+      _list_android
       ;;
     db)
       _list_db
@@ -80,13 +84,30 @@ _list_lang() {
   table_row "C/C++ (clang)" "--clang" "$(_get_ver clang)" "$(_check_pkg "clang")"
   table_row "Go (golang)" "--golang" "$(_get_ver go)" "$(_check_pkg "golang")"
   table_row "Bun (JS runtime)" "--bun" "$(_get_ver bun)" "$(_check_cmd "bun")"
-  table_row "Java (OpenJDK)" "--java" "$(_get_ver java)" "$(_check_cmd "java")"
-  table_row "Kotlin" "--kotlin" "$(_get_ver kotlin)" "$(_check_cmd "kotlin")"
   table_end
 
   echo
   log_info "Install specific: ${D_CYAN}jinx install lang --nodejs --python${NC}"
   log_info "Install all: ${D_CYAN}jinx install lang${NC}"
+  echo
+}
+
+# ===== LIST ANDROID =====
+_list_android() {
+  echo
+  box "Android Tools"
+  echo
+  log_info "Available packages, versions and install commands:"
+  echo
+
+  table_start "Package" "Install Flag" "Version" "Status"
+  table_row "Java (OpenJDK 17)" "--java" "$(_get_ver java)" "$(_check_cmd "java")"
+  table_row "Kotlin" "--kotlin" "$(_get_ver kotlin)" "$(_check_cmd "kotlin")"
+  table_end
+
+  echo
+  log_info "Install specific: ${D_CYAN}jinx install android --java --kotlin${NC}"
+  log_info "Install all: ${D_CYAN}jinx install android${NC}"
   echo
 }
 
