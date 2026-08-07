@@ -75,6 +75,10 @@ _update_full_module() {
     import "@/modules/lang"
     update_lang
     ;;
+  android)
+    import "@/modules/android"
+    update_android
+    ;;
   db)
     import "@/modules/db"
     update_db
@@ -548,6 +552,36 @@ _update_specific_tools() {
     fi
     if [[ $failed_count -gt 0 ]]; then
       log_warn "$failed_count language(s) failed para actualizar"
+    fi
+    echo
+    ;;
+  android)
+    import "@/tools/android/all"
+    local updated_count=0
+    local failed_count=0
+
+    for tool in "${tools[@]}"; do
+      case "$tool" in
+      java)
+        update_java
+        case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
+        ;;
+      kotlin)
+        update_kotlin
+        case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
+        ;;
+      *)
+        log_warn "Unknown android tool: --$tool"
+        ;;
+      esac
+    done
+
+    echo
+    if [[ $updated_count -gt 0 ]]; then
+      log_success "$updated_count android tool(s) updated"
+    fi
+    if [[ $failed_count -gt 0 ]]; then
+      log_warn "$failed_count android tool(s) failed to update"
     fi
     echo
     ;;

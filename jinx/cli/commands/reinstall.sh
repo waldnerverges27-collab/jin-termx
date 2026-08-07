@@ -68,6 +68,10 @@ _reinstall_full_module() {
     import "@/modules/lang"
     reinstall_lang
     ;;
+  android)
+    import "@/modules/android"
+    reinstall_android
+    ;;
   db)
     import "@/modules/db"
     reinstall_db
@@ -540,6 +544,36 @@ _reinstall_specific_tools() {
     fi
     if [[ $failed_count -gt 0 ]]; then
       log_warn "$failed_count language(s) failed to reinstall"
+    fi
+    echo
+    ;;
+  android)
+    import "@/tools/android/all"
+    local reinstalled_count=0
+    local failed_count=0
+
+    for tool in "${tools[@]}"; do
+      case "$tool" in
+      java)
+        reinstall_java
+        case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      kotlin)
+        reinstall_kotlin
+        case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      *)
+        log_warn "Unknown android tool: --$tool"
+        ;;
+      esac
+    done
+
+    echo
+    if [[ $reinstalled_count -gt 0 ]]; then
+      log_success "$reinstalled_count android tool(s) reinstalled"
+    fi
+    if [[ $failed_count -gt 0 ]]; then
+      log_warn "$failed_count android tool(s) failed to reinstall"
     fi
     echo
     ;;

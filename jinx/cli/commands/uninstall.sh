@@ -73,6 +73,10 @@ _uninstall_full_module() {
     import "@/modules/lang"
     uninstall_lang
     ;;
+  android)
+    import "@/modules/android"
+    uninstall_android
+    ;;
   db)
     import "@/modules/db"
     uninstall_db
@@ -546,6 +550,36 @@ _uninstall_specific_tools() {
     fi
     if [[ $failed_count -gt 0 ]]; then
       log_warn "$failed_count language(s) failed to uninstall"
+    fi
+    echo
+    ;;
+  android)
+    import "@/tools/android/all"
+    local uninstalled_count=0
+    local failed_count=0
+
+    for tool in "${tools[@]}"; do
+      case "$tool" in
+      java)
+        uninstall_java
+        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      kotlin)
+        uninstall_kotlin
+        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      *)
+        log_warn "Unknown android tool: --$tool"
+        ;;
+      esac
+    done
+
+    echo
+    if [[ $uninstalled_count -gt 0 ]]; then
+      log_success "$uninstalled_count android tool(s) uninstalled"
+    fi
+    if [[ $failed_count -gt 0 ]]; then
+      log_warn "$failed_count android tool(s) failed to uninstall"
     fi
     echo
     ;;
