@@ -16,11 +16,14 @@ AI_TOOLS=(
   "opencode"
   "qoder"
   "kilocode-cli"
+  "keelcode"
   "kimchi"
   "mimocode"
   "engram"
   "codegraph"
   "pi"
+  "oh-my-pi"
+  "droid-factory"
   "antigravity-cli"
   "gentle-ai"
   "minimax-cli"
@@ -31,6 +34,7 @@ AI_TOOLS=(
   "freebuff"
   "ctx7"
   "openspec"
+  "supercode"
   "9router"
   "ampcode"
   "cline"
@@ -49,6 +53,7 @@ source "$(dirname "$BASH_SOURCE")/codex/install.sh"
 source "$(dirname "$BASH_SOURCE")/opencode/install.sh"
 source "$(dirname "$BASH_SOURCE")/qoder/install.sh"
 source "$(dirname "$BASH_SOURCE")/kilocode-cli/install.sh"
+source "$(dirname "$BASH_SOURCE")/keelcode/install.sh"
 source "$(dirname "$BASH_SOURCE")/kimchi/install.sh"
 source "$(dirname "$BASH_SOURCE")/mimocode/install.sh"
 source "$(dirname "$BASH_SOURCE")/engram/install.sh"
@@ -64,11 +69,13 @@ source "$(dirname "$BASH_SOURCE")/command-code/install.sh"
 source "$(dirname "$BASH_SOURCE")/freebuff/install.sh"
 source "$(dirname "$BASH_SOURCE")/ctx7/install.sh"
 source "$(dirname "$BASH_SOURCE")/openspec/install.sh"
+source "$(dirname "$BASH_SOURCE")/supercode/install.sh"
 source "$(dirname "$BASH_SOURCE")/9router/install.sh"
 source "$(dirname "$BASH_SOURCE")/ampcode/install.sh"
 source "$(dirname "$BASH_SOURCE")/cline/install.sh"
 source "$(dirname "$BASH_SOURCE")/cursor-cli/install.sh"
 source "$(dirname "$BASH_SOURCE")/oh-my-pi/install.sh"
+source "$(dirname "$BASH_SOURCE")/droid-factory/install.sh"
 
 install_all_ai_tools() {
   local installed_count=0
@@ -118,6 +125,10 @@ install_all_ai_tools() {
       ;;
     kilocode-cli)
       loading "Installing Kilo Code CLI" install_kilocode_cli
+      case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+      ;;
+    keelcode)
+      loading "Installing KeelCode" install_keelcode
       case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
       ;;
     kimchi)
@@ -180,6 +191,10 @@ install_all_ai_tools() {
       loading "Installing OpenSpec" install_openspec
       case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
       ;;
+    supercode)
+      loading "Installing SuperCode" install_supercode
+      case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+      ;;
     9router)
       loading "Installing 9Router" install_9router
       case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
@@ -196,7 +211,11 @@ install_all_ai_tools() {
         loading "Installing Cursor CLI" install_cursor_cli
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
         ;;
-          oh-my-pi)
+          droid-factory)
+        loading "Installing Droid Factory" install_droid_factory
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
+    oh-my-pi)
         loading "Installing Oh-My-Pi" install_oh_my_pi
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
         ;;
@@ -254,6 +273,10 @@ uninstall_all_ai_tools() {
       ;;
     kilocode-cli)
       loading "Uninstalling Kilo Code CLI" uninstall_kilocode_cli
+      case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+      ;;
+    keelcode)
+      loading "Uninstalling KeelCode" uninstall_keelcode
       case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
       ;;
     kimchi)
@@ -316,6 +339,14 @@ uninstall_all_ai_tools() {
       loading "Uninstalling OpenSpec" uninstall_openspec
       case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
       ;;
+    supercode)
+      loading "Uninstalling SuperCode" uninstall_supercode
+      case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+      ;;
+    droid-factory)
+      loading "Uninstalling Droid Factory" uninstall_droid_factory
+      case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+      ;;
     9router)
       loading "Uninstalling 9Router" uninstall_9router
       case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
@@ -362,6 +393,9 @@ update_all_ai_tools() {
     kilocode-cli)
       update_kilocode_cli
       ;;
+    keelcode)
+      update_keelcode
+      ;;
     kimchi)
       update_kimchi
       ;;
@@ -407,6 +441,9 @@ update_all_ai_tools() {
     openspec)
       update_openspec
       ;;
+    supercode)
+      update_supercode
+      ;;
     9router)
       update_9router
       ;;
@@ -418,6 +455,9 @@ update_all_ai_tools() {
         ;;
           cursor-cli)
         update_cursor_cli
+        ;;
+          droid-factory)
+        update_droid_factory
         ;;
           oh-my-pi)
         update_oh_my_pi
@@ -475,6 +515,10 @@ reinstall_all_ai_tools() {
       ;;
     kilocode-cli)
       loading "Reinstalling Kilo Code CLI" reinstall_kilocode_cli
+      case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+      ;;
+    keelcode)
+      loading "Reinstalling KeelCode" reinstall_keelcode
       case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
       ;;
     kimchi)
@@ -535,6 +579,14 @@ reinstall_all_ai_tools() {
       ;;
     openspec)
       loading "Reinstalling OpenSpec" reinstall_openspec
+      case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+      ;;
+    supercode)
+      loading "Reinstalling SuperCode" reinstall_supercode
+      case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+      ;;
+    droid-factory)
+      loading "Reinstalling Droid Factory" reinstall_droid_factory
       case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
       ;;
     9router)

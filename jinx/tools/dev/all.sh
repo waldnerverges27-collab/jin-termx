@@ -26,6 +26,7 @@ TOOLS_PACKAGES=(
 	"shfmt"
 	"make"
 	"udocker"
+	"superfile"
 )
 
 source "$(dirname "$BASH_SOURCE")/gh/install.sh"
@@ -49,6 +50,7 @@ source "$(dirname "$BASH_SOURCE")/imagemagick/install.sh"
 source "$(dirname "$BASH_SOURCE")/shfmt/install.sh"
 source "$(dirname "$BASH_SOURCE")/make/install.sh"
 source "$(dirname "$BASH_SOURCE")/udocker/install.sh"
+source "$(dirname "$BASH_SOURCE")/superfile/install.sh"
 
 install_all_dev() {
 	local installed_count=0
@@ -138,6 +140,10 @@ install_all_dev() {
 			;;
 		udocker)
 			loading "Installing Udocker" install_udocker
+			case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+			;;
+		superfile)
+			loading "Installing SuperFile" install_superfile
 			case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
 			;;
 		esac
@@ -236,6 +242,10 @@ uninstall_all_dev() {
 			loading "Uninstalling Udocker" uninstall_udocker
 			case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
 			;;
+		superfile)
+			loading "Uninstalling SuperFile" uninstall_superfile
+			case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+			;;
 		esac
 	done
 
@@ -307,6 +317,9 @@ update_all_dev() {
       ;;
     udocker)
       update_udocker
+      ;;
+    superfile)
+      update_superfile
       ;;
     esac
   done
@@ -397,6 +410,10 @@ reinstall_all_dev() {
       ;;
     make)
       loading "Reinstalling Make" reinstall_make
+      case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+      ;;
+    superfile)
+      loading "Reinstalling SuperFile" reinstall_superfile
       case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
       ;;
     udocker)
