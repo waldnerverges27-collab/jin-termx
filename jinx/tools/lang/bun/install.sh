@@ -374,3 +374,74 @@ reinstall_bun() {
 	uninstall_bun
 	install_bun
 }
+
+# ===== AUTO-INSTALL FOR TOOL DEPENDENCIES (non-interactive) =====
+# Used by tool installers that depend on bun as a runtime.
+_ensure_bun() {
+	command -v bun &>/dev/null && return 0
+
+	local _saved_log="${LOG_FILE:-}"
+	local _log_dir
+	_log_dir="$(dirname "$_saved_log" 2>/dev/null || echo "$JINX_CACHE")"
+	local _log="$_log_dir/install_ensure_bun.log"
+
+	LOG_FILE="$_log"
+	mkdir -p "$(dirname "$LOG_FILE")" "$JINX_CACHE" 2>/dev/null
+
+	_install_bun_native || {
+		LOG_FILE="$_saved_log"
+		return 1
+	}
+
+	LOG_FILE="$_saved_log"
+	return 0
+}
+
+install_bun_native_auto() {
+	_ensure_bun
+}
+
+# ===== PKG FALLBACK — bun → npm =====
+_ensure_npm() {
+	if command -v npm &>/dev/null; then
+		return 0
+	fi
+	log_info "Installing Node.js/npm for fallback package installation..."
+	if ! yes | pkg install nodejs-lts &>>"$LOG_FILE"; then
+		log_error "Failed to install Node.js/npm"
+		return 1
+	fi
+	return 0
+}
+
+_install_pkg_fallback() {
+	local pkg="$1"
+	local extra_flags="${2:-}"
+
+	if bun install -g $extra_flags "$pkg" &>>"$LOG_FILE"; then
+		return 0
+	fi
+
+	log_warn "bun install failed for '${pkg}', falling back to npm..."
+	_ensure_npm || return 1
+
+	if npm install -g $extra_flags "$pkg" &>>"$LOG_FILE"; then
+		log_info "Installed '${pkg}' via npm (fallback)"
+		return 0
+	fi
+
+	log_error "Failed to install '${pkg}' via both bun and npm"
+	return 1
+}
+
+_uninstall_pkg_fallback() {
+	local pkg="$1"
+
+	bun uninstall -g "$pkg" &>>"$LOG_FILE" 2>/dev/null
+
+	if command -v npm &>/dev/null; then
+		npm uninstall -g "$pkg" &>>"$LOG_FILE" 2>/dev/null
+	fi
+
+	return 0
+}
