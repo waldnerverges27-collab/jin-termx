@@ -227,7 +227,7 @@ _install_amp_proot_impl() {
   return 0
 }
 
-install_amp_code_cli() {
+install_ampcode() {
   if command -v amp &>/dev/null; then
     log_info "AMP Code CLI is already installed"
     return 2
@@ -249,7 +249,7 @@ install_amp_code_cli() {
   esac
 }
 
-uninstall_amp_code_cli() {
+uninstall_ampcode() {
   mkdir -p "$(dirname "$LOG_FILE")"
 
   if [ ! -f "$PREFIX/bin/amp" ]; then
@@ -301,7 +301,7 @@ _update_amp_code_cli_impl() {
   loading "Updating AMP Code CLI (proot-distro)" _update_amp_proot_impl
 }
 
-update_amp_code_cli() {
+update_ampcode() {
   _check_update_needed "AMP Code CLI" "$(_get_installed_version amp)" "$(_get_latest_amp_version)" _update_amp_code_cli
 }
 
@@ -338,7 +338,7 @@ _update_amp_proot_impl() {
   return 0
 }
 
-reinstall_amp_code_cli() {
-  uninstall_amp_code_cli
-  install_amp_code_cli
+reinstall_ampcode() {
+  uninstall_ampcode
+  install_ampcode
 }
