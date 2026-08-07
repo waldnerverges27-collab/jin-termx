@@ -60,7 +60,8 @@ These modules are available across most commands (`jinx list`, `jinx install`, `
 
 | Module | Description |
 |--------|-------------|
-| `lang` | Language packages (Node.js, Python, Perl, PHP, Rust, C/C++, Go, Bun, Java, Kotlin) |
+| `lang` | Language packages (Node.js, Python, Perl, PHP, Rust, C/C++, Go, Bun) |
+| `android` | Android toolchains (Java/JDK 17, Kotlin) |
 | `db` | Databases (PostgreSQL, MariaDB, SQLite, MongoDB, Redis) |
 | `ai` | AI agents and coding assistants — see [AI Agents](#ai-agents) |
 | `editor` | Code editor components (Neovim, NvChad) |
@@ -750,6 +751,19 @@ jinx install lang
 | **C/C++** | `clang` | LLVM C/C++ compiler |
 | **Go** | `golang` | Go programming language |
 | **Bun** | `bun` | Bun JavaScript runtime |
+
+---
+
+## Android Toolchains
+
+The `android` module installs Android-related toolchains:
+
+```bash
+jinx install android
+```
+
+| Tool | Flag | Description |
+|------|------|-------------|
 | **Java** | `--java` | Java 17 (Temurin JDK via glibc) |
 | **Kotlin** | `--kotlin` | Kotlin programming language |
 
