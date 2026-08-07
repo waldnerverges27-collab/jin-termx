@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-JINX_VERSION="4.16.0"
+JINX_VERSION="4.22.0"
 
 # -------------------------
 # Directorios del usuario

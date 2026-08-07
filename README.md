@@ -132,7 +132,7 @@ jinx --version
 
 **Output:**
 ```
-4.16.0
+4.22.0
 ```
 
 ---
@@ -1098,7 +1098,7 @@ $ jinx
 
 ── Update Available ─────────────────────────────────
 
-⚠ New version available: 4.11.4 (current: 4.16.0)
+⚠ New version available: 4.22.1 (current: 4.22.0)
 
 ➜ Run: jinx update jinx to update
 ```
