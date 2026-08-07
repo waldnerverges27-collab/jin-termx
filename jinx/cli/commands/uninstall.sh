@@ -154,6 +154,10 @@ _uninstall_specific_tools() {
         uninstall_ollama
         case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
         ;;
+      droid-factory)
+        uninstall_droid_factory
+        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+        ;;
       codex)
         uninstall_codex
         case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
@@ -168,6 +172,10 @@ _uninstall_specific_tools() {
         ;;
       kilocode-cli)
         uninstall_kilocode_cli
+        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      keelcode)
+        uninstall_keelcode
         case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
         ;;
       kimchi)
@@ -228,6 +236,10 @@ _uninstall_specific_tools() {
         ;;
       openspec)
         uninstall_openspec
+        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      supercode)
+        uninstall_supercode
         case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
         ;;
       9router)
@@ -396,6 +408,10 @@ _uninstall_specific_tools() {
         ;;
       udocker)
         uninstall_udocker
+        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      superfile)
+        uninstall_superfile
         case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
         ;;
       *)

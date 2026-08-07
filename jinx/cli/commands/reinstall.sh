@@ -148,6 +148,10 @@ _reinstall_specific_tools() {
         reinstall_ollama
         case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
         ;;
+      droid-factory)
+        reinstall_droid_factory
+        case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+        ;;
       codex)
         reinstall_codex
         case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
@@ -162,6 +166,10 @@ _reinstall_specific_tools() {
         ;;
       kilocode-cli)
         reinstall_kilocode_cli
+        case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      keelcode)
+        reinstall_keelcode
         case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
         ;;
       kimchi)
@@ -222,6 +230,10 @@ _reinstall_specific_tools() {
         ;;
       openspec)
         reinstall_openspec
+        case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      supercode)
+        reinstall_supercode
         case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
         ;;
       9router)
@@ -390,6 +402,10 @@ _reinstall_specific_tools() {
         ;;
       udocker)
         reinstall_udocker
+        case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      superfile)
+        reinstall_superfile
         case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
         ;;
       *)

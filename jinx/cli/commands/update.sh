@@ -156,6 +156,10 @@ _update_specific_tools() {
         update_ollama
         case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
         ;;
+      droid-factory)
+        update_droid_factory
+        case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
+        ;;
       codex)
         update_codex
         case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
@@ -170,6 +174,10 @@ _update_specific_tools() {
         ;;
       kilocode-cli)
         update_kilocode_cli
+        case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
+        ;;
+      keelcode)
+        update_keelcode
         case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
         ;;
       kimchi)
@@ -230,6 +238,10 @@ _update_specific_tools() {
         ;;
       openspec)
         update_openspec
+        case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
+        ;;
+      supercode)
+        update_supercode
         case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
         ;;
       9router)
@@ -398,6 +410,10 @@ _update_specific_tools() {
         ;;
       udocker)
         update_udocker
+        case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
+        ;;
+      superfile)
+        update_superfile
         case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
         ;;
       *)

@@ -172,6 +172,10 @@ _install_specific_tools() {
         install_ollama
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
         ;;
+      droid-factory)
+        install_droid_factory
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
       codex)
         install_codex
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
@@ -186,6 +190,10 @@ _install_specific_tools() {
         ;;
       kilocode-cli)
         install_kilocode_cli
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
+      keelcode)
+        install_keelcode
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
         ;;
       kimchi)
@@ -246,6 +254,10 @@ _install_specific_tools() {
         ;;
       openspec)
         install_openspec
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
+      supercode)
+        install_supercode
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
         ;;
       9router)
@@ -414,6 +426,10 @@ _install_specific_tools() {
         ;;
       udocker)
         install_udocker
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
+      superfile)
+        install_superfile
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
         ;;
       *)
