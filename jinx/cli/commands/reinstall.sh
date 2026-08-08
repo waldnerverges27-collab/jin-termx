@@ -562,6 +562,14 @@ _reinstall_specific_tools() {
         reinstall_kotlin
         case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
         ;;
+      sdk)
+        reinstall_android_sdk
+        case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      ndk)
+        reinstall_android_ndk
+        case $? in 0) ((reinstalled_count++));; 1) ((failed_count++));; esac
+        ;;
       *)
         log_warn "Unknown android tool: --$tool"
         ;;

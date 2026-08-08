@@ -570,6 +570,14 @@ _update_specific_tools() {
         update_kotlin
         case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
         ;;
+      sdk)
+        update_android_sdk
+        case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
+        ;;
+      ndk)
+        update_android_ndk
+        case $? in 0) ((updated_count++));; 1) ((failed_count++));; esac
+        ;;
       *)
         log_warn "Unknown android tool: --$tool"
         ;;

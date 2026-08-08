@@ -103,10 +103,12 @@ _list_android() {
   table_start "Package" "Install Flag" "Version" "Status"
   table_row "Java (OpenJDK 17)" "--java" "$(_get_ver java)" "$(_check_cmd "java")"
   table_row "Kotlin" "--kotlin" "$(_get_ver kotlin)" "$(_check_cmd "kotlin")"
+  table_row "Android SDK 35" "--sdk" "$(_get_ver adb)" "$(_check_cmd "adb")"
+  table_row "Android NDK r29" "--ndk" "$(_get_ver ndk-build)" "$(_check_cmd "ndk-build")"
   table_end
 
   echo
-  log_info "Install specific: ${D_CYAN}jinx install android --java --kotlin${NC}"
+  log_info "Install specific: ${D_CYAN}jinx install android --java --kotlin --sdk --ndk${NC}"
   log_info "Install all: ${D_CYAN}jinx install android${NC}"
   echo
 }

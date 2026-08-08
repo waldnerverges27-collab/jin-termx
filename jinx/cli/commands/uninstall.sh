@@ -568,6 +568,14 @@ _uninstall_specific_tools() {
         uninstall_kotlin
         case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
         ;;
+      sdk)
+        uninstall_android_sdk
+        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+        ;;
+      ndk)
+        uninstall_android_ndk
+        case $? in 0) ((uninstalled_count++));; 1) ((failed_count++));; esac
+        ;;
       *)
         log_warn "Unknown android tool: --$tool"
         ;;

@@ -587,6 +587,14 @@ _install_specific_tools() {
         install_kotlin
         case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
         ;;
+      sdk)
+        install_android_sdk
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
+      ndk)
+        install_android_ndk
+        case $? in 0) ((installed_count++));; 1) ((failed_count++));; esac
+        ;;
       *)
         log_warn "Unknown android tool: --$tool"
         ;;
@@ -815,6 +823,7 @@ _interactive_install() {
       local bin=""
       case "$tool" in
         java) bin="java";; kotlin) bin="kotlin";;
+        sdk) bin="adb";; ndk) bin="ndk-build";;
       esac
       _is_cmd_installed "$bin" || { items+=("${tool^}:${tool}"); }
     done
