@@ -766,6 +766,14 @@ jinx install android
 |------|------|-------------|
 | **Java** | `--java` | Java 17 (Temurin JDK via glibc) |
 | **Kotlin** | `--kotlin` | Kotlin programming language |
+| **Android SDK** | `--sdk` | Android SDK 35 (platforms, build-tools, platform-tools, cmdline-tools) — aarch64 |
+| **Android NDK** | `--ndk` | Android NDK r29 aarch64 |
+
+**Requirements & notes:**
+- Only supported on **aarch64/arm64** devices
+- Each install downloads ~320-330 MB and needs ~1 GB free disk
+- Sets `ANDROID_HOME`, `ANDROID_SDK_ROOT`, `ANDROID_NDK_HOME` and PATH in `.zshrc`/`.bashrc` (restart Termux to apply)
+- The emulator is **not** included (not viable on aarch64 Termux)
 
 ---
 
