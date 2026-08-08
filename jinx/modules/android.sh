@@ -21,6 +21,8 @@ install_android() {
 	echo
 	list_item "Java (OpenJDK 17)"
 	list_item "Kotlin"
+	list_item "Android SDK 35"
+	list_item "Android NDK r29"
 	echo
 }
 
@@ -81,6 +83,8 @@ reinstall_android() {
 	echo
 	list_item "Java (OpenJDK 17)"
 	list_item "Kotlin"
+	list_item "Android SDK 35"
+	list_item "Android NDK r29"
 	echo
 }
 
